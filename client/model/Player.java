@@ -1,5 +1,9 @@
 package client.model;
-
+/**
+ * This class represents a player.
+ * @author Ife's group
+ *
+ */
 public class Player {
 
 	private int cities;
