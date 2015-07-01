@@ -116,7 +116,7 @@ public class ClientModel {
 		return victoryPointCount;
 	}
 	
-	//Can Methods Below
+	//Can Methods Below********************************************************************************
 	
 	private boolean canRollDice() {
 		
@@ -198,6 +198,11 @@ public class ClientModel {
 
 	private boolean canStealResourceCard() {
 	
+		boolean test = false;
+		return test;
+	}
+	
+	private boolean mustDiscardHalfCards() {
 		boolean test = false;
 		return test;
 	}
