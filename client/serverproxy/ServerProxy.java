@@ -5,15 +5,28 @@ import client.model.HexLocation;
 import client.model.ResourceList;
 import client.poller.ClientPoller;
 
+/**
+ * Proxy Server for the Client to interact with the Server
+ * @author Ife's Group
+ *
+ */
 public class ServerProxy {
 
 	private ClientPoller poller;
+	private ClientCommunicator clientComm;
 	
-	public void rollNumber(int num1,int num2) {
+	/**
+	 * 
+	 * @param num1
+	 * @param num2
+	 */
+	public RollNumberParams rollNumber(int num1,int num2) {
+		return null;
 		
 	}
 	
-	public void roadBuilding(int num, EdgeLocation loc, EdgeLocation loc_2) {
+	public RoadBuildingParams roadBuilding(int num, EdgeLocation loc, EdgeLocation loc_2) {
+		return null;
 		
 	}
 	
