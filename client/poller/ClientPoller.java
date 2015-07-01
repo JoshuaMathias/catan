@@ -8,11 +8,22 @@ public class ClientPoller {
 
 	private int modelVersion;
 	
+	/**
+	 * Returns the ClientModel.
+	 * @return ClientModel
+	 * @pre Need for the client model.
+	 * @post The client model is returned.
+	 */
 	public void getClientModel() {
 		
 	}
 	
-	public void initializeMap() {
+	/**
+	 * Regularly updates the client model.
+	 * @pre There is a change in the client model.
+	 * @post The client model is updated.
+	 */
+	public void updateClientModel() {
 		
 	}
 }
