@@ -76,7 +76,7 @@ public class ServerProxy {
 	 * @param playerIndex
 	 * @param victimIndex
 	 * @param location
-	 * @pre 
+	 * @pre playerIndex and victinIndex between 0 and 3 inclusive and not null, location not null
 	 * @post Server receives information
 	 */
 	public void soldier(int playerIndex, int victimIndex, HexLocation location) {
@@ -87,7 +87,7 @@ public class ServerProxy {
 	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
 	 * @param resource
 	 * @param playerIndex
-	 * @pre
+	 * @pre resource must not be null and one of the key words for resources, playerIndex between 0 and 3 inclusive and not null
 	 * @post Server receives information
 	 */
 	public void monopoly(String resource, int playerIndex) {
@@ -99,7 +99,7 @@ public class ServerProxy {
 	 * @param playerIndex
 	 * @param roadLocation
 	 * @param free
-	 * @pre
+	 * @pre playerIndex between 0 and 3 inclusive and not null, roadLocation not null
 	 * @post Server receives information
 	 */
 	public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
@@ -111,7 +111,7 @@ public class ServerProxy {
 	 * @param playerIndex
 	 * @param vertexLocation
 	 * @param free
-	 * @pre
+	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post Server receives information
 	 */
 	public void buildSettlement(int playerIndex, EdgeLocation vertexLocation, boolean free) {
@@ -123,7 +123,7 @@ public class ServerProxy {
 	 * @param playerIndex
 	 * @param vertexLocation
 	 * @param free
-	 * @pre
+	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post Server receives information
 	 */
 	public void buildCity(int playerIndex, EdgeLocation vertexLocation, boolean free) {
@@ -135,7 +135,7 @@ public class ServerProxy {
 	 * @param playerIndex
 	 * @param offer
 	 * @param receiver
-	 * @pre
+	 * @pre playerIndex and receiver between 0 and 3 inclusive and not null, offer not null
 	 * @post Server receives information
 	 */
 	public void offerTrade(int playerIndex, ResourceList offer, int receiver) {
@@ -146,7 +146,7 @@ public class ServerProxy {
 	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
 	 * @param playerIndex
 	 * @param willAccept
-	 * @pre
+	 * @pre playerIndex between 0 and 3 inclusive and not null
 	 * @post Server receives information
 	 */
 	public void acceptTrade(int playerIndex, boolean willAccept) {
@@ -157,7 +157,7 @@ public class ServerProxy {
 	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
 	 * @param playerIndex
 	 * @param discardedCards
-	 * @pre
+	 * @pre playerIndex between 0 and 3 inclusive and not null, discardedCards not null
 	 * @post Server receives information
 	 */
 	public void discardCards(int playerIndex, ResourceList discardedCards) {
@@ -166,7 +166,7 @@ public class ServerProxy {
 	
 	/**
 	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-	 * @pre
+	 * @pre none
 	 * @post Server receives information
 	 */
 	public void getClientModel() {
