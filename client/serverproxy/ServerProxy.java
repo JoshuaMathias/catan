@@ -1,12 +1,13 @@
 package client.serverproxy;
 
+import client.model.ClientModel;
 import client.model.EdgeLocation;
 import client.model.HexLocation;
 import client.model.ResourceList;
 import client.poller.ClientPoller;
 
 /**
- * Proxy Server for the Client to interact with the Server
+ * Proxy Server for the Client to interact with the Server. Packages information into objects and strings for the ClientCommunicator to send to the Server
  * @author Ife's Group
  *
  */
@@ -16,64 +17,160 @@ public class ServerProxy {
 	private ClientCommunicator clientComm;
 	
 	/**
-	 * 
-	 * @param num1
-	 * @param num2
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param number
+	 * @pre
+	 * @post
 	 */
-	public RollNumberParams rollNumber(int num1,int num2) {
-		return null;
+	public void rollNumber(int playerIndex,int number) {
 		
 	}
 	
-	public RoadBuildingParams roadBuilding(int num, EdgeLocation loc, EdgeLocation loc_2) {
-		return null;
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param spot1
+	 * @param spot2
+	 * @pre
+	 * @post
+	 */
+	public void roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
 		
 	}
 	
-	public void finishTurn(int playerId) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @pre
+	 * @post
+	 */
+	public void finishTurn(int playerIndex) {
 		
 	}
 	
-	public void buyDevCard(int num) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @pre
+	 * @post
+	 */
+	public void buyDevCard(int playerIndex) {
+		//package input Params info
+		//make String command
+		//clientComm.send(command, info)
+	}
+	
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param resource1
+	 * @param resource2
+	 * @pre
+	 * @post
+	 */
+	public void yearOfPlenty(int playerIndex, String resource1, String resource2) {
 		
 	}
 	
-	public void yearOfPlenty(int num, String s, String s2) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param victimIndex
+	 * @param location
+	 * @pre
+	 * @post
+	 */
+	public void soldier(int playerIndex, int victimIndex, HexLocation location) {
 		
 	}
 	
-	public void soldier(int num1, int num2, HexLocation location) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param resource
+	 * @param playerIndex
+	 * @pre
+	 * @post
+	 */
+	public void monopoly(String resource, int playerIndex) {
 		
 	}
 	
-	public void monopoly(String name, int num) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param roadLocation
+	 * @param free
+	 * @pre
+	 * @post
+	 */
+	public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
 		
 	}
 	
-	public void buildRoad(int num, EdgeLocation location, boolean exist) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param vertexLocation
+	 * @param free
+	 * @pre
+	 * @post
+	 */
+	public void buildSettlement(int playerIndex, EdgeLocation vertexLocation, boolean free) {
 		
 	}
 	
-	public void buildSettlement(int num, EdgeLocation location, boolean exist) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param vertexLocation
+	 * @param free
+	 * @pre
+	 * @post
+	 */
+	public void buildCity(int playerIndex, EdgeLocation vertexLocation, boolean free) {
 		
 	}
 	
-	public void buildCity(int num, EdgeLocation location, boolean exist) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param offer
+	 * @param receiver
+	 * @pre
+	 * @post
+	 */
+	public void offerTrade(int playerIndex, ResourceList offer, int receiver) {
 		
 	}
 	
-	public void offerTrade(int num, ResourceList resource, int num2) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param willAccept
+	 * @pre
+	 * @post
+	 */
+	public void acceptTrade(int playerIndex, boolean willAccept) {
 		
 	}
 	
-	public void acceptTrade(int num, boolean accept) {
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @param playerIndex
+	 * @param discardedCards
+	 * @pre
+	 * @post
+	 */
+	public void discardCards(int playerIndex, ResourceList discardedCards) {
 		
 	}
 	
-	public void discardCards(int num, ResourceList resource) {
-		
-	}
-	
+	/**
+	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
+	 * @pre
+	 * @post
+	 */
 	public void getClientModel() {
 		
 	}
