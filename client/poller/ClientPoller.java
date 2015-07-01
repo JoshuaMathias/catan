@@ -1,4 +1,7 @@
 package client.poller;
+
+import client.model.ClientModel;
+
 /**
  * This class is for regularly updating the ClientModel of the game.
  * @author Ife's Group
@@ -14,8 +17,8 @@ public class ClientPoller {
 	 * @pre Need for the client model.
 	 * @post The client model is returned.
 	 */
-	public void getClientModel() {
-		
+	public ClientModel getClientModel() {
+		return null;
 	}
 	
 	/**
