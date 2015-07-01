@@ -1,11 +1,11 @@
-package client.proxy;
+package client.serverproxy;
 
 import client.model.EdgeLocation;
 import client.model.HexLocation;
 import client.model.ResourceList;
 import client.poller.ClientPoller;
 
-public class ClientProxy {
+public class ServerProxy {
 
 	private ClientPoller poller;
 	

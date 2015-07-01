@@ -1,4 +1,4 @@
-package client.proxy;
+package client.serverproxy;
 /**
  * Class for sending data for an accept trade request.
  * @author Ife's Group

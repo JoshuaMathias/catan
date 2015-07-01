@@ -1,4 +1,4 @@
-package client.proxy;
+package client.serverproxy;
 /**
  * Class for sending data for a monopoly request.
  * @author Ife's Group

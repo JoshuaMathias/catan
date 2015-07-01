@@ -1,4 +1,4 @@
-package client.proxy;
+package client.serverproxy;
 
 import client.model.HexLocation;
 
