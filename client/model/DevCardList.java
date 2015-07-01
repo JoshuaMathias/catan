@@ -1,5 +1,9 @@
 package client.model;
-
+/**
+ * This class represents a list of development cards.
+ * @author Ife's group
+ *
+ */
 public class DevCardList {
 
 	private int monopoly;

@@ -1,7 +1,11 @@
 package client.model;
 
 import java.util.ArrayList;
-
+/**
+ * This class represents the game map.
+ * @author Ife's group
+ *
+ */
 public class Map {
 	
 	private ArrayList<Hex> hexes;
