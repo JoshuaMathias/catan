@@ -2,6 +2,11 @@ package client.proxy;
 
 import client.model.HexLocation;
 
+/**
+ * Class for sending data for a soldier request.
+ * @author Ife's Group
+ *
+ */
 public class SoldierParams {
 
 	private int playerIndex;
