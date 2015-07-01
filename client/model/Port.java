@@ -1,5 +1,9 @@
 package client.model;
-
+/**
+ * This class represents a port.
+ * @author Ife's group
+ *
+ */
 public class Port {
 
 	private String resource;
