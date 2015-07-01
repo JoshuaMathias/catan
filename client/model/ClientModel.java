@@ -207,39 +207,39 @@ public class ClientModel {
 //	}
 	
 	/**
-	 * 
-	 * @pre
-	 * @post
+	 * checks whether a player has the longest road
+	 * @pre none
+	 * @post returns integer of the index of the player with the longest road. Player has longest road if road length is 5 and more than any other player. If nobody has longest road, returns -1
 	 */
 	public int checkLongestRoad() {
 		
-		int longestRoadCount = 0;
+		int playerIndex = -1;
 		
-		return longestRoadCount;
+		return playerIndex;
 	}
 	
 	/**
-	 * 
-	 * @pre
-	 * @post
+	 * checks whether a player has the largest army
+	 * @pre none
+	 * @post returns integer representing the index of the player with the largest army. Player has largest army if they have played at least 3 soldier cards and more soldier cards than any other player. If nobody had largest road, returns -1
 	 */
 	public int checkLargestArmy() {
 		
-		int longestArmyCount = 0;
+		int playerIndex = -1;
 		
-		return longestArmyCount;
+		return playerIndex;
 	}
 	
 	/**
-	 * 
-	 * @pre
-	 * @post
+	 * checks to see if a player has 10 victory points
+	 * @pre none
+	 * @post returns integer representing the index of the player who has 10 or more victory points. If no player has 10 or more victory points, returns -1
 	 */
 	public int checkVictoryPoints() {
 		
-		int victoryPointCount = 0;
+		int playerIndex = -1;
 		
-		return victoryPointCount;
+		return playerIndex;
 	}
 	
 	//Can Methods Below********************************************************************************
