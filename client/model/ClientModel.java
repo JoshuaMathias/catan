@@ -236,8 +236,9 @@ public class ClientModel {
 	
 	/**
 	 * 
-	 * @pre
-	 * @post
+	 * checks to see if the player is allowed to roll the dice
+	 * @pre none
+	 * @post Returns true if it's the player's turn and player hasn't rolled yet. Otherwise returns false   
 	 */
 	public boolean canRollDice() {
 		
@@ -247,10 +248,17 @@ public class ClientModel {
 
 	/**
 	 * 
-	 * @pre
-	 * @post
+	 * Tests whether players can trade a number of resource cards of one type for one resource card of another
+	 * type
+	 * @pre none
+	 * @post If player hex is next to generic harbor, allowed 3:1 at resource of their choice. Return true
+	 * If player owns resource harbor, they are allowed to trade two cards indicated by Harbor type for 
+	 * resource of their choice. Return true
+	 * Player always allowed 4:1 with Bank for resource of their choice. Return true
+	 * 
+	 * Otherwise return false
 	 */
-	public boolean canbankTrade() {
+	public boolean canBankTrade() {
 		
 		boolean test = false;
 		return test;
@@ -258,8 +266,11 @@ public class ClientModel {
 	
 	/**
 	 * 
-	 * @pre
-	 * @post
+	 * Players are allowed to offer trades with other players 
+	 * 
+	 * @pre none
+	 * @post players turn, player has the number of resources they are attempting to trade, other player
+	 * has the resources the player is attempting to obtain, return true. Otherwise return false. 
 	 */
 	public boolean canOfferTrade() {
 	
