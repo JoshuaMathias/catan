@@ -1,5 +1,5 @@
 package server;
 
-public class Server {
-//Daniel's new test
+public class Server implements IServer {
+
 }
