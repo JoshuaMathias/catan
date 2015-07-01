@@ -17,7 +17,7 @@ public class ClientModel {
 	private TurnTracker turntracker;
 	private int version;
 	private int winner = -1;
-	
+
 	/**
 	 * checks newClientModel version against current client model version and updates if versions differ
 	 * @param newClientModel
