@@ -11,6 +11,7 @@ public class ResourceList {
 	private int sheep;
 	private int wheat;
 	private int wood;
+
 	public int getBrick() {
 		return brick;
 	}

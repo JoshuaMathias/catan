@@ -13,6 +13,7 @@ public class Port {
 	private HexLocation location;
 	private String direction;
 	private int ratio;
+
 	public String getResource() {
 		return resource;
 	}
@@ -37,4 +38,5 @@ public class Port {
 	public void setRatio(int ratio) {
 		this.ratio = ratio;
 	}
+
 }

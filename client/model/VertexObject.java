@@ -21,4 +21,5 @@ public class VertexObject {
 	public void setLocation(EdgeLocation location) {
 		this.location = location;
 	}
+
 }

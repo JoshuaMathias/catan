@@ -2,13 +2,8 @@ package client.serverproxy;
 
 import shared.locations.HexLocation;
 
-/**
- * Class for sending data for a soldier request.
- * @author Ife's Group
- *
- */
-public class SoldierParams {
-	private String type="Soldier";
+public class RobPlayerParams {
+	private String type="robPlayer";
 	private int playerIndex=-1;
 	private int victimIndex=-1;
 	private HexLocation location;

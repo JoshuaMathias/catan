@@ -1,14 +1,11 @@
 package client.serverproxy;
 
-/**
- * Class for sending data for a roll number request.
- * @author Ife's Group
- *
- */
-public class RollNumberParams {
-	private String type="rollNumber";
+import client.model.EdgeLocation;
+
+public class BuildCityParams {
+	private String type="buildCity";
 	private int playerIndex=-1;
-	private int number=-1;
+	private EdgeLocation vertexLocation;
 	
 	public String getType() {
 		return type;
@@ -22,11 +19,11 @@ public class RollNumberParams {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
-	public int getNumber() {
-		return number;
+	public EdgeLocation getVertexLocation() {
+		return vertexLocation;
 	}
-	public void setNumber(int number) {
-		this.number = number;
+	public void setVertexLocation(EdgeLocation vertexLocation) {
+		this.vertexLocation = vertexLocation;
 	}
 
 }

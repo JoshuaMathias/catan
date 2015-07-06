@@ -29,5 +29,4 @@ public class EdgeLocation {
 		this.direction = direction;
 	}
 	
-	
 }

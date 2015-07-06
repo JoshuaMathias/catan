@@ -1,14 +1,9 @@
 package client.serverproxy;
 
-/**
- * Class for sending data for a roll number request.
- * @author Ife's Group
- *
- */
-public class RollNumberParams {
-	private String type="rollNumber";
+public class SendChatParams {
+	private String type="sendChat";
 	private int playerIndex=-1;
-	private int number=-1;
+	private String content="";
 	
 	public String getType() {
 		return type;
@@ -22,11 +17,11 @@ public class RollNumberParams {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
-	public int getNumber() {
-		return number;
+	public String getContent() {
+		return content;
 	}
-	public void setNumber(int number) {
-		this.number = number;
+	public void setContent(String content) {
+		this.content = content;
 	}
-
+	
 }
