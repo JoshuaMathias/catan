@@ -11,4 +11,14 @@ public class DevCardList {
 	private int roadBuilding;
 	private int soldier;
 	private int yearOfPlenty;
+	
+	public boolean canBuyDevCard(){
+		int total = monopoly + monument + roadBuilding + soldier + yearOfPlenty;
+		if (total > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }

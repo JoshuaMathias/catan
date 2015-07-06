@@ -11,7 +11,7 @@ public class BuildSettlementParams {
 	private String type="buildSettlement";
 	private int playerIndex=-1;
 	private EdgeLocation vertexLocation;
-	private boolean free=false;
+	private boolean free = false;
 	
 	public String getType() {
 		return type;
