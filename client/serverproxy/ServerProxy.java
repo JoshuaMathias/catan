@@ -1,5 +1,7 @@
 package client.serverproxy;
 
+import com.google.gson.Gson;
+
 import client.model.ClientModel;
 import client.model.EdgeLocation;
 import shared.locations.HexLocation;
@@ -13,8 +15,18 @@ import client.poller.ClientPoller;
  */
 public class ServerProxy {
 
-	private ClientPoller poller;
+	//This class might have to be a singleton
+	Gson g = new Gson();
+	private String hostname = "";
+	private ClientPoller poller; // Pretty sure that the server proxy will not have a poller but the poller will have
+								// A serverproxy singleton 
 	private ClientCommunicator clientComm;
+	
+	public ServerProxy(String hostname)
+	{
+		this.hostname = hostname;
+		clientComm = new ClientCommunicator (hostname);
+	}
 	
 	/**
 	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
@@ -23,8 +35,13 @@ public class ServerProxy {
 	 * @pre playerIndex and number != null, number between 2 and 12 inclusive, playerIndex between 0 and 3 inclusive
 	 * @post Server receives information
 	 */
-	public void rollNumber(int playerIndex, int number) {
-		
+	public void rollNumber(int playerIndex, int number) 
+	{
+		RollNumberParams rnp = new RollNumberParams();
+		rnp.setNumber(number);
+		rnp.setPlayerIndex(playerIndex);
+		String input = g.toJson(rnp);
+		clientComm.send("moves/rollNumber", input);
 	}
 	
 	/**
@@ -35,8 +52,14 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive, playerIndex and spot1 and spot2 are not null
 	 * @post Server receives information
 	 */
-	public void roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
-		
+	public void roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) 
+	{
+		RoadBuildingParams roadbuilding = new RoadBuildingParams();
+		roadbuilding.setPlayerIndex(playerIndex);
+		roadbuilding.setSpot1(spot1);
+		roadbuilding.setSpot2(spot2);
+		String input = g.toJson(roadbuilding);
+		clientComm.send("moves/Road_Building", input);
 	}
 	
 	/**
@@ -45,8 +68,12 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null
 	 * @post Server receives information
 	 */
-	public void finishTurn(int playerIndex) {
-		
+	public void finishTurn(int playerIndex) 
+	{
+		FinishTurnParams finishturn = new FinishTurnParams ();
+		finishturn.setPlayerIndex(playerIndex);
+		String input = g.toJson(finishturn);
+		clientComm.send("moves/finishTurn",input);
 	}
 	
 	/**
@@ -55,8 +82,12 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null
 	 * @post Server receives information
 	 */
-	public void buyDevCard(int playerIndex) {
-
+	public void buyDevCard(int playerIndex) 
+	{
+		BuyDevCardParams buydevcard = new BuyDevCardParams();
+		buydevcard.setPlayerIndex(playerIndex);
+		String input = g.toJson(buydevcard);
+		clientComm.send("moves/buyDevCard",input);
 	}
 	
 	/**
@@ -67,8 +98,14 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, both resources must not be null and one of the key words for resources
 	 * @post Server receives information
 	 */
-	public void yearOfPlenty(int playerIndex, String resource1, String resource2) {
-		
+	public void yearOfPlenty(int playerIndex, String resource1, String resource2) 
+	{
+		YearOfPlentyParams yearofplenty = new YearOfPlentyParams ();
+		yearofplenty.setPlayerIndex(playerIndex);
+		yearofplenty.setResource1(resource1);
+		yearofplenty.setResource2(resource2);
+		String input = g.toJson(yearofplenty);
+		clientComm.send("moves/Year_of_Plenty",input);
 	}
 	
 	/**
@@ -79,7 +116,8 @@ public class ServerProxy {
 	 * @pre playerIndex and victinIndex between 0 and 3 inclusive and not null, location not null
 	 * @post Server receives information
 	 */
-	public void soldier(int playerIndex, int victimIndex, HexLocation location) {
+	public void soldier(int playerIndex, int victimIndex, HexLocation location) 
+	{
 		
 	}
 	

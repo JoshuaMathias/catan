@@ -7,6 +7,7 @@ import client.model.ResourceList;
  *
  */
 public class DiscardCardsParams {
+	
 	private String type="discardCards";
 	private int playerIndex=-1;
 	private ResourceList discardedCards;
