@@ -2,7 +2,7 @@ package client.serverproxy;
 
 import client.model.ClientModel;
 import client.model.EdgeLocation;
-import client.model.HexLocation;
+import shared.locations.HexLocation;
 import client.model.ResourceList;
 import client.poller.ClientPoller;
 
