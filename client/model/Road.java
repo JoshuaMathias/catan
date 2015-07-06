@@ -4,7 +4,7 @@ package client.model;
  * @author Ife's group
  *
  */
-public class EdgeValue {
+public class Road {
 
 	private int owner;
 	private EdgeLocation location;
