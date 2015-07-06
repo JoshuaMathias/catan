@@ -181,8 +181,10 @@ public class ClientModel {
 	 * @pre none
 	 * @post players turn, player has the number of resources they are attempting to trade return true. Otherwise return false. 
 	 */
-	public boolean canOfferTrade(int playerIndex, ResourceList proposedTradeList) {
+	public boolean canOfferTrade(TradeOffer tradeOffer) {
 	
+		int playerIndex = tradeOffer.getSender();
+		ResourceList proposedTradeList = tradeOffer.getOffer();
 		String status = turnTracker.getStatus();
 		int whoseTurn = turnTracker.getCurrentTurn();
 		
@@ -191,23 +193,23 @@ public class ClientModel {
 			ResourceList playerResourceList = players.get(playerIndex).getResources();
 			boolean test = true;
 		
-			if(proposedTradeList.getBrick() < playerResourceList.getBrick()) {
+			if(proposedTradeList.getBrick() > playerResourceList.getBrick()) {
 				return false;
 			}
 			
-			if(proposedTradeList.getSheep() < playerResourceList.getSheep()) {
+			if(proposedTradeList.getSheep() > playerResourceList.getSheep()) {
 				return false;
 			}
 			
-			if(proposedTradeList.getOre() < playerResourceList.getOre()) {
+			if(proposedTradeList.getOre() > playerResourceList.getOre()) {
 				return false;
 			}
 			
-			if(proposedTradeList.getWood() < playerResourceList.getWood()) {
+			if(proposedTradeList.getWood() > playerResourceList.getWood()) {
 				return false;
 			}
 			
-			if(proposedTradeList.getWheat() < playerResourceList.getWheat()) {
+			if(proposedTradeList.getWheat() > playerResourceList.getWheat()) {
 				return false;
 			}
 			return test;
@@ -226,10 +228,50 @@ public class ClientModel {
 	 * Otherwise return false
 	 * 
 	 */
-	public boolean canAcceptTrade() {
+	public boolean canAcceptTrade(int playerIndex, TradeOffer tradeOffer) {
 	
-		boolean test = false;
-		return test;
+		int receiver = tradeOffer.getReceiver();
+		ResourceList proposedTradeList = tradeOffer.getOffer();
+		
+		if(playerIndex == receiver){
+			
+			ResourceList playerResourceList = players.get(playerIndex).getResources();
+			boolean test = true;
+			
+			if(proposedTradeList.getBrick() < 0) {
+				if(Math.abs(proposedTradeList.getBrick()) > playerResourceList.getBrick()){
+					return false;
+				}
+			}
+			
+			if(proposedTradeList.getSheep() < 0) {
+				if(Math.abs(proposedTradeList.getSheep()) > playerResourceList.getSheep()){
+					return false;
+				}
+			}
+			
+			if(proposedTradeList.getOre() < 0) {
+				if(Math.abs(proposedTradeList.getOre()) > playerResourceList.getOre()){
+					return false;
+				}
+			}
+			
+			if(proposedTradeList.getWood() < 0) {
+				if(Math.abs(proposedTradeList.getWood()) > playerResourceList.getWood()){
+					return false;
+				}
+			}
+			
+			if(proposedTradeList.getWheat() < 0) {
+				if(Math.abs(proposedTradeList.getWheat()) > playerResourceList.getWheat()){
+					return false;
+				}
+			}
+			return test;
+		}
+		else{
+			return false;
+		}
 	}
 
 	/**
@@ -241,7 +283,7 @@ public class ClientModel {
 	 * to have the development card, and must be players turn- return true
 	 * Otherwise return false
 	 */
-	public boolean canBuyDevCard() {
+	public boolean canBuyDevCard(int PlayerIndex) {
 	
 		boolean test = false;
 		return test;
