@@ -6,7 +6,7 @@ package client.model;
  */
 public class TurnTracker {
 
-	private int currentTurn;
+	private int currentTurn; //playerIndex of who's turn it is
 	private String status;
 	private int longestRoad = -1;
 	private int largestArmy = -1;

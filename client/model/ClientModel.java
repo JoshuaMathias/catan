@@ -2,6 +2,8 @@ package client.model;
 
 import java.util.ArrayList;
 
+import shared.definitions.ResourceType;
+
 /**
  * Class represents model of game on client side
  * @author Ife's Group
@@ -125,9 +127,15 @@ public class ClientModel {
 	 * @pre none
 	 * @post Must be player's turn, and player hasn't rolled yet- return true. Otherwise returns false.   
 	 */
-	public boolean canRollDice() {
+	public boolean canRollDice(int playerIndex) {
 		
 		boolean test = false;
+		String status = turnTracker.getStatus();
+		
+		if (playerIndex == turnTracker.getCurrentTurn() && status == "Rolling"){
+			test = true;
+		}
+		
 		return test;
 	}
 
@@ -143,10 +151,27 @@ public class ClientModel {
 	 * 
 	 * Otherwise return false
 	 */
-	public boolean canBankTrade() {
+	public boolean canBankTrade(int playerIndex, ResourceType offer, ResourceType request) {
 		
 		boolean test = false;
-		return test;
+		players.get(playerIndex).getResources();
+		
+		if(offer == ResourceType.WOOD) { 
+			
+			
+			
+		} else if(offer == ResourceType.BRICK) {
+			
+		} else if(offer == ResourceType.SHEEP) {
+			
+		} else if(offer == ResourceType.WHEAT) {
+			
+		} else if(offer == ResourceType.ORE) {
+			
+		}
+		
+		return false;
+		
 	}
 	
 	/**
@@ -156,10 +181,40 @@ public class ClientModel {
 	 * @pre none
 	 * @post players turn, player has the number of resources they are attempting to trade return true. Otherwise return false. 
 	 */
-	public boolean canOfferTrade() {
+	public boolean canOfferTrade(int playerIndex, ResourceList proposedTradeList) {
 	
-		boolean test = false;
-		return test;
+		String status = turnTracker.getStatus();
+		int whoseTurn = turnTracker.getCurrentTurn();
+		
+		if(status.equals("Playing") && whoseTurn == playerIndex) {
+		
+			ResourceList playerResourceList = players.get(playerIndex).getResources();
+			boolean test = true;
+		
+			if(proposedTradeList.getBrick() < playerResourceList.getBrick()) {
+				return false;
+			}
+			
+			if(proposedTradeList.getSheep() < playerResourceList.getSheep()) {
+				return false;
+			}
+			
+			if(proposedTradeList.getOre() < playerResourceList.getOre()) {
+				return false;
+			}
+			
+			if(proposedTradeList.getWood() < playerResourceList.getWood()) {
+				return false;
+			}
+			
+			if(proposedTradeList.getWheat() < playerResourceList.getWheat()) {
+				return false;
+			}
+			return test;
+		} 
+		else{
+			return false;
+		}
     }
 
 	/**
