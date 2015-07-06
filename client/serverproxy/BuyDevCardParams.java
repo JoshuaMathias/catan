@@ -1,14 +1,12 @@
 package client.serverproxy;
-
 /**
- * Class for sending data for a roll number request.
+ * Class for sending data for a buy development card or a finish turn request.
  * @author Ife's Group
  *
  */
-public class RollNumberParams {
-	private String type="rollNumber";
+public class BuyDevCardParams {
+	private String type="buyDevCard";
 	private int playerIndex=-1;
-	private int number=-1;
 	
 	public String getType() {
 		return type;
@@ -22,11 +20,5 @@ public class RollNumberParams {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
-	public int getNumber() {
-		return number;
-	}
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
+	
 }

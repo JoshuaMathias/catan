@@ -1,15 +1,16 @@
 package client.serverproxy;
+
+import client.model.EdgeLocation;
+
 /**
- * Class for sending data for a build road request.
+ * Class for sending data for a build settlement or build city request.
  * @author Ife's Group
  *
  */
-import client.model.EdgeLocation;
-
-public class BuildRoadParams {
-	private String type="buildRoad";
+public class BuildSettlementParams {
+	private String type="buildSettlement";
 	private int playerIndex=-1;
-	private EdgeLocation roadLocation;
+	private EdgeLocation vertexLocation;
 	private boolean free=false;
 	
 	public String getType() {
@@ -24,11 +25,11 @@ public class BuildRoadParams {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
-	public EdgeLocation getRoadLocation() {
-		return roadLocation;
+	public EdgeLocation getVertexLocation() {
+		return vertexLocation;
 	}
-	public void setRoadLocation(EdgeLocation roadLocation) {
-		this.roadLocation = roadLocation;
+	public void setVertexLocation(EdgeLocation vertexLocation) {
+		this.vertexLocation = vertexLocation;
 	}
 	public boolean isFree() {
 		return free;
