@@ -1,4 +1,7 @@
 package client.model;
+
+import shared.locations.HexLocation;
+
 /**
  * This class represents a port.
  * @author Ife's group

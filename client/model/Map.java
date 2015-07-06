@@ -1,6 +1,8 @@
 package client.model;
 
 import java.util.ArrayList;
+
+import shared.locations.HexLocation;
 /**
  * This class represents the game map.
  * @author Ife's group
