@@ -14,7 +14,7 @@ public class ClientModel {
 	private Map map;
 	private ArrayList<Player> players;
 	private TradeOffer tradeOffer;
-	private TurnTracker turntracker;
+	private TurnTracker turnTracker;
 	private int version;
 	private int winner = -1;
 
@@ -35,9 +35,32 @@ public class ClientModel {
 	 */
 	public int checkLongestRoad() {
 		
-		int playerIndex = -1;
+		int previousLongest = turnTracker.getLongestRoad();
+		int playerIndex = 0;
+		int highestRoadCount = players.get(0).getRoads();
 		
-		return playerIndex;
+		for (int i = 1; i < 4; i++){
+			int toCompare = players.get(i).getRoads();
+			if (toCompare > highestRoadCount){
+				highestRoadCount = toCompare;
+				playerIndex = i;
+			}
+		}
+		
+		if(highestRoadCount >= 5){
+			if(previousLongest == -1){
+				return playerIndex;
+			}
+			else if(players.get(previousLongest).getRoads() == players.get(playerIndex).getRoads()){
+				return previousLongest;
+			}
+			else{
+				return playerIndex;
+			}
+		}
+		else{
+			return -1;
+		}
 	}
 	
 	/**
@@ -47,9 +70,32 @@ public class ClientModel {
 	 */
 	public int checkLargestArmy() {
 		
-		int playerIndex = -1;
+		int previousLargest = turnTracker.getLargestArmy();
+		int playerIndex = 0;
+		int highestSoldierCount = players.get(0).getSoldiers();
 		
-		return playerIndex;
+		for (int i = 1; i < 4; i++){
+			int toCompare = players.get(i).getSoldiers();
+			if (toCompare > highestSoldierCount){
+				highestSoldierCount = toCompare;
+				playerIndex = i;
+			}
+		}
+		
+		if(highestSoldierCount >= 3){
+			if(previousLargest == -1){
+				return playerIndex;
+			}
+			else if(players.get(previousLargest).getSoldiers() == players.get(playerIndex).getSoldiers()){
+				return previousLargest;
+			}
+			else{
+				return playerIndex;
+			}
+		}
+		else{
+			return -1;
+		}
 	}
 	
 	/**
@@ -60,6 +106,12 @@ public class ClientModel {
 	public int checkVictoryPoints() {
 		
 		int playerIndex = -1;
+		
+		for(int i = 0; i < 4 ; i++){
+			if(players.get(i).getVictoryPoints() >= 10){
+				return i;
+			}
+		}
 		
 		return playerIndex;
 	}
