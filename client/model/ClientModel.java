@@ -10,6 +10,7 @@ import shared.definitions.ResourceType;
  *
  */
 public class ClientModel {
+	private DevCardList deck;
 	private ResourceList bank;
 	private MessageList chat;
 	private MessageList log;
@@ -283,10 +284,21 @@ public class ClientModel {
 	 * to have the development card, and must be players turn- return true
 	 * Otherwise return false
 	 */
-	public boolean canBuyDevCard(int PlayerIndex) {
-	
-		boolean test = false;
-		return test;
+	public boolean canBuyDevCard(int playerIndex) {
+		
+		int whoseTurn = turnTracker.getCurrentTurn();
+		String status = turnTracker.getStatus();
+		
+		boolean can = false;
+		if(playerIndex == whoseTurn && status.equals("Playing")){
+			Player player = players.get(playerIndex);
+			ResourceList playersResources= player.getResources();
+			if (playersResources.getSheep() > 0 && playersResources.getOre() > 0 && playersResources.getWheat() > 0){
+				can = deck.canBuyDevCard();
+			}
+		}
+		
+		return can;
 	}
 
 	/**
@@ -296,7 +308,7 @@ public class ClientModel {
 	 * @pre none
 	 * @post Must be players turn, must have the required resources to build it, must have a settlement left,must be appropriately placed on the map - return true. Otherwise return false.
 	 */
-	public boolean canbuildSettlement() {
+	public boolean canBuildSettlement(int playerIndex) {
 	
 		boolean test = false;
 		return test;
