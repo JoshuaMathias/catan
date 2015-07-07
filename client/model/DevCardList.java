@@ -9,11 +9,29 @@ import shared.definitions.DevCardType;
  */
 public class DevCardList {
 
-	private int monopoly;
-	private int monument;
-	private int roadBuilding;
-	private int soldier;
-	private int yearOfPlenty;
+	private int monopoly = 0;
+	private int monument = 0;
+	private int roadBuilding = 0;
+	private int soldier = 0;
+	private int yearOfPlenty = 0;
+	
+	public DevCardList(boolean full){
+		if (full){
+			monopoly = 2;
+			monument = 5;
+			roadBuilding = 2;
+			soldier = 14;
+			yearOfPlenty = 2;
+		}
+	}
+	
+	public DevCardList(int monopoly, int monument, int roadBuilding, int soldier, int yearOfPlenty){
+		this.monopoly = monopoly;
+		this.monument = monument;
+		this.roadBuilding = roadBuilding;
+		this.soldier = soldier;
+		this.yearOfPlenty = yearOfPlenty;
+	}
 	
 	public int getMonopoly() {
 		return monopoly;

@@ -9,6 +9,7 @@ public class TradeOffer {
 	private int sender;
 	private int receiver;
 	private ResourceList offer;
+	
 	public int getSender() {
 		return sender;
 	}
@@ -27,6 +28,4 @@ public class TradeOffer {
 	public void setOffer(ResourceList offer) {
 		this.offer = offer;
 	}
-	
-	
 }

@@ -23,6 +23,62 @@ public class Map {
 	private int radius;
 	private HexLocation robber; 
 	
+	public ArrayList<Hex> getHexes() {
+		return hexes;
+	}
+
+	public void setHexes(ArrayList<Hex> hexes) {
+		this.hexes = hexes;
+	}
+
+	public ArrayList<Port> getPorts() {
+		return ports;
+	}
+
+	public void setPorts(ArrayList<Port> ports) {
+		this.ports = ports;
+	}
+
+	public ArrayList<Road> getRoads() {
+		return roads;
+	}
+
+	public void setRoads(ArrayList<Road> roads) {
+		this.roads = roads;
+	}
+
+	public ArrayList<VertexObject> getSettlements() {
+		return settlements;
+	}
+
+	public void setSettlements(ArrayList<VertexObject> settlements) {
+		this.settlements = settlements;
+	}
+
+	public ArrayList<VertexObject> getCities() {
+		return cities;
+	}
+
+	public void setCities(ArrayList<VertexObject> cities) {
+		this.cities = cities;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
+	public HexLocation getRobber() {
+		return robber;
+	}
+
+	public void setRobber(HexLocation robber) {
+		this.robber = robber;
+	}
+
 	public void checkTradeRatio(int playerIndex, String resource) {
 		
 		Port port = null;
