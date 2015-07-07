@@ -4,7 +4,6 @@ import org.junit.*;
 
 import client.model.*;
 
-import java.io.*;
 import java.util.ArrayList;
 
 import static org.junit.Assert.* ;
