@@ -332,8 +332,13 @@ public class ClientModel {
 				return false;
 			}
 			
-			if (map)
+			if (map.isSpotNeighbored(settlementSpot)){
+				return false;
+			}
 			
+			if (map.hasNeighboringOwnRoad(settlement)){
+				
+			}
 		}
 		
 		

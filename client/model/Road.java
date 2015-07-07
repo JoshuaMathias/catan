@@ -1,4 +1,7 @@
 package client.model;
+
+import shared.locations.EdgeLocation;
+
 /**
  * This class represents an edge value.
  * @author Ife's group

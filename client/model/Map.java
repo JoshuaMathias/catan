@@ -40,9 +40,10 @@ public class Map {
 			if(playerIndex == settlement.getOwner()) {
 				
 				VertexLocation settlementLocation = settlement.getLocation();
-				int settlementXLocation = settlementLocation.getX();
-				int settlementYLocation = settlementLocation.getY();
-				String settlementDirection = settlementLocation.getDirection();
+				HexLocation settlementHexLocation = settlementLocation.getHexLoc();
+				int settlementXLocation = settlementHexLocation.getX();
+				int settlementYLocation = settlementHexLocation.getY();
+				VertexDirection settlementDirection = settlementLocation.getDir();
 				
 				HexLocation portLocation = port.getLocation();
 				int portXLocation = portLocation.getX();
@@ -60,9 +61,10 @@ public class Map {
 			
 			if(playerIndex == city.getOwner()) {
 				
-				EdgeLocation cityLocation = city.getLocation();
-				int cityXLocation = cityLocation.getX();
-				int cityYLocation = cityLocation.getY();
+				VertexLocation cityLocation = city.getLocation();
+				HexLocation cityHexLocation = cityLocation.getHexLoc();
+				int cityXLocation = cityHexLocation.getX();
+				int cityYLocation = cityHexLocation.getY();
 				
 				HexLocation portLocation = port.getLocation();
 				int portXLocation = portLocation.getX();
@@ -172,7 +174,7 @@ public class Map {
 				hexLoc3 = new HexLocation(x-1, y);
 				spot3 = new VertexLocation(hexLoc3, VertexDirection.SouthWest);
 				break;
-			default:
+			default: //should never be reached Maybe Throw an exception
 				hexLoc1 = new HexLocation(x, y);
 				spot1 = new VertexLocation(hexLoc1, VertexDirection.East);
 				
@@ -209,6 +211,21 @@ public class Map {
 			}
 		}
 		return false;
+	}
+	
+	public boolean isRoadHere(Road road){
+		return false;
+		
+	}
+	
+	public boolean hasNeighboringOwnRoad(VertexObject settlement){
+		return false;
+		
+	}
+	
+	public boolean hasNeighboringOwnRoad(Road road){
+		return false;
+		
 	}
 	
 	public void setRobberHexLocation(HexLocation newRobber) {
