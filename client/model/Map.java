@@ -194,12 +194,28 @@ public class Map {
 	
 	public boolean isSpotMySettlement(VertexLocation spot, int playerIndex) {
 		
+		spot = spot.getNormalizedLocation();
+		
 		for(int i = 0; i < settlements.size(); i++) {
 			
 			if(settlements.get(i).getOwner() == playerIndex) {
 				
+				VertexLocation settlementSpot = settlements.get(i).getLocation();
+				settlementSpot = settlementSpot.getNormalizedLocation();
+				
+				if(settlementSpot == spot) {
+					return true;
+				}
 			}
 		}
 		return false;
+	}
+	
+	public void setRobberHexLocation(HexLocation newRobber) {
+		this.robber = newRobber;
+	}
+	
+	public HexLocation getRobberLocation() {
+		return robber;
 	}
 }

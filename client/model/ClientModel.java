@@ -2,7 +2,10 @@ package client.model;
 
 import java.util.ArrayList;
 
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 /**
@@ -364,10 +367,8 @@ public class ClientModel {
 			
 			VertexLocation citySpot = city.getLocation();
 			
-			
+			can = map.isSpotMySettlement(citySpot, playerIndex);
 		}
-		
-		
 		return can;
 	}
 	
@@ -391,10 +392,22 @@ public class ClientModel {
 	 * @pre none
 	 * @post Player must have the development card, must be players turn, card can't have been received on the players turn- return true. Otherwise return false.
 	 */
-	public boolean canPlayDevCard() {
-	
-		boolean test = false;
-		return test;
+	public boolean canPlayDevCard(int playerIndex, DevCardType cardType) {
+		
+		int whoseTurn = turnTracker.getCurrentTurn();
+		String status = turnTracker.getStatus();
+		
+		boolean can = true;
+		
+		if (playerIndex == whoseTurn && status.equals("Playing")) {
+			
+			DevCardList playersDevCardList = players.get(playerIndex).getNewDevCards();
+			can = playersDevCardList.canPlayDevCard(cardType);
+			
+		} else {
+			return false;
+		}		
+		return can;
 	}
 	
 	/**
@@ -404,10 +417,16 @@ public class ClientModel {
 	 * @pre none
 	 * @post Must be players turn, player rolls a seven, must be appropriately placed- return true. Otherwise return false.
 	 */
-	public boolean canPlaceRobber() {
+	public boolean canPlaceRobber(int playerIndex, int diceRoll) {
 	
-		boolean test = false;
-		return test;
+		int whoseTurn = turnTracker.getCurrentTurn();
+		String status = turnTracker.getStatus();
+		
+		if(diceRoll == 7 && whoseTurn == playerIndex && status == "playing") {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 
@@ -418,10 +437,34 @@ public class ClientModel {
 	 * @pre none
 	 * @post Must be players turn, player must roll a seven, target player must have a resource card- return true. Otherwise return false
 	 */
-	public boolean canStealResourceCard() {
+	public boolean canStealResourceCard(int playerIndex, int diceRoll, int targetPlayer) {
 	
-		boolean test = false;
-		return test;
+		int whoseTurn = turnTracker.getCurrentTurn();
+		String status = turnTracker.getStatus();
+		HexLocation robberLocation = map.getRobberLocation();
+		boolean canSteal = false;
+		
+		if(diceRoll == 7 && whoseTurn == playerIndex && status == "Robbing") {
+			
+			ResourceList targetResourceList = players.get(targetPlayer).getResources();
+			
+			if(targetResourceList.isEmpty() == true) {
+				return false;
+			}
+			
+			boolean buildingTest = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.NorthEast));
+			boolean buildingTest2 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.NorthWest));
+			boolean buildingTest3 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.SouthEast));
+			boolean buildingTest4 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.SouthWest));
+			boolean buildingTest5 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.East));
+			boolean buildingTest6 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.West));
+	
+			if(buildingTest == true || buildingTest2 == true || buildingTest3 == true || buildingTest4 == true 
+														|| buildingTest5 == true || buildingTest6 == true) {
+				return true;
+			}
+		}
+		return canSteal;
 	}
 	
 	/**
@@ -432,8 +475,18 @@ public class ClientModel {
 	 * @pre none
 	 * @post A seven must have been rolled, and a player has to have eight or more cards- return true. Otherwise return false.
 	 */
-	public boolean mustDiscardHalfCards() {
-		boolean test = false;
-		return test;
+	public boolean mustDiscardHalfCards(int diceRoll, int playerIndex) {
+		
+		if(diceRoll != 7) {
+			return false;
+		}
+		
+		ResourceList playerResourceList = players.get(playerIndex).getResources();
+		
+		if(playerResourceList.getSize() > 7) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

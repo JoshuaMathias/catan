@@ -42,4 +42,18 @@ public class ResourceList {
 	public void setWood(int wood) {
 		this.wood = wood;
 	}
+	public boolean isEmpty() {
+
+		int total = brick + wood + sheep + ore + wheat;
+		
+		if(total > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	public int getSize() {
+		int total = brick + wood + sheep + ore + wheat;
+		return total;
+	}
 }
