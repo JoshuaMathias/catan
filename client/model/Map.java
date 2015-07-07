@@ -15,13 +15,13 @@ import shared.locations.VertexLocation;
  */
 public class Map {
 	
-	private ArrayList<Hex> hexes;
-	private ArrayList<Port> ports;
-	private ArrayList<Road> roads;
-	private ArrayList<VertexObject> settlements;
-	private ArrayList<VertexObject> cities;
-	private int radius;
-	private HexLocation robber; 
+	private ArrayList<Hex> hexes = new ArrayList<>();
+	private ArrayList<Port> ports = new ArrayList<>();
+	private ArrayList<Road> roads = new ArrayList<>();
+	private ArrayList<VertexObject> settlements = new ArrayList<>();
+	private ArrayList<VertexObject> cities = new ArrayList<>();
+	private int radius = 0;
+	private HexLocation robber; // = new HexLocation(5000, 5000); 
 	
 	public ArrayList<Hex> getHexes() {
 		return hexes;
