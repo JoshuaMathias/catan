@@ -214,14 +214,14 @@ public class ClientModel {
 	 */
 	public boolean canRollDice(int playerIndex) {
 		
-		boolean test = false;
+		boolean can = false;
 		String status = turnTracker.getStatus();
 		
 		if (playerIndex == turnTracker.getCurrentTurn() && status == "Rolling"){
-			test = true;
+			can = true;
 		}
 		
-		return test;
+		return can;
 	}
 
 	/**
