@@ -9,7 +9,7 @@ import client.model.EdgeLocation;
  */
 public class BuildSettlementParams {
 	private String type="buildSettlement";
-	private int playerIndex=-1;
+	private int playerIndex = -1;
 	private EdgeLocation vertexLocation;
 	private boolean free = false;
 	

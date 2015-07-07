@@ -3,6 +3,7 @@ package client.model;
 import java.util.ArrayList;
 
 import shared.definitions.ResourceType;
+import shared.locations.VertexLocation;
 
 /**
  * Class represents model of game on client side
@@ -308,10 +309,32 @@ public class ClientModel {
 	 * @pre none
 	 * @post Must be players turn, must have the required resources to build it, must have a settlement left,must be appropriately placed on the map - return true. Otherwise return false.
 	 */
-	public boolean canBuildSettlement(int playerIndex) {
+	public boolean canBuildSettlement(VertexObject settlement) {
 	
-		boolean test = false;
-		return test;
+		int playerIndex = settlement.getOwner();
+		int whoseTurn = turnTracker.getCurrentTurn();
+		String status = turnTracker.getStatus();
+		
+		boolean can = true;
+		
+		if (playerIndex == whoseTurn && status.equals("Playing")){
+			ResourceList playersResources = players.get(playerIndex).getResources();
+			if(playersResources.getBrick() < 1 || playersResources.getSheep() < 1 || playersResources.getWheat() < 1 || playersResources.getWood() < 1){
+				return false;
+			}
+			
+			VertexLocation settlementSpot = settlement.getLocation();
+			
+			if (map.isSpotTaken(settlementSpot)){
+				return false;
+			}
+			
+			if (map)
+			
+		}
+		
+		
+		return can;
 	}
 	
 	/**

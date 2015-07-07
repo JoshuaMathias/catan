@@ -1,4 +1,7 @@
 package client.model;
+
+import shared.locations.VertexLocation;
+
 /**
  * This class represents a vertex in the map, with an edge and an owner if there is one.
  * @author Ife's group
@@ -7,7 +10,7 @@ package client.model;
 public class VertexObject {
 
 	private int owner;
-	private EdgeLocation location;
+	private VertexLocation location;
 	
 	public int getOwner() {
 		return owner;
@@ -15,10 +18,10 @@ public class VertexObject {
 	public void setOwner(int owner) {
 		this.owner = owner;
 	}
-	public EdgeLocation getLocation() {
+	public VertexLocation getLocation() {
 		return location;
 	}
-	public void setLocation(EdgeLocation location) {
+	public void setLocation(VertexLocation location) {
 		this.location = location;
 	}
 
