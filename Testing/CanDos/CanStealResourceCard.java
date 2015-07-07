@@ -81,7 +81,37 @@ public class CanStealResourceCard {
 			turnTracker.setStatus("Robbing");
 			turnTracker.setCurrentTurn(0);
 			
-			assertTrue(clientModel.canStealResourceCard(0, 7, 3));
+			assertTrue(clientModel.canStealResourceCard(0, 7, 3));//Ife steals successfully from Paul
+			
+			VertexLocation spot2 = new VertexLocation(hexLoc,VertexDirection.West);
+			
+			VertexObject joshCity = new VertexObject();
+			joshCity.setOwner(1);
+			joshCity.setLocation(spot2);
+			
+			map.addCity(joshCity);
+			
+			Josh.incrementCity();
+			turnTracker.setCurrentTurn(3);
+			
+			assertTrue(clientModel.canStealResourceCard(3, 7, 1));//Paul steals successfully from Josh
+			assertFalse(clientModel.canStealResourceCard(3,6,1));//not rolled 7
+			
+			
+			HexLocation hexLoc3 = new HexLocation(2,-3);
+			VertexLocation spot3 = new VertexLocation(hexLoc3,VertexDirection.East);
+			
+			VertexObject ifeCity = new VertexObject();
+			ifeCity.setOwner(0);
+			ifeCity.setLocation(spot3);
+			
+			map.addCity(ifeCity);
+			map.setRobber(hexLoc3);
+			
+			Ife.incrementCity();
+			turnTracker.setCurrentTurn(2);
+			
+			assertFalse(clientModel.canStealResourceCard(2, 7, 0));//Ife has no resource Cards
 		}
 		
 		
