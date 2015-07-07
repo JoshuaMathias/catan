@@ -610,7 +610,7 @@ public class ClientModel {
 		HexLocation robberLocation = map.getRobberLocation();
 		boolean canSteal = false;
 		
-		if(diceRoll == 7 && whoseTurn == playerIndex && status == "Robbing") {
+		if(diceRoll == 7 && whoseTurn == playerIndex && status.equals("Robbing")) {
 			
 			ResourceList targetResourceList = players.get(targetPlayer).getResources();
 			
