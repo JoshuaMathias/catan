@@ -344,10 +344,31 @@ public class ClientModel {
 	 * @pre none
 	 * @post Must be players turn, must have the required resources to build it, settlement must already be built in the spot, must have a city left,must be appropriately placed on the map - return true. Otherwise return false.
 	 */
-	public boolean canBuildCity() {
+	public boolean canBuildCity(VertexObject city) {
 	
-		boolean test = false;
-		return test;
+		int playerIndex = city.getOwner();
+		int whoseTurn = turnTracker.getCurrentTurn();
+		String status = turnTracker.getStatus();
+		
+		boolean can = true;
+		
+		if (playerIndex == whoseTurn && status.equals("Playing")){
+			ResourceList playersResources = players.get(playerIndex).getResources();
+			if(playersResources.getOre() < 3 || playersResources.getWheat() < 2) {
+				return false;
+			}
+			
+			if(players.get(playerIndex).getCities() < 1) {
+				return false;
+			}
+			
+			VertexLocation citySpot = city.getLocation();
+			
+			
+		}
+		
+		
+		return can;
 	}
 	
 	/**

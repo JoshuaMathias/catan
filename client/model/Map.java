@@ -153,8 +153,24 @@ public class Map {
 				spot3 = new VertexLocation(hexLoc3, VertexDirection.East);
 				break;
 			case SouthWest:
+				hexLoc1 = new HexLocation(x, y);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.West);
+				
+				hexLoc2 = new HexLocation(x, y);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.SouthEast);
+				
+				hexLoc3 = new HexLocation(x, y+1);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.West);
 				break;
 			case West:
+				hexLoc1 = new HexLocation(x, y);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.NorthWest);
+				
+				hexLoc2 = new HexLocation(x, y);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.SouthWest);
+				
+				hexLoc3 = new HexLocation(x-1, y);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.SouthWest);
 				break;
 			default:
 				hexLoc1 = new HexLocation(x, y);
@@ -174,5 +190,16 @@ public class Map {
 		else{
 			return false;
 		}
+	}
+	
+	public boolean isSpotMySettlement(VertexLocation spot, int playerIndex) {
+		
+		for(int i = 0; i < settlements.size(); i++) {
+			
+			if(settlements.get(i).getOwner() == playerIndex) {
+				
+			}
+		}
+		return false;
 	}
 }
