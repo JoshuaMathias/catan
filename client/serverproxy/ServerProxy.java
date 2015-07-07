@@ -118,7 +118,12 @@ public class ServerProxy {
 	 */
 	public void soldier(int playerIndex, int victimIndex, HexLocation location) 
 	{
-		
+		SoldierParams soldier = new SoldierParams();
+		soldier.setPlayerIndex(playerIndex);
+		soldier.setVictimIndex(victimIndex);
+		soldier.setLocation(location);
+		String input = g.toJson(soldier);
+		clientComm.send("moves/Soldier",input);
 	}
 	
 	/**
@@ -128,8 +133,13 @@ public class ServerProxy {
 	 * @pre resource must not be null and one of the key words for resources, playerIndex between 0 and 3 inclusive and not null
 	 * @post Server receives information
 	 */
-	public void monopoly(String resource, int playerIndex) {
-		
+	public void monopoly(String resource, int playerIndex) 
+	{
+		MonopolyParams monopoly = new MonopolyParams ();
+		monopoly.setPlayerIndex(playerIndex);
+		monopoly.setResource(resource);
+		String input = g.toJson(monopoly);
+		clientComm.send("moves/Monopoly", input);
 	}
 	
 	/**
@@ -140,8 +150,14 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, roadLocation not null
 	 * @post Server receives information
 	 */
-	public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
-		
+	public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) 
+	{
+		BuildRoadParams buildroad = new BuildRoadParams();
+		buildroad.setPlayerIndex(playerIndex);
+		buildroad.setRoadLocation(roadLocation);
+		buildroad.setFree(free);
+		String input = g.toJson(buildroad);
+		clientComm.send("moves/buildRoad",input);
 	}
 	
 	/**
@@ -152,8 +168,14 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post Server receives information
 	 */
-	public void buildSettlement(int playerIndex, EdgeLocation vertexLocation, boolean free) {
-		
+	public void buildSettlement(int playerIndex, EdgeLocation vertexLocation, boolean free)
+	{
+		BuildSettlementParams buildsettlement = new BuildSettlementParams ();
+		buildsettlement.setPlayerIndex(playerIndex);
+		buildsettlement.setFree(free);
+		buildsettlement.setVertexLocation(vertexLocation);
+		String input = g.toJson(buildsettlement);
+		clientComm.send("moves/buildSettlement", input);
 	}
 	
 	/**
@@ -164,8 +186,13 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post Server receives information
 	 */
-	public void buildCity(int playerIndex, EdgeLocation vertexLocation, boolean free) {
-		
+	public void buildCity(int playerIndex, EdgeLocation vertexLocation) 
+	{
+		BuildCityParams buildcity = new BuildCityParams();
+		buildcity.setPlayerIndex(playerIndex);
+		buildcity.setVertexLocation(vertexLocation);
+		String input = g.toJson(buildcity);
+		clientComm.send("moves/buildCity",input);
 	}
 	
 	/**
@@ -176,8 +203,14 @@ public class ServerProxy {
 	 * @pre playerIndex and receiver between 0 and 3 inclusive and not null, offer not null
 	 * @post Server receives information
 	 */
-	public void offerTrade(int playerIndex, ResourceList offer, int receiver) {
-		
+	public void offerTrade(int playerIndex, ResourceList offer, int receiver) 
+	{
+		OfferTradeParams offertrade = new OfferTradeParams();
+		offertrade.setOffer(offer);
+		offertrade.setPlayerIndex(playerIndex);
+		offertrade.setReceiver(receiver);
+		String input = g.toJson(offertrade);
+		clientComm.send("moves/offerTrade",input);
 	}
 	
 	/**
@@ -187,8 +220,13 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null
 	 * @post Server receives information
 	 */
-	public void acceptTrade(int playerIndex, boolean willAccept) {
-		
+	public void acceptTrade(int playerIndex, boolean willAccept) 
+	{
+		AcceptTradeParams accepttrade = new AcceptTradeParams();
+		accepttrade.setPlayerIndex(playerIndex);
+		accepttrade.setWillAccept(willAccept);
+		String input = g.toJson(accepttrade);
+		clientComm.send("moves/acceptTrade",input);
 	}
 	
 	/**
@@ -198,8 +236,13 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, discardedCards not null
 	 * @post Server receives information
 	 */
-	public void discardCards(int playerIndex, ResourceList discardedCards) {
-		
+	public void discardCards(int playerIndex, ResourceList discardedCards) 
+	{
+		DiscardCardsParams discardcards = new DiscardCardsParams();
+		discardcards.setDiscardedCards(discardedCards);
+		discardcards.setPlayerIndex(playerIndex);
+		String input = g.toJson(discardcards);
+		clientComm.send("moves/discardCards",input);
 	}
 	
 	/**
@@ -207,8 +250,10 @@ public class ServerProxy {
 	 * @pre none
 	 * @post Server receives information
 	 */
-	public void getClientModel() {
-		
+	public ClientModel getClientModel(String version) 
+	{
+		//We need talk about this function and it's version number input
+		return g.fromJson(clientComm.send("game/model", version),ClientModel.class);
 	}
 
 }
