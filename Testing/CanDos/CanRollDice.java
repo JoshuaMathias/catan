@@ -1,49 +1,77 @@
 package Testing.CanDos;
 
 import org.junit.*;
+
+import client.model.*;
+
 import java.io.*;
+import java.util.ArrayList;
+
 import static org.junit.Assert.* ;
 
 public class CanRollDice {
 
+	private ClientModel clientModel;
+	private TurnTracker turnTracker;
+	private Player Ife;
+	private Player Josh;
+	private Player Daniel;
+	private Player Paul;
 	
-	
-}
+	@Before 
+	public void setUp() {
+		
+		clientModel = new ClientModel();
+		turnTracker = new TurnTracker();
+		Ife = new Player();
+		Josh = new Player();
+		Daniel = new Player();
+		Paul= new Player();
+		
+		ArrayList<Player> playerList = new ArrayList<>();
 
-/*import org.junit.* ;
-import static org.junit.Assert.* ;
-
-import java.io.*;
-
-
-public class DictionaryTest {
-
-	private Dictionary dict;
-
-	@Before
-	public void setUp() throws IOException {
-		dict = new Dictionary("dict.txt");
+		Ife.setPlayerID(0);
+		Josh.setPlayerID(1);
+		Daniel.setPlayerID(2);
+		Paul.setPlayerID(3);
+		
+		playerList.add(Ife);
+		playerList.add(Josh);
+		playerList.add(Daniel);
+		playerList.add(Paul);
+		
+		clientModel.setPlayers(playerList);
+		clientModel.setTurnTracker(turnTracker);
 	}
-
+	
 	@After
 	public void tearDown() {
+		clientModel = null;
 		return;
 	}
-
+	
 	@Test
-	public void testValidWords() {
-		assertTrue(dict.isValidWord("computer"));
-		assertTrue(dict.isValidWord("programming"));
-		assertTrue(dict.isValidWord("is"));
-		assertTrue(dict.isValidWord("fun"));
-	}
-
-	@Test
-	public void testInvalidWords() {
-		assertFalse(dict.isValidWord(""));
-		assertFalse(dict.isValidWord("google"));
-		assertFalse(dict.isValidWord("gonculator"));
-		assertFalse(dict.isValidWord("webmaster"));
+	public void ifeRoll() {
+		
+		turnTracker.setCurrentTurn(0);
+		turnTracker.setStatus("Rolling");
+		
+		assertTrue(clientModel.canRollDice(0));
+		assertFalse(clientModel.canRollDice(1));
+		assertFalse(clientModel.canRollDice(2));
+		assertFalse(clientModel.canRollDice(3));
 	}
 	
-}*/
+	@Test
+	public void notRollStatus() {
+		
+		turnTracker.setCurrentTurn(0);
+		turnTracker.setStatus("Playing");
+		
+		assertFalse(clientModel.canRollDice(0));
+		assertFalse(clientModel.canRollDice(1));
+		assertFalse(clientModel.canRollDice(2));
+		assertFalse(clientModel.canRollDice(3));
+	}
+	
+}
