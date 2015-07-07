@@ -1,5 +1,7 @@
 package client.model;
 
+import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 
 /**
@@ -9,15 +11,15 @@ import shared.locations.HexLocation;
  */
 public class Port {
 
-	private String resource;
+	private ResourceType resource;
 	private HexLocation location;
-	private String direction;
+	private EdgeDirection direction;
 	private int ratio;
 
-	public String getResource() {
+	public ResourceType getResource() {
 		return resource;
 	}
-	public void setResource(String resource) {
+	public void setResource(ResourceType resource) {
 		this.resource = resource;
 	}
 	public HexLocation getLocation() {
@@ -26,10 +28,10 @@ public class Port {
 	public void setLocation(HexLocation location) {
 		this.location = location;
 	}
-	public String getDirection() {
+	public EdgeDirection getDirection() {
 		return direction;
 	}
-	public void setDirection(String direction) {
+	public void setDirection(EdgeDirection direction) {
 		this.direction = direction;
 	}
 	public int getRatio() {

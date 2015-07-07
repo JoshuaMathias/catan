@@ -158,24 +158,69 @@ public class ClientModel {
 	 */
 	public boolean canBankTrade(int playerIndex, ResourceType offer, ResourceType request) {
 		
-		boolean test = false;
+		boolean can = false;
 		players.get(playerIndex).getResources();
+		int whoseTurn = turnTracker.getCurrentTurn();
+		String status = turnTracker.getStatus();
+		boolean twoToOne = false;
+		boolean threeToOne = false;
 		
-		if(offer == ResourceType.WOOD) { 
+		if(whoseTurn == playerIndex && status.equals("Playing")){
+			ArrayList<VertexObject> playerSettlementsCities = map.getPlayerSettlementsCities(playerIndex);
+			for(VertexObject settlementCity: playerSettlementsCities){
+				int portRatio = map.matchSettlementToPortRatio(settlementCity.getLocation(), offer);
+				if(portRatio == 2){
+					twoToOne = true;
+					break;
+				}
+				else if(portRatio == 3){
+					threeToOne = true;
+				}
+			}
 			
+			int ratio = 4;
+			if(twoToOne){
+				ratio = 2;
+			}
+			else if(threeToOne){
+				ratio = 3;
+			}
 			
+			ResourceList playerResources = players.get(playerIndex).getResources();
+			switch(offer){
+				case BRICK:
+					if(playerResources.getBrick() < ratio || bank.getBrick() < 1){
+						return false;
+					}
+					break;
+				case ORE:
+					if(playerResources.getOre() < ratio || bank.getOre() < 1){
+						return false;
+					}
+					break;
+				case SHEEP:
+					if(playerResources.getSheep() < ratio || bank.getSheep() < 1){
+						return false;
+					}
+					break;
+				case WHEAT:
+					if(playerResources.getWheat() < ratio || bank.getWheat() < 1){
+						return false;
+					}
+					break;
+				case WOOD:
+					if(playerResources.getWood() < ratio || bank.getWood() < 1){
+						return false;
+					}
+					break;
+				default: //should never get here Throw Exception
+					break;
+			}
 			
-		} else if(offer == ResourceType.BRICK) {
-			
-		} else if(offer == ResourceType.SHEEP) {
-			
-		} else if(offer == ResourceType.WHEAT) {
-			
-		} else if(offer == ResourceType.ORE) {
-			
+			can = true;
 		}
 		
-		return false;
+		return can;
 		
 	}
 	
@@ -493,12 +538,12 @@ public class ClientModel {
 				return false;
 			}
 			
-			boolean buildingTest = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.NorthEast));
-			boolean buildingTest2 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.NorthWest));
-			boolean buildingTest3 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.SouthEast));
-			boolean buildingTest4 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.SouthWest));
-			boolean buildingTest5 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.East));
-			boolean buildingTest6 = map.isSpotTaken(new VertexLocation(robberLocation,VertexDirection.West));
+			boolean buildingTest = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.NorthEast), targetPlayer);
+			boolean buildingTest2 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.NorthWest), targetPlayer);
+			boolean buildingTest3 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.SouthEast), targetPlayer);
+			boolean buildingTest4 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.SouthWest), targetPlayer);
+			boolean buildingTest5 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.East), targetPlayer);
+			boolean buildingTest6 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.West), targetPlayer);
 	
 			if(buildingTest == true || buildingTest2 == true || buildingTest3 == true || buildingTest4 == true 
 														|| buildingTest5 == true || buildingTest6 == true) {

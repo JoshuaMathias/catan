@@ -50,7 +50,7 @@ public class Map {
 				HexLocation portLocation = port.getLocation();
 				int portXLocation = portLocation.getX();
 				int portYLocation = portLocation.getY();
-				String portDirection = port.getDirection();
+				EdgeDirection portDirection = port.getDirection();
 				
 				
 				
@@ -479,5 +479,79 @@ public class Map {
 	
 	public HexLocation getRobberLocation() {
 		return robber;
+	}
+	
+	public ArrayList<VertexObject> getPlayerSettlementsCities(int playerIndex){
+		ArrayList<VertexObject> toReturn = new ArrayList<>();
+		
+		for(VertexObject settlement: settlements){
+			if(settlement.getOwner() == playerIndex){
+				toReturn.add(settlement);
+			}
+		}
+		
+		for(VertexObject city: cities){
+			if(city.getOwner() == playerIndex){
+				toReturn.add(city);
+			}
+		}
+		
+		return toReturn;
+	}
+	
+	public int matchSettlementToPortRatio(VertexLocation spot, ResourceType resource){
+		spot = spot.getNormalizedLocation();
+		VertexDirection spotDirection = spot.getDir();
+		HexLocation hexLoc = spot.getHexLoc();
+		
+		EdgeLocation edge1;
+		EdgeLocation edge2;
+		switch(spotDirection){
+		case East:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+			break;
+		case NorthEast:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.North);
+			break;
+		case NorthWest:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.North);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
+			break;
+		case SouthEast:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.South);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+			break;
+		case SouthWest:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.South);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
+			break;
+		case West:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
+			break;
+		default://Might throw exception instead
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+			break;
+		}
+		edge1 = edge1.getNormalizedLocation();
+		edge2 = edge2.getNormalizedLocation();
+		EdgeLocation portEdgeLocation;
+		
+		for(Port port: ports){
+			portEdgeLocation = new EdgeLocation(port.getLocation(), port.getDirection());
+			portEdgeLocation = portEdgeLocation.getNormalizedLocation();
+			if(portEdgeLocation.equals(edge1) || portEdgeLocation.equals(edge2)){
+				if(port.getRatio() == 3){
+					return 3;
+				}
+				else if(port.getResource() == resource){
+					return 2;
+				}
+			}
+		}
+		return -1;
 	}
 }
