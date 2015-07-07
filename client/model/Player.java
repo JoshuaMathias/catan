@@ -112,4 +112,20 @@ public class Player {
 	public void setVictoryPoints(int victoryPoints) {
 		this.victoryPoints = victoryPoints;
 	}
+	
+	public void incrementSettlement(){
+		settlements++;
+	}
+	
+	public void decrementSettlement(){
+		settlements--;
+	}
+	
+	public void incrementCity(){
+		cities++;
+	}
+	
+	public void decrementCity(){
+		cities--;
+	}
 }
