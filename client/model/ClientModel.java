@@ -24,6 +24,86 @@ public class ClientModel {
 	private TurnTracker turnTracker;
 	private int version;
 	private int winner = -1;
+	
+	public DevCardList getDeck() {
+		return deck;
+	}
+
+	public void setDeck(DevCardList deck) {
+		this.deck = deck;
+	}
+
+	public ResourceList getBank() {
+		return bank;
+	}
+
+	public void setBank(ResourceList bank) {
+		this.bank = bank;
+	}
+
+	public MessageList getChat() {
+		return chat;
+	}
+
+	public void setChat(MessageList chat) {
+		this.chat = chat;
+	}
+
+	public MessageList getLog() {
+		return log;
+	}
+
+	public void setLog(MessageList log) {
+		this.log = log;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
+
+	public TradeOffer getTradeOffer() {
+		return tradeOffer;
+	}
+
+	public void setTradeOffer(TradeOffer tradeOffer) {
+		this.tradeOffer = tradeOffer;
+	}
+
+	public TurnTracker getTurnTracker() {
+		return turnTracker;
+	}
+
+	public void setTurnTracker(TurnTracker turnTracker) {
+		this.turnTracker = turnTracker;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public int getWinner() {
+		return winner;
+	}
+
+	public void setWinner(int winner) {
+		this.winner = winner;
+	}
 
 	/**
 	 * checks newClientModel version against current client model version and updates if versions differ
@@ -123,7 +203,7 @@ public class ClientModel {
 		return playerIndex;
 	}
 	
-	//CanDo Methods Below********************************************************************************
+//CanDo Methods Below********************************************************************************
 	
 	/**
 	 * 
