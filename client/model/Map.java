@@ -622,4 +622,72 @@ public class Map {
 		}
 		return -1;
 	}
+	
+	public boolean isMyBuildingHere(int playerIndex, VertexLocation spot1, VertexLocation spot2){
+		
+		for(VertexObject settlement: settlements){
+			VertexLocation settlementSpot = settlement.getLocation();
+			if(settlement.getOwner() == playerIndex && (spot1.equals(settlementSpot) || spot2.equals(settlementSpot))){
+				return true;
+			}
+		}
+		
+		for(VertexObject city: cities){
+			VertexLocation citySpot = city.getLocation();
+			if(city.getOwner() == playerIndex && (spot1.equals(citySpot) || spot2.equals(citySpot))){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean isTouchingRobber(int playerIndex){
+		int x = robber.getX();
+		int y = robber.getY();
+		
+		HexLocation hexLoc = new HexLocation(x,y-1);
+		VertexLocation spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+		VertexLocation spot2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
+		if(isMyBuildingHere(playerIndex, spot1, spot2)){
+			return true;
+		}
+		
+		hexLoc = new HexLocation(x+1, y-1);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.West);
+		if(isMyBuildingHere(playerIndex, spot1, spot2)){
+			return true;
+		}
+		
+		hexLoc = new HexLocation(x+1, y);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.West);
+		if(isMyBuildingHere(playerIndex, spot1, spot2)){
+			return true;
+		}
+		
+		hexLoc = new HexLocation(x, y+1);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+		if(isMyBuildingHere(playerIndex, spot1, spot2)){
+			return true;
+		}
+		
+		hexLoc = new HexLocation(x-1, y+1);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+		if(isMyBuildingHere(playerIndex, spot1, spot2)){
+			return true;
+		}
+		
+		hexLoc = new HexLocation(x-1, y);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+		if(isMyBuildingHere(playerIndex, spot1, spot2)){
+			return true;
+		}
+		
+		return false;
+	}
 }

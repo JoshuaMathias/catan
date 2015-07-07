@@ -618,17 +618,8 @@ public class ClientModel {
 				return false;
 			}
 			
-			boolean buildingTest = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.NorthEast), targetPlayer);
-			boolean buildingTest2 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.NorthWest), targetPlayer);
-			boolean buildingTest3 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.SouthEast), targetPlayer);
-			boolean buildingTest4 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.SouthWest), targetPlayer);
-			boolean buildingTest5 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.East), targetPlayer);
-			boolean buildingTest6 = map.isSpotMySettlement(new VertexLocation(robberLocation,VertexDirection.West), targetPlayer);
+			canSteal = map.isTouchingRobber(targetPlayer);
 	
-			if(buildingTest == true || buildingTest2 == true || buildingTest3 == true || buildingTest4 == true 
-														|| buildingTest5 == true || buildingTest6 == true) {
-				return true;
-			}
 		}
 		return canSteal;
 	}
