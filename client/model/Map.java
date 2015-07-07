@@ -80,6 +80,9 @@ public class Map {
 	}
 	
 	public void addSettlement(VertexObject settlement){
+		if (settlements == null){
+			settlements = new ArrayList<VertexObject>();
+		}
 		settlements.add(settlement);
 	}
 	
@@ -88,6 +91,9 @@ public class Map {
 	}
 	
 	public void addCity(VertexObject city){
+		if (cities == null){
+			cities = new ArrayList<VertexObject>();
+		}
 		cities.add(city);
 	}
 
