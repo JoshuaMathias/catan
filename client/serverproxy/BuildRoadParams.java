@@ -1,10 +1,6 @@
 package client.serverproxy;
-/**
- * Class for sending data for a build road request.
- * @author Ife's Group
- *
- */
-import client.model.EdgeLocation;
+
+import shared.locations.EdgeLocation;
 
 public class BuildRoadParams {
 	private String type="buildRoad";

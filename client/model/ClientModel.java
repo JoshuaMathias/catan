@@ -318,7 +318,7 @@ public class ClientModel {
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
 		
-		boolean can = true;
+		boolean can = false;
 		
 		if (playerIndex == whoseTurn && status.equals("Playing")){
 			ResourceList playersResources = players.get(playerIndex).getResources();
@@ -328,6 +328,10 @@ public class ClientModel {
 			
 			VertexLocation settlementSpot = settlement.getLocation();
 			
+			if(players.get(playerIndex).getSettlements() >= 5) {
+				return false;
+			}
+			
 			if (map.isSpotTaken(settlementSpot)){
 				return false;
 			}
@@ -336,9 +340,7 @@ public class ClientModel {
 				return false;
 			}
 			
-			if (map.hasNeighboringOwnRoad(settlement)){
-				
-			}
+			can = map.hasNeighboringOwnRoad(settlement);
 		}
 		
 		
@@ -358,7 +360,7 @@ public class ClientModel {
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
 		
-		boolean can = true;
+		boolean can = false;
 		
 		if (playerIndex == whoseTurn && status.equals("Playing")){
 			ResourceList playersResources = players.get(playerIndex).getResources();
@@ -366,7 +368,7 @@ public class ClientModel {
 				return false;
 			}
 			
-			if(players.get(playerIndex).getCities() < 1) {
+			if(players.get(playerIndex).getSettlements() < 1) {
 				return false;
 			}
 			
@@ -384,10 +386,34 @@ public class ClientModel {
 	 * @pre none
 	 * @post Must be a players turn, player must have required resources to build road, road must be appropriately placed on map, player must have a road left to build- return true. Otherwise false.
 	 */
-	public boolean canBuildRoad() {
+	public boolean canBuildRoad(Road road) {
 	
-		boolean test = false;
-		return test;
+		int playerIndex = road.getOwner();
+		int whoseTurn = turnTracker.getCurrentTurn();
+		String status = turnTracker.getStatus();
+	
+		boolean can = false;
+		
+		if(playerIndex == whoseTurn && status.equals("Playing")){
+			Player player = players.get(playerIndex);
+			ResourceList playerResources = player.getResources();
+			if(playerResources.getBrick() < 1 || playerResources.getWood() < 1){
+				return false;
+			}
+			
+			if(player.getRoads() >= 15){
+				return false;
+			}
+			
+			if(map.isRoadHere(road.getLocation())){
+				return false;
+			}
+			
+			can = map.hasNeighboringOwnRoad(road);
+			
+		}
+		
+		return can;
 	}
 
 	/**
@@ -404,9 +430,15 @@ public class ClientModel {
 		
 		boolean can = true;
 		
-		if (playerIndex == whoseTurn && status.equals("Playing")) {
+		Player player = players.get(playerIndex);
+		
+		if (playerIndex == whoseTurn && status.equals("Playing") && player.isPlayedDevCard() == false) {
 			
-			DevCardList playersDevCardList = players.get(playerIndex).getNewDevCards();
+			DevCardList playersDevCardList = players.get(playerIndex).getOldDevCards();
+			
+			if(playersDevCardList.size() < 1) {
+				return false;
+			}
 			can = playersDevCardList.canPlayDevCard(cardType);
 			
 		} else {
@@ -422,12 +454,16 @@ public class ClientModel {
 	 * @pre none
 	 * @post Must be players turn, player rolls a seven, must be appropriately placed- return true. Otherwise return false.
 	 */
-	public boolean canPlaceRobber(int playerIndex, int diceRoll) {
+	public boolean canPlaceRobber(int playerIndex, int diceRoll, HexLocation hexLoc) {
 	
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
 		
-		if(diceRoll == 7 && whoseTurn == playerIndex && status == "playing") {
+		if(diceRoll == 7 && whoseTurn == playerIndex && status == "Playing") {
+			
+			if(hexLoc.equals(map.getRobberLocation())) {
+				return false;
+			}
 			return true;
 		} else {
 			return false;

@@ -3,6 +3,8 @@ package client.model;
 import java.util.ArrayList;
 
 import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -213,19 +215,262 @@ public class Map {
 		return false;
 	}
 	
-	public boolean isRoadHere(Road road){
-		return false;
+	private boolean haveRoadHere(Road road){
 		
+		for(Road roadCheck: roads){
+			if(roadCheck.equals(road)){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public boolean hasNeighboringOwnRoad(VertexObject settlement){
-		return false;
+		int playerIndex = settlement.getOwner();
+		VertexLocation settlementSpot = settlement.getLocation();
+		settlementSpot = settlementSpot.getNormalizedLocation();
+		HexLocation hexLoc = settlementSpot.getHexLoc();
+		VertexDirection direction = settlementSpot.getDir();
 		
+		int x = hexLoc.getX();
+		int y = hexLoc.getY();
+		
+		HexLocation hexLoc1;
+		EdgeLocation edge1;
+		HexLocation hexLoc2;
+		EdgeLocation edge2;
+		HexLocation hexLoc3;
+		EdgeLocation edge3;
+		switch(direction){
+		case East:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthEast);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthEast);
+			
+			hexLoc3 = new HexLocation(x,y-1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			break;
+		case NorthEast:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NorthEast);
+			
+			hexLoc3 = new HexLocation(x,y-1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SouthEast);
+			break;
+		case NorthWest:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NorthWest);
+			
+			hexLoc3 = new HexLocation(x,y-1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SouthWest);
+			break;
+		case SouthEast:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.South);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthEast);
+			
+			hexLoc3 = new HexLocation(x,y+1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
+			break;
+		case SouthWest:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.SouthWest);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.South);
+			
+			hexLoc3 = new HexLocation(x,y+1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthWest);
+			break;
+		case West:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthWest);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthWest);
+			
+			hexLoc3 = new HexLocation(x-1,y);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			break;
+		default: //Should never get here Throw Exception Maybe
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthEast);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthEast);
+			
+			hexLoc3 = new HexLocation(x,y-1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			break;
+		
+		}
+		edge1 = edge1.getNormalizedLocation();
+		edge2 = edge2.getNormalizedLocation();
+		edge3 = edge3.getNormalizedLocation();
+		Road road1 = new Road(playerIndex, edge1);
+		Road road2 = new Road(playerIndex, edge2);
+		Road road3 = new Road(playerIndex, edge3);
+		
+		if(haveRoadHere(road1) || haveRoadHere(road2) || haveRoadHere(road3)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public boolean hasNeighboringOwnRoad(Road road){
-		return false;
 		
+		int playerIndex = road.getOwner();
+		EdgeLocation edgeSpot = road.getLocation();
+		edgeSpot = edgeSpot.getNormalizedLocation();
+		HexLocation hexLoc = edgeSpot.getHexLoc();
+		EdgeDirection direction = edgeSpot.getDir();
+		
+		int x = hexLoc.getX();
+		int y = hexLoc.getY();
+		
+		HexLocation hexLoc1;
+		EdgeLocation edge1;
+		HexLocation hexLoc2;
+		EdgeLocation edge2;
+		HexLocation hexLoc3;
+		EdgeLocation edge3;
+		HexLocation hexLoc4;
+		EdgeLocation edge4;
+		
+		switch(direction) {
+		case North:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthEast);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NorthWest);
+			
+			hexLoc3 = new HexLocation(x,y-1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SouthWest);
+			
+			hexLoc4 = new HexLocation(x,y-1);
+			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.SouthEast);	
+			break;
+		case NorthEast:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthEast);
+			
+			hexLoc3 = new HexLocation(x+1,y-1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthWest);
+			
+			hexLoc4 = new HexLocation(x+1,y-1);
+			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			break;
+		case NorthWest:	
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthWest);
+			
+			hexLoc3 = new HexLocation(x-1,y);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
+			
+			hexLoc4 = new HexLocation(x-1,y);
+			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			break;
+		case SouthEast:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthEast);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.South);
+			
+			hexLoc3 = new HexLocation(x+1,y);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.North);
+			
+			hexLoc4 = new HexLocation(x+1,y);
+			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.SouthWest);
+			break;
+		case SouthWest:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.South);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NorthWest);
+			
+			hexLoc3 = new HexLocation(x-1,y+1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.North);
+			
+			hexLoc4 = new HexLocation(x-1,y+1);
+			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.SouthEast);
+			break;
+		case South:
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.SouthEast);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthWest);
+			
+			hexLoc3 = new HexLocation(x,y+1);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
+			
+			hexLoc4 = new HexLocation(x,y+1);
+			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.NorthWest);
+			break;
+		default://May change this to an exception later
+			hexLoc1 = new HexLocation(x,y);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			
+			hexLoc2 = new HexLocation(x,y);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthWest);
+			
+			hexLoc3 = new HexLocation(x-1,y);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
+			
+			hexLoc4 = new HexLocation(x-1,y);
+			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			break;
+		}
+		edge1 = edge1.getNormalizedLocation();
+		edge2 = edge2.getNormalizedLocation();
+		edge3 = edge3.getNormalizedLocation();
+		edge4 = edge4.getNormalizedLocation();
+		
+		Road road1 = new Road(playerIndex, edge1);
+		Road road2 = new Road(playerIndex, edge2);
+		Road road3 = new Road(playerIndex, edge3);
+		Road road4 = new Road(playerIndex, edge4);
+		
+		if(haveRoadHere(road1) || haveRoadHere(road2) || haveRoadHere(road3) || haveRoadHere(road4)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean isRoadHere(EdgeLocation edge){
+		edge = edge.getNormalizedLocation();
+		EdgeLocation edgeCompare;
+		for(Road road : roads){
+			edgeCompare = road.getLocation();
+			edgeCompare = edgeCompare.getNormalizedLocation(); //Might be Unnecessary
+			if(edgeCompare.equals(edge)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void setRobberHexLocation(HexLocation newRobber) {

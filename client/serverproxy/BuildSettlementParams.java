@@ -1,6 +1,6 @@
 package client.serverproxy;
 
-import client.model.EdgeLocation;
+import shared.locations.VertexLocation;
 
 /**
  * Class for sending data for a build settlement or build city request.
@@ -10,7 +10,7 @@ import client.model.EdgeLocation;
 public class BuildSettlementParams {
 	private String type="buildSettlement";
 	private int playerIndex = -1;
-	private EdgeLocation vertexLocation;
+	private VertexLocation vertexLocation;
 	private boolean free = false;
 	
 	public String getType() {
@@ -25,10 +25,10 @@ public class BuildSettlementParams {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
-	public EdgeLocation getVertexLocation() {
+	public VertexLocation getVertexLocation() {
 		return vertexLocation;
 	}
-	public void setVertexLocation(EdgeLocation vertexLocation) {
+	public void setVertexLocation(VertexLocation vertexLocation) {
 		this.vertexLocation = vertexLocation;
 	}
 	public boolean isFree() {

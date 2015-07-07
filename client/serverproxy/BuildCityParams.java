@@ -1,11 +1,11 @@
 package client.serverproxy;
 
-import client.model.EdgeLocation;
+import shared.locations.VertexLocation;
 
 public class BuildCityParams {
 	private String type="buildCity";
 	private int playerIndex=-1;
-	private EdgeLocation vertexLocation;
+	private VertexLocation vertexLocation;
 	
 	public String getType() {
 		return type;
@@ -19,10 +19,10 @@ public class BuildCityParams {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
-	public EdgeLocation getVertexLocation() {
+	public VertexLocation getVertexLocation() {
 		return vertexLocation;
 	}
-	public void setVertexLocation(EdgeLocation vertexLocation) {
+	public void setVertexLocation(VertexLocation vertexLocation) {
 		this.vertexLocation = vertexLocation;
 	}
 

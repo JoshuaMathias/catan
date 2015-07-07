@@ -3,8 +3,9 @@ package client.serverproxy;
 import com.google.gson.Gson;
 
 import client.model.ClientModel;
-import client.model.EdgeLocation;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import client.model.ResourceList;
 import client.poller.ClientPoller;
 
@@ -168,7 +169,7 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post Server receives information
 	 */
-	public void buildSettlement(int playerIndex, EdgeLocation vertexLocation, boolean free)
+	public void buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free)
 	{
 		BuildSettlementParams buildsettlement = new BuildSettlementParams ();
 		buildsettlement.setPlayerIndex(playerIndex);
@@ -186,7 +187,7 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post Server receives information
 	 */
-	public void buildCity(int playerIndex, EdgeLocation vertexLocation) 
+	public void buildCity(int playerIndex, VertexLocation vertexLocation) 
 	{
 		BuildCityParams buildcity = new BuildCityParams();
 		buildcity.setPlayerIndex(playerIndex);

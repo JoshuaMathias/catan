@@ -12,6 +12,7 @@ public class Player {
 	private int momuments;
 	private String name;
 	private DevCardList newDevCards;
+	private DevCardList oldDevCards;
 	private int playerIndex;
 	private boolean playedDevCard;
 	private int playerID;
@@ -56,6 +57,12 @@ public class Player {
 	}
 	public void setNewDevCards(DevCardList newDevCards) {
 		this.newDevCards = newDevCards;
+	}
+	public DevCardList getOldDevCards() {
+		return oldDevCards;
+	}
+	public void setOldDevCards(DevCardList oldDevCards) {
+		this.oldDevCards = oldDevCards;
 	}
 	public int getPlayerIndex() {
 		return playerIndex;
