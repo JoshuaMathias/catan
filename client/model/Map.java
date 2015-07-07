@@ -78,6 +78,18 @@ public class Map {
 	public void setRobber(HexLocation robber) {
 		this.robber = robber;
 	}
+	
+	public void addSettlement(VertexObject settlement){
+		settlements.add(settlement);
+	}
+	
+	public void removeSettlement(VertexObject settlement){
+		//Implement This!!!!!!!!!!!!!!!!!!!!!!
+	}
+	
+	public void addCity(VertexObject city){
+		cities.add(city);
+	}
 
 	public void checkTradeRatio(int playerIndex, String resource) {
 		
