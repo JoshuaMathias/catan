@@ -652,9 +652,20 @@ public class Map {
 		int x = robber.getX();
 		int y = robber.getY();
 		
-		HexLocation hexLoc = new HexLocation(x,y-1);
+		HexLocation hexLoc = new HexLocation(x,y);
 		VertexLocation spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
 		VertexLocation spot2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
+		VertexLocation spot3 = new VertexLocation(hexLoc, VertexDirection.East);
+		VertexLocation spot4 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+		VertexLocation spot5 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+		VertexLocation spot6 = new VertexLocation(hexLoc, VertexDirection.West);
+		if(isMyBuildingHere(playerIndex, spot1, spot2) || isMyBuildingHere(playerIndex, spot3, spot4) || isMyBuildingHere(playerIndex, spot5, spot6)){
+			return true;
+		}
+		
+		hexLoc = new HexLocation(x,y-1);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
 		if(isMyBuildingHere(playerIndex, spot1, spot2)){
 			return true;
 		}
