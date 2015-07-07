@@ -607,7 +607,7 @@ public class ClientModel {
 	
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
-		HexLocation robberLocation = map.getRobberLocation();
+		
 		boolean canSteal = false;
 		
 		if(diceRoll == 7 && whoseTurn == playerIndex && status.equals("Robbing")) {

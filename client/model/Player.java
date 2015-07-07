@@ -6,21 +6,21 @@ package client.model;
  */
 public class Player {
 
-	private int cities;
+	private int cities = 0;
 	private String color;
-	private boolean discarded;
-	private int momuments;
+	private boolean discarded = false;
+	private int momuments = 0;
 	private String name;
-	private DevCardList newDevCards;
-	private DevCardList oldDevCards;
+	private DevCardList newDevCards = new DevCardList(false);
+	private DevCardList oldDevCards = new DevCardList(false);
 	private int playerIndex;
-	private boolean playedDevCard;
+	private boolean playedDevCard = false;
 	private int playerID;
-	private ResourceList resources;
-	private int roads;
-	private int settlements;
-	private int soldiers;
-	private int victoryPoints;
+	private ResourceList resources = new ResourceList(0,0,0,0,0);
+	private int roads = 0;
+	private int settlements = 0;
+	private int soldiers = 0;
+	private int victoryPoints = 0;
 	
 	public int getCities() {
 		return cities;
