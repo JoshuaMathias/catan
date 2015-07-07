@@ -8,6 +8,9 @@ public class EdgeLocation
 	
 	private HexLocation hexLoc;
 	private EdgeDirection dir;
+	//private String direction;
+	//private int x;
+	//private int y;
 	
 	public EdgeLocation(HexLocation hexLoc, EdgeDirection dir)
 	{
