@@ -1,6 +1,11 @@
 package client.poller;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import client.facade.Facade;
 import client.model.ClientModel;
+import client.serverproxy.ServerProxy;
 
 /**
  * This class is for regularly updating the ClientModel of the game.
@@ -10,7 +15,27 @@ import client.model.ClientModel;
 public class ServerPoller {
 
 	private int modelVersion;
+	private ServerProxy proxy;
+	private int interval;
+	private Timer timer;
+	private Facade facade;
 	
+	public ServerPoller(ServerProxy proxy, Facade facade) {
+		this.proxy=proxy;
+		this.facade=facade;
+		interval=3;
+		timer=new Timer();
+		timer.schedule(new updateTask(), 3000, interval*1000);
+	}
+	
+	public class updateTask extends TimerTask {
+
+		@Override
+		public void run() {
+			updateClientModel();
+		}
+		
+	}
 	/**
 	 * Returns the ClientModel.
 	 * @return ClientModel
@@ -18,7 +43,7 @@ public class ServerPoller {
 	 * @post The client model is returned.
 	 */
 	public ClientModel getClientModel() {
-		return null;
+		return proxy.getClientModel("1");
 	}
 	
 	/**
@@ -27,6 +52,7 @@ public class ServerPoller {
 	 * @post The client model is updated.
 	 */
 	public void updateClientModel() {
-		
+		ClientModel model=getClientModel();
+		facade.setModel(model);
 	}
 }
