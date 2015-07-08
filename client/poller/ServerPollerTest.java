@@ -2,6 +2,7 @@ package client.poller;
 import static org.junit.Assert.*;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,6 +27,15 @@ public class ServerPollerTest {
 		Timer timer=new Timer();
 //		timer.schedule(task, delay)
 //		timer.schedule(new testPollerTask(), 0, interval*1000);
+	}
+	
+	public class updateTask extends TimerTask {
+
+		@Override
+		public void run() {
+//			updateClientModel();
+		}
+		
 	}
 	
 	@After

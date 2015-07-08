@@ -201,7 +201,7 @@ public class Facade {
      * 
      * Otherwise return false
      */
-    public boolean canBankTrade(int playerIndex, ResourceType offer, ResourceType request) {
+    public boolean canBankTrade(int playerIndex, PortType offer, PortType request) {
         return model.canBankTrade(playerIndex, offer, request);
     }
     
