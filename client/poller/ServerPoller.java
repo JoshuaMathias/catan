@@ -23,9 +23,9 @@ public class ServerPoller {
 	public ServerPoller(ServerProxy proxy, Facade facade) {
 		this.proxy=proxy;
 		this.facade=facade;
-		interval=3;
+		interval=1;
 		timer=new Timer();
-		timer.schedule(new updateTask(), 3000, interval*1000);
+		timer.schedule(new updateTask(), 0, interval*1000);
 	}
 	
 	public class updateTask extends TimerTask {
