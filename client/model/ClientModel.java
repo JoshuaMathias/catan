@@ -443,7 +443,6 @@ public class ClientModel {
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
 		
-		boolean can = false;
 		
 		if (playerIndex == whoseTurn && status.equals("Playing")){
 			ResourceList playersResources = players.get(playerIndex).getResources();
@@ -472,13 +471,15 @@ public class ClientModel {
 			if (map.isSpotTaken(settlementSpot)){
 				return false;
 			}
+			else if (map.isSpotNeighbored(settlementSpot)){
+				return false;
+			}
 			else{
 				return true;
 			}
 		}
 		
-		
-		return can;
+		return false;
 	}
 	
 	/**
