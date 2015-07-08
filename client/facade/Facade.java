@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import shared.locations.*;
 import client.model.*;
 import client.poller.ServerPoller;
+import client.serverproxy.CreateGamesParams;
+import client.serverproxy.JoinGameParams;
+import client.serverproxy.LoginParams;
+import client.serverproxy.RegisterParams;
 import client.serverproxy.ServerProxy;
 import shared.definitions.*;
 
@@ -18,9 +22,9 @@ public class Facade {
 	private ServerProxy proxy;
 	private ServerPoller poller;
 	
-	public Facade() {
+	public Facade(String host) {
 		model=new ClientModel();
-		proxy=new ServerProxy("localhost");
+		proxy=new ServerProxy(host);
 		poller=new ServerPoller(proxy, this);
 	}
 
@@ -483,5 +487,35 @@ public class Facade {
     {
         return proxy.getClientModel(version);
     }
+    
+	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
+	
+	
+	public void register(String username, String password)
+	{
+		proxy.register(username, password);
+	}
+	
+	public void login(String username, String password)
+	{
+		proxy.login(username, password);
+	}
+	
+	public void createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName)
+	{
+		proxy.createGame(randomTiles, randomNumbers, randomPorts, gameName);
+	}
+	
+	public void joinGame(String gameId, String color)
+	{
+		proxy.joinGame(gameId, color);
+	}
+	
+	//We might want to return something here. 
+	//List a list of games object so that a user may know what games are available.
+	public void gamesList()
+	{
+		
+	}
 	
 }

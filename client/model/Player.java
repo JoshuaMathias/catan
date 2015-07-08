@@ -15,12 +15,17 @@ public class Player {
 	private DevCardList oldDevCards = new DevCardList(false);
 	private int playerIndex;
 	private boolean playedDevCard = false;
+	private static int currentID=0;
 	private int playerID;
 	private ResourceList resources = new ResourceList(0,0,0,0,0);
 	private int roads = 0;
 	private int settlements = 0;
 	private int soldiers = 0;
 	private int victoryPoints = 0;
+	
+	public Player() {
+		playerID=currentID++;
+	}
 	
 	public int getCities() {
 		return cities;
