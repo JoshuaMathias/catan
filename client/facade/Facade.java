@@ -479,7 +479,7 @@ public class Facade {
      * @pre none
      * @post Server receives information
      */
-    public ClientModel getClientModel(String version) 
+    public ClientModel getClientModel(int version) 
     {
         return proxy.getClientModel(version);
     }

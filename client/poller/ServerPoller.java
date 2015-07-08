@@ -43,7 +43,7 @@ public class ServerPoller {
 	 * @post The client model is returned.
 	 */
 	public ClientModel getClientModel() {
-		return proxy.getClientModel("1");
+		return proxy.getClientModel(modelVersion);
 	}
 	
 	/**
@@ -52,7 +52,8 @@ public class ServerPoller {
 	 * @post The client model is updated.
 	 */
 	public void updateClientModel() {
-		ClientModel model=getClientModel();
+		modelVersion=facade.getVersion();
+		ClientModel model=facade.getClientModel(modelVersion);
 		facade.updateClientModel(model);
 	}
 }
