@@ -649,4 +649,81 @@ public class ClientModel {
 			return false;
 		}
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bank == null) ? 0 : bank.hashCode());
+		result = prime * result + ((chat == null) ? 0 : chat.hashCode());
+		result = prime * result + ((deck == null) ? 0 : deck.hashCode());
+		result = prime * result + ((log == null) ? 0 : log.hashCode());
+		result = prime * result + ((map == null) ? 0 : map.hashCode());
+		result = prime * result + ((players == null) ? 0 : players.hashCode());
+		result = prime * result
+				+ ((tradeOffer == null) ? 0 : tradeOffer.hashCode());
+		result = prime * result
+				+ ((turnTracker == null) ? 0 : turnTracker.hashCode());
+		result = prime * result + version;
+		result = prime * result + winner;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClientModel other = (ClientModel) obj;
+		if (bank == null) {
+			if (other.bank != null)
+				return false;
+		} else if (!bank.equals(other.bank))
+			return false;
+		if (chat == null) {
+			if (other.chat != null)
+				return false;
+		} else if (!chat.equals(other.chat))
+			return false;
+		if (deck == null) {
+			if (other.deck != null)
+				return false;
+		} else if (!deck.equals(other.deck))
+			return false;
+		if (log == null) {
+			if (other.log != null)
+				return false;
+		} else if (!log.equals(other.log))
+			return false;
+		if (map == null) {
+			if (other.map != null)
+				return false;
+		} else if (!map.equals(other.map))
+			return false;
+		if (players == null) {
+			if (other.players != null)
+				return false;
+		} else if (!players.equals(other.players))
+			return false;
+		if (tradeOffer == null) {
+			if (other.tradeOffer != null)
+				return false;
+		} else if (!tradeOffer.equals(other.tradeOffer))
+			return false;
+		if (turnTracker == null) {
+			if (other.turnTracker != null)
+				return false;
+		} else if (!turnTracker.equals(other.turnTracker))
+			return false;
+		if (version != other.version)
+			return false;
+		if (winner != other.winner)
+			return false;
+		return true;
+	}
+	
+	
 }
