@@ -74,18 +74,18 @@ public class ClientCommunicator
 	    	
 	    	System.out.println("");
 	    	result = response.toString();
-	    	System.out.println(response.toString()+ "for "+ext+" Response code: "+ connection.getResponseCode()); 
+	    	System.out.println(/*response.toString()+ */"for "+ext+" Response code: "+ connection.getResponseCode()); 
 	    	if(ext.equals("user/login")||ext.equals("user/register"))
 	    	{
 		    	String usercookie = connection.getHeaderField("Set-Cookie");
 		    	cookies = (String)usercookie.subSequence(0,usercookie.length()-8);
-		    	System.out.println(cookies);
+		    	//System.out.println(cookies);
 	    	}
 	    	else if(ext.equals("games/join"))
 	    	{
 	    		String gamecookie = connection.getHeaderField("Set-Cookie");
 		    	cookies =cookies+";"+" "+ (String)gamecookie.subSequence(0, gamecookie.length()-8);
-		    	System.out.println(cookies);
+		    	//System.out.println(cookies);
 	    	}
 	    	
 		}
