@@ -635,7 +635,7 @@ public class Map {
 		for(Port port: ports){
 			portEdgeLocation = new EdgeLocation(port.getLocation(), port.getDirection());
 			portEdgeLocation = portEdgeLocation.getNormalizedLocation();
-			if(portEdgeLocation.equals(edge1) || portEdgeLocation.equals(edge2) || portEdgeLocation.equals(edge2)){
+			if(portEdgeLocation.equals(edge1) || portEdgeLocation.equals(edge2) || portEdgeLocation.equals(edge3)){
 				if(port.getRatio() == 3){
 					return 3;
 				}
