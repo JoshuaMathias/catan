@@ -64,10 +64,15 @@ public class MustDiscardHalfCards {
 	@Test
 	public void ifeDiscards() {
 		
+		turnTracker.setStatus("Discarding");
+		
 		assertTrue(clientModel.mustDiscardHalfCards(7, 0));//Ife has over 7 cards on a roll of 7
 		assertFalse(clientModel.mustDiscardHalfCards(7, 1));//Josh has exactly 7 cards on a roll of 7
 		assertFalse(clientModel.mustDiscardHalfCards(7, 2));//Daniel has less than 7 cards on a roll of 7
 		assertFalse(clientModel.mustDiscardHalfCards(4, 3));//Paul has over 7 cards, on a roll of 4
+		
+		turnTracker.setStatus("Playing");
+		assertFalse(clientModel.mustDiscardHalfCards(7, 0));//Status is not discarding
 	}
 	
 	
