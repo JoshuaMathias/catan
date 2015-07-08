@@ -3,6 +3,7 @@ package client.model;
 import java.util.ArrayList;
 
 import shared.definitions.HexType;
+import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -628,7 +629,7 @@ public class Map {
 		return toReturn;
 	}
 	
-	public int matchSettlementToPortRatio(VertexLocation spot, ResourceType resource){
+	public int matchSettlementToPortRatio(VertexLocation spot, PortType resource){
 		spot = spot.getNormalizedLocation();
 		VertexDirection spotDirection = spot.getDir();
 		HexLocation hexLoc = spot.getHexLoc();

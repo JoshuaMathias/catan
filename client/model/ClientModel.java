@@ -3,6 +3,7 @@ package client.model;
 import java.util.ArrayList;
 
 import shared.definitions.DevCardType;
+import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
@@ -236,7 +237,7 @@ public class ClientModel {
 	 * 
 	 * Otherwise return false
 	 */
-	public boolean canBankTrade(int playerIndex, ResourceType offer, ResourceType request) {
+	public boolean canBankTrade(int playerIndex, PortType offer, PortType request) {
 		
 		boolean can = false;
 		players.get(playerIndex).getResources();
@@ -245,7 +246,7 @@ public class ClientModel {
 		boolean twoToOne = false;
 		boolean threeToOne = false;
 		
-		if(whoseTurn == playerIndex && status.equals("Playing")){
+		if(whoseTurn == playerIndex && status.equals("Playing") && offer != PortType.THREE && request != PortType.THREE){
 			ArrayList<VertexObject> playerSettlementsCities = map.getPlayerSettlementsCities(playerIndex);
 			for(VertexObject settlementCity: playerSettlementsCities){
 				int portRatio = map.matchSettlementToPortRatio(settlementCity.getLocation(), offer);

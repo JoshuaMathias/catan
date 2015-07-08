@@ -1,5 +1,6 @@
 package client.model;
 
+import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
@@ -11,15 +12,15 @@ import shared.locations.HexLocation;
  */
 public class Port {
 
-	private ResourceType resource;
+	private PortType resource;
 	private HexLocation location;
 	private EdgeDirection direction;
 	private int ratio;
 
-	public ResourceType getResource() {
+	public PortType getResource() {
 		return resource;
 	}
-	public void setResource(ResourceType resource) {
+	public void setResource(PortType resource) {
 		this.resource = resource;
 	}
 	public HexLocation getLocation() {
