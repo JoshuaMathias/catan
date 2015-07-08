@@ -17,7 +17,7 @@ import client.poller.ClientPoller;
 public class ServerProxy {
 
 	//This class might have to be a singleton
-	Gson g = new Gson();
+	private Gson g = new Gson();
 	private String hostname = "";
 	private ClientPoller poller; // Pretty sure that the server proxy will not have a poller but the poller will have
 								// A serverproxy singleton 
@@ -251,10 +251,67 @@ public class ServerProxy {
 	 * @pre none
 	 * @post Server receives information
 	 */
-	public ClientModel getClientModel(String version) 
+	public ClientModel getClientModel(int version) 
 	{
-		//We need talk about this function and it's version number input
-		return g.fromJson(clientComm.send("game/model", version),ClientModel.class);
+		ClientModel newclient = null;
+		String JsonClient = clientComm.send("game/model?version="+version, "");
+		if(!JsonClient.equals("\"true\"\r"))
+		{
+			newclient = g.fromJson(JsonClient, ClientModel.class);
+		}
+		return newclient;
+	}
+	
+	
+	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
+	
+	
+	public void register(String username, String password)
+	{
+		RegisterParams register = new RegisterParams(username,password);
+		String input = g.toJson(register);
+		clientComm.send("user/register", input);
+	}
+	
+	public void login(String username, String password)
+	{
+		LoginParams login = new LoginParams(username,password);
+		String input = g.toJson(login);
+		clientComm.send("user/login",input);
+	}
+	
+	public void createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName)
+	{
+		CreateGamesParams creategame = new CreateGamesParams(randomTiles, randomNumbers, randomPorts, gameName);
+		String input = g.toJson(creategame);
+		clientComm.send("games/create", input);
+	}
+	
+	public void joinGame(String gameId, String color)
+	{
+		JoinGameParams joingame = new JoinGameParams(gameId,color);
+		String input = g.toJson(joingame);
+		clientComm.send("games/join", input);
+	}
+	
+	//We might want to return something here. 
+	//List a list of games object so that a user may know what games are available.
+	public void gamesList()
+	{
+		
 	}
 
+	public static void main(String arg[])
+	{
+		String u = "ogeorge";
+		String p = "cookies";
+		
+		ServerProxy server = new ServerProxy("longbow");
+		//server.register(u, p);
+		server.login(u, p);
+		//server.createGame(true,true,true,"test");
+		server.joinGame("3", "red");
+		server.buyDevCard(0);
+		ClientModel yes = server.getClientModel(0);			//Will return null because of version number
+	}
 }
