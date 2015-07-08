@@ -18,7 +18,6 @@ import client.model.TurnTracker;
 public class CanPlayDevCard {
 	
 	private ClientModel clientModel;
-	private DevCardList deck;
 	private TurnTracker turnTracker;
 	private Player Ife;
 	private Player Josh;
@@ -86,7 +85,7 @@ public class CanPlayDevCard {
 		assertFalse(clientModel.canPlayDevCard(0, DevCardType.YEAR_OF_PLENTY));//Ife doesnt have a Year Of Plenty Card but tries to play it
 	
 		Josh.setPlayedDevCard(false);
-		DevCardList joshDevCardList = new DevCardList(1,1,1,1,1);
+		new DevCardList(1,1,1,1,1);
 		assertFalse(clientModel.canPlayDevCard(1, DevCardType.MONUMENT));//Josh fails because it is not his turn
 		
 		turnTracker.setStatus("Robbing");

@@ -11,7 +11,6 @@ import org.junit.Test;
 import shared.definitions.HexType;
 import shared.locations.HexLocation;
 import client.model.ClientModel;
-import client.model.DevCardList;
 import client.model.Hex;
 import client.model.Map;
 import client.model.Player;
@@ -21,7 +20,6 @@ import client.model.TurnTracker;
 public class CanPlaceRobber {
 
 	private ClientModel clientModel;
-	private DevCardList deck;
 	private TurnTracker turnTracker;
 	private Map map;
 	private Player Ife;
