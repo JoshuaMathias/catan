@@ -14,7 +14,6 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-
 import client.facade.Facade;
 import client.model.*;
 
@@ -30,77 +29,80 @@ public class ServerProxyTest {
 	private Player Josh;
 	private Player Daniel;
 	private Player Paul;
-	
-	public void setUp() {
-		facade = new Facade("localhost");
-		facade.createGame(true,true,true,"test");
-		turnTracker = new TurnTracker();
-		
-		String u = "Ife";
-		String p = "testpass";
-		facade.register(u, p);
-		facade.login(u, p);
-		facade.joinGame("3", "red");
-		
-		String u2 = "Josh";
-		String p2 = "testpass";
-		facade2 = new Facade("localhost");
-		facade2.register(u2, p2);
-		facade2.login(u2, p2);
-		facade2.joinGame("3", "green");
-		
-		String u3 = "Daniel";
-		String p3 = "testpass";
-		facade3 = new Facade("localhost");
-		facade3.register(u3, p3);
-		facade3.login(u3, p3);
-		facade3.joinGame("3", "blue");
-		
-		String u4 = "Paul";
-		String p4 = "testpass";
-		facade4 = new Facade("localhost");
-		facade4.register(u4, p4);
-		facade4.login(u4, p4);
-		facade4.joinGame("3", "yellow");
-		
-		Ife = new Player();
-		Josh = new Player();
-		Daniel = new Player();
-		Paul= new Player();
-		
-		ResourceList ifeResources = new ResourceList(1,4,3,2,1);
-		ResourceList joshResources = new ResourceList(0,2,3,0,2);
-		ResourceList danielResources = new ResourceList(0,4,0,1,0);
-		ResourceList paulResources = new ResourceList(5,4,3,1,2);
-		
-		Ife.setResources(ifeResources);
-		Josh.setResources(joshResources);
-		Daniel.setResources(danielResources);
-		Paul.setResources(paulResources);
-		
-		ArrayList<Player> playerList = new ArrayList<>();
+	private boolean needsSetup = true;
 
-		Ife.setPlayerID(0);
-		Josh.setPlayerID(1);
-		Daniel.setPlayerID(2);
-		Paul.setPlayerID(3);
-		
-		playerList.add(Ife);
-		playerList.add(Josh);
-		playerList.add(Daniel);
-		playerList.add(Paul);
-		
-		
-		facade.setPlayers(playerList);
-		facade.setTurnTracker(turnTracker);
+	public void setUp() {
+		if (needsSetup) {
+			facade = new Facade("localhost");
+			facade.createGame(true, true, true, "test");
+			turnTracker = new TurnTracker();
+
+			String u = "Ife";
+			String p = "testpass";
+			facade.register(u, p);
+			facade.login(u, p);
+			facade.joinGame("3", "red");
+
+			String u2 = "Josh";
+			String p2 = "testpass";
+			facade2 = new Facade("localhost");
+			facade2.register(u2, p2);
+			facade2.login(u2, p2);
+			facade2.joinGame("3", "green");
+
+			String u3 = "Daniel";
+			String p3 = "testpass";
+			facade3 = new Facade("localhost");
+			facade3.register(u3, p3);
+			facade3.login(u3, p3);
+			facade3.joinGame("3", "blue");
+
+			String u4 = "Paul";
+			String p4 = "testpass";
+			facade4 = new Facade("localhost");
+			facade4.register(u4, p4);
+			facade4.login(u4, p4);
+			facade4.joinGame("3", "yellow");
+
+			Ife = new Player();
+			Josh = new Player();
+			Daniel = new Player();
+			Paul = new Player();
+
+			ResourceList ifeResources = new ResourceList(1, 4, 3, 2, 1);
+			ResourceList joshResources = new ResourceList(0, 2, 3, 0, 2);
+			ResourceList danielResources = new ResourceList(0, 4, 0, 1, 0);
+			ResourceList paulResources = new ResourceList(5, 4, 3, 1, 2);
+
+			Ife.setResources(ifeResources);
+			Josh.setResources(joshResources);
+			Daniel.setResources(danielResources);
+			Paul.setResources(paulResources);
+
+			ArrayList<Player> playerList = new ArrayList<>();
+
+			Ife.setPlayerID(0);
+			Josh.setPlayerID(1);
+			Daniel.setPlayerID(2);
+			Paul.setPlayerID(3);
+
+			playerList.add(Ife);
+			playerList.add(Josh);
+			playerList.add(Daniel);
+			playerList.add(Paul);
+
+			facade.setPlayers(playerList);
+			facade.setTurnTracker(turnTracker);
+			needsSetup=false;
+		}
 	}
-	
+
 	@Test
 	public void testSendChat() {
 		System.out.println("testSendChat");
 		facade.sendChat(0, "Hello World");
 	}
-	
+
 	@Test
 	public void testRollNumber() {
 		System.out.println("testRollNumber");
@@ -110,9 +112,9 @@ public class ServerProxyTest {
 	@Test
 	public void testRoadBuilding() {
 		System.out.println("testRoadBuilding");
-		HexLocation hexLoc = new HexLocation(0,0);
+		HexLocation hexLoc = new HexLocation(0, 0);
 		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
-		HexLocation hexLoc2 = new HexLocation(0,0);
+		HexLocation hexLoc2 = new HexLocation(0, 0);
 		EdgeLocation loc2 = new EdgeLocation(hexLoc, EdgeDirection.North);
 		facade.roadBuilding(0, loc, loc2);
 	}
@@ -138,7 +140,7 @@ public class ServerProxyTest {
 	@Test
 	public void testSoldier() {
 		System.out.println("testSoldier");
-		HexLocation hexLoc = new HexLocation(0,0);
+		HexLocation hexLoc = new HexLocation(0, 0);
 		facade.soldier(0, 1, hexLoc);
 	}
 
@@ -147,7 +149,7 @@ public class ServerProxyTest {
 		System.out.println("testMonopoly");
 		facade.monopoly("Brick", 0);
 	}
-	
+
 	@Test
 	public void testMonument() {
 		System.out.println("testMonument");
@@ -157,7 +159,7 @@ public class ServerProxyTest {
 	@Test
 	public void testBuildRoad() {
 		System.out.println("testBuildRoad");
-		HexLocation hexLoc = new HexLocation(0,0);
+		HexLocation hexLoc = new HexLocation(0, 0);
 		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
 		facade.buildRoad(0, loc, true);
 	}
@@ -165,23 +167,25 @@ public class ServerProxyTest {
 	@Test
 	public void testBuildSettlement() {
 		System.out.println("testBuildSettlement");
-		HexLocation hexLoc = new HexLocation(0,0);
-		VertexLocation vertLoc = new VertexLocation(hexLoc, VertexDirection.East);
+		HexLocation hexLoc = new HexLocation(0, 0);
+		VertexLocation vertLoc = new VertexLocation(hexLoc,
+				VertexDirection.East);
 		facade.buildSettlement(0, vertLoc, true);
 	}
 
 	@Test
 	public void testBuildCity() {
 		System.out.println("testBuildCity");
-		HexLocation hexLoc = new HexLocation(3,4);
-		VertexLocation vertLoc = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+		HexLocation hexLoc = new HexLocation(3, 4);
+		VertexLocation vertLoc = new VertexLocation(hexLoc,
+				VertexDirection.NorthEast);
 		facade.buildCity(0, vertLoc);
 	}
 
 	@Test
 	public void testOfferTrade() {
 		System.out.println("testOfferTrade");
-		ResourceList offer = new ResourceList(1,-4,3,-2,1);
+		ResourceList offer = new ResourceList(1, -4, 3, -2, 1);
 		facade.offerTrade(0, offer, 1);
 	}
 
@@ -194,7 +198,7 @@ public class ServerProxyTest {
 	@Test
 	public void testDiscardCards() {
 		System.out.println("testDiscardCards");
-		ResourceList discardedCards = new ResourceList(1,1,1,1,1);
+		ResourceList discardedCards = new ResourceList(1, 1, 1, 1, 1);
 		facade.discardCards(2, discardedCards);
 	}
 
@@ -204,7 +208,7 @@ public class ServerProxyTest {
 		System.out.println("testGetClientModel");
 		facade.getClientModel(1);
 	}
-	
+
 	@After
 	public void tearDown() {
 		return;

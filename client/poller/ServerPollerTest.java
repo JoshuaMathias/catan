@@ -14,6 +14,7 @@ import client.poller.ServerPoller.updateTask;
 
 public class ServerPollerTest {
 	private Facade facade;
+	private ClientModel model;
 	
 	@Before 
 	public void setUp() {
@@ -22,7 +23,7 @@ public class ServerPollerTest {
 	
 	@Test
 	public void testPoller() {
-		ClientModel model=facade.getClientModel(1);
+		ClientModel model=facade.getModel();
 		model.setWinner(2);
 		Timer timer=new Timer();
 //		timer.schedule(new pollTask(), 1100);
@@ -33,13 +34,14 @@ public class ServerPollerTest {
 
 		@Override
 		public void run() {
-//			updateClientModel();
+			assertTrue(model.getWinner()==3);
 		}
 		
 	}
 	
 	@After
 	public void tearDown() {
+		model=null;
 		return;
 	}
 }
