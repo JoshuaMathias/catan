@@ -84,10 +84,27 @@ public class CanBuyDevCard {
 		
 		assertFalse(clientModel.canBuyDevCard(3));//Paul has enough resources to buy a development card, but isn't his turn.
 		
+		deck = new DevCardList(0,1,0,0,0);
+		clientModel.setDeck(deck);
+		
 		turnTracker.setCurrentTurn(3);
-		assertTrue(clientModel.canBuyDevCard(3));//Now Paul's turn. Can buy development card
+		assertTrue(clientModel.canBuyDevCard(3));//Now Paul's turn. Can buy development card. Only one card in the deck
 		
 		turnTracker.setCurrentTurn(1);
 		assertFalse(clientModel.canBuyDevCard(1));//Josh is just short a sheep of buying a development card
+		
+		deck = new DevCardList(0,0,0,0,0);
+		clientModel.setDeck(deck);
+		
+		turnTracker.setCurrentTurn(2);
+		assertFalse(clientModel.canBuyDevCard(2));//Daniel has enough resources but no Development cards to buy
+		
+		deck = new DevCardList(2,0,0,0,0);
+		clientModel.setDeck(deck);
+		
+		turnTracker.setCurrentTurn(3);
+		turnTracker.setStatus("Rolling");
+		assertFalse(clientModel.canBuyDevCard(3));//Paul has enough resources. Deck has cards. But status is Rolling
+		
 	}
 }
