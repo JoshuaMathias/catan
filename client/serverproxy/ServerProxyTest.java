@@ -93,12 +93,11 @@ public class ServerProxyTest {
 	
 	@Test
 	public void testSendChat() {
-		
+		facade.sendChat(0, "Hello World");
 	}
 	
 	@Test
 	public void testRollNumber() {
-		assertTrue(true);
 		facade.rollNumber(0, 5);
 	}
 

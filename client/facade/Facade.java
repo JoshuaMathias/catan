@@ -30,6 +30,10 @@ public class Facade {
 		poller=new ServerPoller(proxy, this);
 	}
 
+	public void sendChat(int playerIndex, String content) {
+		proxy.sendChat(playerIndex, content);
+	}
+	
 	public ClientModel getModel() {
 		return model;
 	}
@@ -402,6 +406,11 @@ public class Facade {
     public void monopoly(String resource, int playerIndex) 
     {
         proxy.monopoly(resource, playerIndex);
+    }
+    
+    public void monument(int playerIndex) 
+    {
+        proxy.monument(playerIndex);
     }
     
     /**
