@@ -24,6 +24,7 @@ public class ServerPollerTest {
 		ClientModel model=facade.getClientModel(1);
 		model.setWinner(2);
 		Timer timer=new Timer();
+//		timer.schedule(task, delay)
 //		timer.schedule(new testPollerTask(), 0, interval*1000);
 	}
 	
