@@ -405,11 +405,65 @@ public class Map {
 		}
 	}
 	
+	public boolean hasNeighboringOwnSettlement(Road road){
+		int playerIndex = road.getOwner();
+		EdgeLocation side = road.getLocation();
+		side = side.getNormalizedLocation();
+		
+		HexLocation hexLoc = side.getHexLoc();
+		EdgeDirection direction = side.getDir();
+		
+		
+		VertexLocation spot1;
+		VertexLocation spot2;
+		switch(direction){
+		case North:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+			break;
+		case NorthEast:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+			break;
+		case NorthWest:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.West);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+			break;
+		case South:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+			break;
+		case SouthEast:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+			break;
+		case SouthWest:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.West);
+			break;
+		default://Should throw exception (should be unreachable)
+			spot1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+			break;
+		
+		}
+		
+		spot1 = spot1.getNormalizedLocation();
+		spot2 = spot2.getNormalizedLocation();
+		
+		if(isSpotMySettlement(spot1, playerIndex) || isSpotMySettlement(spot2, playerIndex)){
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public boolean hasNeighboringOwnRoad(Road road){
 		
 		int playerIndex = road.getOwner();
 		EdgeLocation edgeSpot = road.getLocation();
 		edgeSpot = edgeSpot.getNormalizedLocation();
+		
 		HexLocation hexLoc = edgeSpot.getHexLoc();
 		EdgeDirection direction = edgeSpot.getDir();
 		
