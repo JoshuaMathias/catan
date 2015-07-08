@@ -589,7 +589,10 @@ public class ClientModel {
 			if(hexLoc.equals(map.getRobberLocation())) {
 				return false;
 			}
-			return true;
+			
+			return map.canPlaceRobber(hexLoc);
+			
+			
 		} else {
 			return false;
 		}

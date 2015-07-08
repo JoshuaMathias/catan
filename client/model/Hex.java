@@ -1,5 +1,6 @@
 package client.model;
 
+import shared.definitions.HexType;
 import shared.locations.HexLocation;
 
 /**
@@ -10,7 +11,7 @@ import shared.locations.HexLocation;
 public class Hex {
 
 	private HexLocation location;
-	private String resource;
+	private HexType resource;
 	private int number;
 	
 	public HexLocation getLocation() {
@@ -19,10 +20,10 @@ public class Hex {
 	public void setLocation(HexLocation location) {
 		this.location = location;
 	}
-	public String getResource() {
+	public HexType getResource() {
 		return resource;
 	}
-	public void setResource(String resource) {
+	public void setResource(HexType resource) {
 		this.resource = resource;
 	}
 	public int getNumber() {

@@ -2,6 +2,7 @@ package client.model;
 
 import java.util.ArrayList;
 
+import shared.definitions.HexType;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -705,6 +706,21 @@ public class Map {
 			return true;
 		}
 		
+		return false;
+	}
+	
+	public boolean canPlaceRobber(HexLocation hexLoc){
+		for(Hex hex: hexes){
+			if(hex.getLocation().equals(hexLoc)){
+				HexType resource = hex.getResource();
+				if(resource == HexType.DESERT || resource == HexType.WATER){
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 }
