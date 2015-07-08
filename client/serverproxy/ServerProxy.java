@@ -42,7 +42,7 @@ public class ServerProxy {
 		rnp.setNumber(number);
 		rnp.setPlayerIndex(playerIndex);
 		String input = g.toJson(rnp);
-		System.out.println(clientComm.send("moves/rollNumber", input));
+		clientComm.send("moves/rollNumber", input);
 	}
 	
 	/**
