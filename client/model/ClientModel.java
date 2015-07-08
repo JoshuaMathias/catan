@@ -534,7 +534,7 @@ public class ClientModel {
 				return false;
 			}
 			
-			can = map.hasNeighboringOwnRoad(road);
+			can = (map.hasNeighboringOwnRoad(road) || map.hasNeighboringOwnSettlement(road));
 			
 		}
 		
