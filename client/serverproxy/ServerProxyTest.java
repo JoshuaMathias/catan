@@ -11,6 +11,8 @@ import org.junit.Test;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 
 import client.facade.Facade;
@@ -101,62 +103,71 @@ public class ServerProxyTest {
 
 	@Test
 	public void testFinishTurn() {
-		
+		facade.finishTurn(0);
 	}
 
 	@Test
 	public void testBuyDevCard() {
-
+		facade.buyDevCard(0);
 	}
 
 	@Test
 	public void testYearOfPlenty() {
-
+		facade.yearOfPlenty(0, "Wool", "Brick");
 	}
 
 	@Test
 	public void testSoldier() {
-
+		HexLocation hexLoc = new HexLocation(0,0);
+		facade.soldier(0, 1, hexLoc);
 	}
 
 	@Test
 	public void testMonopoly() {
-
+		facade.monopoly("Brick", 0);
 	}
 
 	@Test
 	public void testBuildRoad() {
-
+		HexLocation hexLoc = new HexLocation(0,0);
+		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
+		facade.buildRoad(0, loc, true);
 	}
 
 	@Test
 	public void testBuildSettlement() {
-
+		HexLocation hexLoc = new HexLocation(0,0);
+		VertexLocation vertLoc = new VertexLocation(hexLoc, VertexDirection.East);
+		facade.buildSettlement(0, vertLoc, true);
 	}
 
 	@Test
 	public void testBuildCity() {
-
+		HexLocation hexLoc = new HexLocation(3,4);
+		VertexLocation vertLoc = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+		facade.buildCity(0, vertLoc);
 	}
 
 	@Test
 	public void testOfferTrade() {
-
+		ResourceList offer = new ResourceList(1,-4,3,-2,1);
+		facade.offerTrade(0, offer, 1);
 	}
 
 	@Test
 	public void testAcceptTrade() {
-
+		facade.acceptTrade(1, true);
 	}
 
 	@Test
 	public void testDiscardCards() {
-
+		ResourceList discardedCards = new ResourceList(1,1,1,1,1);
+		facade.discardCards(2, discardedCards);
 	}
 
 	@Test
 	public void testGetClientModel() {
-
+		facade.getClientModel(1);
 	}
 	
 	@After
