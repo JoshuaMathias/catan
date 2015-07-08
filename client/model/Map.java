@@ -282,7 +282,7 @@ public class Map {
 				VertexLocation settlementSpot = settlements.get(i).getLocation();
 				settlementSpot = settlementSpot.getNormalizedLocation();
 				
-				if(settlementSpot == spot) {
+				if(settlementSpot.equals(spot)) {
 					return true;
 				}
 			}
