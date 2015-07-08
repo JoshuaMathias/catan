@@ -246,6 +246,14 @@ public class ServerProxy {
 		clientComm.send("moves/discardCards",input);
 	}
 	
+	public void monument(int playerIndex )
+	{
+		MonumentParams monument = new MonumentParams ();
+		monument.setPlayerIndex(playerIndex);
+		String input = g.toJson(monument);
+		clientComm.send("moves/Monument", input);
+	}
+	
 	/**
 	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
 	 * @pre none
@@ -261,7 +269,6 @@ public class ServerProxy {
 		}
 		return newclient;
 	}
-	
 	
 	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
 	
@@ -301,17 +308,53 @@ public class ServerProxy {
 		
 	}
 
+	//Add a couple of functions from the server
+	//Remember to set up the game before making certain calls
+	//Make serverProxy and clientcommunicator a singleton
+	//Fix serverproxy interface and implement it
+	//Check the equals function for the clientmodel
+	
 	public static void main(String arg[])
 	{
 		String u = "ogeorge";
 		String p = "cookies";
+
+		String u1 = "ogeorge1";
+		String p1 = "cookies1";
+		
+		String u2 = "ogeorge2";
+		String p2 = "cookies2";
+		
+		String u3 = "ogeorge3";
+		String p3 = "cookies3";
+		
 		
 		ServerProxy server = new ServerProxy("longbow");
-		//server.register(u, p);
-		server.login(u, p);
-		//server.createGame(true,true,true,"test");
+		server.register(u, p);server.createGame(true,true,true,"test");
 		server.joinGame("3", "red");
-		server.buyDevCard(0);
-		ClientModel yes = server.getClientModel(0);			//Will return null because of version number
+		//server.login(u, p);
+		
+		ServerProxy server1 = new ServerProxy("longbow");
+		server1.register(u1, p1);
+		server1.joinGame("3", "blue");
+		//server1.login(u, p);
+		
+		ServerProxy server2 = new ServerProxy("longbow");
+		server2.register(u2, p2);		
+		server2.joinGame("3", "green");
+		//server2.login(u, p);
+		
+		ServerProxy server3 = new ServerProxy("longbow");
+		server3.register(u3, p3);
+		server3.joinGame("3", "yellow");
+		//server3.login(u, p);
+		
+		server.getClientModel(-1);
+
+		ResourceList ifes = new ResourceList (100,-400,200,-300,100);
+		server.offerTrade(0, ifes , 1);
+		server1.acceptTrade(1, true);
+		
+		server.getClientModel(-1);			//Will return null because of version number
 	}
 }
