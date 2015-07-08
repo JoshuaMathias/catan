@@ -18,7 +18,9 @@ import client.model.TurnTracker;
 public class ServerProxyTest {
 
 	private Facade facade;
-	private ClientModel model;
+	private Facade facade2;
+	private Facade facade3;
+	private Facade facade4;
 	private TurnTracker turnTracker;
 	private TradeOffer tradeOffer;
 	private Player Ife;
@@ -30,14 +32,26 @@ public class ServerProxyTest {
 	public void setUp() {
 		facade = new Facade("localhost");
 		turnTracker = new TurnTracker();
-		String u = "test";
+		String u = "Ife";
 		String p = "testpass";
-		
 		facade.register(u, p);
 		facade.login(u, p);
-		facade.createGame(true,true,true,"test");
 		facade.joinGame("3", "red");
-		model = facade.getClientModel(0);	
+		String u2 = "Josh";
+		String p2 = "testpass";
+		facade2.register(u2, p2);
+		facade2.login(u2, p2);
+		facade2.joinGame("3", "green");
+		String u3 = "Daniel";
+		String p3 = "testpass";
+		facade3.register(u3, p3);
+		facade3.login(u3, p3);
+		facade3.joinGame("3", "blue");
+		String u4 = "Paul";
+		String p4 = "testpass";
+		facade4.register(u4, p4);
+		facade4.login(u4, p4);
+		facade4.joinGame("3", "yellow");
 		
 		Ife = new Player();
 		Josh = new Player();
