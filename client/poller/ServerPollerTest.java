@@ -26,17 +26,13 @@ public class ServerPollerTest {
 		ClientModel model=facade.getModel();
 		model.setWinner(2);
 		Timer timer=new Timer();
-//		timer.schedule(new pollTask(), 1100);
-//		timer.schedule(new testPollerTask(), 0, interval*1000);
-	}
-	
-	public class pollTask extends TimerTask {
-
-		@Override
-		public void run() {
-			assertTrue(model.getWinner()==3);
+		assertTrue(facade.getModel().getWinner()==-1);
+		try {
+			Thread.sleep(1100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		
+		assertTrue(facade.getModel().getWinner()==2);
 	}
 	
 	@After

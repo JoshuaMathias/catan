@@ -29,11 +29,12 @@ public class ServerProxyTest {
 	private Player Josh;
 	private Player Daniel;
 	private Player Paul;
-	private boolean needsSetup = true;
+	private boolean hasSetup = false;
 
 	@Before
 	public void setUp() {
-		if (needsSetup) {
+		if (!hasSetup) {
+			hasSetup=true;
 			facade = new Facade("localhost");
 			facade.createGame(true, true, true, "test");
 			turnTracker = new TurnTracker();
@@ -94,7 +95,6 @@ public class ServerProxyTest {
 
 			facade.setPlayers(playerList);
 			facade.setTurnTracker(turnTracker);
-			needsSetup=false;
 		}
 	}
 
@@ -221,11 +221,6 @@ public class ServerProxyTest {
 
 		System.out.println("testGetClientModel");
 		facade.getClientModel(1);
-	}
-
-	@After
-	public void tearDown() {
-		return;
 	}
 
 }
