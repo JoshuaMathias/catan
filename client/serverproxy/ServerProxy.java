@@ -7,7 +7,7 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import client.model.ResourceList;
-import client.poller.ClientPoller;
+import client.poller.ServerPoller;
 
 /**
  * Proxy Server for the Client to interact with the Server. Packages information into objects and strings for the ClientCommunicator to send to the Server
@@ -19,7 +19,7 @@ public class ServerProxy {
 	//This class might have to be a singleton
 	private Gson g = new Gson();
 	private String hostname = "";
-	private ClientPoller poller; // Pretty sure that the server proxy will not have a poller but the poller will have
+	private ServerPoller poller; // Pretty sure that the server proxy will not have a poller but the poller will have
 								// A serverproxy singleton 
 	private ClientCommunicator clientComm;
 	

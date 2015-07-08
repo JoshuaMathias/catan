@@ -153,7 +153,7 @@ public class ClientModel {
 	/**
 	 * checks whether a player has the largest army
 	 * @pre none
-	 * @post returns integer representing the index of the player with the largest army. Player has largest army if they have played at least 3 soldier cards and more soldier cards than any other player. If nobody had largest road, returns -1
+	 * @post returns integer representing the index of the player with the largest army. Player has largest army if they have played at least 3 soldier cards and more soldier cards than any other player. If nobody has largest army, returns -1
 	 */
 	public int checkLargestArmy() {
 		
@@ -435,7 +435,7 @@ public class ClientModel {
 	 * Player attempts to build settlement
 	 * 
 	 * @pre none
-	 * @post Must be players turn, must have the required resources to build it, must have a settlement left,must be appropriately placed on the map - return true. Otherwise return false.
+	 * @post Must be players turn, must have the required resources to build it, must have a settlement left, must be appropriately placed on the map - return true. Otherwise return false.
 	 */
 	public boolean canBuildSettlement(VertexObject settlement) {
 	
@@ -477,7 +477,7 @@ public class ClientModel {
 	 * Player attempts to build city
 	 * 
 	 * @pre none
-	 * @post Must be players turn, must have the required resources to build it, settlement must already be built in the spot, must have a city left,must be appropriately placed on the map - return true. Otherwise return false.
+	 * @post Must be players turn, must have the required resources to build it, settlement must already be built in the spot, must have a city left, must be appropriately placed on the map - return true. Otherwise return false.
 	 */
 	public boolean canBuildCity(VertexObject city) {
 	
