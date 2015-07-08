@@ -31,7 +31,6 @@ public class ServerProxyTest {
 	private Player Daniel;
 	private Player Paul;
 	
-	@Before 
 	public void setUp() {
 		facade = new Facade("localhost");
 		facade.createGame(true,true,true,"test");
@@ -201,6 +200,7 @@ public class ServerProxyTest {
 
 	@Test
 	public void testGetClientModel() {
+		setUp();
 		System.out.println("testGetClientModel");
 		facade.getClientModel(1);
 	}
