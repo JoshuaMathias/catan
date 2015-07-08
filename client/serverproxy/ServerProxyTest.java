@@ -207,7 +207,6 @@ public class ServerProxyTest {
 	
 	@After
 	public void tearDown() {
-		facade = null;
 		return;
 	}
 
