@@ -90,7 +90,7 @@ public class ServerProxyTest {
 	
 	@Test
 	public void testSendChat() {
-		
+		assertTrue(true);
 	}
 	
 	@Test
