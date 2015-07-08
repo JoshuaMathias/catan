@@ -254,6 +254,15 @@ public class ServerProxy {
 		clientComm.send("moves/Monument", input);
 	}
 	
+	public void sendChat(int playerIndex, String content)
+	{
+		SendChatParams sendchat = new SendChatParams();
+		sendchat.setContent(content);
+		sendchat.setPlayerIndex(playerIndex);
+		String input = g.toJson(sendchat);
+		clientComm.send("moves/sendChat",input);
+	}
+	
 	/**
 	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
 	 * @pre none
