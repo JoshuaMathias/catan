@@ -2,7 +2,6 @@ package client.facade;
 
 import java.util.ArrayList;
 
-import shared.locations.*;
 import client.model.*;
 import client.poller.ServerPoller;
 import client.serverproxy.CreateGamesParams;
@@ -11,6 +10,9 @@ import client.serverproxy.LoginParams;
 import client.serverproxy.RegisterParams;
 import client.serverproxy.ServerProxy;
 import shared.definitions.*;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
 /**
  * Encapsulating class for the ClientModel, ServerPoller, and ServerProxy. The GUI calls methods on this class.

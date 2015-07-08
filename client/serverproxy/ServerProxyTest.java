@@ -8,12 +8,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+
+
 import client.facade.Facade;
-import client.model.ClientModel;
-import client.model.Player;
-import client.model.ResourceList;
-import client.model.TradeOffer;
-import client.model.TurnTracker;
+import client.model.*;
 
 public class ServerProxyTest {
 
@@ -91,12 +92,16 @@ public class ServerProxyTest {
 
 	@Test
 	public void testRoadBuilding() {
-		
+		HexLocation hexLoc = new HexLocation(0,0);
+		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
+		HexLocation hexLoc2 = new HexLocation(0,0);
+		EdgeLocation loc2 = new EdgeLocation(hexLoc, EdgeDirection.North);
+		facade.roadBuilding(0, loc, loc2);
 	}
 
 	@Test
 	public void testFinishTurn() {
-
+		
 	}
 
 	@Test
