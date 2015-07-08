@@ -87,6 +87,12 @@ public class ServerProxyTest {
 		facade.setPlayers(playerList);
 		facade.setTurnTracker(turnTracker);
 	}
+	
+	@Test
+	public void testSendChat() {
+		
+	}
+	
 	@Test
 	public void testRollNumber() {
 		facade.rollNumber(0, 5);
