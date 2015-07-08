@@ -89,14 +89,20 @@ public class CanStealResourceCard {
 			joshCity.setOwner(1);
 			joshCity.setLocation(spot2);
 			
-			map.addCity(joshCity);
+			map.addCity(joshCity);//Paul and Josh have a settlement/city on same hex location
 			
 			Josh.incrementCity();
 			turnTracker.setCurrentTurn(3);
 			
 			assertTrue(clientModel.canStealResourceCard(3, 7, 1));//Paul steals successfully from Josh
-			assertFalse(clientModel.canStealResourceCard(3,6,1));//not rolled 7
+			assertFalse(clientModel.canStealResourceCard(3, 6, 1));//not rolled 7
 			
+			HexLocation hexLoc2 = new HexLocation(0,0);
+			map.setRobber(hexLoc2);
+			turnTracker.setCurrentTurn(2);
+			
+			assertTrue(clientModel.canStealResourceCard(2, 7, 3));//Daniel steals successfully from Paul
+			assertFalse(clientModel.canStealResourceCard(2,  7,  1));//Daniel fails to steal from Josh because Satan is bordering paul, but not josh, even though pual and josh share a hex
 			
 			HexLocation hexLoc3 = new HexLocation(2,-3);
 			VertexLocation spot3 = new VertexLocation(hexLoc3,VertexDirection.East);

@@ -64,10 +64,10 @@ public class MustDiscardHalfCards {
 	@Test
 	public void ifeDiscards() {
 		
-		assertTrue(clientModel.mustDiscardHalfCards(7, 0));
-		assertFalse(clientModel.mustDiscardHalfCards(7, 1));
-		assertFalse(clientModel.mustDiscardHalfCards(7, 2));
-		assertFalse(clientModel.mustDiscardHalfCards(4, 3));
+		assertTrue(clientModel.mustDiscardHalfCards(7, 0));//Ife has over 7 cards on a roll of 7
+		assertFalse(clientModel.mustDiscardHalfCards(7, 1));//Josh has exactly 7 cards on a roll of 7
+		assertFalse(clientModel.mustDiscardHalfCards(7, 2));//Daniel has less than 7 cards on a roll of 7
+		assertFalse(clientModel.mustDiscardHalfCards(4, 3));//Paul has over 7 cards, on a roll of 4
 	}
 	
 	
