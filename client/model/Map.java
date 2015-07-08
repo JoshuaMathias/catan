@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import shared.definitions.HexType;
 import shared.definitions.PortType;
-import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -99,61 +98,61 @@ public class Map {
 		cities.add(city);
 	}
 
-	public void checkTradeRatio(int playerIndex, String resource) {
-		
-		Port port = null;
-		
-		for(int i = 0; i < ports.size(); i++) {
-			
-			if(ports.get(i).getResource().equals(resource)) {
-				port = ports.get(i);
-				break;
-			}
-		}
-		
-		for(int i = 0; i < settlements.size(); i++) {
-			
-			VertexObject settlement = settlements.get(i);
-			
-			if(playerIndex == settlement.getOwner()) {
-				
-				VertexLocation settlementLocation = settlement.getLocation();
-				HexLocation settlementHexLocation = settlementLocation.getHexLoc();
-				int settlementXLocation = settlementHexLocation.getX();
-				int settlementYLocation = settlementHexLocation.getY();
-				VertexDirection settlementDirection = settlementLocation.getDir();
-				
-				HexLocation portLocation = port.getLocation();
-				int portXLocation = portLocation.getX();
-				int portYLocation = portLocation.getY();
-				EdgeDirection portDirection = port.getDirection();
-				
-				
-				
-			}
-		}
-		
-		for(int i = 0; i < cities.size(); i++) {
-			
-			VertexObject city = cities.get(i);
-			
-			if(playerIndex == city.getOwner()) {
-				
-				VertexLocation cityLocation = city.getLocation();
-				HexLocation cityHexLocation = cityLocation.getHexLoc();
-				int cityXLocation = cityHexLocation.getX();
-				int cityYLocation = cityHexLocation.getY();
-				
-				HexLocation portLocation = port.getLocation();
-				int portXLocation = portLocation.getX();
-				int portYLocation = portLocation.getY();
-				
-				
-				
-			}
-		}
-		
-	}
+//	public void checkTradeRatio(int playerIndex, String resource) {
+//		
+//		Port port = null;
+//		
+//		for(int i = 0; i < ports.size(); i++) {
+//			
+//			if(ports.get(i).getResource().equals(resource)) {
+//				port = ports.get(i);
+//				break;
+//			}
+//		}
+//		
+//		for(int i = 0; i < settlements.size(); i++) {
+//			
+//			VertexObject settlement = settlements.get(i);
+//			
+//			if(playerIndex == settlement.getOwner()) {
+//				
+//				VertexLocation settlementLocation = settlement.getLocation();
+//				HexLocation settlementHexLocation = settlementLocation.getHexLoc();
+//				int settlementXLocation = settlementHexLocation.getX();
+//				int settlementYLocation = settlementHexLocation.getY();
+//				VertexDirection settlementDirection = settlementLocation.getDir();
+//				
+//				HexLocation portLocation = port.getLocation();
+//				int portXLocation = portLocation.getX();
+//				int portYLocation = portLocation.getY();
+//				EdgeDirection portDirection = port.getDirection();
+//				
+//				
+//				
+//			}
+//		}
+//		
+//		for(int i = 0; i < cities.size(); i++) {
+//			
+//			VertexObject city = cities.get(i);
+//			
+//			if(playerIndex == city.getOwner()) {
+//				
+//				VertexLocation cityLocation = city.getLocation();
+//				HexLocation cityHexLocation = cityLocation.getHexLoc();
+//				int cityXLocation = cityHexLocation.getX();
+//				int cityYLocation = cityHexLocation.getY();
+//				
+//				HexLocation portLocation = port.getLocation();
+//				int portXLocation = portLocation.getX();
+//				int portYLocation = portLocation.getY();
+//				
+//				
+//				
+//			}
+//		}
+//		
+//	}
 	
 	public boolean isSpotTaken(VertexLocation spot){
 		spot = spot.getNormalizedLocation();
