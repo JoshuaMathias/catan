@@ -23,6 +23,7 @@ public class Facade {
 	private ClientModel model;
 	private ServerProxy proxy;
 	private ServerPoller poller;
+	public static int count=0;
 	
 	public Facade(String host) {
 		model=new ClientModel();
