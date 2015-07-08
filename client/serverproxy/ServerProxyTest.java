@@ -42,16 +42,19 @@ public class ServerProxyTest {
 		facade.joinGame("3", "red");
 		String u2 = "Josh";
 		String p2 = "testpass";
+		facade2 = new Facade("localhost");
 		facade2.register(u2, p2);
 		facade2.login(u2, p2);
 		facade2.joinGame("3", "green");
 		String u3 = "Daniel";
 		String p3 = "testpass";
+		facade3 = new Facade("localhost");
 		facade3.register(u3, p3);
 		facade3.login(u3, p3);
 		facade3.joinGame("3", "blue");
 		String u4 = "Paul";
 		String p4 = "testpass";
+		facade4 = new Facade("localhost");
 		facade4.register(u4, p4);
 		facade4.login(u4, p4);
 		facade4.joinGame("3", "yellow");
@@ -90,11 +93,12 @@ public class ServerProxyTest {
 	
 	@Test
 	public void testSendChat() {
-		assertTrue(true);
+		
 	}
 	
 	@Test
 	public void testRollNumber() {
+		assertTrue(true);
 		facade.rollNumber(0, 5);
 	}
 
@@ -131,6 +135,11 @@ public class ServerProxyTest {
 	@Test
 	public void testMonopoly() {
 		facade.monopoly("Brick", 0);
+	}
+	
+	@Test
+	public void testMonument() {
+		facade.monument(0);
 	}
 
 	@Test
