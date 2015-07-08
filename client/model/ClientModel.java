@@ -652,7 +652,7 @@ public class ClientModel {
 		
 		ResourceList playerResourceList = players.get(playerIndex).getResources();
 		
-		if(playerResourceList.getSize() > 7) {
+		if(playerResourceList.getSize() > 7 && turnTracker.getStatus().equals("Discarding")) {
 			return true;
 		} else {
 			return false;
