@@ -7,7 +7,7 @@ import client.model.ClientModel;
  * @author Ife's Group
  *
  */
-public class ClientPoller {
+public class ServerPoller {
 
 	private int modelVersion;
 	
