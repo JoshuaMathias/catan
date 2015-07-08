@@ -633,47 +633,66 @@ public class Map {
 		spot = spot.getNormalizedLocation();
 		VertexDirection spotDirection = spot.getDir();
 		HexLocation hexLoc = spot.getHexLoc();
+		int x = hexLoc.getX();
+		int y = hexLoc.getY();
 		
 		EdgeLocation edge1;
 		EdgeLocation edge2;
+		HexLocation diffHex;
+		EdgeLocation edge3;
 		switch(spotDirection){
 		case East:
 			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
 			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+			diffHex = new HexLocation(x+1, y);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.North);
 			break;
 		case NorthEast:
 			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
 			edge2 = new EdgeLocation(hexLoc, EdgeDirection.North);
+			diffHex = new HexLocation(x, y-1);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.SouthEast);
 			break;
 		case NorthWest:
 			edge1 = new EdgeLocation(hexLoc, EdgeDirection.North);
 			edge2 = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
+			diffHex = new HexLocation(x, y-1);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.SouthWest);
 			break;
 		case SouthEast:
 			edge1 = new EdgeLocation(hexLoc, EdgeDirection.South);
 			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+			diffHex = new HexLocation(x, y+1);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.NorthEast);
 			break;
 		case SouthWest:
 			edge1 = new EdgeLocation(hexLoc, EdgeDirection.South);
 			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
+			diffHex = new HexLocation(x, y+1);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.NorthWest);
 			break;
 		case West:
 			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
 			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
+			diffHex = new HexLocation(x-1, y);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.South);
 			break;
 		default://Might throw exception instead
 			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
 			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+			diffHex = new HexLocation(x+1, y);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.North);
 			break;
 		}
 		edge1 = edge1.getNormalizedLocation();
 		edge2 = edge2.getNormalizedLocation();
+		edge3 = edge3.getNormalizedLocation();
 		EdgeLocation portEdgeLocation;
 		
 		for(Port port: ports){
 			portEdgeLocation = new EdgeLocation(port.getLocation(), port.getDirection());
 			portEdgeLocation = portEdgeLocation.getNormalizedLocation();
-			if(portEdgeLocation.equals(edge1) || portEdgeLocation.equals(edge2)){
+			if(portEdgeLocation.equals(edge1) || portEdgeLocation.equals(edge2) || portEdgeLocation.equals(edge2)){
 				if(port.getRatio() == 3){
 					return 3;
 				}
