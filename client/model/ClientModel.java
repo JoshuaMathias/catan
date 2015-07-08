@@ -268,7 +268,7 @@ public class ClientModel {
 			}
 			
 			ResourceList playerResources = players.get(playerIndex).getResources();
-			switch(offer){
+			switch(request){
 				case BRICK:
 					if(playerResources.getBrick() < ratio || bank.getBrick() < 1){
 						return false;
