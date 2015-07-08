@@ -53,6 +53,6 @@ public class ServerPoller {
 	 */
 	public void updateClientModel() {
 		ClientModel model=getClientModel();
-		facade.setModel(model);
+		facade.updateClientModel(model);
 	}
 }
