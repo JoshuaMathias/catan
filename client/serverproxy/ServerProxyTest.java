@@ -31,6 +31,7 @@ public class ServerProxyTest {
 	private Player Paul;
 	private boolean needsSetup = true;
 
+	@Before
 	public void setUp() {
 		if (needsSetup) {
 			facade = new Facade("localhost");
@@ -99,18 +100,21 @@ public class ServerProxyTest {
 
 	@Test
 	public void testSendChat() {
+
 		System.out.println("testSendChat");
 		facade.sendChat(0, "Hello World");
 	}
 
 	@Test
 	public void testRollNumber() {
+
 		System.out.println("testRollNumber");
 		facade.rollNumber(0, 5);
 	}
 
 	@Test
 	public void testRoadBuilding() {
+
 		System.out.println("testRoadBuilding");
 		HexLocation hexLoc = new HexLocation(0, 0);
 		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
@@ -121,24 +125,28 @@ public class ServerProxyTest {
 
 	@Test
 	public void testFinishTurn() {
+	
 		System.out.println("testFinishTurn");
 		facade.finishTurn(0);
 	}
 
 	@Test
 	public void testBuyDevCard() {
+	
 		System.out.println("testBuyDevCard");
 		facade.buyDevCard(0);
 	}
 
 	@Test
 	public void testYearOfPlenty() {
+		
 		System.out.println("testYearOfPlenty");
 		facade.yearOfPlenty(0, "Wool", "Brick");
 	}
 
 	@Test
 	public void testSoldier() {
+		
 		System.out.println("testSoldier");
 		HexLocation hexLoc = new HexLocation(0, 0);
 		facade.soldier(0, 1, hexLoc);
@@ -146,18 +154,21 @@ public class ServerProxyTest {
 
 	@Test
 	public void testMonopoly() {
+	
 		System.out.println("testMonopoly");
 		facade.monopoly("Brick", 0);
 	}
 
 	@Test
 	public void testMonument() {
+
 		System.out.println("testMonument");
 		facade.monument(0);
 	}
 
 	@Test
 	public void testBuildRoad() {
+	
 		System.out.println("testBuildRoad");
 		HexLocation hexLoc = new HexLocation(0, 0);
 		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
@@ -166,6 +177,7 @@ public class ServerProxyTest {
 
 	@Test
 	public void testBuildSettlement() {
+
 		System.out.println("testBuildSettlement");
 		HexLocation hexLoc = new HexLocation(0, 0);
 		VertexLocation vertLoc = new VertexLocation(hexLoc,
@@ -175,6 +187,7 @@ public class ServerProxyTest {
 
 	@Test
 	public void testBuildCity() {
+
 		System.out.println("testBuildCity");
 		HexLocation hexLoc = new HexLocation(3, 4);
 		VertexLocation vertLoc = new VertexLocation(hexLoc,
@@ -184,6 +197,7 @@ public class ServerProxyTest {
 
 	@Test
 	public void testOfferTrade() {
+
 		System.out.println("testOfferTrade");
 		ResourceList offer = new ResourceList(1, -4, 3, -2, 1);
 		facade.offerTrade(0, offer, 1);
@@ -204,7 +218,7 @@ public class ServerProxyTest {
 
 	@Test
 	public void testGetClientModel() {
-		setUp();
+
 		System.out.println("testGetClientModel");
 		facade.getClientModel(1);
 	}
