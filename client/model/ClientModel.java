@@ -443,7 +443,6 @@ public class ClientModel {
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
 		
-		boolean can = false;
 		
 		if (playerIndex == whoseTurn && status.equals("Playing")){
 			ResourceList playersResources = players.get(playerIndex).getResources();
@@ -465,11 +464,22 @@ public class ClientModel {
 				return false;
 			}
 			
-			can = map.hasNeighboringOwnRoad(settlement);
+			return map.hasNeighboringOwnRoad(settlement);
+		}
+		else if(playerIndex == whoseTurn && (status.equals("FirstRound") || status.equals("SecondRound"))){
+			VertexLocation settlementSpot = settlement.getLocation();
+			if (map.isSpotTaken(settlementSpot)){
+				return false;
+			}
+			else if (map.isSpotNeighbored(settlementSpot)){
+				return false;
+			}
+			else{
+				return true;
+			}
 		}
 		
-		
-		return can;
+		return false;
 	}
 	
 	/**
@@ -643,7 +653,7 @@ public class ClientModel {
 		
 		ResourceList playerResourceList = players.get(playerIndex).getResources();
 		
-		if(playerResourceList.getSize() > 7) {
+		if(playerResourceList.getSize() > 7 && turnTracker.getStatus().equals("Discarding")) {
 			return true;
 		} else {
 			return false;
