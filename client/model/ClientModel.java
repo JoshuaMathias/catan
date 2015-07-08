@@ -465,7 +465,16 @@ public class ClientModel {
 				return false;
 			}
 			
-			can = map.hasNeighboringOwnRoad(settlement);
+			return map.hasNeighboringOwnRoad(settlement);
+		}
+		else if(playerIndex == whoseTurn && (status.equals("FirstRound") || status.equals("SecondRound"))){
+			VertexLocation settlementSpot = settlement.getLocation();
+			if (map.isSpotTaken(settlementSpot)){
+				return false;
+			}
+			else{
+				return true;
+			}
 		}
 		
 		
