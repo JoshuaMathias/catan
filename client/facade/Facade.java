@@ -490,6 +490,10 @@ public class Facade {
         proxy.discardCards(playerIndex, discardedCards);
     }
     
+    public void robPlayer(int playerIndex, int victimIndex, HexLocation location) {
+    	proxy.robPlayer(playerIndex, victimIndex, location);
+    }
+    
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
      * @pre none

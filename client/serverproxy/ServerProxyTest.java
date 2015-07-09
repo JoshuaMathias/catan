@@ -209,5 +209,12 @@ public class ServerProxyTest {
 		System.out.println("testGetClientModel");
 		facade.getClientModel(1);
 	}
+	
+	@Test
+	public void testRobPlayer() {
+		System.out.println("testRobPlayer");
+		facade.robPlayer(0, 1, new HexLocation(0,0));
+	}
+	
 
 }
