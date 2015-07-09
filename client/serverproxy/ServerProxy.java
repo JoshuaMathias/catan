@@ -146,7 +146,6 @@ public class ServerProxy {
 		monopoly.setPlayerIndex(playerIndex);
 		monopoly.setResource(resource);
 		String input = g.toJson(monopoly);
-		System.out.println("Json of monopoly that is going in: "+input);
 		clientComm.send("moves/Monopoly", input);
 	}
 	
@@ -295,6 +294,7 @@ public class ServerProxy {
 		robber.setPlayerIndex(playerIndex);
 		robber.setVictimIndex(victimIndex);
 		String input = g.toJson(robber);
+		System.out.println("Json of rob player that is going in: "+input);
 		clientComm.send("moves/robPlayer",input);
 	}
 	

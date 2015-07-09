@@ -34,7 +34,7 @@ public class ServerProxyTest {
 	public void setUp() 
 	{
 		facade = new Facade("localhost");
-		facade.createGame(true, true, true, "test");
+		facade.createGame(false, false, false, "test");
 		turnTracker = new TurnTracker();
 
 		String u = "Ife"+Integer.toString(Facade.count);
@@ -103,7 +103,7 @@ public class ServerProxyTest {
 		facade.sendChat(0, "Hello World");
 	}
 
-	//@Test
+	@Test
 	public void testRollNumber() {
 		System.out.println("testRollNumber");
 		facade.rollNumber(0, 5);
@@ -125,13 +125,13 @@ public class ServerProxyTest {
 		facade.finishTurn(0);
 	}
 
-	//@Test
+	@Test
 	public void testBuyDevCard() {
 		System.out.println("testBuyDevCard");
 		facade.buyDevCard(0);
 	}
 
-	//@Test
+	@Test
 	public void testYearOfPlenty() {
 		System.out.println("testYearOfPlenty");
 		facade.yearOfPlenty(0, "wood", "wheat");
@@ -140,8 +140,23 @@ public class ServerProxyTest {
 	@Test
 	public void testSoldier() {
 		System.out.println("testSoldier");
+		
+		//Player 1 puts down a house on one side of the (0,0)
 		HexLocation hexLoc = new HexLocation(0, 0);
-		facade.soldier(0, 1, hexLoc);
+		VertexLocation vertLoc = new VertexLocation(hexLoc,
+				VertexDirection.East);
+		facade.buildSettlement(0, vertLoc, true);
+		
+		//Player 2 puts down a house on one side of the (0,0)
+		HexLocation hexLoc1 = new HexLocation(0, 0);
+		VertexLocation vertLoc1 = new VertexLocation(hexLoc1,
+				VertexDirection.West);
+		facade2.buildSettlement(1, vertLoc1, true);
+		
+		//Both players get some resource to steal
+		facade.rollNumber(0, 11);
+		
+		facade.soldier(0, 1,  new HexLocation(0, 0));
 	}
 
 	@Test
@@ -156,7 +171,8 @@ public class ServerProxyTest {
 		facade.monument(0);
 	}
 
-	//@Test
+	//Need to find out what we are gonna do about North(what the given code has) and N what the server expects
+	@Test
 	public void testBuildRoad() {
 		System.out.println("testBuildRoad");
 		HexLocation hexLoc = new HexLocation(0, 0);
@@ -173,7 +189,7 @@ public class ServerProxyTest {
 		facade.buildSettlement(0, vertLoc, true);
 	}
 
-	//@Test
+	@Test
 	public void testBuildCity() {
 		System.out.println("testBuildCity");
 		HexLocation hexLoc = new HexLocation(0, 0);
@@ -182,29 +198,30 @@ public class ServerProxyTest {
 		facade.buildCity(0, vertLoc);
 	}
 
-	//@Test
+	@Test
 	public void testOfferTrade() {
 		System.out.println("testOfferTrade");
 		ResourceList offer = new ResourceList(1, -4, 3, -2, 1);
 		facade.offerTrade(0, offer, 1);
 	}
 
-	//@Test
+	@Test
 	public void testAcceptTrade() {
+		//Need to have a trade offered before you can accept it or reject it
 		System.out.println("testAcceptTrade");
 		ResourceList offer = new ResourceList(132, -465, 348, -298, 141);
 		facade.offerTrade(0, offer, 1);
 		facade.acceptTrade(1, true);
 	}
 
-	//@Test
+	@Test
 	public void testDiscardCards() {
 		System.out.println("testDiscardCards");
 		ResourceList discardedCards = new ResourceList(1, 1, 1, 1, 1);
 		facade.discardCards(2, discardedCards);
 	}
 
-	//@Test
+	@Test
 	public void testGetClientModel() {
 		System.out.println("testGetClientModel");
 		facade.getClientModel(1);
@@ -213,11 +230,28 @@ public class ServerProxyTest {
 	@Test
 	public void testRobPlayer() {
 		System.out.println("testRobPlayer");
+		
+		//Player 1 puts down a house on one side of the (0,0)
+		HexLocation hexLoc = new HexLocation(0, 0);
+		VertexLocation vertLoc = new VertexLocation(hexLoc,
+				VertexDirection.East);
+		facade.buildSettlement(0, vertLoc, true);
+		
+		//Player 2 puts down a house on one side of the (0,0)
+		HexLocation hexLoc1 = new HexLocation(0, 0);
+		VertexLocation vertLoc1 = new VertexLocation(hexLoc1,
+				VertexDirection.West);
+		facade2.buildSettlement(1, vertLoc1, true);
+		
+		//Both players get some resource to steal
+		facade.rollNumber(0, 11);
+		
 		facade.robPlayer(0, 1, new HexLocation(0,0));
 	}
 	
-	//@Test
+	@Test
 	public void maritimeTrade() {
+		//Make sure that the resources you ask for are real
 		System.out.println("maritimeTrade");
 		facade.maritimeTrade(0, 2, "wood", "sheep");
 	}
