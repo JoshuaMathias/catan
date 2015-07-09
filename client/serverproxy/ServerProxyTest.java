@@ -147,7 +147,11 @@ public class ServerProxyTest {
 	@Test
 	public void testMonopoly() {
 		System.out.println("testMonopoly");
+<<<<<<< HEAD
 		facade.monopoly("brick", 0);
+=======
+		facade.monopoly("wood", 0);
+>>>>>>> 34b4a52e55594dadc40f6e2c435810ab5ddda85d
 	}
 
 	@Test
