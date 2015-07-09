@@ -53,12 +53,18 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive, playerIndex and spot1 and spot2 are not null
 	 * @post Server receives information
 	 */
-	public void roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) 
+	public void roadBuilding(int playerIndex, shared.locations.EdgeLocation spot1, shared.locations.EdgeLocation spot2) 
 	{
+		client.serverproxy.EdgeLocation rl1 = new client.serverproxy.EdgeLocation(spot1.getHexLoc().getX(),
+				spot1.getHexLoc().getY(),spot1.getDir());
+		
+		client.serverproxy.EdgeLocation rl2 = new client.serverproxy.EdgeLocation(spot2.getHexLoc().getX(),
+				spot2.getHexLoc().getY(),spot2.getDir());
+		
 		RoadBuildingParams roadbuilding = new RoadBuildingParams();
 		roadbuilding.setPlayerIndex(playerIndex);
-		roadbuilding.setSpot1(spot1);
-		roadbuilding.setSpot2(spot2);
+		roadbuilding.setSpot1(rl1);
+		roadbuilding.setSpot2(rl2);
 		String input = g.toJson(roadbuilding);
 		clientComm.send("moves/Road_Building", input);
 	}
@@ -140,6 +146,7 @@ public class ServerProxy {
 		monopoly.setPlayerIndex(playerIndex);
 		monopoly.setResource(resource);
 		String input = g.toJson(monopoly);
+		System.out.println("Json of monopoly that is going in: "+input);
 		clientComm.send("moves/Monopoly", input);
 	}
 	
@@ -151,11 +158,13 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, roadLocation not null
 	 * @post Server receives information
 	 */
-	public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) 
+	public void buildRoad(int playerIndex, shared.locations.EdgeLocation roadLocation, boolean free) 
 	{
 		BuildRoadParams buildroad = new BuildRoadParams();
 		buildroad.setPlayerIndex(playerIndex);
-		buildroad.setRoadLocation(roadLocation);
+		client.serverproxy.EdgeLocation rl = new client.serverproxy.EdgeLocation(roadLocation.getHexLoc().getX(),
+				roadLocation.getHexLoc().getY(),roadLocation.getDir());
+		buildroad.setRoadLocation(rl);
 		buildroad.setFree(free);
 		String input = g.toJson(buildroad);
 		clientComm.send("moves/buildRoad",input);
@@ -169,12 +178,15 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post Server receives information
 	 */
-	public void buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free)
+	public void buildSettlement(int playerIndex, shared.locations.VertexLocation vertexLocation, boolean free)
 	{
 		BuildSettlementParams buildsettlement = new BuildSettlementParams ();
 		buildsettlement.setPlayerIndex(playerIndex);
 		buildsettlement.setFree(free);
-		buildsettlement.setVertexLocation(vertexLocation);
+		client.serverproxy.VertexLocation vl = new client.serverproxy.VertexLocation(vertexLocation.getHexLoc().getX(),
+				vertexLocation.getHexLoc().getY(),vertexLocation.getDir());
+		
+		buildsettlement.setVertexLocation(vl);
 		String input = g.toJson(buildsettlement);
 		clientComm.send("moves/buildSettlement", input);
 	}
@@ -187,11 +199,13 @@ public class ServerProxy {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post Server receives information
 	 */
-	public void buildCity(int playerIndex, VertexLocation vertexLocation) 
+	public void buildCity(int playerIndex, shared.locations.VertexLocation vertexLocation) 
 	{
 		BuildCityParams buildcity = new BuildCityParams();
 		buildcity.setPlayerIndex(playerIndex);
-		buildcity.setVertexLocation(vertexLocation);
+		client.serverproxy.VertexLocation vl = new client.serverproxy.VertexLocation(vertexLocation.getHexLoc().getX(),
+				vertexLocation.getHexLoc().getY(),vertexLocation.getDir());
+		buildcity.setVertexLocation(vl);
 		String input = g.toJson(buildcity);
 		clientComm.send("moves/buildCity",input);
 	}
@@ -261,6 +275,27 @@ public class ServerProxy {
 		sendchat.setPlayerIndex(playerIndex);
 		String input = g.toJson(sendchat);
 		clientComm.send("moves/sendChat",input);
+	}
+	
+	public void maritimeTrade(int playerIndex, int ratio, String inputResource, String outputResource)
+	{
+		MaritimeTradeParams maritime = new MaritimeTradeParams();
+		maritime.setPlayerIndex(playerIndex);
+		maritime.setInputResource(inputResource);
+		maritime.setOutputResource(outputResource);
+		maritime.setRatio(ratio);
+		String input = g.toJson(maritime);
+		clientComm.send("moves/maritimeTrade",input);
+	}
+	
+	public void robPlayer(int playerIndex, int victimIndex, HexLocation location)
+	{
+		RobPlayerParams robber = new RobPlayerParams();
+		robber.setLocation(location);
+		robber.setPlayerIndex(playerIndex);
+		robber.setVictimIndex(victimIndex);
+		String input = g.toJson(robber);
+		clientComm.send("moves/robPlayer",input);
 	}
 	
 	/**

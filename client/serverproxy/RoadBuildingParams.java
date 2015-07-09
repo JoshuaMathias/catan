@@ -1,6 +1,6 @@
 package client.serverproxy;
 
-import shared.locations.EdgeLocation;
+import client.serverproxy.EdgeLocation;
 
 /**
  * Class for sending data for a road building request.

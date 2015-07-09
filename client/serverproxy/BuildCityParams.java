@@ -1,6 +1,6 @@
 package client.serverproxy;
 
-import shared.locations.VertexLocation;
+import client.serverproxy.VertexLocation;
 
 public class BuildCityParams {
 	private String type="buildCity";

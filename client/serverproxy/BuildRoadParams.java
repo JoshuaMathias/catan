@@ -1,6 +1,6 @@
 package client.serverproxy;
 
-import shared.locations.EdgeLocation;
+import client.serverproxy.EdgeLocation;
 
 public class BuildRoadParams {
 	private String type="buildRoad";

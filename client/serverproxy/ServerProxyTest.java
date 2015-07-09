@@ -37,34 +37,35 @@ public class ServerProxyTest {
 		facade.createGame(true, true, true, "test");
 		turnTracker = new TurnTracker();
 
-		Facade.count++;
 		String u = "Ife"+Integer.toString(Facade.count);
 		String p = "testpass";
 		facade.register(u, p);
 		facade.login(u, p);
-		facade.joinGame("3", "red");
+		facade.joinGame(Integer.toString(3+Facade.count), "red");
 
 		String u2 = "Josh"+Integer.toString(Facade.count);
 		String p2 = "testpass";
 		facade2 = new Facade("localhost");
 		facade2.register(u2, p2);
 		facade2.login(u2, p2);
-		facade2.joinGame("3", "green");
+		facade2.joinGame(Integer.toString(3+Facade.count), "green");
 
 		String u3 = "Daniel"+Integer.toString(Facade.count);
 		String p3 = "testpass";
 		facade3 = new Facade("localhost");
 		facade3.register(u3, p3);
 		facade3.login(u3, p3);
-		facade3.joinGame("3", "blue");
+		facade3.joinGame(Integer.toString(3+Facade.count), "blue");
 
 		String u4 = "Paul"+Integer.toString(Facade.count);
 		String p4 = "testpass";
 		facade4 = new Facade("localhost");
 		facade4.register(u4, p4);
 		facade4.login(u4, p4);
-		facade4.joinGame("3", "yellow");
-
+		facade4.joinGame(Integer.toString(3+Facade.count), "yellow");
+		
+		Facade.count++;
+		
 		Ife = new Player();
 		Josh = new Player();
 		Daniel = new Player();
@@ -133,7 +134,7 @@ public class ServerProxyTest {
 	@Test
 	public void testYearOfPlenty() {
 		System.out.println("testYearOfPlenty");
-		facade.yearOfPlenty(0, "Wool", "Brick");
+		facade.yearOfPlenty(0, "wood", "wheat");
 	}
 
 	@Test
@@ -175,7 +176,7 @@ public class ServerProxyTest {
 	@Test
 	public void testBuildCity() {
 		System.out.println("testBuildCity");
-		HexLocation hexLoc = new HexLocation(3, 4);
+		HexLocation hexLoc = new HexLocation(0, 0);
 		VertexLocation vertLoc = new VertexLocation(hexLoc,
 				VertexDirection.NorthEast);
 		facade.buildCity(0, vertLoc);
@@ -191,6 +192,8 @@ public class ServerProxyTest {
 	@Test
 	public void testAcceptTrade() {
 		System.out.println("testAcceptTrade");
+		ResourceList offer = new ResourceList(132, -465, 348, -298, 141);
+		facade.offerTrade(0, offer, 1);
 		facade.acceptTrade(1, true);
 	}
 

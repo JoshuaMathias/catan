@@ -1,6 +1,6 @@
 package client.serverproxy;
 
-import shared.locations.VertexLocation;
+import client.serverproxy.VertexLocation;
 
 /**
  * Class for sending data for a build settlement or build city request.
