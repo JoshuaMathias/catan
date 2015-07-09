@@ -414,6 +414,10 @@ public class Facade {
         proxy.monument(playerIndex);
     }
     
+    public void maritimeTrade(int playerIndex, int ratio, String inputResource, String outputResource) {
+    	proxy.maritimeTrade(playerIndex, ratio, inputResource, outputResource);
+    }
+    
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
      * @param playerIndex

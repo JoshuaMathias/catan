@@ -147,7 +147,7 @@ public class ServerProxyTest {
 	@Test
 	public void testMonopoly() {
 		System.out.println("testMonopoly");
-		facade.monopoly("Brick", 0);
+		facade.monopoly("brick", 0);
 	}
 
 	@Test
@@ -216,5 +216,10 @@ public class ServerProxyTest {
 		facade.robPlayer(0, 1, new HexLocation(0,0));
 	}
 	
+	@Test
+	public void maritimeTrade() {
+		System.out.println("maritimeTrade");
+		facade.maritimeTrade(0, 2, "wood", "sheep");
+	}
 
 }
