@@ -12,7 +12,6 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import client.model.ClientModel;
-import client.model.DevCardList;
 import client.model.Map;
 import client.model.Player;
 import client.model.ResourceList;

@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import shared.definitions.PortType;
-import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
