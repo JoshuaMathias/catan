@@ -103,7 +103,7 @@ public class ServerProxyTest {
 		facade.sendChat(0, "Hello World");
 	}
 
-	@Test
+	//@Test
 	public void testRollNumber() {
 		System.out.println("testRollNumber");
 		facade.rollNumber(0, 5);
@@ -125,13 +125,13 @@ public class ServerProxyTest {
 		facade.finishTurn(0);
 	}
 
-	@Test
+	//@Test
 	public void testBuyDevCard() {
 		System.out.println("testBuyDevCard");
 		facade.buyDevCard(0);
 	}
 
-	@Test
+	//@Test
 	public void testYearOfPlenty() {
 		System.out.println("testYearOfPlenty");
 		facade.yearOfPlenty(0, "wood", "wheat");
@@ -147,11 +147,7 @@ public class ServerProxyTest {
 	@Test
 	public void testMonopoly() {
 		System.out.println("testMonopoly");
-<<<<<<< HEAD
-		facade.monopoly("brick", 0);
-=======
 		facade.monopoly("wood", 0);
->>>>>>> 34b4a52e55594dadc40f6e2c435810ab5ddda85d
 	}
 
 	@Test
@@ -160,7 +156,7 @@ public class ServerProxyTest {
 		facade.monument(0);
 	}
 
-	@Test
+	//@Test
 	public void testBuildRoad() {
 		System.out.println("testBuildRoad");
 		HexLocation hexLoc = new HexLocation(0, 0);
@@ -177,7 +173,7 @@ public class ServerProxyTest {
 		facade.buildSettlement(0, vertLoc, true);
 	}
 
-	@Test
+	//@Test
 	public void testBuildCity() {
 		System.out.println("testBuildCity");
 		HexLocation hexLoc = new HexLocation(0, 0);
@@ -186,14 +182,14 @@ public class ServerProxyTest {
 		facade.buildCity(0, vertLoc);
 	}
 
-	@Test
+	//@Test
 	public void testOfferTrade() {
 		System.out.println("testOfferTrade");
 		ResourceList offer = new ResourceList(1, -4, 3, -2, 1);
 		facade.offerTrade(0, offer, 1);
 	}
 
-	@Test
+	//@Test
 	public void testAcceptTrade() {
 		System.out.println("testAcceptTrade");
 		ResourceList offer = new ResourceList(132, -465, 348, -298, 141);
@@ -201,14 +197,14 @@ public class ServerProxyTest {
 		facade.acceptTrade(1, true);
 	}
 
-	@Test
+	//@Test
 	public void testDiscardCards() {
 		System.out.println("testDiscardCards");
 		ResourceList discardedCards = new ResourceList(1, 1, 1, 1, 1);
 		facade.discardCards(2, discardedCards);
 	}
 
-	@Test
+	//@Test
 	public void testGetClientModel() {
 		System.out.println("testGetClientModel");
 		facade.getClientModel(1);
@@ -220,7 +216,7 @@ public class ServerProxyTest {
 		facade.robPlayer(0, 1, new HexLocation(0,0));
 	}
 	
-	@Test
+	//@Test
 	public void maritimeTrade() {
 		System.out.println("maritimeTrade");
 		facade.maritimeTrade(0, 2, "wood", "sheep");
