@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import shared.definitions.DevCardType;
 import shared.definitions.PortType;
-import shared.definitions.ResourceType;
 import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 /**

@@ -1,7 +1,6 @@
 package client.model;
 
 import shared.definitions.PortType;
-import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 

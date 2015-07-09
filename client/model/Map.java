@@ -435,7 +435,7 @@ public class Map {
 			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SouthWest);
 			
 			hexLoc4 = new HexLocation(x,y-1);
-			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.SouthEast);	
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SouthEast);	
 			break;
 		case NorthEast:
 			hexLoc1 = new HexLocation(x,y);
@@ -448,7 +448,7 @@ public class Map {
 			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthWest);
 			
 			hexLoc4 = new HexLocation(x+1,y-1);
-			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.South);
 			break;
 		case NorthWest:	
 			hexLoc1 = new HexLocation(x,y);
@@ -461,7 +461,7 @@ public class Map {
 			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
 			
 			hexLoc4 = new HexLocation(x-1,y);
-			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.South);
 			break;
 		case SouthEast:
 			hexLoc1 = new HexLocation(x,y);
@@ -474,7 +474,7 @@ public class Map {
 			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.North);
 			
 			hexLoc4 = new HexLocation(x+1,y);
-			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.SouthWest);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SouthWest);
 			break;
 		case SouthWest:
 			hexLoc1 = new HexLocation(x,y);
@@ -487,7 +487,7 @@ public class Map {
 			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.North);
 			
 			hexLoc4 = new HexLocation(x-1,y+1);
-			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.SouthEast);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SouthEast);
 			break;
 		case South:
 			hexLoc1 = new HexLocation(x,y);
@@ -500,7 +500,7 @@ public class Map {
 			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
 			
 			hexLoc4 = new HexLocation(x,y+1);
-			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.NorthWest);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.NorthWest);
 			break;
 		default://May change this to an exception later
 			hexLoc1 = new HexLocation(x,y);
@@ -513,7 +513,7 @@ public class Map {
 			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
 			
 			hexLoc4 = new HexLocation(x-1,y);
-			edge4 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.South);
 			break;
 		}
 		edge1 = edge1.getNormalizedLocation();
