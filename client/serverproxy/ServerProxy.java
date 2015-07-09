@@ -3,6 +3,7 @@ package client.serverproxy;
 import com.google.gson.Gson;
 
 import client.model.ClientModel;
+import server.IServer;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -14,7 +15,7 @@ import client.poller.ServerPoller;
  * @author Ife's Group
  *
  */
-public class ServerProxy {
+public class ServerProxy implements IServer {
 
 	//This class might have to be a singleton
 	private Gson g = new Gson();
@@ -401,4 +402,5 @@ public class ServerProxy {
 		
 		server.getClientModel(-1);			//Will return null because of version number
 	}
+
 }

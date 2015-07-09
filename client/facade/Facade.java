@@ -9,6 +9,7 @@ import client.serverproxy.JoinGameParams;
 import client.serverproxy.LoginParams;
 import client.serverproxy.RegisterParams;
 import client.serverproxy.ServerProxy;
+import server.IServer;
 import shared.definitions.*;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -21,7 +22,7 @@ import shared.locations.VertexLocation;
  */
 public class Facade {
 	private ClientModel model;
-	private ServerProxy proxy;
+	private IServer proxy;
 	private ServerPoller poller;
 	public static int count=0;
 	
@@ -43,7 +44,7 @@ public class Facade {
 		this.model = model;
 	}
 
-	public ServerProxy getProxy() {
+	public IServer getProxy() {
 		return proxy;
 	}
 

@@ -12,226 +12,7 @@ import client.model.*;
  *
  */
 public class Server implements IServer {
-
-	@Override
-	public DevCardList getDeck() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDeck(DevCardList deck) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ResourceList getBank() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setBank(ResourceList bank) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public MessageList getChat() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setChat(MessageList chat) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public MessageList getLog() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setLog(MessageList log) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Map getMap() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setMap(Map map) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ArrayList<Player> getPlayers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPlayers(ArrayList<Player> players) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public TradeOffer getTradeOffer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setTradeOffer(TradeOffer tradeOffer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public TurnTracker getTurnTracker() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setTurnTracker(TurnTracker turnTracker) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getVersion() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setVersion(int version) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getWinner() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setWinner(int winner) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateClientModel(ClientModel newClientModel) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int checkLongestRoad() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int checkLargestArmy() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int checkVictoryPoints() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean canRollDice(int playerIndex) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBankTrade(int playerIndex, ResourceType offer,
-			ResourceType request) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canOfferTrade(TradeOffer tradeOffer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canAcceptTrade(int playerIndex, TradeOffer tradeOffer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBuyDevCard(int playerIndex) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBuildSettlement(VertexObject settlement) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBuildCity(VertexObject city) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canBuildRoad(Road road) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canPlayDevCard(int playerIndex, DevCardType cardType) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canPlaceRobber(int playerIndex, int diceRoll,
-			HexLocation hexLoc) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canStealResourceCard(int playerIndex, int diceRoll,
-			int targetPlayer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mustDiscardHalfCards(int diceRoll, int playerIndex) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	@Override
 	public void rollNumber(int playerIndex, int number) {
 		// TODO Auto-generated method stub
@@ -314,9 +95,65 @@ public class Server implements IServer {
 	}
 
 	@Override
-	public ClientModel getClientModel(String version) {
+	public ClientModel getClientModel(int version) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void register(String username, String password) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void login(String username, String password) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createGame(boolean randomTiles, boolean randomNumbers,
+			boolean randomPorts, String gameName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void joinGame(String gameId, String color) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void gamesList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendChat(int playerIndex, String content) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void monument(int playerIndex) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void robPlayer(int playerIndex, int victimIndex, HexLocation location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void maritimeTrade(int playerIndex, int ratio, String inputResource,
+			String outputResource) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

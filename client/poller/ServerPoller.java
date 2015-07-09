@@ -3,6 +3,8 @@ package client.poller;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import server.IServer;
+
 import client.facade.Facade;
 import client.model.ClientModel;
 import client.serverproxy.ServerProxy;
@@ -15,12 +17,12 @@ import client.serverproxy.ServerProxy;
 public class ServerPoller {
 
 	private int modelVersion;
-	private ServerProxy proxy;
+	private IServer proxy;
 	private int interval;
 	private Timer timer;
 	private Facade facade;
 	
-	public ServerPoller(ServerProxy proxy, Facade facade) {
+	public ServerPoller(IServer proxy, Facade facade) {
 		this.proxy=proxy;
 		this.facade=facade;
 		interval=1;
