@@ -1,4 +1,4 @@
-package client.serverproxy;
+package Testing.Proxy;
 
 import static org.junit.Assert.*;
 
