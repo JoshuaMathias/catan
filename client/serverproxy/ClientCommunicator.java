@@ -92,7 +92,10 @@ public class ClientCommunicator
 		
 		catch (Exception e) 
 		{
-			e.printStackTrace();
+			result = "400";
+	    	System.out.println("");
+	    	System.out.println("for "+ext+" Response code: "+ result); 
+			//e.printStackTrace();
 	    } 
 		
 		finally 

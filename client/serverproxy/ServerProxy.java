@@ -1,5 +1,8 @@
 package client.serverproxy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.Gson;
 
 import client.model.ClientModel;
@@ -9,14 +12,22 @@ import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import client.model.ResourceList;
 import client.poller.ServerPoller;
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 
 /**
  * Proxy Server for the Client to interact with the Server. Packages information into objects and strings for the ClientCommunicator to send to the Server
  * @author Ife's Group
  *
  */
-public class ServerProxy implements IServer {
+public class ServerProxy implements IServer 
+{
 
+	//Some server functions might have to return booleans because the board must be in a certain in order to execute
+	//certain commands. Like for example the server will not do the robPlayer command unless the victim has a house
+	//on the targeted hex, at least one resource has to be present in the victims hand, and the hex location has to
+	//exist. I know that our cando functions are checking these but some rules may slip through.
+	
 	//This class might have to be a singleton
 	private Gson g = new Gson();
 	private String hostname = "";
@@ -317,18 +328,30 @@ public class ServerProxy implements IServer {
 	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
 	
 	
-	public void register(String username, String password)
+	public boolean register(String username, String password)
 	{
+		boolean result = false;
 		RegisterParams register = new RegisterParams(username,password);
 		String input = g.toJson(register);
-		clientComm.send("user/register", input);
+		String check = clientComm.send("user/register", input);
+		if(!check.equals("400"))
+		{
+			result = true;
+		}
+		return result;
 	}
 	
-	public void login(String username, String password)
+	public boolean login(String username, String password)
 	{
+		boolean result = false;
 		LoginParams login = new LoginParams(username,password);
 		String input = g.toJson(login);
-		clientComm.send("user/login",input);
+		String check = clientComm.send("user/login",input);
+		if(!check.equals("400"))
+		{
+			result = true;
+		}
+		return result;
 	}
 	
 	public void createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName)
@@ -338,18 +361,27 @@ public class ServerProxy implements IServer {
 		clientComm.send("games/create", input);
 	}
 	
-	public void joinGame(String gameId, String color)
+	public boolean joinGame(String gameId, String color)
 	{
+		boolean result = false;
 		JoinGameParams joingame = new JoinGameParams(gameId,color);
 		String input = g.toJson(joingame);
-		clientComm.send("games/join", input);
+		String check = clientComm.send("games/join", input);
+		if(!check.equals("400"))
+		{
+			result = true;
+		}
+		return result;
 	}
 	
-	//We might want to return something here. 
-	//List a list of games object so that a user may know what games are available.
-	public void gamesList()
+	//Because the server doesn't return the player's index we will have to determine each player's index in the game
+	//Most likely by order they are listed in the arraylist of players in the gameinfo object
+	public GamesList getGamesList()
 	{
-		
+		String Jsonoutput = clientComm.send("games/list","");
+		Jsonoutput = "{\"games\":"+Jsonoutput+"}";
+		GamesList result = g.fromJson(Jsonoutput, GamesList.class);
+		return result;
 	}
 
 	//Add a couple of functions from the server
@@ -372,10 +404,10 @@ public class ServerProxy implements IServer {
 		String u3 = "ogeorge3";
 		String p3 = "cookies3";
 		
-		
 		ServerProxy server = new ServerProxy("longbow");
 		server.register(u, p);server.createGame(true,true,true,"test");
 		server.joinGame("3", "red");
+
 		//server.login(u, p);
 		
 		ServerProxy server1 = new ServerProxy("longbow");
@@ -393,13 +425,13 @@ public class ServerProxy implements IServer {
 		server3.joinGame("3", "yellow");
 		//server3.login(u, p);
 		
-		server.getClientModel(-1);
+		ClientModel c = server.getClientModel(-1);
 
 		ResourceList ifes = new ResourceList (100,-400,200,-300,100);
 		server.offerTrade(0, ifes , 1);
 		server1.acceptTrade(1, true);
 		
-		server.getClientModel(-1);			//Will return null because of version number
+		server.getClientModel(2);				//Will return null because of version number		
 	}
 
 }
