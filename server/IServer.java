@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import shared.definitions.*;
 import shared.locations.*;
-
 import client.model.*;
+import client.serverproxy.GamesList;
 
 /**
  * Interface for the server.
@@ -15,16 +15,14 @@ import client.model.*;
 public interface IServer {
     //Do Methods
 
-	public void register(String username, String password);
+	public boolean register(String username, String password);
 	
-	public void login(String username, String password);
+	public boolean login(String username, String password);
 	
 	public void createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName);
 	
-	public void joinGame(String gameId, String color);
-	
-	public void gamesList();
-	
+	public boolean joinGame(String gameId, String color);
+		
 	public void sendChat(int playerIndex, String content);
 	
 	public void monument(int playerIndex);
@@ -32,6 +30,8 @@ public interface IServer {
 	public void robPlayer(int playerIndex, int victimIndex, HexLocation location);
 	
 	public void maritimeTrade(int playerIndex, int ratio, String inputResource, String outputResource);
+	
+	public GamesList getGamesList();
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
      * @param playerIndex
