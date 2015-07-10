@@ -1,4 +1,7 @@
 package client.model;
+
+import shared.definitions.CatanColor;
+
 /**
  * This class represents a player.
  * @author Ife's group
@@ -7,7 +10,7 @@ package client.model;
 public class Player {
 
 	private int cities = 0;
-	private String color;
+	private CatanColor color;
 	private boolean discarded = false;
 	private int momuments = 0;
 	private String name;
@@ -33,10 +36,10 @@ public class Player {
 	public void setCities(int cities) {
 		this.cities = cities;
 	}
-	public String getColor() {
+	public CatanColor getColor() {
 		return color;
 	}
-	public void setColor(String color) {
+	public void setColor(CatanColor color) {
 		this.color = color;
 	}
 	public boolean isDiscarded() {

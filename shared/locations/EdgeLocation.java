@@ -9,8 +9,8 @@ public class EdgeLocation
 	private HexLocation hexLoc;
 	private EdgeDirection dir;
 	//private String direction;
-	//private int x;
-	//private int y;
+	private int x;
+	private int y;
 	
 	public EdgeLocation(HexLocation hexLoc, EdgeDirection dir)
 	{
@@ -20,6 +20,7 @@ public class EdgeLocation
 	
 	public HexLocation getHexLoc()
 	{
+		setXYHexLoc();
 		return hexLoc;
 	}
 	
@@ -30,27 +31,38 @@ public class EdgeLocation
 			throw new IllegalArgumentException("hexLoc cannot be null");
 		}
 		this.hexLoc = hexLoc;
+		this.x = hexLoc.getX();
+		this.y = hexLoc.getY();
+	}
+	
+	private void setXYHexLoc(){
+		HexLocation location = new HexLocation(x, y);
+		setHexLoc(location);
 	}
 	
 	public EdgeDirection getDir()
 	{
+		setXYHexLoc();
 		return dir;
 	}
 	
 	private void setDir(EdgeDirection dir)
 	{
+		setXYHexLoc();
 		this.dir = dir;
 	}
 	
 	@Override
 	public String toString()
 	{
+		setXYHexLoc();
 		return "EdgeLocation [hexLoc=" + hexLoc + ", dir=" + dir + "]";
 	}
 	
 	@Override
 	public int hashCode()
 	{
+		setXYHexLoc();
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dir == null) ? 0 : dir.hashCode());
@@ -61,6 +73,7 @@ public class EdgeLocation
 	@Override
 	public boolean equals(Object obj)
 	{
+		setXYHexLoc();
 		if(this == obj)
 			return true;
 		if(obj == null)
@@ -90,7 +103,7 @@ public class EdgeLocation
 	 */
 	public EdgeLocation getNormalizedLocation()
 	{
-		
+		setXYHexLoc();
 		// Return an EdgeLocation that has direction NW, N, or NE
 		
 		switch (dir)
