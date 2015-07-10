@@ -96,164 +96,164 @@ public class ServerProxyTest {
 		facade.setPlayers(playerList);
 		facade.setTurnTracker(turnTracker);
 	}
-
-	@Test
-	public void testSendChat() {
-		System.out.println("testSendChat");
-		facade.sendChat(0, "Hello World");
-	}
-
-	@Test
-	public void testRollNumber() {
-		System.out.println("testRollNumber");
-		facade.rollNumber(0, 5);
-	}
-
-	@Test
-	public void testRoadBuilding() {
-		System.out.println("testRoadBuilding");
-		HexLocation hexLoc = new HexLocation(0, 0);
-		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
-		HexLocation hexLoc2 = new HexLocation(0, 0);
-		EdgeLocation loc2 = new EdgeLocation(hexLoc, EdgeDirection.North);
-		facade.roadBuilding(0, loc, loc2);
-	}
-
-	@Test
-	public void testFinishTurn() {
-		System.out.println("testFinishTurn");
-		facade.finishTurn(0);
-	}
-
-	@Test
-	public void testBuyDevCard() {
-		System.out.println("testBuyDevCard");
-		facade.buyDevCard(0);
-	}
-
-	@Test
-	public void testYearOfPlenty() {
-		System.out.println("testYearOfPlenty");
-		facade.yearOfPlenty(0, "wood", "wheat");
-	}
-
-	@Test
-	public void testSoldier() {
-		System.out.println("testSoldier");
-		
-		//Player 1 puts down a house on one side of the (0,0)
-		HexLocation hexLoc = new HexLocation(0, 0);
-		VertexLocation vertLoc = new VertexLocation(hexLoc,
-				VertexDirection.East);
-		facade.buildSettlement(0, vertLoc, true);
-		
-		//Player 2 puts down a house on one side of the (0,0)
-		HexLocation hexLoc1 = new HexLocation(0, 0);
-		VertexLocation vertLoc1 = new VertexLocation(hexLoc1,
-				VertexDirection.West);
-		facade2.buildSettlement(1, vertLoc1, true);
-		
-		//Both players get some resource to steal
-		facade.rollNumber(0, 11);
-		
-		facade.soldier(0, 1,  new HexLocation(0, 0));
-	}
-
-	@Test
-	public void testMonopoly() {
-		System.out.println("testMonopoly");
-		facade.monopoly("wood", 0);
-	}
-
-	@Test
-	public void testMonument() {
-		System.out.println("testMonument");
-		facade.monument(0);
-	}
-
-	//Need to find out what we are gonna do about North(what the given code has) and N what the server expects
-	@Test
-	public void testBuildRoad() {
-		System.out.println("testBuildRoad");
-		HexLocation hexLoc = new HexLocation(0, 0);
-		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
-		facade.buildRoad(0, loc, true);
-	}
-
-	@Test
-	public void testBuildSettlement() {
-		System.out.println("testBuildSettlement");
-		HexLocation hexLoc = new HexLocation(0, 0);
-		VertexLocation vertLoc = new VertexLocation(hexLoc,
-				VertexDirection.East);
-		facade.buildSettlement(0, vertLoc, true);
-	}
-
-	@Test
-	public void testBuildCity() {
-		System.out.println("testBuildCity");
-		HexLocation hexLoc = new HexLocation(0, 0);
-		VertexLocation vertLoc = new VertexLocation(hexLoc,
-				VertexDirection.NorthEast);
-		facade.buildCity(0, vertLoc);
-	}
-
-	@Test
-	public void testOfferTrade() {
-		System.out.println("testOfferTrade");
-		ResourceList offer = new ResourceList(1, -4, 3, -2, 1);
-		facade.offerTrade(0, offer, 1);
-	}
-
-	@Test
-	public void testAcceptTrade() {
-		//Need to have a trade offered before you can accept it or reject it
-		System.out.println("testAcceptTrade");
-		ResourceList offer = new ResourceList(132, -465, 348, -298, 141);
-		facade.offerTrade(0, offer, 1);
-		facade.acceptTrade(1, true);
-	}
-
-	@Test
-	public void testDiscardCards() {
-		System.out.println("testDiscardCards");
-		ResourceList discardedCards = new ResourceList(1, 1, 1, 1, 1);
-		facade.discardCards(2, discardedCards);
-	}
-
-	@Test
-	public void testGetClientModel() {
-		System.out.println("testGetClientModel");
-		facade.getClientModel(1);
-	}
-	
-	@Test
-	public void testRobPlayer() {
-		System.out.println("testRobPlayer");
-		
-		//Player 1 puts down a house on one side of the (0,0)
-		HexLocation hexLoc = new HexLocation(0, 0);
-		VertexLocation vertLoc = new VertexLocation(hexLoc,
-				VertexDirection.East);
-		facade.buildSettlement(0, vertLoc, true);
-		
-		//Player 2 puts down a house on one side of the (0,0)
-		HexLocation hexLoc1 = new HexLocation(0, 0);
-		VertexLocation vertLoc1 = new VertexLocation(hexLoc1,
-				VertexDirection.West);
-		facade2.buildSettlement(1, vertLoc1, true);
-		
-		//Both players get some resource to steal
-		facade.rollNumber(0, 11);
-		
-		facade.robPlayer(0, 1, new HexLocation(0,0));
-	}
-	
-	@Test
-	public void maritimeTrade() {
-		//Make sure that the resources you ask for are real
-		System.out.println("maritimeTrade");
-		facade.maritimeTrade(0, 2, "wood", "sheep");
-	}
+//
+//	@Test
+//	public void testSendChat() {
+//		System.out.println("testSendChat");
+//		facade.sendChat(0, "Hello World");
+//	}
+//
+//	@Test
+//	public void testRollNumber() {
+//		System.out.println("testRollNumber");
+//		facade.rollNumber(0, 5);
+//	}
+//
+//	@Test
+//	public void testRoadBuilding() {
+//		System.out.println("testRoadBuilding");
+//		HexLocation hexLoc = new HexLocation(0, 0);
+//		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
+//		HexLocation hexLoc2 = new HexLocation(0, 0);
+//		EdgeLocation loc2 = new EdgeLocation(hexLoc, EdgeDirection.North);
+//		facade.roadBuilding(0, loc, loc2);
+//	}
+//
+//	@Test
+//	public void testFinishTurn() {
+//		System.out.println("testFinishTurn");
+//		facade.finishTurn(0);
+//	}
+//
+//	@Test
+//	public void testBuyDevCard() {
+//		System.out.println("testBuyDevCard");
+//		facade.buyDevCard(0);
+//	}
+//
+//	@Test
+//	public void testYearOfPlenty() {
+//		System.out.println("testYearOfPlenty");
+//		facade.yearOfPlenty(0, "wood", "wheat");
+//	}
+//
+//	@Test
+//	public void testSoldier() {
+//		System.out.println("testSoldier");
+//		
+//		//Player 1 puts down a house on one side of the (0,0)
+//		HexLocation hexLoc = new HexLocation(0, 0);
+//		VertexLocation vertLoc = new VertexLocation(hexLoc,
+//				VertexDirection.East);
+//		facade.buildSettlement(0, vertLoc, true);
+//		
+//		//Player 2 puts down a house on one side of the (0,0)
+//		HexLocation hexLoc1 = new HexLocation(0, 0);
+//		VertexLocation vertLoc1 = new VertexLocation(hexLoc1,
+//				VertexDirection.West);
+//		facade2.buildSettlement(1, vertLoc1, true);
+//		
+//		//Both players get some resource to steal
+//		facade.rollNumber(0, 11);
+//		
+//		facade.soldier(0, 1,  new HexLocation(0, 0));
+//	}
+//
+//	@Test
+//	public void testMonopoly() {
+//		System.out.println("testMonopoly");
+//		facade.monopoly("wood", 0);
+//	}
+//
+//	@Test
+//	public void testMonument() {
+//		System.out.println("testMonument");
+//		facade.monument(0);
+//	}
+//
+//	//Need to find out what we are gonna do about North(what the given code has) and N what the server expects
+//	@Test
+//	public void testBuildRoad() {
+//		System.out.println("testBuildRoad");
+//		HexLocation hexLoc = new HexLocation(0, 0);
+//		EdgeLocation loc = new EdgeLocation(hexLoc, EdgeDirection.North);
+//		facade.buildRoad(0, loc, true);
+//	}
+//
+//	@Test
+//	public void testBuildSettlement() {
+//		System.out.println("testBuildSettlement");
+//		HexLocation hexLoc = new HexLocation(0, 0);
+//		VertexLocation vertLoc = new VertexLocation(hexLoc,
+//				VertexDirection.East);
+//		facade.buildSettlement(0, vertLoc, true);
+//	}
+//
+//	@Test
+//	public void testBuildCity() {
+//		System.out.println("testBuildCity");
+//		HexLocation hexLoc = new HexLocation(0, 0);
+//		VertexLocation vertLoc = new VertexLocation(hexLoc,
+//				VertexDirection.NorthEast);
+//		facade.buildCity(0, vertLoc);
+//	}
+//
+//	@Test
+//	public void testOfferTrade() {
+//		System.out.println("testOfferTrade");
+//		ResourceList offer = new ResourceList(1, -4, 3, -2, 1);
+//		facade.offerTrade(0, offer, 1);
+//	}
+//
+//	@Test
+//	public void testAcceptTrade() {
+//		//Need to have a trade offered before you can accept it or reject it
+//		System.out.println("testAcceptTrade");
+//		ResourceList offer = new ResourceList(132, -465, 348, -298, 141);
+//		facade.offerTrade(0, offer, 1);
+//		facade.acceptTrade(1, true);
+//	}
+//
+//	@Test
+//	public void testDiscardCards() {
+//		System.out.println("testDiscardCards");
+//		ResourceList discardedCards = new ResourceList(1, 1, 1, 1, 1);
+//		facade.discardCards(2, discardedCards);
+//	}
+//
+//	@Test
+//	public void testGetClientModel() {
+//		System.out.println("testGetClientModel");
+//		facade.getClientModel(1);
+//	}
+//	
+//	@Test
+//	public void testRobPlayer() {
+//		System.out.println("testRobPlayer");
+//		
+//		//Player 1 puts down a house on one side of the (0,0)
+//		HexLocation hexLoc = new HexLocation(0, 0);
+//		VertexLocation vertLoc = new VertexLocation(hexLoc,
+//				VertexDirection.East);
+//		facade.buildSettlement(0, vertLoc, true);
+//		
+//		//Player 2 puts down a house on one side of the (0,0)
+//		HexLocation hexLoc1 = new HexLocation(0, 0);
+//		VertexLocation vertLoc1 = new VertexLocation(hexLoc1,
+//				VertexDirection.West);
+//		facade2.buildSettlement(1, vertLoc1, true);
+//		
+//		//Both players get some resource to steal
+//		facade.rollNumber(0, 11);
+//		
+//		facade.robPlayer(0, 1, new HexLocation(0,0));
+//	}
+//	
+//	@Test
+//	public void maritimeTrade() {
+//		//Make sure that the resources you ask for are real
+//		System.out.println("maritimeTrade");
+//		facade.maritimeTrade(0, 2, "wood", "sheep");
+//	}
 
 }

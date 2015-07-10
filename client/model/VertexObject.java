@@ -17,6 +17,10 @@ public class VertexObject {
 		this.location=location;
 	}
 	
+	public VertexObject() {
+		
+	}
+	
 	public int getOwner() {
 		return owner;
 	}
