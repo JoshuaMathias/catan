@@ -12,6 +12,11 @@ public class VertexObject {
 	private int owner;
 	private VertexLocation location;
 	
+	public VertexObject(int owner, VertexLocation location) {
+		this.owner=owner;
+		this.location=location;
+	}
+	
 	public int getOwner() {
 		return owner;
 	}

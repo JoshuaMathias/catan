@@ -22,17 +22,69 @@ import shared.locations.VertexLocation;
  */
 public class Facade {
 	private ClientModel model;
-	private IServer proxy;
+	public static IServer proxy;
+	public static Facade thisFacade;
+	private String host;
 	private ServerPoller poller;
 	public static int count=0;
+	public static int playerIndex=0;
+	public static int diceRoll=0;
+	public static HexLocation tempRobLoc;
 	
 	public Facade(String host) {
+		this.host=host;
 		model=new ClientModel();
 		proxy=new ServerProxy(host);
 		poller=new ServerPoller(proxy, this);
+		thisFacade=this;
+	}
+	
+	public static Facade getSingleton() {
+		if (thisFacade==null) {
+			thisFacade=new Facade("localhost");
+		}
+		return thisFacade;
+	}
+	
+	
+	
+	public static HexLocation getTempRobLoc() {
+		return tempRobLoc;
 	}
 
-	public void sendChat(int playerIndex, String content) {
+	public static void setTempRobLoc(HexLocation tempRobLoc) {
+		Facade.tempRobLoc = tempRobLoc;
+	}
+
+	public static int getDiceRoll() {
+		return diceRoll;
+	}
+
+	public static void setDiceRoll(int diceRoll) {
+		Facade.diceRoll = diceRoll;
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	public static int getPlayerIndex() {
+		return playerIndex;
+	}
+
+	public static void setPlayerIndex(int playerIndex) {
+		Facade.playerIndex = playerIndex;
+	}
+
+	public static void setProxy(IServer proxy) {
+		Facade.proxy = proxy;
+	}
+
+	public void sendChat(String content) {
 		proxy.sendChat(playerIndex, content);
 	}
 	
@@ -187,7 +239,7 @@ public class Facade {
      * @pre none
      * @post Must be player's turn, and player hasn't rolled yet- return true. Otherwise returns false.   
      */
-    public boolean canRollDice(int playerIndex) {
+    public boolean canRollDice() {
         return model.canRollDice(playerIndex);
     }
 
@@ -203,7 +255,7 @@ public class Facade {
      * 
      * Otherwise return false
      */
-    public boolean canBankTrade(int playerIndex, PortType offer, PortType request) {
+    public boolean canBankTrade(PortType offer, PortType request) {
         return model.canBankTrade(playerIndex, offer, request);
     }
     
@@ -227,7 +279,7 @@ public class Facade {
      * Otherwise return false
      * 
      */
-    public boolean canAcceptTrade(int playerIndex, TradeOffer tradeOffer) {
+    public boolean canAcceptTrade(TradeOffer tradeOffer) {
         return model.canAcceptTrade(playerIndex, tradeOffer);
     }
 
@@ -240,8 +292,8 @@ public class Facade {
      * to have the development card, and must be players turn- return true
      * Otherwise return false
      */
-    public boolean canBuyDevCard(int playerIndex) {
-        return canBuyDevCard(playerIndex);
+    public boolean canBuyDevCard() {
+        return model.canBuyDevCard(playerIndex);
     }
 
     /**
@@ -284,7 +336,7 @@ public class Facade {
      * @pre none
      * @post Player must have the development card, must be players turn, card can't have been received on the players turn- return true. Otherwise return false.
      */
-    public boolean canPlayDevCard(int playerIndex, DevCardType cardType) {
+    public boolean canPlayDevCard(DevCardType cardType) {
         return model.canPlayDevCard(playerIndex, cardType);
     }
     
@@ -295,7 +347,7 @@ public class Facade {
      * @pre none
      * @post Must be players turn, player rolls a seven, must be appropriately placed- return true. Otherwise return false.
      */
-    public boolean canPlaceRobber(int playerIndex, int diceRoll, HexLocation hexLoc) {
+    public boolean canPlaceRobber(int diceRoll, HexLocation hexLoc) {
         return model.canPlaceRobber(playerIndex, diceRoll, hexLoc);
     }
     
@@ -307,7 +359,7 @@ public class Facade {
      * @pre none
      * @post Must be players turn, player must roll a seven, target player must have a resource card- return true. Otherwise return false
      */
-    public boolean canStealResourceCard(int playerIndex, int diceRoll, int targetPlayer) {
+    public boolean canStealResourceCard(int diceRoll, int targetPlayer) {
         return model.canStealResourceCard(playerIndex, diceRoll, targetPlayer);
     }
     
@@ -332,8 +384,9 @@ public class Facade {
      * @pre playerIndex and number != null, number between 2 and 12 inclusive, playerIndex between 0 and 3 inclusive
      * @post Server receives information
      */
-    public void rollNumber(int playerIndex, int number) 
+    public void rollNumber(int number) 
     {
+    	this.diceRoll=number;
         proxy.rollNumber(playerIndex, number);
     }
     
@@ -345,7 +398,7 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive, playerIndex and spot1 and spot2 are not null
      * @post Server receives information
      */
-    public void roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) 
+    public void roadBuilding(EdgeLocation spot1, EdgeLocation spot2) 
     {
         proxy.roadBuilding(playerIndex, spot1, spot2);
     }
@@ -356,7 +409,7 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post Server receives information
      */
-    public void finishTurn(int playerIndex) 
+    public void finishTurn() 
     {
         proxy.finishTurn(playerIndex);
     }
@@ -367,7 +420,7 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post Server receives information
      */
-    public void buyDevCard(int playerIndex) 
+    public void buyDevCard() 
     {
         proxy.buyDevCard(playerIndex);
     }
@@ -380,7 +433,7 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive and not null, both resources must not be null and one of the key words for resources
      * @post Server receives information
      */
-    public void yearOfPlenty(int playerIndex, String resource1, String resource2) 
+    public void yearOfPlenty(String resource1, String resource2) 
     {
         proxy.yearOfPlenty(playerIndex, resource1, resource2);
     }
@@ -393,7 +446,7 @@ public class Facade {
      * @pre playerIndex and victinIndex between 0 and 3 inclusive and not null, location not null
      * @post Server receives information
      */
-    public void soldier(int playerIndex, int victimIndex, HexLocation location) 
+    public void soldier(int victimIndex, HexLocation location) 
     {
         proxy.soldier(playerIndex, victimIndex, location);
     }
@@ -415,7 +468,7 @@ public class Facade {
         proxy.monument(playerIndex);
     }
     
-    public void maritimeTrade(int playerIndex, int ratio, String inputResource, String outputResource) {
+    public void maritimeTrade(int ratio, String inputResource, String outputResource) {
     	proxy.maritimeTrade(playerIndex, ratio, inputResource, outputResource);
     }
     
@@ -427,7 +480,7 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive and not null, roadLocation not null
      * @post Server receives information
      */
-    public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) 
+    public void buildRoad(EdgeLocation roadLocation, boolean free) 
     {
         proxy.buildRoad(playerIndex, roadLocation, free);
     }
@@ -440,7 +493,7 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
      * @post Server receives information
      */
-    public void buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free)
+    public void buildSettlement(VertexLocation vertexLocation, boolean free)
     {
         proxy.buildSettlement(playerIndex, vertexLocation, free);
     }
@@ -453,7 +506,7 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
      * @post Server receives information
      */
-    public void buildCity(int playerIndex, VertexLocation vertexLocation) 
+    public void buildCity(VertexLocation vertexLocation) 
     {
         proxy.buildCity(playerIndex, vertexLocation);
     }
@@ -466,7 +519,7 @@ public class Facade {
      * @pre playerIndex and receiver between 0 and 3 inclusive and not null, offer not null
      * @post Server receives information
      */
-    public void offerTrade(int playerIndex, ResourceList offer, int receiver) 
+    public void offerTrade(ResourceList offer, int receiver) 
     {
         proxy.offerTrade(playerIndex, offer, receiver);
     }
@@ -478,7 +531,7 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post Server receives information
      */
-    public void acceptTrade(int playerIndex, boolean willAccept) 
+    public void acceptTrade(boolean willAccept) 
     {
         proxy.acceptTrade(playerIndex, willAccept);
     }
@@ -490,12 +543,12 @@ public class Facade {
      * @pre playerIndex between 0 and 3 inclusive and not null, discardedCards not null
      * @post Server receives information
      */
-    public void discardCards(int playerIndex, ResourceList discardedCards) 
+    public void discardCards(ResourceList discardedCards) 
     {
         proxy.discardCards(playerIndex, discardedCards);
     }
     
-    public void robPlayer(int playerIndex, int victimIndex, HexLocation location) {
+    public void robPlayer(int victimIndex, HexLocation location) {
     	proxy.robPlayer(playerIndex, victimIndex, location);
     }
     
@@ -529,6 +582,7 @@ public class Facade {
 	
 	public void joinGame(String gameId, String color)
 	{
+		this.playerIndex=getPlayers().size(); //Get 1 more than the current highest player index (before adding this player)
 		proxy.joinGame(gameId, color);
 	}
 	

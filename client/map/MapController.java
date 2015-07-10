@@ -6,6 +6,8 @@ import shared.definitions.*;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
+import client.facade.Facade;
+import client.model.*;
 
 
 /**
@@ -104,49 +106,53 @@ public class MapController extends Controller implements IMapController {
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		
-		return true;
+		Road road=new Road(Facade.getSingleton().getPlayerIndex(),edgeLoc);
+		return Facade.getSingleton().canBuildRoad(road);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		
-		return true;
+		VertexObject vertObj=new VertexObject(Facade.getSingleton().getPlayerIndex(), vertLoc);
+		return Facade.getSingleton().canBuildSettlement(vertObj);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
-		
-		return true;
+		VertexObject vertObj=new VertexObject(Facade.getSingleton().getPlayerIndex(), vertLoc);
+		return Facade.getSingleton().canBuildCity(vertObj);
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-		
-		return true;
+		return Facade.getSingleton().canPlaceRobber(Facade.getSingleton().getDiceRoll(), hexLoc);
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
-		
+		Facade.getSingleton().buildRoad(edgeLoc, false);
 		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		
+		Facade.getSingleton().buildSettlement(vertLoc, false);
 		getView().placeSettlement(vertLoc, CatanColor.ORANGE);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		
+		Facade.getSingleton().buildCity(vertLoc);
 		getView().placeCity(vertLoc, CatanColor.ORANGE);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
-		
 		getView().placeRobber(hexLoc);
-		
+		Facade.getSingleton().setTempRobLoc(hexLoc);
 		getRobView().showModal();
 	}
 	
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
-		
+		if (pieceType==PieceType.ROAD) {
+			
+		} else if (pieceType==PieceType.SETTLEMENT) {
+			
+		} else if (pieceType==PieceType.CITY) {
+			
+		}
 		getView().startDrop(pieceType, CatanColor.ORANGE, true);
 	}
 	
@@ -163,7 +169,7 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {	
-		
+		Facade.getSingleton().robPlayer(victim.getPlayerIndex(), Facade.getSingleton().getTempRobLoc());
 	}
 	
 }

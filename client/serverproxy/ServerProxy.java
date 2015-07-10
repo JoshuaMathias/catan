@@ -20,8 +20,6 @@ public class ServerProxy implements IServer {
 	//This class might have to be a singleton
 	private Gson g = new Gson();
 	private String hostname = "";
-	private ServerPoller poller; // Pretty sure that the server proxy will not have a poller but the poller will have
-								// A serverproxy singleton 
 	private ClientCommunicator clientComm;
 	
 	public ServerProxy(String hostname)
@@ -29,6 +27,7 @@ public class ServerProxy implements IServer {
 		this.hostname = hostname;
 		clientComm = new ClientCommunicator (hostname);
 	}
+	
 	
 	/**
 	 * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
