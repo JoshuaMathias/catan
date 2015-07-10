@@ -7,6 +7,8 @@ public class VertexLocation
 {
 	
 	private HexLocation hexLoc;
+	private int x;//x and y are only here for json conversion compatability
+	private int y;
 	private VertexDirection dir;
 	
 	public VertexLocation(HexLocation hexLoc, VertexDirection dir)
@@ -17,6 +19,7 @@ public class VertexLocation
 	
 	public HexLocation getHexLoc()
 	{
+		setXYHexLoc();
 		return hexLoc;
 	}
 	
@@ -27,27 +30,38 @@ public class VertexLocation
 			throw new IllegalArgumentException("hexLoc cannot be null");
 		}
 		this.hexLoc = hexLoc;
+		this.x = hexLoc.getX();
+		this.y = hexLoc.getY();
+	}
+	
+	private void setXYHexLoc(){
+		HexLocation location = new HexLocation(x, y);
+		setHexLoc(location);
 	}
 	
 	public VertexDirection getDir()
 	{
+		setXYHexLoc();
 		return dir;
 	}
 	
 	private void setDir(VertexDirection direction)
 	{
+		setXYHexLoc();
 		this.dir = direction;
 	}
 	
 	@Override
 	public String toString()
 	{
+		setXYHexLoc();
 		return "VertexLocation [hexLoc=" + hexLoc + ", dir=" + dir + "]";
 	}
 	
 	@Override
 	public int hashCode()
 	{
+		setXYHexLoc();
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dir == null) ? 0 : dir.hashCode());
@@ -58,6 +72,7 @@ public class VertexLocation
 	@Override
 	public boolean equals(Object obj)
 	{
+		setXYHexLoc();
 		if(this == obj)
 			return true;
 		if(obj == null)
@@ -87,6 +102,7 @@ public class VertexLocation
 	 */
 	public VertexLocation getNormalizedLocation()
 	{
+		setXYHexLoc();
 		
 		// Return location that has direction NW or NE
 		
