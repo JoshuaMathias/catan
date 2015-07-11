@@ -1,6 +1,7 @@
 package client.login;
 
 import client.base.*;
+import client.facade.Facade;
 import client.misc.*;
 
 import java.net.*;
@@ -82,8 +83,8 @@ public class LoginController extends Controller implements ILoginController {
 	@Override
 	public void register() {
 		
-		// TODO: register new user (which, if successful, also logs them in)
-		
+		//register new user (which, if successful, also logs them in)
+		Facade.getSingleton().register(, password);
 		// If register succeeded
 		getLoginView().closeModal();
 		loginAction.execute();

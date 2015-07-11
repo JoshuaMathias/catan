@@ -565,14 +565,14 @@ public class Facade {
 	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
 	
 	
-	public void register(String username, String password)
+	public boolean register(String username, String password)
 	{
-		proxy.register(username, password);
+		return proxy.register(username, password);
 	}
 	
-	public void login(String username, String password)
+	public boolean login(String username, String password)
 	{
-		proxy.login(username, password);
+		return proxy.login(username, password);
 	}
 	
 	public void createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName)
@@ -580,10 +580,10 @@ public class Facade {
 		proxy.createGame(randomTiles, randomNumbers, randomPorts, gameName);
 	}
 	
-	public void joinGame(String gameId, String color)
+	public boolean joinGame(String gameId, String color)
 	{
 		this.playerIndex=getPlayers().size(); //Get 1 more than the current highest player index (before adding this player)
-		proxy.joinGame(gameId, color);
+		return proxy.joinGame(gameId, color);
 	}
 	
 	//We might want to return something here. 
