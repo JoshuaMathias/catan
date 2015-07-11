@@ -83,10 +83,10 @@ public class CanBuildSettlement {
 		ArrayList<Road> roads = new ArrayList<>();
 		map.setRoads(roads);
 		
-		EdgeLocation side = new EdgeLocation(new HexLocation(0,0),EdgeDirection.North);
+		EdgeLocation side = new EdgeLocation(new HexLocation(0,0),EdgeDirection.N);
 		Road road1 = new Road(0, side);
 		
-		EdgeLocation side2 = new EdgeLocation(new HexLocation(1,0),EdgeDirection.South);
+		EdgeLocation side2 = new EdgeLocation(new HexLocation(1,0),EdgeDirection.S);
 		Road road2 = new Road(1, side2);
 		
 		roads.add(road1);
@@ -96,21 +96,21 @@ public class CanBuildSettlement {
 		
 		VertexObject ifeSettlement = new VertexObject();
 		ifeSettlement.setOwner(0);
-		ifeSettlement.setLocation(new VertexLocation(new HexLocation(1,-1),VertexDirection.NorthEast));
+		ifeSettlement.setLocation(new VertexLocation(new HexLocation(1,-1),VertexDirection.NE));
 		map.addSettlement(ifeSettlement);
 		
 		Ife.incrementSettlement();
 		
 		VertexObject joshSettlement = new VertexObject();
 		joshSettlement.setOwner(1);
-		joshSettlement.setLocation(new VertexLocation(new HexLocation(0,0),VertexDirection.SouthWest));
+		joshSettlement.setLocation(new VertexLocation(new HexLocation(0,0),VertexDirection.SW));
 		
 		turnTracker.setCurrentTurn(2);
 		turnTracker.setStatus("Playing");
 		
 		VertexObject danSettlement = new VertexObject();
 		danSettlement.setOwner(2);
-		danSettlement.setLocation(new VertexLocation(new HexLocation(1,-1),VertexDirection.East));
+		danSettlement.setLocation(new VertexLocation(new HexLocation(1,-1),VertexDirection.E));
 		
 		assertFalse(clientModel.canBuildSettlement(danSettlement));//Too close to Ifes settlement
 		
@@ -118,7 +118,7 @@ public class CanBuildSettlement {
 		
 		ifeSettlement = new VertexObject();
 		ifeSettlement.setOwner(0);
-		ifeSettlement.setLocation(new VertexLocation(new HexLocation(1,-1),VertexDirection.West));
+		ifeSettlement.setLocation(new VertexLocation(new HexLocation(1,-1),VertexDirection.W));
 		
 		assertTrue(clientModel.canBuildSettlement(ifeSettlement));//Ife builds next to his own road in the middle of game
 		
@@ -128,7 +128,7 @@ public class CanBuildSettlement {
 		
 		VertexObject paulSettlement = new VertexObject();
 		paulSettlement.setOwner(3);
-		paulSettlement.setLocation(new VertexLocation(new HexLocation(-1,0),VertexDirection.West));
+		paulSettlement.setLocation(new VertexLocation(new HexLocation(-1,0),VertexDirection.W));
 		
 		turnTracker.setStatus("SecondRound");
 		turnTracker.setCurrentTurn(3);

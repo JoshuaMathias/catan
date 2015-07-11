@@ -132,78 +132,78 @@ public class Map {
 		HexLocation hexLoc3;
 		VertexLocation spot3;
 		switch(direction){
-			case East:
+			case E:
 				hexLoc1 = new HexLocation(x, y);
-				spot1 = new VertexLocation(hexLoc1, VertexDirection.NorthEast);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.NE);
 				
 				hexLoc2 = new HexLocation(x, y);
-				spot2 = new VertexLocation(hexLoc2, VertexDirection.SouthEast);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.SE);
 				
 				hexLoc3 = new HexLocation(x+1, y);
-				spot3 = new VertexLocation(hexLoc3, VertexDirection.NorthEast);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.NE);
 				break;
 				
-			case NorthEast:
+			case NE:
 				hexLoc1 = new HexLocation(x, y);
-				spot1 = new VertexLocation(hexLoc1, VertexDirection.East);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.E);
 				
 				hexLoc2 = new HexLocation(x, y);
-				spot2 = new VertexLocation(hexLoc2, VertexDirection.NorthWest);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.NW);
 				
 				hexLoc3 = new HexLocation(x, y-1);
-				spot3 = new VertexLocation(hexLoc3, VertexDirection.SouthEast);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.SE);
 				break;
 				
-			case NorthWest:
+			case NW:
 				hexLoc1 = new HexLocation(x, y);
-				spot1 = new VertexLocation(hexLoc1, VertexDirection.West);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.W);
 				
 				hexLoc2 = new HexLocation(x, y);
-				spot2 = new VertexLocation(hexLoc2, VertexDirection.NorthEast);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.NE);
 				
 				hexLoc3 = new HexLocation(x, y-1);
-				spot3 = new VertexLocation(hexLoc3, VertexDirection.West);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.W);
 				break;
 				
-			case SouthEast:
+			case SE:
 				hexLoc1 = new HexLocation(x, y);
-				spot1 = new VertexLocation(hexLoc1, VertexDirection.East);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.E);
 				
 				hexLoc2 = new HexLocation(x, y);
-				spot2 = new VertexLocation(hexLoc2, VertexDirection.SouthWest);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.SW);
 				
 				hexLoc3 = new HexLocation(x, y+1);
-				spot3 = new VertexLocation(hexLoc3, VertexDirection.East);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.E);
 				break;
-			case SouthWest:
+			case SW:
 				hexLoc1 = new HexLocation(x, y);
-				spot1 = new VertexLocation(hexLoc1, VertexDirection.West);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.W);
 				
 				hexLoc2 = new HexLocation(x, y);
-				spot2 = new VertexLocation(hexLoc2, VertexDirection.SouthEast);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.SE);
 				
 				hexLoc3 = new HexLocation(x, y+1);
-				spot3 = new VertexLocation(hexLoc3, VertexDirection.West);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.W);
 				break;
-			case West:
+			case W:
 				hexLoc1 = new HexLocation(x, y);
-				spot1 = new VertexLocation(hexLoc1, VertexDirection.NorthWest);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.NW);
 				
 				hexLoc2 = new HexLocation(x, y);
-				spot2 = new VertexLocation(hexLoc2, VertexDirection.SouthWest);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.SW);
 				
 				hexLoc3 = new HexLocation(x-1, y);
-				spot3 = new VertexLocation(hexLoc3, VertexDirection.SouthWest);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.SW);
 				break;
 			default: //should never be reached Maybe Throw an exception
 				hexLoc1 = new HexLocation(x, y);
-				spot1 = new VertexLocation(hexLoc1, VertexDirection.East);
+				spot1 = new VertexLocation(hexLoc1, VertexDirection.E);
 				
 				hexLoc2 = new HexLocation(x, y);
-				spot2 = new VertexLocation(hexLoc2, VertexDirection.NorthWest);
+				spot2 = new VertexLocation(hexLoc2, VertexDirection.NW);
 				
 				hexLoc3 = new HexLocation(x, y-1);
-				spot3 = new VertexLocation(hexLoc3, VertexDirection.SouthEast);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.SE);
 				break;
 		
 		}
@@ -262,75 +262,75 @@ public class Map {
 		HexLocation hexLoc3;
 		EdgeLocation edge3;
 		switch(direction){
-		case East:
+		case E:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthEast);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NE);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthEast);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SE);
 			
 			hexLoc3 = new HexLocation(x,y-1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.S);
 			break;
-		case NorthEast:
+		case NE:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.N);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NorthEast);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NE);
 			
 			hexLoc3 = new HexLocation(x,y-1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SouthEast);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SE);
 			break;
-		case NorthWest:
+		case NW:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.N);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NorthWest);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NW);
 			
 			hexLoc3 = new HexLocation(x,y-1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SouthWest);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SW);
 			break;
-		case SouthEast:
+		case SE:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.South);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.S);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthEast);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SE);
 			
 			hexLoc3 = new HexLocation(x,y+1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NE);
 			break;
-		case SouthWest:
+		case SW:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.SouthWest);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.SW);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.South);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.S);
 			
 			hexLoc3 = new HexLocation(x,y+1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthWest);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NW);
 			break;
-		case West:
+		case W:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthWest);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NW);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthWest);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SW);
 			
 			hexLoc3 = new HexLocation(x-1,y);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.S);
 			break;
 		default: //Should never get here Throw Exception Maybe
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthEast);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NE);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthEast);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SE);
 			
 			hexLoc3 = new HexLocation(x,y-1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.South);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.S);
 			break;
 		
 		}
@@ -361,33 +361,33 @@ public class Map {
 		VertexLocation spot1;
 		VertexLocation spot2;
 		switch(direction){
-		case North:
-			spot1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
-			spot2 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+		case N:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.NE);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.NW);
 			break;
-		case NorthEast:
-			spot1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
-			spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+		case NE:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.NE);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.E);
 			break;
-		case NorthWest:
-			spot1 = new VertexLocation(hexLoc, VertexDirection.West);
-			spot2 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+		case NW:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.W);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.NW);
 			break;
-		case South:
-			spot1 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
-			spot2 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+		case S:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.SE);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.SW);
 			break;
-		case SouthEast:
-			spot1 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
-			spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+		case SE:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.SE);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.E);
 			break;
-		case SouthWest:
-			spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
-			spot2 = new VertexLocation(hexLoc, VertexDirection.West);
+		case SW:
+			spot1 = new VertexLocation(hexLoc, VertexDirection.SW);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.W);
 			break;
 		default://Should throw exception (should be unreachable)
-			spot1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
-			spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+			spot1 = new VertexLocation(hexLoc, VertexDirection.NE);
+			spot2 = new VertexLocation(hexLoc, VertexDirection.E);
 			break;
 		
 		}
@@ -424,96 +424,96 @@ public class Map {
 		EdgeLocation edge4;
 		
 		switch(direction) {
-		case North:
+		case N:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthEast);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NE);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NorthWest);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NW);
 			
 			hexLoc3 = new HexLocation(x,y-1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SouthWest);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.SW);
 			
 			hexLoc4 = new HexLocation(x,y-1);
-			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SouthEast);	
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SE);	
 			break;
-		case NorthEast:
+		case NE:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.N);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthEast);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SE);
 			
 			hexLoc3 = new HexLocation(x+1,y-1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthWest);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NW);
 			
 			hexLoc4 = new HexLocation(x+1,y-1);
-			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.South);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.S);
 			break;
-		case NorthWest:	
+		case NW:	
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.N);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthWest);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SW);
 			
 			hexLoc3 = new HexLocation(x-1,y);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NE);
 			
 			hexLoc4 = new HexLocation(x-1,y);
-			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.South);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.S);
 			break;
-		case SouthEast:
+		case SE:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NorthEast);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.NE);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.South);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.S);
 			
 			hexLoc3 = new HexLocation(x+1,y);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.North);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.N);
 			
 			hexLoc4 = new HexLocation(x+1,y);
-			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SouthWest);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SW);
 			break;
-		case SouthWest:
+		case SW:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.South);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.S);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NorthWest);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.NW);
 			
 			hexLoc3 = new HexLocation(x-1,y+1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.North);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.N);
 			
 			hexLoc4 = new HexLocation(x-1,y+1);
-			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SouthEast);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.SE);
 			break;
-		case South:
+		case S:
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.SouthEast);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.SE);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthWest);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SW);
 			
 			hexLoc3 = new HexLocation(x,y+1);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NE);
 			
 			hexLoc4 = new HexLocation(x,y+1);
-			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.NorthWest);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.NW);
 			break;
 		default://May change this to an exception later
 			hexLoc1 = new HexLocation(x,y);
-			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.North);
+			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.N);
 			
 			hexLoc2 = new HexLocation(x,y);
-			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SouthWest);
+			edge2 = new EdgeLocation(hexLoc2, EdgeDirection.SW);
 			
 			hexLoc3 = new HexLocation(x-1,y);
-			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NorthEast);
+			edge3 = new EdgeLocation(hexLoc3, EdgeDirection.NE);
 			
 			hexLoc4 = new HexLocation(x-1,y);
-			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.South);
+			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.S);
 			break;
 		}
 		edge1 = edge1.getNormalizedLocation();
@@ -584,47 +584,47 @@ public class Map {
 		HexLocation diffHex;
 		EdgeLocation edge3;
 		switch(spotDirection){
-		case East:
-			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
-			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+		case E:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NE);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SE);
 			diffHex = new HexLocation(x+1, y);
-			edge3 = new EdgeLocation(diffHex, EdgeDirection.North);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.N);
 			break;
-		case NorthEast:
-			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
-			edge2 = new EdgeLocation(hexLoc, EdgeDirection.North);
+		case NE:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NE);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.N);
 			diffHex = new HexLocation(x, y-1);
-			edge3 = new EdgeLocation(diffHex, EdgeDirection.SouthEast);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.SE);
 			break;
-		case NorthWest:
-			edge1 = new EdgeLocation(hexLoc, EdgeDirection.North);
-			edge2 = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
+		case NW:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.N);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.NW);
 			diffHex = new HexLocation(x, y-1);
-			edge3 = new EdgeLocation(diffHex, EdgeDirection.SouthWest);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.SW);
 			break;
-		case SouthEast:
-			edge1 = new EdgeLocation(hexLoc, EdgeDirection.South);
-			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+		case SE:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.S);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SE);
 			diffHex = new HexLocation(x, y+1);
-			edge3 = new EdgeLocation(diffHex, EdgeDirection.NorthEast);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.NE);
 			break;
-		case SouthWest:
-			edge1 = new EdgeLocation(hexLoc, EdgeDirection.South);
-			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
+		case SW:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.S);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SW);
 			diffHex = new HexLocation(x, y+1);
-			edge3 = new EdgeLocation(diffHex, EdgeDirection.NorthWest);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.NW);
 			break;
-		case West:
-			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
-			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
+		case W:
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NW);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SW);
 			diffHex = new HexLocation(x-1, y);
-			edge3 = new EdgeLocation(diffHex, EdgeDirection.South);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.S);
 			break;
 		default://Might throw exception instead
-			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
-			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+			edge1 = new EdgeLocation(hexLoc, EdgeDirection.NE);
+			edge2 = new EdgeLocation(hexLoc, EdgeDirection.SE);
 			diffHex = new HexLocation(x+1, y);
-			edge3 = new EdgeLocation(diffHex, EdgeDirection.North);
+			edge3 = new EdgeLocation(diffHex, EdgeDirection.N);
 			break;
 		}
 		edge1 = edge1.getNormalizedLocation();
@@ -671,54 +671,54 @@ public class Map {
 		int y = robber.getY();
 		
 		HexLocation hexLoc = new HexLocation(x,y);
-		VertexLocation spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
-		VertexLocation spot2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
-		VertexLocation spot3 = new VertexLocation(hexLoc, VertexDirection.East);
-		VertexLocation spot4 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
-		VertexLocation spot5 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
-		VertexLocation spot6 = new VertexLocation(hexLoc, VertexDirection.West);
+		VertexLocation spot1 = new VertexLocation(hexLoc, VertexDirection.SW);
+		VertexLocation spot2 = new VertexLocation(hexLoc, VertexDirection.SE);
+		VertexLocation spot3 = new VertexLocation(hexLoc, VertexDirection.E);
+		VertexLocation spot4 = new VertexLocation(hexLoc, VertexDirection.NE);
+		VertexLocation spot5 = new VertexLocation(hexLoc, VertexDirection.NW);
+		VertexLocation spot6 = new VertexLocation(hexLoc, VertexDirection.W);
 		if(isMyBuildingHere(playerIndex, spot1, spot2) || isMyBuildingHere(playerIndex, spot3, spot4) || isMyBuildingHere(playerIndex, spot5, spot6)){
 			return true;
 		}
 		
 		hexLoc = new HexLocation(x,y-1);
-		spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
-		spot2 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.SW);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.SE);
 		if(isMyBuildingHere(playerIndex, spot1, spot2)){
 			return true;
 		}
 		
 		hexLoc = new HexLocation(x+1, y-1);
-		spot1 = new VertexLocation(hexLoc, VertexDirection.SouthWest);
-		spot2 = new VertexLocation(hexLoc, VertexDirection.West);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.SW);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.W);
 		if(isMyBuildingHere(playerIndex, spot1, spot2)){
 			return true;
 		}
 		
 		hexLoc = new HexLocation(x+1, y);
-		spot1 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
-		spot2 = new VertexLocation(hexLoc, VertexDirection.West);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.NW);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.W);
 		if(isMyBuildingHere(playerIndex, spot1, spot2)){
 			return true;
 		}
 		
 		hexLoc = new HexLocation(x, y+1);
-		spot1 = new VertexLocation(hexLoc, VertexDirection.NorthWest);
-		spot2 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.NW);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.NE);
 		if(isMyBuildingHere(playerIndex, spot1, spot2)){
 			return true;
 		}
 		
 		hexLoc = new HexLocation(x-1, y+1);
-		spot1 = new VertexLocation(hexLoc, VertexDirection.NorthEast);
-		spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.NE);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.E);
 		if(isMyBuildingHere(playerIndex, spot1, spot2)){
 			return true;
 		}
 		
 		hexLoc = new HexLocation(x-1, y);
-		spot1 = new VertexLocation(hexLoc, VertexDirection.SouthEast);
-		spot2 = new VertexLocation(hexLoc, VertexDirection.East);
+		spot1 = new VertexLocation(hexLoc, VertexDirection.SE);
+		spot2 = new VertexLocation(hexLoc, VertexDirection.E);
 		if(isMyBuildingHere(playerIndex, spot1, spot2)){
 			return true;
 		}

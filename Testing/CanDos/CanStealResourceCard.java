@@ -68,7 +68,7 @@ public class CanStealResourceCard {
 		public void testOne() {
 			
 			HexLocation hexLoc = new HexLocation(0,1);
-			VertexLocation spot = new VertexLocation(hexLoc,VertexDirection.NorthEast);
+			VertexLocation spot = new VertexLocation(hexLoc,VertexDirection.NE);
 		
 			VertexObject paulSettlement = new VertexObject();
 			paulSettlement.setOwner(3);
@@ -83,7 +83,7 @@ public class CanStealResourceCard {
 			
 			assertTrue(clientModel.canStealResourceCard(0, 7, 3));//Ife steals successfully from Paul
 			
-			VertexLocation spot2 = new VertexLocation(hexLoc,VertexDirection.West);
+			VertexLocation spot2 = new VertexLocation(hexLoc,VertexDirection.W);
 			
 			VertexObject joshCity = new VertexObject();
 			joshCity.setOwner(1);
@@ -105,7 +105,7 @@ public class CanStealResourceCard {
 			assertFalse(clientModel.canStealResourceCard(2,  7,  1));//Daniel fails to steal from Josh because Satan is bordering paul, but not josh, even though pual and josh share a hex
 			
 			HexLocation hexLoc3 = new HexLocation(2,-3);
-			VertexLocation spot3 = new VertexLocation(hexLoc3,VertexDirection.East);
+			VertexLocation spot3 = new VertexLocation(hexLoc3,VertexDirection.E);
 			
 			VertexObject ifeCity = new VertexObject();
 			ifeCity.setOwner(0);

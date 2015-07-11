@@ -85,13 +85,13 @@ public class CanBankTrade {
 		port1.setRatio(2);
 		port1.setResource(PortType.ORE);
 		port1.setLocation(new HexLocation(-1,0));
-		port1.setDirection(EdgeDirection.NorthWest);
+		port1.setDirection(EdgeDirection.NW);
 		
 		Port port2 = new Port();
 		port2.setRatio(3);
 		port2.setResource(PortType.THREE);
 		port2.setLocation(new HexLocation(1,0));
-		port2.setDirection(EdgeDirection.SouthEast);
+		port2.setDirection(EdgeDirection.SE);
 		
 		ArrayList<Port> ports = new ArrayList<>();
 		ports.add(port1);
@@ -100,13 +100,13 @@ public class CanBankTrade {
 		
 		VertexObject danSettlement = new VertexObject();
 		danSettlement.setOwner(2);
-		danSettlement.setLocation(new VertexLocation(new HexLocation(-1,0),VertexDirection.NorthWest));
+		danSettlement.setLocation(new VertexLocation(new HexLocation(-1,0),VertexDirection.NW));
 			
 		map.addSettlement(danSettlement);
 		
 		VertexObject paulSettlement = new VertexObject();
 		paulSettlement.setOwner(3);
-		paulSettlement.setLocation(new VertexLocation(new HexLocation(1,0),VertexDirection.SouthEast));
+		paulSettlement.setLocation(new VertexLocation(new HexLocation(1,0),VertexDirection.SE));
 		
 		map.addSettlement(paulSettlement);
 		

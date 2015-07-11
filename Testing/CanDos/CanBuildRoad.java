@@ -82,22 +82,22 @@ public class CanBuildRoad {
 		ArrayList<Road> roads = new ArrayList<>();
 		map.setRoads(roads);
 		
-		EdgeLocation side = new EdgeLocation(new HexLocation(0,0),EdgeDirection.North);
+		EdgeLocation side = new EdgeLocation(new HexLocation(0,0),EdgeDirection.N);
 		Road road1 = new Road(0, side);
 		
-		EdgeLocation side2 = new EdgeLocation(new HexLocation(1,0),EdgeDirection.South);
+		EdgeLocation side2 = new EdgeLocation(new HexLocation(1,0),EdgeDirection.S);
 		Road road2 = new Road(1, side2);
 		
-		EdgeLocation side3 = new EdgeLocation(new HexLocation(1,-1),EdgeDirection.NorthEast);
+		EdgeLocation side3 = new EdgeLocation(new HexLocation(1,-1),EdgeDirection.NE);
 		Road road3 = new Road(0, side3);
 		
-		EdgeLocation side4 = new EdgeLocation(new HexLocation(0,-1),EdgeDirection.SouthWest);
+		EdgeLocation side4 = new EdgeLocation(new HexLocation(0,-1),EdgeDirection.SW);
 		Road road4 = new Road(0, side4);
 		
-		EdgeLocation side5 = new EdgeLocation(new HexLocation(1,0),EdgeDirection.SouthEast);
+		EdgeLocation side5 = new EdgeLocation(new HexLocation(1,0),EdgeDirection.SE);
 		Road road5 = new Road(0, side5);
 		
-		EdgeLocation side6 = new EdgeLocation(new HexLocation(1,0),EdgeDirection.SouthEast);
+		EdgeLocation side6 = new EdgeLocation(new HexLocation(1,0),EdgeDirection.SE);
 		Road road6 = new Road(0, side6);
 		
 		Road road7 = new Road(2, side);
@@ -117,7 +117,7 @@ public class CanBuildRoad {
 		
 		VertexObject ifeSettlement = new VertexObject();
 		ifeSettlement.setOwner(0);
-		ifeSettlement.setLocation(new VertexLocation(new HexLocation(1,-1),VertexDirection.NorthEast));
+		ifeSettlement.setLocation(new VertexLocation(new HexLocation(1,-1),VertexDirection.NE));
 		map.addSettlement(ifeSettlement);
 		
 		Ife.incrementSettlement();
@@ -132,7 +132,7 @@ public class CanBuildRoad {
 		
 		VertexObject joshSettlement = new VertexObject();
 		joshSettlement.setOwner(1);
-		joshSettlement.setLocation(new VertexLocation(new HexLocation(0,0),VertexDirection.SouthWest));
+		joshSettlement.setLocation(new VertexLocation(new HexLocation(0,0),VertexDirection.SW));
 		map.addSettlement(joshSettlement);
 		
 		turnTracker.setStatus("Playing");

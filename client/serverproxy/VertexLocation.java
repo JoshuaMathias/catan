@@ -13,17 +13,17 @@ public class VertexLocation
 		this.y=y;
 		switch (dir)
 		{
-			case NorthEast: direction = "NE"; 
+			case NE: direction = "NE"; 
 				break;
-			case NorthWest: direction = "NW"; 
+			case NW: direction = "NW"; 
 				break;
-			case SouthEast: direction = "SE"; 
+			case SE: direction = "SE"; 
 				break;
-			case SouthWest: direction = "SW"; 
+			case SW: direction = "SW"; 
 				break;
-			case East: direction = "E"; 
+			case E: direction = "E"; 
 				break;
-			case West: direction = "W"; 
+			case W: direction = "W"; 
 				break;
 		}
 	}

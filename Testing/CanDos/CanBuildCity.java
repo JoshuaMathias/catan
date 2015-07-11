@@ -77,27 +77,27 @@ public class CanBuildCity {
 	public void test() {
 		
 		VertexObject settlement = new VertexObject();
-		VertexLocation settlementLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.East);
+		VertexLocation settlementLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.E);
 		settlementLocation = settlementLocation.getNormalizedLocation();
 		settlement.setLocation(settlementLocation);
 		settlement.setOwner(0);
 		
 		VertexObject settlement2 = new VertexObject();
-		VertexLocation settlementLocation2 = new VertexLocation(new HexLocation(0,0), VertexDirection.East);
+		VertexLocation settlementLocation2 = new VertexLocation(new HexLocation(0,0), VertexDirection.E);
 		settlementLocation2 = settlementLocation2.getNormalizedLocation();
 		settlement2.setLocation(settlementLocation2);
 		settlement2.setOwner(1);
 		
 		
 		VertexObject city = new VertexObject();
-		VertexLocation cityLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.East);
+		VertexLocation cityLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.E);
 		cityLocation = cityLocation.getNormalizedLocation();
 		city.setLocation(cityLocation);
 		city.setOwner(0);
 		
 		
 		VertexObject city2 = new VertexObject();
-		VertexLocation cityLocation2 = new VertexLocation(new HexLocation(1,0), VertexDirection.East);
+		VertexLocation cityLocation2 = new VertexLocation(new HexLocation(1,0), VertexDirection.E);
 		cityLocation2 = cityLocation2.getNormalizedLocation();
 		city2.setLocation(cityLocation2);
 		city2.setOwner(0);

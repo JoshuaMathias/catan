@@ -15,17 +15,17 @@ public class EdgeLocation
 		this.y=y;
 		switch (dir)
 		{
-			case NorthEast: direction = "NE"; 
+			case NE: direction = "NE"; 
 				break;
-			case NorthWest: direction = "NW"; 
+			case NW: direction = "NW"; 
 				break;
-			case SouthEast: direction = "SE"; 
+			case SE: direction = "SE"; 
 				break;
-			case SouthWest: direction = "SW"; 
+			case SW: direction = "SW"; 
 				break;
-			case North: direction = "N"; 
+			case N: direction = "N"; 
 				break;
-			case South: direction = "S"; 
+			case S: direction = "S"; 
 				break;
 		}
 	}

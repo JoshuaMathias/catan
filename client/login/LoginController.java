@@ -1,12 +1,14 @@
 package client.login;
 
 import client.base.*;
+import client.facade.Facade;
 import client.misc.*;
 
 import java.net.*;
 import java.io.*;
 import java.util.*;
 import java.lang.reflect.*;
+
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,6 +20,7 @@ public class LoginController extends Controller implements ILoginController {
 
 	private IMessageView messageView;
 	private IAction loginAction;
+	private Facade clientFacade;
 	
 	/**
 	 * LoginController constructor
@@ -30,6 +33,7 @@ public class LoginController extends Controller implements ILoginController {
 		super(view);
 		
 		this.messageView = messageView;
+		clientFacade = Facade.getSingleton();
 	}
 	
 	public ILoginView getLoginView() {
@@ -84,9 +88,26 @@ public class LoginController extends Controller implements ILoginController {
 		
 		// TODO: register new user (which, if successful, also logs them in)
 		
+		String username = getLoginView().getRegisterUsername();
+		String password = getLoginView().getRegisterPassword();
+		String passwordRepeat = getLoginView().getRegisterPasswordRepeat();
+		
+		System.out.println(username);
+		System.out.println(password);
+		System.out.println(passwordRepeat);
+		
+		if(password.equals(passwordRepeat)){
+			if(clientFacade.register(username, password)){
+				
+			}
+		}
+		else{
+			//Error Message about passwords not matching
+		}
+		
 		// If register succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
+//		getLoginView().closeModal();
+//		loginAction.execute();
 	}
 
 }
