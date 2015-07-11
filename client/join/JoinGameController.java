@@ -3,6 +3,7 @@ package client.join;
 import shared.definitions.CatanColor;
 import client.base.*;
 import client.data.*;
+import client.facade.Facade;
 import client.misc.*;
 
 
@@ -107,13 +108,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void createNewGame() {
-		
+		Facade.getSingleton().createGame(getNewGameView().getRandomlyPlaceHexes(), getNewGameView().getRandomlyPlaceNumbers(), getNewGameView().getUseRandomPorts(), getNewGameView().getTitle());
 		getNewGameView().closeModal();
 	}
 
 	@Override
 	public void startJoinGame(GameInfo game) {
-
+		
 		getSelectColorView().showModal();
 	}
 
