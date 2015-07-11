@@ -36,7 +36,7 @@ public class ServerPollerTest {
 	
 	@Before 
 	public void setUp() {
-		facade = new Facade("localhost");
+//		facade = new Facade("localhost");
 //		facade.createGame(true, true, true, "test");
 //		turnTracker = new TurnTracker();
 //

@@ -75,8 +75,19 @@ public class LoginController extends Controller implements ILoginController {
 	@Override
 	public void signIn() {
 		
-		// TODO: log in user
-		
+		//log in user
+		String username = getLoginView().getLoginUsername();
+		String password = getLoginView().getLoginPassword();
+
+			if(clientFacade.register(username, password)){
+				System.out.println("Login Successful");
+				getLoginView().closeModal();
+				loginAction.execute();
+			} else{
+				System.out.println("Login Failure");
+				getMessageView().setMessage("Login Failed");
+				getMessageView().showModal();
+			}
 
 		// If log in succeeded
 		getLoginView().closeModal();
@@ -87,7 +98,7 @@ public class LoginController extends Controller implements ILoginController {
 	public void register() {
 		
 
-		// TODO: register new user (which, if successful, also logs them in)
+		//register new user (which, if successful, also logs them in)
 		
 		String username = getLoginView().getRegisterUsername();
 		String password = getLoginView().getRegisterPassword();

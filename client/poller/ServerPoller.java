@@ -27,7 +27,7 @@ public class ServerPoller {
 		this.facade=facade;
 		interval=1;
 		timer=new Timer();
-//		timer.schedule(new updateTask(), 0, interval*1000);
+		timer.schedule(new updateTask(), 0, interval*1000);
 	}
 	
 	public class updateTask extends TimerTask {
