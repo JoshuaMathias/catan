@@ -79,7 +79,7 @@ public class LoginController extends Controller implements ILoginController {
 		String username = getLoginView().getLoginUsername();
 		String password = getLoginView().getLoginPassword();
 
-			if(clientFacade.register(username, password)){
+			if(clientFacade.login(username, password)){
 				System.out.println("Login Successful");
 				getLoginView().closeModal();
 				loginAction.execute();
