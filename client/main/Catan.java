@@ -16,6 +16,7 @@ public class Catan extends JFrame
 {
 	
 	private CatanPanel catanPanel;
+	public static String host;
 	
 	public Catan()
 	{
@@ -46,6 +47,7 @@ public class Catan extends JFrame
 		try
 		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			
 		}
 		catch(Exception e)
 		{
@@ -55,6 +57,7 @@ public class Catan extends JFrame
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run()
 			{
+				host=args[0];
 				new Catan();
 				
 				PlayerWaitingView playerWaitingView = new PlayerWaitingView();

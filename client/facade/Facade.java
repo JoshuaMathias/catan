@@ -2,6 +2,7 @@ package client.facade;
 
 import java.util.ArrayList;
 
+import client.main.Catan;
 import client.model.*;
 import client.poller.ServerPoller;
 import client.serverproxy.CreateGamesParams;
@@ -31,7 +32,7 @@ public class Facade {
 	public static int diceRoll=0;
 	public static HexLocation tempRobLoc;
 	
-	public Facade(String host) {
+	private Facade(String host) {
 		this.host=host;
 		model=new ClientModel();
 		proxy=new ServerProxy(host);
@@ -41,7 +42,7 @@ public class Facade {
 	
 	public static Facade getSingleton() {
 		if (thisFacade==null) {
-			thisFacade=new Facade("localhost");
+			thisFacade=new Facade(Catan.host);
 		}
 		return thisFacade;
 	}
