@@ -7,7 +7,7 @@ public class EdgeLocation
 {
 	
 	private HexLocation hexLoc;
-	private EdgeDirection dir;
+	private EdgeDirection direction;
 	//private String direction;
 	private int x;
 	private int y;
@@ -43,20 +43,20 @@ public class EdgeLocation
 	public EdgeDirection getDir()
 	{
 		setXYHexLoc();
-		return dir;
+		return direction;
 	}
 	
 	private void setDir(EdgeDirection dir)
 	{
 		setXYHexLoc();
-		this.dir = dir;
+		this.direction = dir;
 	}
 	
 	@Override
 	public String toString()
 	{
 		setXYHexLoc();
-		return "EdgeLocation [hexLoc=" + hexLoc + ", dir=" + dir + "]";
+		return "EdgeLocation [hexLoc=" + hexLoc + ", dir=" + direction + "]";
 	}
 	
 	@Override
@@ -65,7 +65,7 @@ public class EdgeLocation
 		setXYHexLoc();
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dir == null) ? 0 : dir.hashCode());
+		result = prime * result + ((direction == null) ? 0 : direction.hashCode());
 		result = prime * result + ((hexLoc == null) ? 0 : hexLoc.hashCode());
 		return result;
 	}
@@ -81,7 +81,7 @@ public class EdgeLocation
 		if(getClass() != obj.getClass())
 			return false;
 		EdgeLocation other = (EdgeLocation)obj;
-		if(dir != other.dir)
+		if(direction != other.direction)
 			return false;
 		if(hexLoc == null)
 		{
@@ -106,7 +106,7 @@ public class EdgeLocation
 		setXYHexLoc();
 		// Return an EdgeLocation that has direction NW, N, or NE
 		
-		switch (dir)
+		switch (direction)
 		{
 			case NW:
 			case N:
@@ -115,8 +115,8 @@ public class EdgeLocation
 			case SW:
 			case S:
 			case SE:
-				return new EdgeLocation(hexLoc.getNeighborLoc(dir),
-										dir.getOppositeDirection());
+				return new EdgeLocation(hexLoc.getNeighborLoc(direction),
+										direction.getOppositeDirection());
 			default:
 				assert false;
 				return null;

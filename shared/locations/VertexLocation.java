@@ -9,7 +9,7 @@ public class VertexLocation
 	private HexLocation hexLoc;
 	private int x;//x and y are only here for json conversion compatability
 	private int y;
-	private VertexDirection dir;
+	private VertexDirection direction;
 	
 	public VertexLocation(HexLocation hexLoc, VertexDirection dir)
 	{
@@ -42,20 +42,20 @@ public class VertexLocation
 	public VertexDirection getDir()
 	{
 		setXYHexLoc();
-		return dir;
+		return direction;
 	}
 	
 	private void setDir(VertexDirection direction)
 	{
 		setXYHexLoc();
-		this.dir = direction;
+		this.direction = direction;
 	}
 	
 	@Override
 	public String toString()
 	{
 		setXYHexLoc();
-		return "VertexLocation [hexLoc=" + hexLoc + ", dir=" + dir + "]";
+		return "VertexLocation [hexLoc=" + hexLoc + ", dir=" + direction + "]";
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class VertexLocation
 		setXYHexLoc();
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dir == null) ? 0 : dir.hashCode());
+		result = prime * result + ((direction == null) ? 0 : direction.hashCode());
 		result = prime * result + ((hexLoc == null) ? 0 : hexLoc.hashCode());
 		return result;
 	}
@@ -80,7 +80,7 @@ public class VertexLocation
 		if(getClass() != obj.getClass())
 			return false;
 		VertexLocation other = (VertexLocation)obj;
-		if(dir != other.dir)
+		if(direction != other.direction)
 			return false;
 		if(hexLoc == null)
 		{
@@ -106,7 +106,7 @@ public class VertexLocation
 		
 		// Return location that has direction NW or NE
 		
-		switch (dir)
+		switch (direction)
 		{
 			case NW:
 			case NE:

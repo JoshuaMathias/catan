@@ -86,7 +86,7 @@ public class LoginController extends Controller implements ILoginController {
 	@Override
 	public void register() {
 		
-<<<<<<< HEAD
+
 		// TODO: register new user (which, if successful, also logs them in)
 		
 		String username = getLoginView().getRegisterUsername();
@@ -99,20 +99,24 @@ public class LoginController extends Controller implements ILoginController {
 		
 		if(password.equals(passwordRepeat)){
 			if(clientFacade.register(username, password)){
-				
+				System.out.println("Registration Successful");
+				getLoginView().closeModal();
+				loginAction.execute();
+			}
+			else{
+				System.out.println("Registration Failure");
+				getMessageView().setMessage("Registration Failed");
+				getMessageView().showModal();
 			}
 		}
 		else{
 			//Error Message about passwords not matching
 		}
 		
-=======
+
 		//register new user (which, if successful, also logs them in)
-		Facade.getSingleton().register(, password);
->>>>>>> 4c6063abc126dedc2ead380c71a4dc11b1e465fd
 		// If register succeeded
-//		getLoginView().closeModal();
-//		loginAction.execute();
+
 	}
 
 }
