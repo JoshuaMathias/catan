@@ -3,7 +3,11 @@ package client.map;
 import java.util.*;
 
 import shared.definitions.*;
-import shared.locations.*;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import client.base.*;
 import client.data.*;
 import client.facade.Facade;

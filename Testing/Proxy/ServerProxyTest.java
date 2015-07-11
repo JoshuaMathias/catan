@@ -33,68 +33,68 @@ public class ServerProxyTest {
 	@Before
 	public void setUp() 
 	{
-		facade = new Facade("localhost");
-		facade.createGame(false, false, false, "test");
-		turnTracker = new TurnTracker();
-
-		String u = "Ife"+Integer.toString(Facade.count);
-		String p = "testpass";
-		facade.register(u, p);
-		facade.login(u, p);
-		facade.joinGame(Integer.toString(3+Facade.count), "red");
-
-		String u2 = "Josh"+Integer.toString(Facade.count);
-		String p2 = "testpass";
-		facade2 = new Facade("localhost");
-		facade2.register(u2, p2);
-		facade2.login(u2, p2);
-		facade2.joinGame(Integer.toString(3+Facade.count), "green");
-
-		String u3 = "Daniel"+Integer.toString(Facade.count);
-		String p3 = "testpass";
-		facade3 = new Facade("localhost");
-		facade3.register(u3, p3);
-		facade3.login(u3, p3);
-		facade3.joinGame(Integer.toString(3+Facade.count), "blue");
-
-		String u4 = "Paul"+Integer.toString(Facade.count);
-		String p4 = "testpass";
-		facade4 = new Facade("localhost");
-		facade4.register(u4, p4);
-		facade4.login(u4, p4);
-		facade4.joinGame(Integer.toString(3+Facade.count), "yellow");
-		
-		Facade.count++;
-		
-		Ife = new Player();
-		Josh = new Player();
-		Daniel = new Player();
-		Paul = new Player();
-
-		ResourceList ifeResources = new ResourceList(1, 4, 3, 2, 1);
-		ResourceList joshResources = new ResourceList(0, 2, 3, 0, 2);
-		ResourceList danielResources = new ResourceList(0, 4, 0, 1, 0);
-		ResourceList paulResources = new ResourceList(5, 4, 3, 1, 2);
-
-		Ife.setResources(ifeResources);
-		Josh.setResources(joshResources);
-		Daniel.setResources(danielResources);
-		Paul.setResources(paulResources);
-
-		ArrayList<Player> playerList = new ArrayList<>();
-
-		Ife.setPlayerID(0);
-		Josh.setPlayerID(1);
-		Daniel.setPlayerID(2);
-		Paul.setPlayerID(3);
-
-		playerList.add(Ife);
-		playerList.add(Josh);
-		playerList.add(Daniel);
-		playerList.add(Paul);
-
-		facade.setPlayers(playerList);
-		facade.setTurnTracker(turnTracker);
+//		facade = new Facade("localhost");
+//		facade.createGame(false, false, false, "test");
+//		turnTracker = new TurnTracker();
+//
+//		String u = "Ife"+Integer.toString(Facade.count);
+//		String p = "testpass";
+//		facade.register(u, p);
+//		facade.login(u, p);
+//		facade.joinGame(Integer.toString(3+Facade.count), "red");
+//
+//		String u2 = "Josh"+Integer.toString(Facade.count);
+//		String p2 = "testpass";
+//		facade2 = new Facade("localhost");
+//		facade2.register(u2, p2);
+//		facade2.login(u2, p2);
+//		facade2.joinGame(Integer.toString(3+Facade.count), "green");
+//
+//		String u3 = "Daniel"+Integer.toString(Facade.count);
+//		String p3 = "testpass";
+//		facade3 = new Facade("localhost");
+//		facade3.register(u3, p3);
+//		facade3.login(u3, p3);
+//		facade3.joinGame(Integer.toString(3+Facade.count), "blue");
+//
+//		String u4 = "Paul"+Integer.toString(Facade.count);
+//		String p4 = "testpass";
+//		facade4 = new Facade("localhost");
+//		facade4.register(u4, p4);
+//		facade4.login(u4, p4);
+//		facade4.joinGame(Integer.toString(3+Facade.count), "yellow");
+//		
+//		Facade.count++;
+//		
+//		Ife = new Player();
+//		Josh = new Player();
+//		Daniel = new Player();
+//		Paul = new Player();
+//
+//		ResourceList ifeResources = new ResourceList(1, 4, 3, 2, 1);
+//		ResourceList joshResources = new ResourceList(0, 2, 3, 0, 2);
+//		ResourceList danielResources = new ResourceList(0, 4, 0, 1, 0);
+//		ResourceList paulResources = new ResourceList(5, 4, 3, 1, 2);
+//
+//		Ife.setResources(ifeResources);
+//		Josh.setResources(joshResources);
+//		Daniel.setResources(danielResources);
+//		Paul.setResources(paulResources);
+//
+//		ArrayList<Player> playerList = new ArrayList<>();
+//
+//		Ife.setPlayerID(0);
+//		Josh.setPlayerID(1);
+//		Daniel.setPlayerID(2);
+//		Paul.setPlayerID(3);
+//
+//		playerList.add(Ife);
+//		playerList.add(Josh);
+//		playerList.add(Daniel);
+//		playerList.add(Paul);
+//
+//		facade.setPlayers(playerList);
+//		facade.setTurnTracker(turnTracker);
 	}
 //
 //	@Test
