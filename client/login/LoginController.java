@@ -89,9 +89,6 @@ public class LoginController extends Controller implements ILoginController {
 				getMessageView().showModal();
 			}
 
-		// If log in succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
 	}
 
 	@Override
