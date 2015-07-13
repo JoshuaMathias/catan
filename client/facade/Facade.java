@@ -29,11 +29,12 @@ public class Facade {
 	private String host;
 	private ServerPoller poller;
 	public static int count=0;
-	public static int playerIndex=0;
-	public static int diceRoll=0;
-	public static HexLocation tempRobLoc;
+	public int playerIndex=0;
+	public int diceRoll=0;
+	public HexLocation tempRobLoc;
 	private String username;
 	private int playerId;
+	private int currentGameId;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -50,12 +51,53 @@ public class Facade {
 		return thisFacade;
 	}
 	
+	public static String convertColor(CatanColor color) {
+		switch (color) {
+			case RED:
+				return "red";
+			case ORANGE:
+				return "orange";
+			case YELLOW:
+				return "yellow";
+			case BLUE:
+				return "blue";
+			case GREEN:
+				return "green";
+			case PURPLE:
+				return "purple";
+			case PUCE:
+				return "puce";
+			case WHITE:
+				return "white";
+			case BROWN:
+				return "brown";
+			default:
+				return "";
+		}
+	}
+	
+	public int getPlayerId() {
+		return playerId;
+	}
+
+	public void setPlayerId(int playerId) {
+		this.playerId = playerId;
+	}
+
+	public int getCurrentGameId() {
+		return currentGameId;
+	}
+
+	public void setCurrentGameId(int currentGameId) {
+		this.currentGameId = currentGameId;
+	}
+
 	public HexLocation getTempRobLoc() {
 		return tempRobLoc;
 	}
 
 	public void setTempRobLoc(HexLocation tempRobLoc) {
-		Facade.tempRobLoc = tempRobLoc;
+		this.tempRobLoc = tempRobLoc;
 	}
 
 	public int getDiceRoll() {
@@ -63,7 +105,7 @@ public class Facade {
 	}
 
 	public  void setDiceRoll(int diceRoll) {
-		Facade.diceRoll = diceRoll;
+		this.diceRoll = diceRoll;
 	}
 
 	public String getHost() {
@@ -83,7 +125,7 @@ public class Facade {
 	}
 
 	public void setPlayerIndex(int playerIndex) {
-		Facade.playerIndex = playerIndex;
+		this.playerIndex = playerIndex;
 	}
 
 	public void sendChat(String content) {
@@ -202,8 +244,8 @@ public class Facade {
      * @post if version number is different, newClientModel replaces current client Model, otherwise, nothing happens.
      */
     public void updateClientModel(ClientModel newClientModel) {
-        model = newClientModel;
-        //Some kind of refresher function on the model needs to be called here to update the view of the GUI
+    		model = newClientModel;
+            //Some kind of refresher function on the model needs to be called here to update the view of the GUI
     }
     
     /**

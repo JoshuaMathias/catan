@@ -1,5 +1,6 @@
 package client.data;
 
+import client.facade.Facade;
 import shared.definitions.*;
 
 /**
@@ -20,15 +21,64 @@ public class PlayerInfo
 	private int id;
 	private int playerIndex;
 	private String name;
-	private CatanColor color;
-	//private String color;
+	private CatanColor colorEnum;
+	private String color;
 	
 	public PlayerInfo()
 	{
 		setId(-1);
 		setPlayerIndex(-1);
 		setName("");
-		setColor(CatanColor.WHITE);
+		setColorEnum(CatanColor.WHITE);
+		color="white";
+	}
+	
+	public void convertColor(CatanColor colorEnum) {
+		switch (colorEnum) {
+			case RED:
+				color = "red";
+			case ORANGE:
+				color = "orange";
+			case YELLOW:
+				color = "yellow";
+			case BLUE:
+				color = "blue";
+			case GREEN:
+				color = "green";
+			case PURPLE:
+				color = "purple";
+			case PUCE:
+				color = "puce";
+			case WHITE:
+				color = "white";
+			case BROWN:
+				color = "brown";
+			default:
+				color = "";
+		}
+	}
+	
+	public void convertEnumColor(String color) {
+		switch (color) {
+			case "red":
+				colorEnum = CatanColor.RED;
+			case "orange":
+				colorEnum = CatanColor.ORANGE;
+			case "yellow":
+				colorEnum = CatanColor.YELLOW;
+			case "blue":
+				colorEnum = CatanColor.BLUE;
+			case "green":
+				colorEnum = CatanColor.GREEN;
+			case "purple":
+				colorEnum = CatanColor.PURPLE;
+			case "puce":
+				colorEnum = CatanColor.PUCE;
+			case "white":
+				colorEnum = CatanColor.WHITE;
+			case "brown":
+				colorEnum = CatanColor.BROWN;
+		}
 	}
 	
 	public int getId()
@@ -61,14 +111,25 @@ public class PlayerInfo
 		this.name = name;
 	}
 	
-	public CatanColor getColor()
-	{
+	
+	
+	public String getColor() {
 		return color;
 	}
-	
-	public void setColor(CatanColor color)
-	{
+
+	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public CatanColor getColorEnum()
+	{
+		convertEnumColor(color);
+		return colorEnum;
+	}
+	
+	public void setColorEnum(CatanColor color)
+	{
+		this.colorEnum = color;
 	}
 
 	@Override

@@ -444,7 +444,7 @@ public class ServerProxy implements IServer
 
 		GamesList gl= server.getGamesList();
 		
-		System.out.println(gl.getGames().get(0).getPlayers().get(0).getColor());
+		System.out.println(gl.getGames().get(0).getPlayers().get(0).getColorEnum());
 	}
 
 }

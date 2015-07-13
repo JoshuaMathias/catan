@@ -146,28 +146,28 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void startJoinGame(GameInfo game) {
-		
-		//Necassary because json fills the players list with empty players
-		ArrayList <PlayerInfo> newlist = new ArrayList<PlayerInfo>();
-		for(int j = 0;j<game.getPlayers().size();j++)
-		{
-			if(!game.getPlayers().get(j).getName().isEmpty())
+			//Necessary because json fills the players list with empty players
+			ArrayList <PlayerInfo> newlist = new ArrayList<PlayerInfo>();
+			for(int j = 0;j<game.getPlayers().size();j++)
 			{
-				newlist.add(game.getPlayers().get(j));
+				if(!game.getPlayers().get(j).getName().isEmpty())
+				{
+					newlist.add(game.getPlayers().get(j));
+				}
 			}
-		}
-		game.setPlayers(newlist);
-		
-		//Greying out the color options already taken by other players
-		for(int i = 0; i<game.getPlayers().size();i++)
-		{
-			PlayerInfo temp = game.getPlayers().get(i);
-			if(!temp.getName().equals(clientFacade.getName())){
-				System.out.println(temp.getColor()+temp.getName());
-				getSelectColorView().setColorEnabled(temp.getColor(), false);
+			game.setPlayers(newlist);
+			
+			//Greying out the color options already taken by other players
+			for(int i = 0; i<game.getPlayers().size();i++)
+			{
+				PlayerInfo temp = game.getPlayers().get(i);
+				if(!temp.getName().equals(clientFacade.getName())){
+					System.out.println(temp.getColorEnum()+temp.getName());
+					getSelectColorView().setColorEnabled(temp.getColorEnum(), false);
+				}
 			}
-		}
-		getSelectColorView().showModal();
+			clientFacade.setCurrentGameId(game.getId());
+			getSelectColorView().showModal();
 	}
 
 	@Override
@@ -178,13 +178,16 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void joinGame(CatanColor color) {
-		
-		
-		
-		// If join succeeded
-		getSelectColorView().closeModal();
-		getJoinGameView().closeModal();
-		joinAction.execute();
+		if (clientFacade.joinGame(Integer.toString(clientFacade.getCurrentGameId()), Facade.convertColor(color))) {
+			// If join succeeded
+			getSelectColorView().closeModal();
+			getJoinGameView().closeModal();
+			joinAction.execute();
+		} else {
+			getMessageView().setMessage("Join game failed.");
+			getMessageView().setTitle("Join game failed");
+			getMessageView().showModal();
+		}
 	}
 
 }
