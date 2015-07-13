@@ -2,6 +2,7 @@ package client.facade;
 
 import java.util.ArrayList;
 
+import client.communication.GameHistoryController;
 import client.main.Catan;
 import client.map.MapController;
 import client.model.*;
@@ -37,6 +38,7 @@ public class Facade {
 	private int playerId;
 	private int currentGameId;
 	private MapController mapController;
+	private GameHistoryController gameHistoryController;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -243,6 +245,10 @@ public class Facade {
     	this.mapController = mapController;
     }
 
+    public void setGameHistoryController(GameHistoryController gameHistoryController) {
+    	this.gameHistoryController = gameHistoryController;
+    }
+    
     /**
      * checks newClientModel version against current client model version and updates if versions differ
      * @param newClientModel
@@ -254,6 +260,10 @@ public class Facade {
             //Some kind of refresher function on the model needs to be called here to update the view of the GUI
     		if(mapController != null){
     			mapController.initFromModel(clientModel);
+    		}
+    		
+    		if(gameHistoryController != null) {
+    			gameHistoryController.initFromModel(clientModel);
     		}
     }
     

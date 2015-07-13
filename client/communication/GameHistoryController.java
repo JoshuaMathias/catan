@@ -5,6 +5,10 @@ import java.util.*;
 import client.base.*;
 import client.facade.Facade;
 import client.model.ClientModel;
+import client.model.Map;
+import client.model.MessageLine;
+import client.model.MessageList;
+import client.model.Player;
 import shared.definitions.*;
 
 
@@ -33,6 +37,29 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	
 	public void initFromModel(ClientModel clientModel) {
 		
+		ArrayList<Player> players = clientModel.getPlayers();
+		MessageList messages = clientModel.getChat();
+		ArrayList<MessageLine> messageArray = messages.getLines();
+		
+		List<LogEntry> entries = new ArrayList<LogEntry>();
+		
+		for(MessageLine message : messageArray) {
+		
+			String username = message.getSource();
+			
+			for(Player player: players) {
+				
+				if(player != null && player.getName().equals(username)) {
+					
+					CatanColor color = player.getColor();
+					String messageLine = message.getMessage();
+					
+					entries.add(new LogEntry(color, messageLine));
+				}
+			}
+		}
+		
+		getView().setEntries(entries);
 	}
 	
 	private void initFromModel() {
