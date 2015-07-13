@@ -21,19 +21,19 @@ public class PlayerInfo
 	private int id;
 	private int playerIndex;
 	private String name;
-	private CatanColor colorEnum;
-	private String color;
+	private CatanColor colorEnum = null;
+	private String color = null;
 	
 	public PlayerInfo()
 	{
 		setId(-1);
 		setPlayerIndex(-1);
 		setName("");
-		setColorEnum(CatanColor.WHITE);
-		color="white";
+//		setColorEnum(CatanColor.WHITE);
+//		color="white";
 	}
 	
-	public void convertColor(CatanColor colorEnum) {
+	public void EnumToColor(CatanColor colorEnum) {
 		switch (colorEnum) {
 			case RED:
 				color = "red";
@@ -53,12 +53,10 @@ public class PlayerInfo
 				color = "white";
 			case BROWN:
 				color = "brown";
-			default:
-				color = "";
 		}
 	}
 	
-	public void convertEnumColor(String color) {
+	public void ColorToEnum(String color) {
 		switch (color) {
 			case "red":
 				colorEnum = CatanColor.RED;
@@ -112,23 +110,25 @@ public class PlayerInfo
 	}
 	
 	
-	
 	public String getColor() {
+		EnumToColor(colorEnum);
 		return color;
 	}
 
 	public void setColor(String color) {
+		ColorToEnum(color);		
 		this.color = color;
 	}
 
 	public CatanColor getColorEnum()
 	{
-		convertEnumColor(color);
+		ColorToEnum(color);
 		return colorEnum;
 	}
 	
 	public void setColorEnum(CatanColor color)
 	{
+		EnumToColor(colorEnum);
 		this.colorEnum = color;
 	}
 

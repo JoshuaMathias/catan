@@ -161,7 +161,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			for(int i = 0; i<game.getPlayers().size();i++)
 			{
 				PlayerInfo temp = game.getPlayers().get(i);
-				if(!temp.getName().equals(clientFacade.getName())){
+				if(!temp.getName().equals(clientFacade.getName()))
+				{
 					System.out.println(temp.getColorEnum()+temp.getName());
 					getSelectColorView().setColorEnabled(temp.getColorEnum(), false);
 				}

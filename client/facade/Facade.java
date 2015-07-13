@@ -253,7 +253,7 @@ public class Facade {
     		clientModel = newClientModel;
             //Some kind of refresher function on the model needs to be called here to update the view of the GUI
     		if(mapController != null){
-    			mapController.initFromModel(clientModel);
+    			//mapController.initFromModel(clientModel);
     		}
     }
     
@@ -644,8 +644,9 @@ public class Facade {
 		if(proxy.joinGame(gameId, color))
 		{
 			result =true;
-			while(clientModel.getVersion()==-1){}//If this is too slow we can always go get the Client model directly
-			ArrayList<Player> temp = getPlayers();
+			//while(getClientModel().getVersion()==-1){} If this is too slow we can always go get the Client model directly
+			ClientModel tempModel = proxy.getClientModel(-1);
+			ArrayList<Player> temp = tempModel.getPlayers();
 			for(int i = 0;i<temp.size();i++)
 			{
 				Player p = temp.get(i);
@@ -653,6 +654,7 @@ public class Facade {
 				{
 					playerIndex = p.getPlayerIndex();
 					this.playerId = p.getPlayerID();
+					break;
 				}
 			}
 		}

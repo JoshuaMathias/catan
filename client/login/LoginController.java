@@ -108,17 +108,27 @@ public class LoginController extends Controller implements ILoginController {
 		
 		if(password.equals(passwordRepeat))
 		{
-			if(clientFacade.register(username, password))
+			if(!username.isEmpty())
 			{
-				System.out.println("Registration Successful");
-				getLoginView().closeModal();
-				loginAction.execute();
+				if(clientFacade.register(username, password))
+				{
+					System.out.println("Registration Successful");
+					getLoginView().closeModal();
+					loginAction.execute();
+				}
+				else
+				{
+					System.out.println("Registration Failure");
+					getMessageView().setMessage("Registration Failed, this player already exist");
+					getMessageView().setTitle("Bad Credentials");
+					getMessageView().showModal();
+				}
 			}
 			else
 			{
 				System.out.println("Registration Failure");
-				getMessageView().setMessage("Registration Failed, this player already exist");
-				getMessageView().setTitle("Bad Credentials");
+				getMessageView().setMessage("Registration Failed");
+				getMessageView().setTitle("Have to have a username");
 				getMessageView().showModal();
 			}
 		}
