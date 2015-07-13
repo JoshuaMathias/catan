@@ -3,6 +3,7 @@ package client.facade;
 import java.util.ArrayList;
 
 import client.main.Catan;
+import client.map.MapController;
 import client.model.*;
 import client.poller.ServerPoller;
 import client.serverproxy.CreateGamesParams;
@@ -23,7 +24,7 @@ import shared.locations.VertexLocation;
  *
  */
 public class Facade {
-	private ClientModel model;
+	private ClientModel clientModel;
 	public static ServerProxy proxy;
 	public static Facade thisFacade;
 	private String host;
@@ -35,10 +36,11 @@ public class Facade {
 	private String username;
 	private int playerId;
 	private int currentGameId;
+	private MapController mapController;
 	
 	private Facade(String host) {
 		this.host=host;
-		model=new ClientModel();
+		clientModel=new ClientModel();
 		proxy=new ServerProxy(host);
 		poller=new ServerPoller(proxy, this);
 		thisFacade=this;
@@ -132,12 +134,12 @@ public class Facade {
 		proxy.sendChat(playerIndex, content);
 	}
 	
-	public ClientModel getModel() {
-		return model;
+	public ClientModel getClientModel() {
+		return clientModel;
 	}
 
-	public void setModel(ClientModel model) {
-		this.model = model;
+	public void setClientModel(ClientModel model) {
+		this.clientModel = model;
 	}
 
 	public IServer getProxy() {
@@ -158,83 +160,87 @@ public class Facade {
 
     //ClientModel Methods
     public DevCardList getDeck()  {
-        return model.getDeck();
+        return clientModel.getDeck();
     }
 
     public void setDeck(DevCardList deck)  {
-        model.setDeck(deck);
+        clientModel.setDeck(deck);
     }
 
     public ResourceList getBank()  {
-        return model.getBank();
+        return clientModel.getBank();
     }
 
     public void setBank(ResourceList bank)  {
-        model.setBank(bank);
+        clientModel.setBank(bank);
     }
 
     public MessageList getChat()  {
-        return model.getChat();
+        return clientModel.getChat();
     }
 
     public void setChat(MessageList chat)  {
-        model.setChat(chat);
+        clientModel.setChat(chat);
     }
 
     public MessageList getLog()  {
-        return model.getLog();
+        return clientModel.getLog();
     }
 
     public void setLog(MessageList log)  {
-        model.setLog(log);
+        clientModel.setLog(log);
     }
 
     public Map getMap()  {
-        return model.getMap();
+        return clientModel.getMap();
     }
 
     public void setMap(Map map)  {
-        model.setMap(map);
+        clientModel.setMap(map);
     }
 
     public ArrayList<Player> getPlayers()  {
-        return model.getPlayers();
+        return clientModel.getPlayers();
     }
 
     public void setPlayers(ArrayList<Player> players)  {
-        model.setPlayers(players);
+        clientModel.setPlayers(players);
     }
 
     public TradeOffer getTradeOffer()  {
-        return model.getTradeOffer();
+        return clientModel.getTradeOffer();
     }
 
     public void setTradeOffer(TradeOffer tradeOffer)  {
-        model.setTradeOffer(tradeOffer);
+        clientModel.setTradeOffer(tradeOffer);
     }
 
     public TurnTracker getTurnTracker()  {
-        return model.getTurnTracker();
+        return clientModel.getTurnTracker();
     }
 
     public void setTurnTracker(TurnTracker turnTracker)  {
-        model.setTurnTracker(turnTracker);
+        clientModel.setTurnTracker(turnTracker);
     }
 
     public int getVersion()  {
-        return model.getVersion();
+        return clientModel.getVersion();
     }
 
     public void setVersion(int version)  {
-        model.setVersion(version);
+        clientModel.setVersion(version);
     }
 
     public int getWinner()  {
-        return model.getWinner();
+        return clientModel.getWinner();
     }
 
     public void setWinner(int winner)  {
-        model.setWinner(winner);
+        clientModel.setWinner(winner);
+    }
+    
+    public void setMapController(MapController mapController){
+    	this.mapController = mapController;
     }
 
     /**
@@ -244,8 +250,11 @@ public class Facade {
      * @post if version number is different, newClientModel replaces current client Model, otherwise, nothing happens.
      */
     public void updateClientModel(ClientModel newClientModel) {
-    		model = newClientModel;
+    		clientModel = newClientModel;
             //Some kind of refresher function on the model needs to be called here to update the view of the GUI
+    		if(mapController != null){
+    			mapController.initFromModel(clientModel);
+    		}
     }
     
     /**
@@ -254,7 +263,7 @@ public class Facade {
      * @post returns integer of the index of the player with the longest road. Player has longest road if road length is 5 and more than any other player. If nobody has longest road, returns -1
      */
     public int checkLongestRoad() {
-        return model.checkLongestRoad();
+        return clientModel.checkLongestRoad();
     }
     
     /**
@@ -263,7 +272,7 @@ public class Facade {
      * @post returns integer representing the index of the player with the largest army. Player has largest army if they have played at least 3 soldier cards and more soldier cards than any other player. If nobody has largest army, returns -1
      */
     public int checkLargestArmy() {
-        return model.checkLargestArmy();
+        return clientModel.checkLargestArmy();
     }
     
     /**
@@ -272,7 +281,7 @@ public class Facade {
      * @post returns integer representing the index of the player who has 10 or more victory points. If no player has 10 or more victory points, returns -1
      */
     public int checkVictoryPoints() {
-        return model.checkVictoryPoints();
+        return clientModel.checkVictoryPoints();
     }
     
 //CanDo Methods Below********************************************************************************
@@ -285,7 +294,7 @@ public class Facade {
      * @post Must be player's turn, and player hasn't rolled yet- return true. Otherwise returns false.   
      */
     public boolean canRollDice() {
-        return model.canRollDice(playerIndex);
+        return clientModel.canRollDice(playerIndex);
     }
 
     /**
@@ -301,7 +310,7 @@ public class Facade {
      * Otherwise return false
      */
     public boolean canBankTrade(PortType offer, PortType request) {
-        return model.canBankTrade(playerIndex, offer, request);
+        return clientModel.canBankTrade(playerIndex, offer, request);
     }
     
     /**
@@ -312,7 +321,7 @@ public class Facade {
      * @post players turn, player has the number of resources they are attempting to trade return true. Otherwise return false. 
      */
     public boolean canOfferTrade(TradeOffer tradeOffer) {
-        return model.canOfferTrade(tradeOffer);
+        return clientModel.canOfferTrade(tradeOffer);
     }
 
     /**
@@ -325,7 +334,7 @@ public class Facade {
      * 
      */
     public boolean canAcceptTrade(TradeOffer tradeOffer) {
-        return model.canAcceptTrade(playerIndex, tradeOffer);
+        return clientModel.canAcceptTrade(playerIndex, tradeOffer);
     }
 
     /**
@@ -338,7 +347,7 @@ public class Facade {
      * Otherwise return false
      */
     public boolean canBuyDevCard() {
-        return model.canBuyDevCard(playerIndex);
+        return clientModel.canBuyDevCard(playerIndex);
     }
 
     /**
@@ -349,7 +358,7 @@ public class Facade {
      * @post Must be players turn, must have the required resources to build it, must have a settlement left, must be appropriately placed on the map - return true. Otherwise return false.
      */
     public boolean canBuildSettlement(VertexObject settlement) {
-        return model.canBuildSettlement(settlement);
+        return clientModel.canBuildSettlement(settlement);
     }
     
     /**
@@ -360,7 +369,7 @@ public class Facade {
      * @post Must be players turn, must have the required resources to build it, settlement must already be built in the spot, must have a city left, must be appropriately placed on the map - return true. Otherwise return false.
      */
     public boolean canBuildCity(VertexObject city) {
-        return model.canBuildCity(city);
+        return clientModel.canBuildCity(city);
     }
     
     /**
@@ -371,7 +380,7 @@ public class Facade {
      * @post Must be a players turn, player must have required resources to build road, road must be appropriately placed on map, player must have a road left to build- return true. Otherwise false.
      */
     public boolean canBuildRoad(Road road) {
-        return model.canBuildRoad(road);
+        return clientModel.canBuildRoad(road);
     }
 
     /**
@@ -382,7 +391,7 @@ public class Facade {
      * @post Player must have the development card, must be players turn, card can't have been received on the players turn- return true. Otherwise return false.
      */
     public boolean canPlayDevCard(DevCardType cardType) {
-        return model.canPlayDevCard(playerIndex, cardType);
+        return clientModel.canPlayDevCard(playerIndex, cardType);
     }
     
     /**
@@ -393,7 +402,7 @@ public class Facade {
      * @post Must be players turn, player rolls a seven, must be appropriately placed- return true. Otherwise return false.
      */
     public boolean canPlaceRobber(int diceRoll, HexLocation hexLoc) {
-        return model.canPlaceRobber(playerIndex, diceRoll, hexLoc);
+        return clientModel.canPlaceRobber(playerIndex, diceRoll, hexLoc);
     }
     
 
@@ -405,7 +414,7 @@ public class Facade {
      * @post Must be players turn, player must roll a seven, target player must have a resource card- return true. Otherwise return false
      */
     public boolean canStealResourceCard(int diceRoll, int targetPlayer) {
-        return model.canStealResourceCard(playerIndex, diceRoll, targetPlayer);
+        return clientModel.canStealResourceCard(playerIndex, diceRoll, targetPlayer);
     }
     
     /**
@@ -417,7 +426,7 @@ public class Facade {
      * @post A seven must have been rolled, and a player has to have eight or more cards- return true. Otherwise return false.
      */
     public boolean mustDiscardHalfCards(int diceRoll, int playerIndex) {
-        return model.mustDiscardHalfCards(diceRoll, playerIndex);
+        return clientModel.mustDiscardHalfCards(diceRoll, playerIndex);
     }
 
     //ProxyServer (Do) Methods
@@ -597,15 +606,6 @@ public class Facade {
     	proxy.robPlayer(playerIndex, victimIndex, location);
     }
     
-    /**
-     * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @pre none
-     * @post Server receives information
-     */
-    public ClientModel getClientModel(int version) 
-    {
-        return model;
-    }
     
 	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
 	
@@ -644,7 +644,7 @@ public class Facade {
 		if(proxy.joinGame(gameId, color))
 		{
 			result =true;
-			while(model.getVersion()==-1){}//If this is too slow we can always go get the Client model directly
+			while(clientModel.getVersion()==-1){}//If this is too slow we can always go get the Client model directly
 			ArrayList<Player> temp = getPlayers();
 			for(int i = 0;i<temp.size();i++)
 			{
