@@ -730,7 +730,7 @@ public class Map {
 		for(Hex hex: hexes){
 			if(hex.getLocation().equals(hexLoc)){
 				HexType resource = hex.getResource();
-				if(resource == HexType.DESERT || resource == HexType.WATER){
+				if(resource == HexType.desert || resource == HexType.water){
 					return false;
 				}
 				else{

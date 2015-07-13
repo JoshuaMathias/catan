@@ -55,23 +55,23 @@ public class Facade {
 	
 	public static String convertColor(CatanColor color) {
 		switch (color) {
-			case RED:
+			case red:
 				return "red";
-			case ORANGE:
+			case orange:
 				return "orange";
-			case YELLOW:
+			case yellow:
 				return "yellow";
-			case BLUE:
+			case blue:
 				return "blue";
-			case GREEN:
+			case green:
 				return "green";
-			case PURPLE:
+			case purple:
 				return "purple";
-			case PUCE:
+			case puce:
 				return "puce";
-			case WHITE:
+			case white:
 				return "white";
-			case BROWN:
+			case brown:
 				return "brown";
 			default:
 				return "";
@@ -253,7 +253,7 @@ public class Facade {
     		clientModel = newClientModel;
             //Some kind of refresher function on the model needs to be called here to update the view of the GUI
     		if(mapController != null){
-    			//mapController.initFromModel(clientModel);
+    			mapController.initFromModel(clientModel);
     		}
     }
     

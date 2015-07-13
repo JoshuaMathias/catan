@@ -21,6 +21,9 @@ public class Hex {
 		this.location = location;
 	}
 	public HexType getResource() {
+		if(resource == null){
+			resource = HexType.desert;
+		}
 		return resource;
 	}
 	public void setResource(HexType resource) {
@@ -62,6 +65,11 @@ public class Hex {
 		if (resource != other.resource)
 			return false;
 		return true;
+	}
+	@Override
+	public String toString() {
+		return "Hex [location=" + location + ", resource=" + resource
+				+ ", number=" + number + "]";
 	}
 	
 }
