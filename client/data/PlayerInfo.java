@@ -37,20 +37,28 @@ public class PlayerInfo
 		switch (colorEnum) {
 			case RED:
 				color = "red";
+				break;
 			case ORANGE:
 				color = "orange";
+				break;
 			case YELLOW:
 				color = "yellow";
+				break;
 			case BLUE:
 				color = "blue";
+				break;
 			case GREEN:
 				color = "green";
+				break;
 			case PURPLE:
 				color = "purple";
+				break;
 			case PUCE:
 				color = "puce";
+				break;
 			case WHITE:
 				color = "white";
+				break;
 			case BROWN:
 				color = "brown";
 		}
@@ -60,20 +68,28 @@ public class PlayerInfo
 		switch (color) {
 			case "red":
 				colorEnum = CatanColor.RED;
+				break;
 			case "orange":
 				colorEnum = CatanColor.ORANGE;
+				break;
 			case "yellow":
 				colorEnum = CatanColor.YELLOW;
+				break;
 			case "blue":
 				colorEnum = CatanColor.BLUE;
+				break;
 			case "green":
 				colorEnum = CatanColor.GREEN;
+				break;
 			case "purple":
 				colorEnum = CatanColor.PURPLE;
+				break;
 			case "puce":
 				colorEnum = CatanColor.PUCE;
+				break;
 			case "white":
 				colorEnum = CatanColor.WHITE;
+				break;
 			case "brown":
 				colorEnum = CatanColor.BROWN;
 		}
