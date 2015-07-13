@@ -12,6 +12,7 @@ import client.base.*;
 import client.data.*;
 import client.facade.Facade;
 import client.model.*;
+import client.model.Map;
 
 
 /**
@@ -20,12 +21,17 @@ import client.model.*;
 public class MapController extends Controller implements IMapController {
 	
 	private IRobView robView;
+	private Facade clientFacade;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
 		super(view);
 		
 		setRobView(robView);
+		
+		clientFacade = Facade.getSingleton();
+		
+		clientFacade.setMapController(this);
 		
 		initFromModel();
 	}
@@ -42,8 +48,51 @@ public class MapController extends Controller implements IMapController {
 		this.robView = robView;
 	}
 	
-	protected void initFromModel() {
+	protected void initFromModel(ClientModel clientModel) {
+		Map map = clientModel.getMap();
 		
+		//place hexes
+		ArrayList<Hex> hexes = map.getHexes();
+		for(Hex hex: hexes){
+			getView().addHex(hex.getLocation(), hex.getResource());
+			getView().addNumber(hex.getLocation(), hex.getNumber());
+		}
+		
+		//place ports
+		ArrayList<Port> ports = map.getPorts();
+		for(Port port: ports){
+			getView().addPort(new EdgeLocation(port.getLocation(), port.getDirection()), port.getResource());
+		}
+		
+		//place settlements
+		ArrayList<VertexObject> settlements = map.getSettlements();
+		ArrayList<Player> players = clientModel.getPlayers();
+		for(VertexObject settlement: settlements){
+			CatanColor color = players.get(settlement.getOwner()).getColor();
+			getView().placeSettlement(settlement.getLocation(), color);
+		}
+		
+		//place cities
+		ArrayList<VertexObject> cities = map.getCities();
+		for(VertexObject city: cities){
+			CatanColor color = players.get(city.getOwner()).getColor();
+			getView().placeCity(city.getLocation(), color);
+		}
+		
+		//place roads
+		ArrayList<Road> roads = map.getRoads();
+		for(Road road: roads){
+			CatanColor color = players.get(road.getOwner()).getColor();
+			getView().placeRoad(road.getLocation(), color);
+		}
+		
+		//place robber
+		getView().placeRobber(map.getRobber());
+		
+	}
+		
+	
+	protected void initFromModel() {
 		//<temp>
 		
 		Random rand = new Random();
