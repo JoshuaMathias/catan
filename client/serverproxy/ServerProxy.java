@@ -28,10 +28,10 @@ public class ServerProxy implements IServer
 	//on the targeted hex, at least one resource has to be present in the victims hand, and the hex location has to
 	//exist. I know that our cando functions are checking these but some rules may slip through.
 	
-	//This class might have to be a singleton
 	private Gson g = new Gson();
 	private String hostname = "";
 	private ClientCommunicator clientComm;
+	private boolean startPolling = false;
 	
 	public ServerProxy(String hostname)
 	{
@@ -370,6 +370,7 @@ public class ServerProxy implements IServer
 		if(!check.equals("400"))
 		{
 			result = true;
+			startPolling = true;
 		}
 		return result;
 	}
@@ -382,6 +383,11 @@ public class ServerProxy implements IServer
 		Jsonoutput = "{\"games\":"+Jsonoutput+"}";
 		GamesList result = g.fromJson(Jsonoutput, GamesList.class);
 		return result;
+	}
+	
+	public boolean gotCookies()
+	{
+		return startPolling;	
 	}
 
 	//Add a couple of functions from the server

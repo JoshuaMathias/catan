@@ -2,6 +2,7 @@ package client.join;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -114,7 +115,7 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 				gamePanel.add(tmp3);
 				JButton joinButton;
 				
-				if (game.getPlayers().contains(localPlayer))
+				if (containsPlayer(game,localPlayer))
 				{
 					joinButton = new JButton("Re-Join");
 				}
@@ -166,6 +167,20 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 		this.localPlayer = localPlayer;
 		this.removeAll();
 		this.initialize();
+	}
+	
+	public boolean containsPlayer(GameInfo game, PlayerInfo currplayer)
+	{
+		String currname = currplayer.getName();
+		for(int i = 0;i< game.getPlayers().size();i++)
+		{
+			PlayerInfo temp = game.getPlayers().get(i);
+			if(temp.getName().equals(currname))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private ActionListener actionListener = new ActionListener()

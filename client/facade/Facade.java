@@ -6,6 +6,7 @@ import client.main.Catan;
 import client.model.*;
 import client.poller.ServerPoller;
 import client.serverproxy.CreateGamesParams;
+import client.serverproxy.GamesList;
 import client.serverproxy.JoinGameParams;
 import client.serverproxy.LoginParams;
 import client.serverproxy.RegisterParams;
@@ -23,7 +24,7 @@ import shared.locations.VertexLocation;
  */
 public class Facade {
 	private ClientModel model;
-	public static IServer proxy;
+	public static ServerProxy proxy;
 	public static Facade thisFacade;
 	private String host;
 	private ServerPoller poller;
@@ -31,6 +32,8 @@ public class Facade {
 	public static int playerIndex=0;
 	public static int diceRoll=0;
 	public static HexLocation tempRobLoc;
+	private String username;
+	private int playerId;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -47,42 +50,40 @@ public class Facade {
 		return thisFacade;
 	}
 	
-	
-	
-	public static HexLocation getTempRobLoc() {
+	public HexLocation getTempRobLoc() {
 		return tempRobLoc;
 	}
 
-	public static void setTempRobLoc(HexLocation tempRobLoc) {
+	public void setTempRobLoc(HexLocation tempRobLoc) {
 		Facade.tempRobLoc = tempRobLoc;
 	}
 
-	public static int getDiceRoll() {
+	public int getDiceRoll() {
 		return diceRoll;
 	}
 
-	public static void setDiceRoll(int diceRoll) {
+	public  void setDiceRoll(int diceRoll) {
 		Facade.diceRoll = diceRoll;
 	}
 
 	public String getHost() {
 		return host;
 	}
+	
+	public String getName() {
+		return username;
+	}
 
 	public void setHost(String host) {
 		this.host = host;
 	}
 
-	public static int getPlayerIndex() {
+	public int getPlayerIndex() {
 		return playerIndex;
 	}
 
-	public static void setPlayerIndex(int playerIndex) {
+	public void setPlayerIndex(int playerIndex) {
 		Facade.playerIndex = playerIndex;
-	}
-
-	public static void setProxy(IServer proxy) {
-		Facade.proxy = proxy;
 	}
 
 	public void sendChat(String content) {
@@ -201,7 +202,8 @@ public class Facade {
      * @post if version number is different, newClientModel replaces current client Model, otherwise, nothing happens.
      */
     public void updateClientModel(ClientModel newClientModel) {
-        model.updateClientModel(newClientModel);
+        model = newClientModel;
+        //Some kind of refresher function on the model needs to be called here to update the view of the GUI
     }
     
     /**
@@ -560,7 +562,7 @@ public class Facade {
      */
     public ClientModel getClientModel(int version) 
     {
-        return proxy.getClientModel(version);
+        return model;
     }
     
 	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
@@ -568,12 +570,25 @@ public class Facade {
 	
 	public boolean register(String username, String password)
 	{
-		return proxy.register(username, password);
+		boolean result = false;
+		if(proxy.register(username, password))
+		{
+			result = true;
+			this.username = username;
+		}
+		return result;
 	}
 	
 	public boolean login(String username, String password)
 	{
-		return proxy.login(username, password);
+		boolean result = false;
+		if(proxy.login(username, password))
+		{
+			result = true;
+			this.username = username;
+		}
+		
+		return result;
 	}
 	
 	public void createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName)
@@ -583,15 +598,31 @@ public class Facade {
 	
 	public boolean joinGame(String gameId, String color)
 	{
-		this.playerIndex=getPlayers().size(); //Get 1 more than the current highest player index (before adding this player)
-		return proxy.joinGame(gameId, color);
+		boolean result = false;
+		if(proxy.joinGame(gameId, color))
+		{
+			result =true;
+			while(model.getVersion()==-1){}//If this is too slow we can always go get the Client model directly
+			ArrayList<Player> temp = getPlayers();
+			for(int i = 0;i<temp.size();i++)
+			{
+				Player p = temp.get(i);
+				if(p.getName().equals(username))
+				{
+					playerIndex = p.getPlayerIndex();
+					this.playerId = p.getPlayerID();
+				}
+			}
+		}
+		//this.playerIndex=getPlayers().size(); Get 1 more than the current highest player index (before adding this player)
+		return result;
 	}
 	
-	//We might want to return something here. 
-	//List a list of games object so that a user may know what games are available.
-	public void gamesList()
+	public GamesList gamesList()
 	{
-		
+		return proxy.getGamesList();
 	}
+	
+	//Before using the Facade functions just make sure that function is doing exactly what you want it to do
 	
 }

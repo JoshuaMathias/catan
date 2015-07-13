@@ -1,10 +1,13 @@
 package client.join;
 
+import java.util.ArrayList;
+
 import shared.definitions.CatanColor;
 import client.base.*;
 import client.data.*;
 import client.facade.Facade;
 import client.misc.*;
+import client.serverproxy.GamesList;
 
 
 /**
@@ -16,6 +19,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	private ISelectColorView selectColorView;
 	private IMessageView messageView;
 	private IAction joinAction;
+	private Facade clientFacade;
 	
 	/**
 	 * JoinGameController constructor
@@ -33,6 +37,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
+		clientFacade = Facade.getSingleton();
 	}
 	
 	public IJoinGameView getJoinGameView() {
@@ -90,9 +95,33 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
+		GamesList hub = clientFacade.gamesList();
+		ArrayList<GameInfo> games = hub.getGames();
 		
+		for(int i= 0;i<games.size();i++)
+		{
+			ArrayList <PlayerInfo> newlist = new ArrayList<PlayerInfo>();
+			for(int j = 0;j<4;j++)
+			{
+				if(!games.get(i).getPlayers().get(j).getName().isEmpty())
+				{
+					newlist.add(games.get(i).getPlayers().get(j));
+				}
+			}
+			games.get(i).setPlayers(newlist);
+		}
+		
+		GameInfo[] gamesarray = new GameInfo[games.size()];
+		games.toArray(gamesarray);
+		
+		PlayerInfo localPlayer = new PlayerInfo ();
+		localPlayer.setName(clientFacade.getName());
+
+		getJoinGameView().setGames(gamesarray, localPlayer);
 		getJoinGameView().showModal();
 	}
+	
+	 
 
 	@Override
 	public void startCreateNewGame() {
@@ -108,13 +137,36 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void createNewGame() {
-		Facade.getSingleton().createGame(getNewGameView().getRandomlyPlaceHexes(), getNewGameView().getRandomlyPlaceNumbers(), getNewGameView().getUseRandomPorts(), getNewGameView().getTitle());
+		clientFacade.createGame(getNewGameView().getRandomlyPlaceHexes(), 
+				getNewGameView().getRandomlyPlaceNumbers(), getNewGameView().getUseRandomPorts(),
+				getNewGameView().getTitle());
 		getNewGameView().closeModal();
+		start();
 	}
 
 	@Override
 	public void startJoinGame(GameInfo game) {
 		
+		//Necassary because json fills the players list with empty players
+		ArrayList <PlayerInfo> newlist = new ArrayList<PlayerInfo>();
+		for(int j = 0;j<game.getPlayers().size();j++)
+		{
+			if(!game.getPlayers().get(j).getName().isEmpty())
+			{
+				newlist.add(game.getPlayers().get(j));
+			}
+		}
+		game.setPlayers(newlist);
+		
+		//Greying out the color options already taken by other players
+		for(int i = 0; i<game.getPlayers().size();i++)
+		{
+			PlayerInfo temp = game.getPlayers().get(i);
+			if(!temp.getName().equals(clientFacade.getName())){
+				System.out.println(temp.getColor()+temp.getName());
+				getSelectColorView().setColorEnabled(temp.getColor(), false);
+			}
+		}
 		getSelectColorView().showModal();
 	}
 
@@ -126,6 +178,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void joinGame(CatanColor color) {
+		
+		
 		
 		// If join succeeded
 		getSelectColorView().closeModal();

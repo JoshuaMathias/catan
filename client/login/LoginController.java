@@ -73,28 +73,29 @@ public class LoginController extends Controller implements ILoginController {
 	}
 
 	@Override
-	public void signIn() {
-		
+	public void signIn() 
+	{
 		//log in user
 		String username = getLoginView().getLoginUsername();
 		String password = getLoginView().getLoginPassword();
 
-			if(clientFacade.login(username, password)){
-				System.out.println("Login Successful");
-				getLoginView().closeModal();
-				loginAction.execute();
-			} else{
-				System.out.println("Login Failure");
-				getMessageView().setMessage("Login Failed");
-				getMessageView().showModal();
-			}
-
+		if(clientFacade.login(username, password)){
+			System.out.println("Login Successful");
+			getLoginView().closeModal();
+			loginAction.execute();
+		} 
+		else
+		{
+			System.out.println("Login Failure");
+			getMessageView().setMessage("Login Failed, player doesn't exist");
+			getMessageView().setTitle("Login Failure");
+			getMessageView().showModal();
+		}
 	}
 
 	@Override
-	public void register() {
-		
-
+	public void register() 
+	{
 		//register new user (which, if successful, also logs them in)
 		
 		String username = getLoginView().getRegisterUsername();
@@ -105,20 +106,29 @@ public class LoginController extends Controller implements ILoginController {
 		System.out.println(password);
 		System.out.println(passwordRepeat);
 		
-		if(password.equals(passwordRepeat)){
-			if(clientFacade.register(username, password)){
+		if(password.equals(passwordRepeat))
+		{
+			if(clientFacade.register(username, password))
+			{
 				System.out.println("Registration Successful");
 				getLoginView().closeModal();
 				loginAction.execute();
 			}
-			else{
+			else
+			{
 				System.out.println("Registration Failure");
-				getMessageView().setMessage("Registration Failed");
+				getMessageView().setMessage("Registration Failed, this player already exist");
+				getMessageView().setTitle("Bad Credentials");
 				getMessageView().showModal();
 			}
 		}
-		else{
+		else
+		{
 			//Error Message about passwords not matching
+			System.out.println("Registration Failure");
+			getMessageView().setMessage("Registration Failed");
+			getMessageView().setTitle("Passwords don't match");
+			getMessageView().showModal();
 		}
 		
 

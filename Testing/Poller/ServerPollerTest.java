@@ -103,7 +103,7 @@ public class ServerPollerTest {
 	@Test
 	public void testPoller() {
 		System.out.println("testPoller");
-		facade.getPoller().getClientModel();
+//		facade.getPoller().getClientModel();
 //		ClientModel model=facade.getModel();
 //		Timer timer=new Timer();
 //		assertTrue(facade.getModel().getWinner()==-1);

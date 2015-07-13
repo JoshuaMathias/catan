@@ -26,6 +26,11 @@ public class GameInfo
 		players = new ArrayList<PlayerInfo>();
 	}
 	
+	public void setPlayers(ArrayList<PlayerInfo> newPlayers)
+	{
+		players = newPlayers;
+	}
+	
 	public int getId()
 	{
 		return id;

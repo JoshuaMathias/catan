@@ -21,7 +21,7 @@ public class ClientModel {
 	private ArrayList<Player> players;
 	private TradeOffer tradeOffer;
 	private TurnTracker turnTracker;
-	private int version;
+	private int version = -1;
 	private int winner = -1;
 	
 	public DevCardList getDeck() {
@@ -104,15 +104,15 @@ public class ClientModel {
 		this.winner = winner;
 	}
 
-	/**
-	 * checks newClientModel version against current client model version and updates if versions differ
-	 * @param newClientModel
-	 * @pre newClientModel != null
-	 * @post if version number is different, newClientModel replaces current client Model, otherwise, nothing happens.
-	 */
-	public void updateClientModel(ClientModel newClientModel){
-		
-	}
+//	/**
+//	 * checks newClientModel version against current client model version and updates if versions differ
+//	 * @param newClientModel
+//	 * @pre newClientModel != null
+//	 * @post if version number is different, newClientModel replaces current client Model, otherwise, nothing happens.
+//	 */
+//	public void updateClientModel(ClientModel newClientModel){
+//		
+//	}
 	
 	/**
 	 * checks whether a player has the longest road
