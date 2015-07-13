@@ -48,7 +48,7 @@ public class MapController extends Controller implements IMapController {
 		this.robView = robView;
 	}
 	
-	protected void initFromModel(ClientModel clientModel) {
+	public void initFromModel(ClientModel clientModel) {
 		Map map = clientModel.getMap();
 		
 		//place hexes
