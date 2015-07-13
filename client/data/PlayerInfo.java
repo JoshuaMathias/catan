@@ -35,31 +35,31 @@ public class PlayerInfo
 	
 	public void EnumToColor(CatanColor colorEnum) {
 		switch (colorEnum) {
-			case RED:
+			case red:
 				color = "red";
 				break;
-			case ORANGE:
+			case orange:
 				color = "orange";
 				break;
-			case YELLOW:
+			case yellow:
 				color = "yellow";
 				break;
-			case BLUE:
+			case blue:
 				color = "blue";
 				break;
-			case GREEN:
+			case green:
 				color = "green";
 				break;
-			case PURPLE:
+			case purple:
 				color = "purple";
 				break;
-			case PUCE:
+			case puce:
 				color = "puce";
 				break;
-			case WHITE:
+			case white:
 				color = "white";
 				break;
-			case BROWN:
+			case brown:
 				color = "brown";
 		}
 	}
@@ -67,31 +67,31 @@ public class PlayerInfo
 	public void ColorToEnum(String color) {
 		switch (color) {
 			case "red":
-				colorEnum = CatanColor.RED;
+				colorEnum = CatanColor.red;
 				break;
 			case "orange":
-				colorEnum = CatanColor.ORANGE;
+				colorEnum = CatanColor.orange;
 				break;
 			case "yellow":
-				colorEnum = CatanColor.YELLOW;
+				colorEnum = CatanColor.yellow;
 				break;
 			case "blue":
-				colorEnum = CatanColor.BLUE;
+				colorEnum = CatanColor.blue;
 				break;
 			case "green":
-				colorEnum = CatanColor.GREEN;
+				colorEnum = CatanColor.green;
 				break;
 			case "purple":
-				colorEnum = CatanColor.PURPLE;
+				colorEnum = CatanColor.purple;
 				break;
 			case "puce":
-				colorEnum = CatanColor.PUCE;
+				colorEnum = CatanColor.puce;
 				break;
 			case "white":
-				colorEnum = CatanColor.WHITE;
+				colorEnum = CatanColor.white;
 				break;
 			case "brown":
-				colorEnum = CatanColor.BROWN;
+				colorEnum = CatanColor.brown;
 		}
 	}
 	
