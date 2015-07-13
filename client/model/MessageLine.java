@@ -7,7 +7,7 @@ package client.model;
 public class MessageLine {
 
 	private String message;
-	private String source;
+	private int source;
 	
 	public String getMessage() {
 		return message;
@@ -15,10 +15,10 @@ public class MessageLine {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getSource() {
+	public int getSource() {
 		return source;
 	}
-	public void setSource(String source) {
+	public void setSource(int source) {
 		this.source = source;
 	}
 	@Override
@@ -26,7 +26,7 @@ public class MessageLine {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
-		result = prime * result + ((source == null) ? 0 : source.hashCode());
+		result = prime * result + source;
 		return result;
 	}
 	@Override
@@ -43,11 +43,9 @@ public class MessageLine {
 				return false;
 		} else if (!message.equals(other.message))
 			return false;
-		if (source == null) {
-			if (other.source != null)
-				return false;
-		} else if (!source.equals(other.source))
+		if (source != other.source)
 			return false;
 		return true;
 	}
+	
 }

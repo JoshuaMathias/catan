@@ -1,9 +1,10 @@
 package client.communication;
 
 import java.util.*;
-import java.util.List;
 
 import client.base.*;
+import client.facade.Facade;
+import client.model.ClientModel;
 import shared.definitions.*;
 
 
@@ -12,9 +13,14 @@ import shared.definitions.*;
  */
 public class GameHistoryController extends Controller implements IGameHistoryController {
 
+	private Facade clientFacade;
+	
 	public GameHistoryController(IGameHistoryView view) {
 		
 		super(view);
+		
+		clientFacade = Facade.getSingleton();
+//		clientFacade.setGameHistoryController(this);
 		
 		initFromModel();
 	}
@@ -23,6 +29,10 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	public IGameHistoryView getView() {
 		
 		return (IGameHistoryView)super.getView();
+	}
+	
+	public void initFromModel(ClientModel clientModel) {
+		
 	}
 	
 	private void initFromModel() {
