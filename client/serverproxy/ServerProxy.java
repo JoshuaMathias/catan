@@ -381,6 +381,7 @@ public class ServerProxy implements IServer
 	{
 		String Jsonoutput = clientComm.send("games/list","");
 		Jsonoutput = "{\"games\":"+Jsonoutput+"}";
+		System.out.println(Jsonoutput);
 		GamesList result = g.fromJson(Jsonoutput, GamesList.class);
 		return result;
 	}
@@ -398,46 +399,52 @@ public class ServerProxy implements IServer
 	
 	public static void main(String arg[])
 	{
-		String u = "ogeorge";
-		String p = "cookies";
-
-		String u1 = "ogeorge1";
-		String p1 = "cookies1";
-		
-		String u2 = "ogeorge2";
-		String p2 = "cookies2";
-		
-		String u3 = "ogeorge3";
-		String p3 = "cookies3";
+//		String u = "ogeorge";
+//		String p = "cookies";
+//
+//		String u1 = "ogeorge1";
+//		String p1 = "cookies1";
+//		
+//		String u2 = "ogeorge2";
+//		String p2 = "cookies2";
+//		
+//		String u3 = "ogeorge3";
+//		String p3 = "cookies3";
+//		
+//		ServerProxy server = new ServerProxy("longbow");
+//		server.register(u, p);server.createGame(true,true,true,"test");
+//		server.joinGame("3", "red");
+//
+//		//server.login(u, p);
+//		
+//		ServerProxy server1 = new ServerProxy("longbow");
+//		server1.register(u1, p1);
+//		server1.joinGame("3", "blue");
+//		//server1.login(u, p);
+//		
+//		ServerProxy server2 = new ServerProxy("longbow");
+//		server2.register(u2, p2);		
+//		server2.joinGame("3", "green");
+//		//server2.login(u, p);
+//		
+//		ServerProxy server3 = new ServerProxy("longbow");
+//		server3.register(u3, p3);
+//		server3.joinGame("3", "yellow");
+//		//server3.login(u, p);
+//		
+//		ClientModel c = server.getClientModel(-1);
+//
+//		ResourceList ifes = new ResourceList (100,-400,200,-300,100);
+//		server.offerTrade(0, ifes , 1);
+//		server1.acceptTrade(1, true);
+//		
+//		server.getClientModel(2);				//Will return null because of version number
 		
 		ServerProxy server = new ServerProxy("longbow");
-		server.register(u, p);server.createGame(true,true,true,"test");
-		server.joinGame("3", "red");
 
-		//server.login(u, p);
+		GamesList gl= server.getGamesList();
 		
-		ServerProxy server1 = new ServerProxy("longbow");
-		server1.register(u1, p1);
-		server1.joinGame("3", "blue");
-		//server1.login(u, p);
-		
-		ServerProxy server2 = new ServerProxy("longbow");
-		server2.register(u2, p2);		
-		server2.joinGame("3", "green");
-		//server2.login(u, p);
-		
-		ServerProxy server3 = new ServerProxy("longbow");
-		server3.register(u3, p3);
-		server3.joinGame("3", "yellow");
-		//server3.login(u, p);
-		
-		ClientModel c = server.getClientModel(-1);
-
-		ResourceList ifes = new ResourceList (100,-400,200,-300,100);
-		server.offerTrade(0, ifes , 1);
-		server1.acceptTrade(1, true);
-		
-		server.getClientModel(2);				//Will return null because of version number		
+		System.out.println(gl.getGames().get(0).getPlayers().get(0).getColor());
 	}
 
 }

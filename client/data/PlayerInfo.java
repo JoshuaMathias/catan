@@ -21,6 +21,7 @@ public class PlayerInfo
 	private int playerIndex;
 	private String name;
 	private CatanColor color;
+	//private String color;
 	
 	public PlayerInfo()
 	{
