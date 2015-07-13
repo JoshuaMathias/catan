@@ -1062,19 +1062,19 @@ public class MapComponent extends JComponent
 		
 		switch (hexType)
 		{
-			case WOOD:
+			case wood:
 				return "images/land/forest.gif";
-			case BRICK:
+			case brick:
 				return "images/land/brick.gif";
-			case SHEEP:
+			case sheep:
 				return "images/land/pasture.gif";
-			case WHEAT:
+			case wheat:
 				return "images/land/wheat.gif";
-			case ORE:
+			case ore:
 				return "images/land/ore.gif";
-			case DESERT:
+			case desert:
 				return "images/land/desert.gif";
-			case WATER:
+			case water:
 				return "images/land/water.gif";
 			default:
 				assert false;
@@ -1087,17 +1087,17 @@ public class MapComponent extends JComponent
 		
 		switch (portType)
 		{
-			case WOOD:
+			case wood:
 				return "images/ports/port_wood.png";
-			case BRICK:
+			case brick:
 				return "images/ports/port_brick.png";
-			case SHEEP:
+			case sheep:
 				return "images/ports/port_sheep.png";
-			case WHEAT:
+			case wheat:
 				return "images/ports/port_wheat.png";
-			case ORE:
+			case ore:
 				return "images/ports/port_ore.png";
-			case THREE:
+			case three:
 				return "images/ports/port_three.png";
 			default:
 				assert false;

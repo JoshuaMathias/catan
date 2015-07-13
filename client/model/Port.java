@@ -17,6 +17,9 @@ public class Port {
 	private int ratio;
 
 	public PortType getResource() {
+		if(resource == null){
+			resource = PortType.three;
+		}
 		return resource;
 	}
 	public void setResource(PortType resource) {
@@ -74,6 +77,11 @@ public class Port {
 		if (resource != other.resource)
 			return false;
 		return true;
+	}
+	@Override
+	public String toString() {
+		return "Port [resource=" + resource + ", location=" + location
+				+ ", direction=" + direction + ", ratio=" + ratio + "]";
 	}
 
 }

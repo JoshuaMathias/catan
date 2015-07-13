@@ -30,6 +30,17 @@ public class MapView extends PanelView implements IMapView
 	}
 	
 	@Override
+	public void newMap(){//Daniel Added Method
+		
+		this.remove(map);
+		
+		map = new MapComponent();
+		
+		this.add(map, BorderLayout.CENTER);
+		
+	}
+	
+	@Override
 	public IMapController getController()
 	{
 		return (IMapController)super.getController();

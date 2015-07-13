@@ -83,13 +83,13 @@ public class CanBankTrade {
 		
 		Port port1 = new Port();
 		port1.setRatio(2);
-		port1.setResource(PortType.ORE);
+		port1.setResource(PortType.ore);
 		port1.setLocation(new HexLocation(-1,0));
 		port1.setDirection(EdgeDirection.NW);
 		
 		Port port2 = new Port();
 		port2.setRatio(3);
-		port2.setResource(PortType.THREE);
+		port2.setResource(PortType.three);
 		port2.setLocation(new HexLocation(1,0));
 		port2.setDirection(EdgeDirection.SE);
 		
@@ -113,30 +113,30 @@ public class CanBankTrade {
 		turnTracker.setCurrentTurn(2);
 		turnTracker.setStatus("Playing");
 		
-		assertTrue(clientModel.canBankTrade(2, PortType.ORE, PortType.BRICK));//Daniel owns settlement, has enough ore to get brick
+		assertTrue(clientModel.canBankTrade(2, PortType.ore, PortType.brick));//Daniel owns settlement, has enough ore to get brick
 		
 		clientModel.setBank(new ResourceList(0,5,5,5,5));
-		assertFalse(clientModel.canBankTrade(2, PortType.ORE, PortType.BRICK));//Bank doesnt have enough brick to return even though Daniel trade 2 ore
+		assertFalse(clientModel.canBankTrade(2, PortType.ore, PortType.brick));//Bank doesnt have enough brick to return even though Daniel trade 2 ore
 		
 		clientModel.setBank(new ResourceList(5,5,5,5,5));
 		turnTracker.setCurrentTurn(3);
-		assertTrue(clientModel.canBankTrade(3, PortType.WHEAT, PortType.WOOD));//Paul successfully makes a 3 to 1 trade of every resourcetype
-		assertTrue(clientModel.canBankTrade(3, PortType.BRICK, PortType.WOOD));
-		assertTrue(clientModel.canBankTrade(3, PortType.ORE, PortType.WOOD));
-		assertTrue(clientModel.canBankTrade(3, PortType.SHEEP, PortType.WOOD));
-		assertTrue(clientModel.canBankTrade(3, PortType.WOOD, PortType.WOOD));
+		assertTrue(clientModel.canBankTrade(3, PortType.wheat, PortType.wood));//Paul successfully makes a 3 to 1 trade of every resourcetype
+		assertTrue(clientModel.canBankTrade(3, PortType.brick, PortType.wood));
+		assertTrue(clientModel.canBankTrade(3, PortType.ore, PortType.wood));
+		assertTrue(clientModel.canBankTrade(3, PortType.sheep, PortType.wood));
+		assertTrue(clientModel.canBankTrade(3, PortType.wood, PortType.wood));
 		
 		turnTracker.setCurrentTurn(1);
-		assertTrue(clientModel.canBankTrade(1, PortType.BRICK, PortType.WOOD));//Josh successfully makes a 4 to 1 trade without being at a port
+		assertTrue(clientModel.canBankTrade(1, PortType.brick, PortType.wood));//Josh successfully makes a 4 to 1 trade without being at a port
 		
 		turnTracker.setCurrentTurn(2);
-		assertFalse(clientModel.canBankTrade(1, PortType.BRICK, PortType.WOOD));//Not Joshs turn
+		assertFalse(clientModel.canBankTrade(1, PortType.brick, PortType.wood));//Not Joshs turn
 		
 		turnTracker.setCurrentTurn(1);
 		turnTracker.setStatus("Robbing");
-		assertFalse(clientModel.canBankTrade(1, PortType.BRICK, PortType.WOOD));//In the robbing status
+		assertFalse(clientModel.canBankTrade(1, PortType.brick, PortType.wood));//In the robbing status
 		
 		turnTracker.setCurrentTurn(0);
-		assertFalse(clientModel.canBankTrade(0, PortType.BRICK, PortType.WOOD));//Ife doesn't have enough resources of brick
+		assertFalse(clientModel.canBankTrade(0, PortType.brick, PortType.wood));//Ife doesn't have enough resources of brick
 	}
 }

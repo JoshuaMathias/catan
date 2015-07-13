@@ -9,6 +9,11 @@ import client.base.*;
  */
 public interface IMapView extends IView
 {
+	/**
+	 * Daniel Added this method
+	 * Replaces current MapComponentObject
+	 */
+	void newMap();
 	
 	/**
 	 * This method adds a hex to the map.

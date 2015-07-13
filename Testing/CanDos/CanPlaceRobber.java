@@ -84,15 +84,15 @@ public class CanPlaceRobber {
 		Hex deseretHex = new Hex();
 		
 		oreHex.setLocation(new HexLocation(0,0));
-		oreHex.setResource(HexType.ORE);
+		oreHex.setResource(HexType.ore);
 		woodHex.setLocation(new HexLocation(0,1));
-		woodHex.setResource(HexType.WOOD);
+		woodHex.setResource(HexType.wood);
 		wheatHex.setLocation(new HexLocation(1,0));
-		wheatHex.setResource(HexType.WHEAT);
+		wheatHex.setResource(HexType.wheat);
 		brickHex.setLocation(new HexLocation(1,-1));
-		brickHex.setResource(HexType.BRICK);
+		brickHex.setResource(HexType.brick);
 		deseretHex.setLocation(new HexLocation(2,1));
-		deseretHex.setResource(HexType.DESERT);
+		deseretHex.setResource(HexType.desert);
 		
 		ArrayList<Hex> hexArray = new ArrayList<>();
 		hexArray.add(oreHex);

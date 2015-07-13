@@ -244,7 +244,7 @@ public class ClientModel {
 		boolean twoToOne = false;
 		boolean threeToOne = false;
 		
-		if(whoseTurn == playerIndex && status.equals("Playing") && offer != PortType.THREE && request != PortType.THREE){
+		if(whoseTurn == playerIndex && status.equals("Playing") && offer != PortType.three && request != PortType.three){
 			ArrayList<VertexObject> playerSettlementsCities = map.getPlayerSettlementsCities(playerIndex);
 			for(VertexObject settlementCity: playerSettlementsCities){
 				int portRatio = map.matchSettlementToPortRatio(settlementCity.getLocation(), offer);
@@ -267,27 +267,27 @@ public class ClientModel {
 			
 			ResourceList playerResources = players.get(playerIndex).getResources();
 			switch(request){
-				case BRICK:
+				case brick:
 					if(playerResources.getBrick() < ratio || bank.getBrick() < 1){
 						return false;
 					}
 					break;
-				case ORE:
+				case ore:
 					if(playerResources.getOre() < ratio || bank.getOre() < 1){
 						return false;
 					}
 					break;
-				case SHEEP:
+				case sheep:
 					if(playerResources.getSheep() < ratio || bank.getSheep() < 1){
 						return false;
 					}
 					break;
-				case WHEAT:
+				case wheat:
 					if(playerResources.getWheat() < ratio || bank.getWheat() < 1){
 						return false;
 					}
 					break;
-				case WOOD:
+				case wood:
 					if(playerResources.getWood() < ratio || bank.getWood() < 1){
 						return false;
 					}

@@ -51,17 +51,20 @@ public class MapController extends Controller implements IMapController {
 	public void initFromModel(ClientModel clientModel) {
 		Map map = clientModel.getMap();
 		
+		getView().newMap();
+		
+		System.out.println("Beginning of initFromModel");
+		
 		//place hexes
 		ArrayList<Hex> hexes = map.getHexes();
 		for(Hex hex: hexes){
 			getView().addHex(hex.getLocation(), hex.getResource());
-			getView().addNumber(hex.getLocation(), hex.getNumber());
-		}
-		
-		//place ports
-		ArrayList<Port> ports = map.getPorts();
-		for(Port port: ports){
-			getView().addPort(new EdgeLocation(port.getLocation(), port.getDirection()), port.getResource());
+			System.out.println(hex.toString());
+			if(hex.getNumber() != 0){
+				getView().addNumber(hex.getLocation(), hex.getNumber());
+				System.out.println(hex.getLocation().toString());
+				System.out.println(hex.getNumber());
+			}
 		}
 		
 		//place settlements
@@ -86,8 +89,19 @@ public class MapController extends Controller implements IMapController {
 			getView().placeRoad(road.getLocation(), color);
 		}
 		
+		//place ports
+		ArrayList<Port> ports = map.getPorts();
+		for(Port port: ports){
+			EdgeLocation side = new EdgeLocation(port.getLocation(), port.getDirection());
+			System.out.println("Port: "+ side.toString());
+			System.out.println(port.getResource());
+			getView().addPort(side, port.getResource());
+		}
+		
 		//place robber
 		getView().placeRobber(map.getRobber());
+		
+		System.out.println("After initFromModel");
 		
 	}
 		
@@ -106,13 +120,13 @@ public class MapController extends Controller implements IMapController {
 				HexLocation hexLoc = new HexLocation(x, y);
 				getView().addHex(hexLoc, hexType);
 				getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NW),
-						CatanColor.RED);
+						CatanColor.red);
 				getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.SW),
-						CatanColor.BLUE);
+						CatanColor.blue);
 				getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.S),
-						CatanColor.ORANGE);
-				getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NW), CatanColor.GREEN);
-				getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NE), CatanColor.PURPLE);
+						CatanColor.orange);
+				getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NW), CatanColor.green);
+				getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NE), CatanColor.purple);
 			}
 			
 			if (x != 0) {
@@ -123,18 +137,18 @@ public class MapController extends Controller implements IMapController {
 					HexLocation hexLoc = new HexLocation(-x, y);
 					getView().addHex(hexLoc, hexType);
 					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NW),
-							CatanColor.RED);
+							CatanColor.red);
 					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.SW),
-							CatanColor.BLUE);
+							CatanColor.blue);
 					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.S),
-							CatanColor.ORANGE);
-					getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NW), CatanColor.GREEN);
-					getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NE), CatanColor.PURPLE);
+							CatanColor.orange);
+					getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NW), CatanColor.green);
+					getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NE), CatanColor.purple);
 				}
 			}
 		}
 		
-		PortType portType = PortType.BRICK;
+		PortType portType = PortType.brick;
 		getView().addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.N), portType);
 		getView().addPort(new EdgeLocation(new HexLocation(0, -3), EdgeDirection.S), portType);
 		getView().addPort(new EdgeLocation(new HexLocation(-3, 3), EdgeDirection.NE), portType);
@@ -179,17 +193,17 @@ public class MapController extends Controller implements IMapController {
 
 	public void placeRoad(EdgeLocation edgeLoc) {
 		Facade.getSingleton().buildRoad(edgeLoc, false);
-		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+		getView().placeRoad(edgeLoc, CatanColor.orange);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
 		Facade.getSingleton().buildSettlement(vertLoc, false);
-		getView().placeSettlement(vertLoc, CatanColor.ORANGE);
+		getView().placeSettlement(vertLoc, CatanColor.orange);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
 		Facade.getSingleton().buildCity(vertLoc);
-		getView().placeCity(vertLoc, CatanColor.ORANGE);
+		getView().placeCity(vertLoc, CatanColor.orange);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
@@ -206,7 +220,7 @@ public class MapController extends Controller implements IMapController {
 		} else if (pieceType==PieceType.CITY) {
 			
 		}
-		getView().startDrop(pieceType, CatanColor.ORANGE, true);
+		getView().startDrop(pieceType, CatanColor.orange, true);
 	}
 	
 	public void cancelMove() {
