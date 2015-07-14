@@ -81,6 +81,8 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		Player player = clientModel.getPlayers().get(clientFacade.getPlayerIndex());
 		ResourceList playerResources = player.getResources();
 		
+		System.out.println(playerResources.toString());
+		
 		getView().setElementAmount(ResourceBarElement.BRICK, playerResources.getBrick());
 		getView().setElementAmount(ResourceBarElement.SHEEP, playerResources.getSheep());
 		getView().setElementAmount(ResourceBarElement.WOOD, playerResources.getWood());

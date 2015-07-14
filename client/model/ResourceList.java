@@ -98,4 +98,10 @@ public class ResourceList {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ResourceList [brick=" + brick + ", ore=" + ore + ", sheep="
+				+ sheep + ", wheat=" + wheat + ", wood=" + wood + "]";
+	}
 }

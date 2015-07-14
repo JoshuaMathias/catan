@@ -436,6 +436,31 @@ public class ClientModel {
 		return can;
 	}
 
+	public boolean hasEnoughForSettlement(ResourceList playersResources, int playerIndex){
+		if(playerIndex == turnTracker.getCurrentTurn()){
+			String status = turnTracker.getStatus();
+			switch(status){
+			case "Playing":
+				if(playersResources.getBrick() < 1 || playersResources.getSheep() < 1 || playersResources.getWheat() < 1 || playersResources.getWood() < 1){
+					return false;
+				}
+				else{
+					return true;
+				}
+			case "FirstRound":
+				return true;
+			case "SecondRound":
+				return true;
+			default:
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+		
+	}
+	
 	/**
 	 * 
 	 * Player attempts to build settlement
@@ -510,6 +535,27 @@ public class ClientModel {
 		return false;
 	}
 	
+	
+	public boolean hasEnoughForCity(ResourceList playersResources, int playerIndex){
+		if(playerIndex == turnTracker.getCurrentTurn()){
+			String status = turnTracker.getStatus();
+			switch(status){
+			case "Playing":
+				if(playersResources.getOre() < 3 || playersResources.getWheat() < 2) {
+					return false;
+				}
+				else{
+					return true;
+				}
+			default:
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+	}
+	
 	/**
 	 * 
 	 * Player attempts to build city
@@ -540,6 +586,31 @@ public class ClientModel {
 			can = map.isSpotMySettlement(citySpot, playerIndex);
 		}
 		return can;
+	}
+	
+	
+	public boolean hasEnoughForRoad(ResourceList playerResources, int playerIndex){
+		if(playerIndex == turnTracker.getCurrentTurn()){
+			String status = turnTracker.getStatus();
+			switch(status){
+			case "Playing":
+				if(playerResources.getBrick() < 1 || playerResources.getWood() < 1){
+					return false;
+				}
+				else{
+					return true;
+				}
+			case "FirstRound":
+				return true;
+			case "SecondRound":
+				return true;
+			default:
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
 	}
 	
 	/**

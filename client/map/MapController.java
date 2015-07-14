@@ -22,6 +22,7 @@ public class MapController extends Controller implements IMapController {
 	
 	private IRobView robView;
 	private Facade clientFacade;
+	private String status;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -49,21 +50,18 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	public void initFromModel(ClientModel clientModel) {
+		status = clientModel.getTurnTracker().getStatus();
+		
 		Map map = clientModel.getMap();
 		
 		getView().newMap();
-		
-		System.out.println("Beginning of initFromModel");
 		
 		//place hexes
 		ArrayList<Hex> hexes = map.getHexes();
 		for(Hex hex: hexes){
 			getView().addHex(hex.getLocation(), hex.getResource());
-			System.out.println(hex.toString());
 			if(hex.getNumber() != 0){
 				getView().addNumber(hex.getLocation(), hex.getNumber());
-				System.out.println(hex.getLocation().toString());
-				System.out.println(hex.getNumber());
 			}
 		}
 		
@@ -93,15 +91,11 @@ public class MapController extends Controller implements IMapController {
 		ArrayList<Port> ports = map.getPorts();
 		for(Port port: ports){
 			EdgeLocation side = new EdgeLocation(port.getLocation(), port.getDirection());
-			System.out.println("Port: "+ side.toString());
-			System.out.println(port.getResource());
 			getView().addPort(side, port.getResource());
 		}
 		
 		//place robber
 		getView().placeRobber(map.getRobber());
-		
-		System.out.println("After initFromModel");
 		
 	}
 		
@@ -192,21 +186,40 @@ public class MapController extends Controller implements IMapController {
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
-		clientFacade.buildRoad(edgeLoc, false);
-		CatanColor color = clientFacade.getClientModel().getPlayers().get(clientFacade.getPlayerIndex()).getColor();
-		getView().placeRoad(edgeLoc, color);
+		switch(status){
+		case "FirstRound":
+			clientFacade.buildRoad(edgeLoc, true);
+			break;
+		case "SecondRound":
+			clientFacade.buildRoad(edgeLoc, true);
+			break;
+		default:
+			clientFacade.buildRoad(edgeLoc, false);
+			break;
+		}
+		
+		getView().placeRoad(edgeLoc, clientFacade.getPlayerColor());
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		clientFacade.buildSettlement(vertLoc, false);
-		CatanColor color = clientFacade.getClientModel().getPlayers().get(clientFacade.getPlayerIndex()).getColor();
-		getView().placeSettlement(vertLoc, color);
+		switch(status){
+		case "FirstRound":
+			clientFacade.buildSettlement(vertLoc, true);
+			break;
+		case "SecondRound":
+			clientFacade.buildSettlement(vertLoc, true);
+			break;
+		default:
+			clientFacade.buildSettlement(vertLoc, false);
+			break;
+		}
+		
+		getView().placeSettlement(vertLoc, clientFacade.getPlayerColor());
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
 		clientFacade.buildCity(vertLoc);
-		CatanColor color = clientFacade.getPlayerColor();
-		getView().placeCity(vertLoc, color);
+		getView().placeCity(vertLoc, clientFacade.getPlayerColor());
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
@@ -216,14 +229,23 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
+		ClientModel clientModel = clientFacade.getClientModel();
+		int playerIndex = clientFacade.getPlayerIndex();
+		ResourceList resources = clientModel.getPlayers().get(playerIndex).getResources();
+		
+		boolean canPlace = false;
+		
 		if (pieceType==PieceType.ROAD) {
-			
+			canPlace = clientModel.hasEnoughForRoad(resources, playerIndex);
 		} else if (pieceType==PieceType.SETTLEMENT) {
-			
+			canPlace = clientModel.hasEnoughForSettlement(resources, playerIndex);
 		} else if (pieceType==PieceType.CITY) {
-			
+			canPlace = clientModel.hasEnoughForCity(resources, playerIndex);
 		}
-		getView().startDrop(pieceType, clientFacade.getPlayerColor(), true);
+		
+		if(canPlace){
+			getView().startDrop(pieceType, clientFacade.getPlayerColor(), true);
+		}
 	}
 	
 	public void cancelMove() {
