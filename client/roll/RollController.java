@@ -1,6 +1,7 @@
 package client.roll;
 
 import client.base.*;
+import client.model.ClientModel;
 
 
 /**

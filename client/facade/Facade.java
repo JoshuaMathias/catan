@@ -8,6 +8,8 @@ import client.main.Catan;
 import client.map.MapController;
 import client.model.*;
 import client.poller.ServerPoller;
+import client.resources.ResourceBarController;
+import client.roll.RollController;
 import client.serverproxy.CreateGamesParams;
 import client.serverproxy.GamesList;
 import client.serverproxy.JoinGameParams;
@@ -32,10 +34,9 @@ public class Facade {
 	public static Facade thisFacade;
 	private String host;
 	private ServerPoller poller;
-	public static int count = 0;
-	public int playerIndex = 0;
-	private CatanColor playerColor = CatanColor.white;
-	public int diceRoll = 0;
+	public static int count=0;
+	public int playerIndex=0;
+	public int diceRoll=0;
 	public HexLocation tempRobLoc;
 	private String username;
 	private int playerId;
@@ -44,6 +45,8 @@ public class Facade {
 	private GameHistoryController gameHistoryController;
 	private ChatController chatController;
 	private TurnTrackerController turnTrackerController;
+	private RollController rollController;
+	private ResourceBarController resourceBarController;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -135,10 +138,6 @@ public class Facade {
 
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
-	}
-	
-	public CatanColor getPlayerColor() {
-		return playerColor;
 	}
 
 	public void sendChat(String content) {
@@ -267,6 +266,14 @@ public class Facade {
     	this.turnTrackerController = turnTrackerController;
     }
     
+    public void setRollController(RollController rollController) {
+    	this.rollController = rollController;
+    }
+    
+    public void setResourceBarController(ResourceBarController resourceBarController) {
+    	this.resourceBarController = resourceBarController;
+    }
+    
     /**
      * checks newClientModel version against current client model version and updates if versions differ
      * @param newClientModel
@@ -290,6 +297,20 @@ public class Facade {
     		
     		if(turnTrackerController != null){
     			turnTrackerController.initFromModel(clientModel);
+    		}
+    		
+    		if(rollController != null){
+    			
+    			String rollStatus = clientModel.getTurnTracker().getStatus();
+    			
+    			if(rollStatus.equals("Rolling")) {
+    				
+    				rollController.rollDice();
+    			}
+    		}
+    		
+    		if(resourceBarController != null) {
+    			resourceBarController.initFromModel(clientModel);
     		}
     }
     
@@ -690,8 +711,8 @@ public class Facade {
 				{
 					playerIndex = p.getPlayerIndex();
 					this.playerId = p.getPlayerID();
-					playerColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
-					turnTrackerController.initFromModel(playerColor);
+					CatanColor catanColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
+					turnTrackerController.initFromModel(catanColor);
 					break;
 				}
 			}
