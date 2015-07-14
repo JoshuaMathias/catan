@@ -178,37 +178,40 @@ public class MapController extends Controller implements IMapController {
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		VertexObject vertObj=new VertexObject(Facade.getSingleton().getPlayerIndex(), vertLoc);
-		return Facade.getSingleton().canBuildSettlement(vertObj);
+		VertexObject settlement = new VertexObject(clientFacade.getPlayerIndex(), vertLoc);
+		return clientFacade.canBuildSettlement(settlement);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
-		VertexObject vertObj=new VertexObject(Facade.getSingleton().getPlayerIndex(), vertLoc);
-		return Facade.getSingleton().canBuildCity(vertObj);
+		VertexObject city = new VertexObject(clientFacade.getPlayerIndex(), vertLoc);
+		return clientFacade.canBuildCity(city);
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-		return Facade.getSingleton().canPlaceRobber(Facade.getSingleton().getDiceRoll(), hexLoc);
+		return clientFacade.canPlaceRobber(Facade.getSingleton().getDiceRoll(), hexLoc);
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
-		Facade.getSingleton().buildRoad(edgeLoc, false);
-		getView().placeRoad(edgeLoc, CatanColor.orange);
+		clientFacade.buildRoad(edgeLoc, false);
+		CatanColor color = clientFacade.getClientModel().getPlayers().get(clientFacade.getPlayerIndex()).getColor();
+		getView().placeRoad(edgeLoc, color);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		Facade.getSingleton().buildSettlement(vertLoc, false);
-		getView().placeSettlement(vertLoc, CatanColor.orange);
+		clientFacade.buildSettlement(vertLoc, false);
+		CatanColor color = clientFacade.getClientModel().getPlayers().get(clientFacade.getPlayerIndex()).getColor();
+		getView().placeSettlement(vertLoc, color);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		Facade.getSingleton().buildCity(vertLoc);
-		getView().placeCity(vertLoc, CatanColor.orange);
+		clientFacade.buildCity(vertLoc);
+		CatanColor color = clientFacade.getPlayerColor();
+		getView().placeCity(vertLoc, color);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
 		getView().placeRobber(hexLoc);
-		Facade.getSingleton().setTempRobLoc(hexLoc);
+		clientFacade.setTempRobLoc(hexLoc);
 		getRobView().showModal();
 	}
 	
@@ -220,7 +223,7 @@ public class MapController extends Controller implements IMapController {
 		} else if (pieceType==PieceType.CITY) {
 			
 		}
-		getView().startDrop(pieceType, CatanColor.orange, true);
+		getView().startDrop(pieceType, clientFacade.getPlayerColor(), true);
 	}
 	
 	public void cancelMove() {

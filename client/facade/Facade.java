@@ -32,9 +32,10 @@ public class Facade {
 	public static Facade thisFacade;
 	private String host;
 	private ServerPoller poller;
-	public static int count=0;
-	public int playerIndex=0;
-	public int diceRoll=0;
+	public static int count = 0;
+	public int playerIndex = 0;
+	private CatanColor playerColor = CatanColor.white;
+	public int diceRoll = 0;
 	public HexLocation tempRobLoc;
 	private String username;
 	private int playerId;
@@ -134,6 +135,10 @@ public class Facade {
 
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
+	}
+	
+	public CatanColor getPlayerColor() {
+		return playerColor;
 	}
 
 	public void sendChat(String content) {
@@ -685,8 +690,8 @@ public class Facade {
 				{
 					playerIndex = p.getPlayerIndex();
 					this.playerId = p.getPlayerID();
-					CatanColor catanColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
-					turnTrackerController.initFromModel(catanColor);
+					playerColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
+					turnTrackerController.initFromModel(playerColor);
 					break;
 				}
 			}

@@ -36,7 +36,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	@Override
 	public void endTurn() {
-		System.out.println("END TURN");
+		clientFacade.finishTurn();
 	}
 	
 	public void initFromModel(ClientModel clientModel){
@@ -72,7 +72,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		boolean enable = false;
 		String message;
 		if(currentTurn == clientFacade.getPlayerIndex()){
-			enable = true;
 			message = "End Turn (" + turnTracker.getStatus() +")";
 			if(clientModel.canEndTurn(clientFacade.getPlayerIndex())){
 				enable = true;
