@@ -2,6 +2,7 @@ package client.facade;
 
 import java.util.ArrayList;
 
+import client.communication.ChatController;
 import client.communication.GameHistoryController;
 import client.main.Catan;
 import client.map.MapController;
@@ -39,6 +40,7 @@ public class Facade {
 	private int currentGameId;
 	private MapController mapController;
 	private GameHistoryController gameHistoryController;
+	private ChatController chatController;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -264,6 +266,10 @@ public class Facade {
     		
     		if(gameHistoryController != null) {
     			gameHistoryController.initFromModel(clientModel);
+    		}
+    		
+    		if(chatController != null) {
+    			chatController.initFromModel(clientModel);
     		}
     }
     
