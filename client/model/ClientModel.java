@@ -121,24 +121,27 @@ public class ClientModel {
 	 */
 	public int checkLongestRoad() {
 		
-		int previousLongest = turnTracker.getLongestRoad();
+		int previousLongestIndex = turnTracker.getLongestRoad();
 		int playerIndex = 0;
 		int highestRoadCount = players.get(0).getRoads();
 		
 		for (int i = 1; i < 4; i++){
-			int toCompare = players.get(i).getRoads();
-			if (toCompare > highestRoadCount){
-				highestRoadCount = toCompare;
-				playerIndex = i;
+			Player player = players.get(i);
+			if(player != null){
+				int toCompare = player.getRoads();
+				if (toCompare > highestRoadCount){
+					highestRoadCount = toCompare;
+					playerIndex = i;
+				}
 			}
 		}
 		
 		if(highestRoadCount >= 5){
-			if(previousLongest == -1){
+			if(previousLongestIndex == -1){
 				return playerIndex;
 			}
-			else if(players.get(previousLongest).getRoads() == players.get(playerIndex).getRoads()){
-				return previousLongest;
+			else if(players.get(previousLongestIndex).getRoads() == players.get(playerIndex).getRoads()){
+				return previousLongestIndex;
 			}
 			else{
 				return playerIndex;
@@ -156,24 +159,28 @@ public class ClientModel {
 	 */
 	public int checkLargestArmy() {
 		
-		int previousLargest = turnTracker.getLargestArmy();
+		int previousLargestIndex = turnTracker.getLargestArmy();
 		int playerIndex = 0;
 		int highestSoldierCount = players.get(0).getSoldiers();
 		
 		for (int i = 1; i < 4; i++){
-			int toCompare = players.get(i).getSoldiers();
-			if (toCompare > highestSoldierCount){
-				highestSoldierCount = toCompare;
-				playerIndex = i;
+			Player player = players.get(i);
+			if(player != null){
+			
+				int toCompare = player.getSoldiers();
+				if (toCompare > highestSoldierCount){
+					highestSoldierCount = toCompare;
+					playerIndex = i;
+				}
 			}
 		}
 		
 		if(highestSoldierCount >= 3){
-			if(previousLargest == -1){
+			if(previousLargestIndex == -1){
 				return playerIndex;
 			}
-			else if(players.get(previousLargest).getSoldiers() == players.get(playerIndex).getSoldiers()){
-				return previousLargest;
+			else if(players.get(previousLargestIndex).getSoldiers() == players.get(playerIndex).getSoldiers()){
+				return previousLargestIndex;
 			}
 			else{
 				return playerIndex;

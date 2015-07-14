@@ -282,6 +282,10 @@ public class Facade {
     		if(chatController != null) {
     			chatController.initFromModel(clientModel);
     		}
+    		
+    		if(turnTrackerController != null){
+    			turnTrackerController.initFromModel(clientModel);
+    		}
     }
     
     /**
@@ -682,7 +686,7 @@ public class Facade {
 					playerIndex = p.getPlayerIndex();
 					this.playerId = p.getPlayerID();
 					CatanColor catanColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
-					turnTrackerController.initFromModel(playerIndex, username, catanColor);
+					turnTrackerController.initFromModel(catanColor);
 					break;
 				}
 			}
