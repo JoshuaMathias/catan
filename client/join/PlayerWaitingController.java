@@ -39,7 +39,10 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 				if(players.length==4)
 				{
 					stop = false;
-					//getView().closeModal();
+					getView().closeModal();
+					System.out.println("11111111111111111111111111111111111111");
+					if(getView().isModalShowing())System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+					getView().closeModal();
 				}
 				else if(trueSize(clientFacade.gamesList().getGames().get(clientFacade.getCurrentGameId()).getPlayers())>players.length)
 				{
