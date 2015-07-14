@@ -38,8 +38,6 @@ public class ChatController extends Controller implements IChatController {
 	
 	public void initFromModel(ClientModel clientModel) {
 		
-		//this.getView().setEntries();
-		
 		ArrayList<Player> players = clientModel.getPlayers();
 		MessageList messages = clientModel.getChat();
 		

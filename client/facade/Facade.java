@@ -48,7 +48,6 @@ public class Facade {
 		proxy=new ServerProxy(host);
 		poller=new ServerPoller(proxy, this);
 		thisFacade=this;
-		//chatController = new ChatController();
 	}
 	
 	public static Facade getSingleton() {
