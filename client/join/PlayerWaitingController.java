@@ -2,10 +2,13 @@ package client.join;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import client.base.*;
 import client.data.PlayerInfo;
 import client.facade.Facade;
+import client.poller.ServerPoller.updateTask;
 
 
 /**
@@ -14,10 +17,37 @@ import client.facade.Facade;
 public class PlayerWaitingController extends Controller implements IPlayerWaitingController {
 
 	private Facade clientFacade;
+	private int interval;
+	private Timer timer;
+	private PlayerInfo[] players = new PlayerInfo[0];
+	private boolean stop = true;
 	
 	public PlayerWaitingController(IPlayerWaitingView view) {
 		super(view);
 		clientFacade=Facade.getSingleton();
+		interval=5;
+		timer=new Timer();
+		timer.schedule(new updateTask(), 0, interval*1000);
+	}
+	
+	public class updateTask extends TimerTask {
+
+		@Override
+		public void run() {
+			if(stop&&clientFacade.getProxy().gotCookies())
+			{
+				if(players.length==4)
+				{
+					stop = false;
+					getView().closeModal();
+				}
+				else if(trueSize(clientFacade.gamesList().getGames().get(clientFacade.getCurrentGameId()).getPlayers())>players.length)
+				{
+					getView().closeModal();
+					start();
+				}
+			}
+		}
 	}
 
 	@Override
@@ -27,17 +57,46 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 	@Override
 	public void start() {
+		
 		List<PlayerInfo> playersList = clientFacade.gamesList().getGames().get(clientFacade.getCurrentGameId()).getPlayers();
-		PlayerInfo[] players = new PlayerInfo[playersList.size()];
+		
+		//Takes out empty players
+		ArrayList<PlayerInfo> newList = new ArrayList<PlayerInfo>();
+		for(int i = 0; i< playersList.size();i++)
+		{
+			PlayerInfo temp = playersList.get(i);
+			if(!temp.getName().isEmpty())
+			{
+				newList.add(temp);
+			}
+		}
+		
+		PlayerInfo[] players = new PlayerInfo[newList.size()];
+		this.players = players;
+		newList.toArray(players);
+		
 		getView().setPlayers(players);
 		getView().showModal();
+	}
+	
+	public int trueSize(List <PlayerInfo> list)
+	{
+		int count = 0;
+		for(int i = 0; i< list.size();i++)
+		{
+			if(!list.get(i).getName().isEmpty())
+			{
+				count++;
+			}
+		}
+		return count;
 	}
 
 	@Override
 	public void addAI() {
 
 		// TEMPORARY
-		getView().closeModal();
+		//getView().closeModal();
 	}
 
 }

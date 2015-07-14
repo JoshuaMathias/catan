@@ -142,7 +142,7 @@ public class Facade {
 		this.clientModel = model;
 	}
 
-	public IServer getProxy() {
+	public ServerProxy getProxy() {
 		return proxy;
 	}
 
