@@ -9,7 +9,7 @@ import shared.definitions.CatanColor;
  */
 public class Player {
 
-	private int cities = 0;
+	private int cities = 4;
 	private CatanColor color;
 	private boolean discarded = false;
 	private int momuments = 0;
@@ -21,8 +21,8 @@ public class Player {
 	private static int currentID=0;
 	private int playerID;
 	private ResourceList resources = new ResourceList(0,0,0,0,0);
-	private int roads = 0;
-	private int settlements = 0;
+	private int roads = 15;
+	private int settlements = 5;
 	private int soldiers = 0;
 	private int victoryPoints = 0;
 	

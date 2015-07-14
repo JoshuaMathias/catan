@@ -36,7 +36,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	@Override
 	public void endTurn() {
-
+		System.out.println("END TURN");
 	}
 	
 	public void initFromModel(ClientModel clientModel){
@@ -69,6 +69,19 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 		}
 		
+		boolean enable = false;
+		String message;
+		if(currentTurn == clientFacade.getPlayerIndex()){
+			enable = true;
+			message = "End Turn (" + turnTracker.getStatus() +")";
+			if(clientModel.canEndTurn(clientFacade.getPlayerIndex())){
+				enable = true;
+			}
+		}
+		else{
+			message = "Waiting on " + players.get(currentTurn).getName();
+		}
+		getView().updateGameState(message, enable);
 	}
 	
 	public void initFromModel(CatanColor localPlayerColor){

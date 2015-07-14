@@ -450,41 +450,63 @@ public class ClientModel {
 		String status = turnTracker.getStatus();
 		
 		
-		if (playerIndex == whoseTurn && status.equals("Playing")){
-			ResourceList playersResources = players.get(playerIndex).getResources();
-			if(playersResources.getBrick() < 1 || playersResources.getSheep() < 1 || playersResources.getWheat() < 1 || playersResources.getWood() < 1){
-				return false;
-			}
-			
+		if (playerIndex == whoseTurn){
+			Player player = players.get(playerIndex);
 			VertexLocation settlementSpot = settlement.getLocation();
-			
-			if(players.get(playerIndex).getSettlements() >= 5) {
-				return false;
+			switch(status){
+				case "Playing":
+					ResourceList playersResources = players.get(playerIndex).getResources();
+					if(playersResources.getBrick() < 1 || playersResources.getSheep() < 1 || playersResources.getWheat() < 1 || playersResources.getWood() < 1){
+						return false;
+					}
+					
+					if(player.getSettlements() <=0) {
+						return false;
+					}
+					
+					if (map.isSpotTaken(settlementSpot)){
+						return false;
+					}
+					
+					if (map.isSpotNeighbored(settlementSpot)){
+						return false;
+					}
+					
+					return map.hasNeighboringOwnRoad(settlement);
+				case "FirstRound":
+					if(player.getSettlements() >= 5){
+						if (map.isSpotTaken(settlementSpot)){
+							return false;
+						}
+						else if (map.isSpotNeighbored(settlementSpot)){
+							return false;
+						}
+						else{
+							return true;
+						}
+					}
+					else{
+						return false;
+					}
+				case "SecondRound":
+					if(player.getSettlements() >= 4){
+						if (map.isSpotTaken(settlementSpot)){
+							return false;
+						}
+						else if (map.isSpotNeighbored(settlementSpot)){
+							return false;
+						}
+						else{
+							return true;
+						}
+					}
+					else{
+						return false;
+					}
+				default:
+					return false;
 			}
-			
-			if (map.isSpotTaken(settlementSpot)){
-				return false;
-			}
-			
-			if (map.isSpotNeighbored(settlementSpot)){
-				return false;
-			}
-			
-			return map.hasNeighboringOwnRoad(settlement);
 		}
-		else if(playerIndex == whoseTurn && (status.equals("FirstRound") || status.equals("SecondRound"))){
-			VertexLocation settlementSpot = settlement.getLocation();
-			if (map.isSpotTaken(settlementSpot)){
-				return false;
-			}
-			else if (map.isSpotNeighbored(settlementSpot)){
-				return false;
-			}
-			else{
-				return true;
-			}
-		}
-		
 		return false;
 	}
 	
@@ -509,7 +531,7 @@ public class ClientModel {
 				return false;
 			}
 			
-			if(players.get(playerIndex).getSettlements() < 1) {
+			if(players.get(playerIndex).getSettlements() < 5) {
 				return false;
 			}
 			
@@ -532,29 +554,49 @@ public class ClientModel {
 		int playerIndex = road.getOwner();
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
-	
-		boolean can = false;
 		
-		if(playerIndex == whoseTurn && status.equals("Playing")){
+		if(playerIndex == whoseTurn){
 			Player player = players.get(playerIndex);
-			ResourceList playerResources = player.getResources();
-			if(playerResources.getBrick() < 1 || playerResources.getWood() < 1){
-				return false;
+			switch(status){
+				case "Playing":
+					ResourceList playerResources = player.getResources();
+					if(playerResources.getBrick() < 1 || playerResources.getWood() < 1){
+						return false;
+					}
+					
+					if(player.getRoads() <= 0){
+						return false;
+					}
+					
+					if(map.isRoadHere(road.getLocation())){
+						return false;
+					}
+					
+					return (map.hasNeighboringOwnRoad(road) || map.hasNeighboringOwnSettlement(road));
+				case "FirstRound":
+					if(player.getRoads() >= 15){
+						if(map.isRoadHere(road.getLocation())){
+							System.out.println("Road Already HERE");
+							return false;
+						}
+						
+						return (map.hasNeighboringOwnRoad(road) || map.hasNeighboringOwnSettlement(road));
+					}
+					break;
+				case "SecondRound":
+					if(player.getRoads() >= 14){
+						if(map.isRoadHere(road.getLocation())){
+							return false;
+						}
+						
+						return (map.hasNeighboringOwnRoad(road) || map.hasNeighboringOwnSettlement(road));
+					}
+					break;
+				default:
+					return false;
 			}
-			
-			if(player.getRoads() >= 15){
-				return false;
-			}
-			
-			if(map.isRoadHere(road.getLocation())){
-				return false;
-			}
-			
-			can = (map.hasNeighboringOwnRoad(road) || map.hasNeighboringOwnSettlement(road));
-			
 		}
-		
-		return can;
+		return false;
 	}
 
 	/**
@@ -662,6 +704,24 @@ public class ClientModel {
 		if(playerResourceList.getSize() > 7 && turnTracker.getStatus().equals("Discarding")) {
 			return true;
 		} else {
+			return false;
+		}
+	}
+	
+	public boolean canEndTurn(int playerIndex){
+		String status = turnTracker.getStatus();
+		Player player = players.get(playerIndex);
+		int settlements = player.getSettlements();
+		int roads = player.getRoads();
+		
+		switch(status){
+		case "FirstRound":
+			return (settlements == 4 && roads == 14);
+		case "SecondRound":
+			return (settlements == 3 && roads == 13);
+		case "Playing":
+			return true;
+		default:
 			return false;
 		}
 	}

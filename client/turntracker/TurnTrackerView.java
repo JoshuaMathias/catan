@@ -78,7 +78,7 @@ public class TurnTrackerView extends PanelView implements ITurnTrackerView {
 	@Override
 	public void initializePlayer(int playerIndex, String playerName,
 			CatanColor playerColor) {
-				
+		playerPanel[playerIndex].removeAll();		
 		playerPanel[playerIndex].setLayout(new BorderLayout());
 		
 		JLabel name = new JLabel(playerName);

@@ -173,8 +173,8 @@ public class MapController extends Controller implements IMapController {
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		Road road=new Road(Facade.getSingleton().getPlayerIndex(),edgeLoc);
-		return Facade.getSingleton().canBuildRoad(road);
+		Road road = new Road(clientFacade.getPlayerIndex(),edgeLoc);
+		return clientFacade.canBuildRoad(road);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
