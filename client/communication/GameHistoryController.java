@@ -42,11 +42,6 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		
 		MessageList messages = clientModel.getLog();
 		ArrayList<MessageLine> lines = messages.getLines();
-		System.out.println("Line Size: " + lines.size());
-		
-		if(lines.size() == 1) {
-			System.out.println(lines.get(0).getMessage());
-		}
 		
 		for(MessageLine line: lines) {
 			
@@ -58,7 +53,6 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 					String message = line.getMessage();
 					CatanColor color = player.getColor();
 					entries.add(new LogEntry(color, message));
-					System.out.println("IN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 				}
 			}
 		}
