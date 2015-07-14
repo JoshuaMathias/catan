@@ -2,6 +2,7 @@ package client.turntracker;
 
 import shared.definitions.CatanColor;
 import client.base.*;
+import client.facade.Facade;
 
 
 /**
@@ -9,9 +10,15 @@ import client.base.*;
  */
 public class TurnTrackerController extends Controller implements ITurnTrackerController {
 
+	private Facade clientFacade;
+	
 	public TurnTrackerController(ITurnTrackerView view) {
 		
 		super(view);
+		
+		clientFacade = Facade.getSingleton();
+		
+		clientFacade.setTurnTrackerController(this);
 		
 		initFromModel();
 	}
@@ -27,11 +34,16 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	}
 	
+	public void initFromModel(CatanColor color){
+		getView().setLocalPlayerColor(color);
+	}
+	
 	private void initFromModel() {
 		//<temp>
-		getView().setLocalPlayerColor(CatanColor.red);
+		getView().setLocalPlayerColor(CatanColor.blue);
 		//</temp>
 	}
+	
 
 }
 

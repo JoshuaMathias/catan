@@ -14,6 +14,7 @@ import client.serverproxy.JoinGameParams;
 import client.serverproxy.LoginParams;
 import client.serverproxy.RegisterParams;
 import client.serverproxy.ServerProxy;
+import client.turntracker.TurnTrackerController;
 import server.IServer;
 import shared.definitions.*;
 import shared.locations.EdgeLocation;
@@ -41,6 +42,7 @@ public class Facade {
 	private MapController mapController;
 	private GameHistoryController gameHistoryController;
 	private ChatController chatController;
+	private TurnTrackerController turnTrackerController;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -254,6 +256,10 @@ public class Facade {
     public void setChatController(ChatController chatcontroller)
     {
     	this.chatController=chatcontroller;
+    }
+    
+    public void setTurnTrackerController(TurnTrackerController turnTrackerController){
+    	this.turnTrackerController = turnTrackerController;
     }
     
     /**
@@ -678,8 +684,11 @@ public class Facade {
 					break;
 				}
 			}
+			CatanColor catanColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
+			turnTrackerController.initFromModel(catanColor);
 		}
 		//this.playerIndex=getPlayers().size(); Get 1 more than the current highest player index (before adding this player)
+		
 		return result;
 	}
 	
