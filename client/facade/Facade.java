@@ -48,6 +48,7 @@ public class Facade {
 		proxy=new ServerProxy(host);
 		poller=new ServerPoller(proxy, this);
 		thisFacade=this;
+		//chatController = new ChatController();
 	}
 	
 	public static Facade getSingleton() {
@@ -249,6 +250,11 @@ public class Facade {
 
     public void setGameHistoryController(GameHistoryController gameHistoryController) {
     	this.gameHistoryController = gameHistoryController;
+    }
+    
+    public void setChatController(ChatController chatcontroller)
+    {
+    	this.chatController=chatcontroller;
     }
     
     /**

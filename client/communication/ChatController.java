@@ -23,6 +23,7 @@ public class ChatController extends Controller implements IChatController {
 		
 		super(view);
 		clientFacade = Facade.getSingleton();
+		clientFacade.setChatController(this);
 	}
 
 	@Override
@@ -37,8 +38,11 @@ public class ChatController extends Controller implements IChatController {
 	
 	public void initFromModel(ClientModel clientModel) {
 		
+		//this.getView().setEntries();
+		
 		ArrayList<Player> players = clientModel.getPlayers();
 		MessageList messages = clientModel.getChat();
+		
 		ArrayList<MessageLine> messageArray = messages.getLines();
 		
 		List<LogEntry> entries = new ArrayList<LogEntry>();
