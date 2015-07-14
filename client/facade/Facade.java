@@ -308,9 +308,9 @@ public class Facade {
     			
     			String rollStatus = clientModel.getTurnTracker().getStatus();
     			
-    			if(rollStatus.equals("Rolling")) {
+    			if(clientModel.canRollDice(playerIndex)) {
     				
-    				rollController.rollDice();
+    				rollController.startRollGui();
     			}
     		}
     		
