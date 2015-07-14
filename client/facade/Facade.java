@@ -681,11 +681,12 @@ public class Facade {
 				{
 					playerIndex = p.getPlayerIndex();
 					this.playerId = p.getPlayerID();
+					CatanColor catanColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
+					turnTrackerController.initFromModel(playerIndex, username, catanColor);
 					break;
 				}
 			}
-			CatanColor catanColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
-			turnTrackerController.initFromModel(catanColor);
+			
 		}
 		//this.playerIndex=getPlayers().size(); Get 1 more than the current highest player index (before adding this player)
 		

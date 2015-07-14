@@ -34,8 +34,9 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	}
 	
-	public void initFromModel(CatanColor color){
-		getView().setLocalPlayerColor(color);
+	public void initFromModel(int playerIndex, String playerName, CatanColor playerColor){
+		getView().setLocalPlayerColor(playerColor);
+		getView().initializePlayer(playerIndex, playerName, playerColor);
 	}
 	
 	private void initFromModel() {
