@@ -24,7 +24,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		super(view);
 		
 		clientFacade = Facade.getSingleton();
-//		clientFacade.setGameHistoryController(this);
+		clientFacade.setGameHistoryController(this);
 		
 		initFromModel();
 	}
@@ -37,27 +37,25 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	
 	public void initFromModel(ClientModel clientModel) {
 		
-		ArrayList<Player> players = clientModel.getPlayers();
-		MessageList messages = clientModel.getChat();
-		ArrayList<MessageLine> messageArray = messages.getLines();
-		
 		List<LogEntry> entries = new ArrayList<LogEntry>();
+		ArrayList<Player> players = clientModel.getPlayers();
 		
-		for(MessageLine message : messageArray) {
+		MessageList messages = clientModel.getLog();
+		ArrayList<MessageLine> lines = messages.getLines();
 		
-			String username = message.getSource();
+		for(MessageLine line: lines) {
 			
-			for(Player player: players) {
-				
-				if(player != null && player.getName().equals(username)) {
+			for(Player player : players) {
+
+				if(player.equals(line.getSource())) {
 					
+					String message = line.getMessage();
 					CatanColor color = player.getColor();
-					String messageLine = message.getMessage();
-					
-					entries.add(new LogEntry(color, messageLine));
+					entries.add(new LogEntry(color, message));
 				}
 			}
 		}
+		
 		
 		getView().setEntries(entries);
 	}
