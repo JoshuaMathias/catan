@@ -3,6 +3,10 @@ package client.resources;
 import java.util.*;
 
 import client.base.*;
+import client.facade.Facade;
+import client.model.ClientModel;
+import client.model.Player;
+import client.model.ResourceList;
 
 
 /**
@@ -11,10 +15,14 @@ import client.base.*;
 public class ResourceBarController extends Controller implements IResourceBarController {
 
 	private Map<ResourceBarElement, IAction> elementActions;
+	private Facade clientFacade;
 	
 	public ResourceBarController(IResourceBarView view) {
 
 		super(view);
+		
+		clientFacade = Facade.getSingleton();
+		clientFacade.setResourceBarController(this);
 		
 		elementActions = new HashMap<ResourceBarElement, IAction>();
 	}
@@ -70,7 +78,19 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	}
 
 	public void initFromModel(ClientModel clientModel){
+		Player player = clientModel.getPlayers().get(clientFacade.getPlayerIndex());
+		ResourceList playerResources = player.getResources();
 		
+		getView().setElementAmount(ResourceBarElement.BRICK, playerResources.getBrick());
+		getView().setElementAmount(ResourceBarElement.SHEEP, playerResources.getSheep());
+		getView().setElementAmount(ResourceBarElement.WOOD, playerResources.getWood());
+		getView().setElementAmount(ResourceBarElement.ORE, playerResources.getOre());
+		getView().setElementAmount(ResourceBarElement.WHEAT, playerResources.getWheat());
+		
+		getView().setElementAmount(ResourceBarElement.CITY, player.getCities());
+		getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getSettlements());
+		getView().setElementAmount(ResourceBarElement.ROAD, player.getRoads());
+		getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getSoldiers());
 	}
 }
 
