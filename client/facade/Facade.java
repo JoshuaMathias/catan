@@ -10,14 +10,9 @@ import client.model.*;
 import client.poller.ServerPoller;
 import client.resources.ResourceBarController;
 import client.roll.RollController;
-import client.serverproxy.CreateGamesParams;
 import client.serverproxy.GamesList;
-import client.serverproxy.JoinGameParams;
-import client.serverproxy.LoginParams;
-import client.serverproxy.RegisterParams;
 import client.serverproxy.ServerProxy;
 import client.turntracker.TurnTrackerController;
-import server.IServer;
 import shared.definitions.*;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -305,11 +300,7 @@ public class Facade {
     		}
     		
     		if(rollController != null){
-    			
-    			String rollStatus = clientModel.getTurnTracker().getStatus();
-    			
     			if(clientModel.canRollDice(playerIndex)) {
-    				
     				rollController.startRollGui();
     			}
     		}

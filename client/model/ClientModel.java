@@ -223,7 +223,7 @@ public class ClientModel {
 		boolean can = false;
 		String status = turnTracker.getStatus();
 		
-		if (playerIndex == turnTracker.getCurrentTurn() && status == "Rolling"){
+		if (playerIndex == turnTracker.getCurrentTurn() && status.equals("Rolling")){
 			can = true;
 		}
 		
