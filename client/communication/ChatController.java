@@ -23,7 +23,7 @@ public class ChatController extends Controller implements IChatController {
 		
 		super(view);
 		clientFacade = Facade.getSingleton();
-		//clientFacade.setChatController(this);
+		clientFacade.setChatController(this);
 	}
 
 	@Override
