@@ -69,5 +69,8 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		}
 	}
 
+	public void initFromModel(ClientModel clientModel){
+		
+	}
 }
 
