@@ -437,6 +437,10 @@ public class Facade {
         return clientModel.canBankTrade(playerIndex, offer, request);
     }
     
+    public int canOfferBankTrade(ResourceType offer){
+    	return clientModel.canOfferBankTrade(playerIndex,offer);
+    }
+    
     /**
      * 
      * Players are allowed to offer trades with other players 

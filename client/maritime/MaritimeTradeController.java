@@ -17,13 +17,14 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private ResourceType getResource;
 	private ResourceType giveResource;
 	private int ratio = -1;
-	private ResourceType[] enabledResources = {
+	private ResourceType[] allResources = {
 			ResourceType.brick,
 			ResourceType.sheep,
 			ResourceType.ore,
 			ResourceType.wheat,
 			ResourceType.wood
 	};
+	private ResourceType[] enabledResources = new ResourceType[5];
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay) {
 		
@@ -52,17 +53,21 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		TurnTracker turnTracker = clientFacade.getClientModel().getTurnTracker();
 		getTradeOverlay().setTradeEnabled(false);
 		if(clientFacade.getPlayerIndex() != turnTracker.getCurrentTurn()){
-			getTradeOverlay().hideGetOptions();
 			getTradeOverlay().hideGiveOptions();
 			getTradeOverlay().setStateMessage("Not Your Turn!");
 		}
 		else if(!turnTracker.getStatus().equals("Playing")){
-			getTradeOverlay().hideGetOptions();
 			getTradeOverlay().hideGiveOptions();
 			getTradeOverlay().setStateMessage("Can't trade until finished 2 turns!");
 		}
 		else{
 			getTradeOverlay().setStateMessage("Choose which resource to give");
+			if(clientFacade.canOfferBankTrade(ResourceType.sheep) != -1){enabledResources[0] = ResourceType.sheep;}
+			if(clientFacade.canOfferBankTrade(ResourceType.brick) != -1){enabledResources[1] = ResourceType.brick;}
+			if(clientFacade.canOfferBankTrade(ResourceType.wood) != -1){enabledResources[2] = ResourceType.wood;}
+			if(clientFacade.canOfferBankTrade(ResourceType.ore) != -1){enabledResources[3] = ResourceType.ore;}
+			if(clientFacade.canOfferBankTrade(ResourceType.wheat) != -1){enabledResources[4] = ResourceType.wheat;}
+			getTradeOverlay().showGiveOptions(enabledResources);
 		}
 		
 		getTradeOverlay().showModal();
@@ -70,15 +75,15 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void makeTrade() {
-		reset();
 		clientFacade.maritimeTrade(ratio, giveResource, getResource);
 		getTradeOverlay().closeModal();
+		reset();
 	}
 
 	@Override
 	public void cancelTrade() {
-		reset();
 		getTradeOverlay().closeModal();
+		reset();
 	}
 
 	@Override
@@ -103,11 +108,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setGiveResource(ResourceType resource) {
 		giveResource = resource;
 		System.out.println("Resource to GIVE: " + resource);
-		ratio = clientFacade.getClientModel().canOfferBankTrade(clientFacade.getPlayerIndex(), resource);
+		ratio = clientFacade.canOfferBankTrade(resource);
 		if (ratio != -1){
 			getTradeOverlay().setStateMessage("Choose which resource to get");
 			getTradeOverlay().selectGiveOption(resource, ratio);
-			getTradeOverlay().showGetOptions(enabledResources);
+			getTradeOverlay().showGetOptions(allResources);
 		}
 		else{
 			getTradeOverlay().setStateMessage("Not enough of that resource");
@@ -118,7 +123,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void unsetGetValue() {
 		getResource = null;
-		getTradeOverlay().showGetOptions(enabledResources);
+		getTradeOverlay().showGetOptions(allResources);
 	}
 
 	@Override
@@ -133,6 +138,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		getResource = null;
 		giveResource = null;
 		ratio = -1;
+		enabledResources = new ResourceType[5];
 	}
 	
 }
