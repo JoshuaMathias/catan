@@ -2,7 +2,11 @@ package client.discard;
 
 import shared.definitions.*;
 import client.base.*;
+import client.facade.Facade;
 import client.misc.*;
+import client.model.ClientModel;
+import client.model.Player;
+import client.model.ResourceList;
 
 
 /**
@@ -11,6 +15,8 @@ import client.misc.*;
 public class DiscardController extends Controller implements IDiscardController {
 
 	private IWaitView waitView;
+	private Facade clientFacade;
+	private ResourceList resources;
 	
 	/**
 	 * DiscardController constructor
@@ -21,6 +27,9 @@ public class DiscardController extends Controller implements IDiscardController 
 	public DiscardController(IDiscardView view, IWaitView waitView) {
 		
 		super(view);
+		
+		clientFacade = Facade.getSingleton();
+		clientFacade.setDiscardController(this);
 		
 		this.waitView = waitView;
 	}
@@ -35,12 +44,12 @@ public class DiscardController extends Controller implements IDiscardController 
 
 	@Override
 	public void increaseAmount(ResourceType resource) {
-		
+		System.out.println("Increasing " + resource);
 	}
 
 	@Override
 	public void decreaseAmount(ResourceType resource) {
-		
+		System.out.println("decreasing " + resource);
 	}
 
 	@Override
@@ -49,5 +58,22 @@ public class DiscardController extends Controller implements IDiscardController 
 		getDiscardView().closeModal();
 	}
 
+	public void beginDiscarding(){
+		getDiscardView().showModal();
+		getDiscardView().setDiscardButtonEnabled(false);
+		ClientModel clientModel = clientFacade.getClientModel();
+		Player player = clientModel.getPlayers().get(clientFacade.getPlayerIndex());
+		resources = player.getResources();
+//		
+		getDiscardView().setResourceMaxAmount(ResourceType.wheat, resources.getWheat());
+		getDiscardView().setResourceMaxAmount(ResourceType.sheep, resources.getSheep());
+		getDiscardView().setResourceMaxAmount(ResourceType.wood, resources.getWood());
+		getDiscardView().setResourceMaxAmount(ResourceType.ore, resources.getOre());
+		getDiscardView().setResourceMaxAmount(ResourceType.brick, resources.getbrick());
+//		getDiscardView().setResourceDiscardAmount(ResourceType.sheep, 5);
+//		getDiscardView().setStateMessage("You Suck");
+		
+		
+	}
 }
 

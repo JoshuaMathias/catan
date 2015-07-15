@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import client.communication.ChatController;
 import client.communication.GameHistoryController;
+import client.discard.DiscardController;
 import client.main.Catan;
 import client.map.MapController;
 import client.model.*;
@@ -42,6 +43,7 @@ public class Facade {
 	private TurnTrackerController turnTrackerController;
 	private RollController rollController;
 	private ResourceBarController resourceBarController;
+	private DiscardController discardController;
 	private CatanColor playerColor;
 	
 	private Facade(String host) {
@@ -274,6 +276,10 @@ public class Facade {
     	this.resourceBarController = resourceBarController;
     }
     
+    public void setDiscardController(DiscardController discardController){
+    	this.discardController = discardController;
+    }
+    
     /**
      * checks newClientModel version against current client model version and updates if versions differ
      * @param newClientModel
@@ -307,6 +313,12 @@ public class Facade {
     		
     		if(resourceBarController != null) {
     			resourceBarController.initFromModel(clientModel);
+    		}
+    		
+    		if(discardController != null){
+    			//if(clientModel.mustDiscard(playerIndex)){
+    				discardController.beginDiscarding();
+    			//}
     		}
     }
     

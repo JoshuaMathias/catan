@@ -50,6 +50,7 @@ public class ResourceList {
 	public void setWood(int wood) {
 		this.wood = wood;
 	}
+	
 	public boolean isEmpty() {
 
 		int total = brick + wood + sheep + ore + wheat;
@@ -60,9 +61,15 @@ public class ResourceList {
 			return true;
 		}
 	}
-	public int getSize() {
+	public int getTotal() {
 		int total = brick + wood + sheep + ore + wheat;
 		return total;
+	}
+	public boolean isHalf(int halfNum){
+		if(halfNum == getTotal()/2){
+			return true;
+		}
+		else return false;
 	}
 
 	@Override
