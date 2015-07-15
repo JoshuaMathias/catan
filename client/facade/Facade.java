@@ -673,7 +673,7 @@ public class Facade {
     
     public void refresh()
     {
-    	clientModel = proxy.getClientModel(-1);
+    	updateClientModel(proxy.getClientModel(-1));
     }
     
 	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
