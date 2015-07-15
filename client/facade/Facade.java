@@ -681,6 +681,10 @@ public class Facade {
     	proxy.robPlayer(playerIndex, victimIndex, location);
     }
     
+    public void refresh()
+    {
+    	clientModel = proxy.getClientModel(-1);
+    }
     
 	//----------------------------------------------SETTING COOKIES---------------------------------------------------//
 	

@@ -35,7 +35,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		@Override
 		public void run() {
 			if(stop&&clientFacade.getProxy().gotCookies())
-			{
+			{  
 				if(players.length==4)
 				{
 					stop = false;
@@ -43,6 +43,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 					System.out.println("11111111111111111111111111111111111111");
 					if(getView().isModalShowing())System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 					getView().closeModal();
+					//clientFacade.refresh();
 				}
 				else if(trueSize(clientFacade.gamesList().getGames().get(clientFacade.getCurrentGameId()).getPlayers())>players.length)
 				{
