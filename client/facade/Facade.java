@@ -34,11 +34,13 @@ public class Facade {
 	private ServerPoller poller;
 	public static int count=0;
 	public int playerIndex=0;
+	private CatanColor playerColor;
 	public int diceRoll=0;
 	public HexLocation tempRobLoc;
 	private String username;
 	private int playerId;
 	private int currentGameId;
+	
 	private MapController mapController;
 	private GameHistoryController gameHistoryController;
 	private ChatController chatController;
@@ -46,7 +48,6 @@ public class Facade {
 	private RollController rollController;
 	private ResourceBarController resourceBarController;
 	private DiscardController discardController;
-	private CatanColor playerColor;
 	private PointsController pointsController;
 	private DomesticTradeController domesticTradeController;
 	
@@ -379,6 +380,36 @@ public class Facade {
     			}
     		}
     		
+    }
+    
+    public Player getPlayer(){
+    	return clientModel.getPlayers().get(playerIndex);
+    }
+    
+    
+//    private int monopoly = 0;
+//	private int monument = 0;
+//	private int roadBuilding = 0;
+//	private int soldier = 0;
+//	private int yearOfPlenty = 0;
+    
+    public DevCardList getPlayerDevCards(){
+    	DevCardList newCards = getPlayerNewDevCards();
+    	DevCardList oldCards = getPlayerOldDevCards();
+    	int monopoly = newCards.getMonopoly() + oldCards.getMonopoly();
+    	int monument = newCards.getMonument() + oldCards.getMonument();
+    	int roadBuilding = newCards.getRoadBuilding() + oldCards.getRoadBuilding();
+    	int soldier = newCards.getSoldier() + oldCards.getSoldier();
+    	int yearOfPlenty = newCards.getYearOfPlenty() + oldCards.getYearOfPlenty();
+    	return new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty);
+    }
+    
+    public DevCardList getPlayerNewDevCards(){
+    	return getPlayer().getNewDevCards();
+    }
+    
+    public DevCardList getPlayerOldDevCards(){
+    	return getPlayer().getOldDevCards();
     }
     
     /**

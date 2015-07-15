@@ -1,8 +1,10 @@
 package client.devcards;
 
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import client.base.*;
 import client.facade.Facade;
+import client.model.DevCardList;
 
 
 /**
@@ -64,7 +66,32 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startPlayCard() {
+		DevCardList playerDevCards = clientFacade.getPlayerDevCards();
 		
+		//Set Number of each card
+		getPlayCardView().setCardAmount(DevCardType.MONOPOLY, playerDevCards.getMonopoly());
+		getPlayCardView().setCardAmount(DevCardType.MONUMENT, playerDevCards.getMonument());
+		getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, playerDevCards.getRoadBuilding());
+		getPlayCardView().setCardAmount(DevCardType.SOLDIER, playerDevCards.getSoldier());
+		getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, playerDevCards.getYearOfPlenty());
+		
+		DevCardList playerOldDevCards = clientFacade.getPlayerOldDevCards();
+		
+		//Set enabled or disabled
+		boolean isPlayerTurn = (clientFacade.getTurnTracker().getCurrentTurn() == clientFacade.getPlayerIndex());
+		boolean playing = clientFacade.getTurnTracker().getStatus().equals("Playing");
+		boolean playedDevCard = clientFacade.getPlayer().isPlayedDevCard();
+		
+		if(isPlayerTurn && playing && !playedDevCard){
+			
+			getPlayCardView().setCardAmount(DevCardType.MONOPOLY, playerOldDevCards.getMonopoly());
+			getPlayCardView().setCardAmount(DevCardType.MONUMENT, playerOldDevCards.getMonument());
+			getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, playerOldDevCards.getRoadBuilding());
+			getPlayCardView().setCardAmount(DevCardType.SOLDIER, playerOldDevCards.getSoldier());
+			getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, playerOldDevCards.getYearOfPlenty());
+			
+		}
+
 		getPlayCardView().showModal();
 	}
 
