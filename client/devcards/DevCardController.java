@@ -2,6 +2,7 @@ package client.devcards;
 
 import shared.definitions.ResourceType;
 import client.base.*;
+import client.facade.Facade;
 
 
 /**
@@ -12,6 +13,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	private IBuyDevCardView buyCardView;
 	private IAction soldierAction;
 	private IAction roadAction;
+	private Facade clientFacade;
 	
 	/**
 	 * DevCardController constructor
@@ -29,6 +31,8 @@ public class DevCardController extends Controller implements IDevCardController 
 		this.buyCardView = buyCardView;
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;
+		
+		clientFacade = Facade.getSingleton();
 	}
 
 	public IPlayDevCardView getPlayCardView() {
@@ -41,8 +45,9 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startBuyCard() {
-		
-		getBuyCardView().showModal();
+		if(clientFacade.canBuyDevCard()){
+			getBuyCardView().showModal();
+		}
 	}
 
 	@Override
@@ -53,7 +58,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void buyCard() {
-		
+		clientFacade.buyDevCard();
 		getBuyCardView().closeModal();
 	}
 
