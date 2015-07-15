@@ -2,6 +2,8 @@ package client.maritime;
 
 import shared.definitions.*;
 import client.base.*;
+import client.facade.Facade;
+import client.model.ResourceList;
 
 
 /**
@@ -10,10 +12,15 @@ import client.base.*;
 public class MaritimeTradeController extends Controller implements IMaritimeTradeController {
 
 	private IMaritimeTradeOverlay tradeOverlay;
+	private Facade clientFacade;
+	private ResourceType getResource;
+	private ResourceType giveResource;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay) {
 		
 		super(tradeView);
+		
+		clientFacade = Facade.getSingleton();
 
 		setTradeOverlay(tradeOverlay);
 	}
@@ -51,12 +58,13 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void setGetResource(ResourceType resource) {
-
+		getResource = resource;
+		
 	}
 
 	@Override
 	public void setGiveResource(ResourceType resource) {
-
+		giveResource = resource;
 	}
 
 	@Override

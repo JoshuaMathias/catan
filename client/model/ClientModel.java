@@ -242,9 +242,9 @@ public class ClientModel {
 	 * 
 	 * Otherwise return false
 	 */
-	public boolean canBankTrade(int playerIndex, PortType offer, PortType request) {
+	public int canBankTrade(int playerIndex, PortType offer, PortType request) {
 		
-		boolean can = false;
+//		boolean can = false;
 		players.get(playerIndex).getResources();
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
@@ -276,37 +276,37 @@ public class ClientModel {
 			switch(request){
 				case brick:
 					if(playerResources.getBrick() < ratio || bank.getBrick() < 1){
-						return false;
+						return ratio;
 					}
 					break;
 				case ore:
 					if(playerResources.getOre() < ratio || bank.getOre() < 1){
-						return false;
+						return ratio;
 					}
 					break;
 				case sheep:
 					if(playerResources.getSheep() < ratio || bank.getSheep() < 1){
-						return false;
+						return ratio;
 					}
 					break;
 				case wheat:
 					if(playerResources.getWheat() < ratio || bank.getWheat() < 1){
-						return false;
+						return ratio;
 					}
 					break;
 				case wood:
 					if(playerResources.getWood() < ratio || bank.getWood() < 1){
-						return false;
+						return ratio;
 					}
 					break;
 				default: //should never get here Throw Exception
 					break;
 			}
 			
-			can = true;
+//			can = true;
 		}
 		
-		return can;
+		return -1; //cannot trade
 		
 	}
 	
