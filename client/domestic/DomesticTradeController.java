@@ -2,6 +2,7 @@ package client.domestic;
 
 import shared.definitions.*;
 import client.base.*;
+import client.facade.Facade;
 import client.misc.*;
 
 
@@ -13,6 +14,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private IDomesticTradeOverlay tradeOverlay;
 	private IWaitView waitOverlay;
 	private IAcceptTradeOverlay acceptOverlay;
+	private Facade clientFacade;
+
 
 	/**
 	 * DomesticTradeController constructor
@@ -30,6 +33,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);
+		
+		clientFacade = Facade.getSingleton();
+		clientFacade.setDomesticTradeController(this);
 	}
 	
 	public IDomesticTradeView getTradeView() {

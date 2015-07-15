@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import client.communication.ChatController;
 import client.communication.GameHistoryController;
 import client.discard.DiscardController;
+import client.domestic.DomesticTradeController;
 import client.main.Catan;
 import client.map.MapController;
 import client.model.*;
@@ -47,6 +48,7 @@ public class Facade {
 	private DiscardController discardController;
 	private CatanColor playerColor;
 	private PointsController pointsController;
+	private DomesticTradeController domesticTradeController;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -286,6 +288,10 @@ public class Facade {
     	this.pointsController = pointsController;
     }
     
+    public void setDomesticTradeController(DomesticTradeController domesticTradeController){
+    	this.domesticTradeController = domesticTradeController;
+    }
+    
     /**
      * checks newClientModel version against current client model version and updates if versions differ
      * @param newClientModel
@@ -334,6 +340,12 @@ public class Facade {
     		if(clientModel.getWinner() != -1) {
     			pointsController.weHaveAWinner(playerIndex, clientModel.getWinner());
     		}
+    		
+    		if(domesticTradeController != null)
+    		{
+    			
+    		}
+    		
     }
     
     /**
