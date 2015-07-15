@@ -53,7 +53,7 @@ public class PointsController extends Controller implements IPointsController {
 		
 		for(Player player : players) {
 			
-			if(player.getPlayerIndex() == playerIndex) {
+			if(player != null && player.getPlayerIndex() == playerIndex) {
 				
 				int victoryPoints = player.getVictoryPoints();
 				getPointsView().setPoints(victoryPoints);
@@ -75,7 +75,7 @@ public class PointsController extends Controller implements IPointsController {
 
 	private void initFromModel() {
 		//<temp>		
-		getPointsView().setPoints(5);
+		getPointsView().setPoints(0);
 		//</temp>
 	}
 	
