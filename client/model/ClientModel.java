@@ -766,9 +766,9 @@ public class ClientModel {
 	 */
 	public boolean mustDiscardHalfCards(int diceRoll, int playerIndex) {
 		
-//		if(diceRoll != 7) {
-//			return false;
-//		}
+		if(diceRoll != 7) {
+			return false;
+		}
 		
 		ResourceList playerResourceList = players.get(playerIndex).getResources();
 		
@@ -780,9 +780,10 @@ public class ClientModel {
 	}
 	
 	public boolean mustDiscard(int playerIndex){
-ResourceList playerResourceList = players.get(playerIndex).getResources();
+		Player player = players.get(playerIndex);
+		ResourceList playerResourceList = player.getResources();
 		
-		if(playerResourceList.getTotal() > 7 && turnTracker.getStatus().equals("Discarding")) {
+		if(playerResourceList.getTotal() > 7 && turnTracker.getStatus().equals("Discarding") && player.isDiscarded() == false) {
 			return true;
 		} else {
 			return false;
