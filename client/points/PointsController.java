@@ -57,20 +57,20 @@ public class PointsController extends Controller implements IPointsController {
 				
 				int victoryPoints = player.getVictoryPoints();
 				getPointsView().setPoints(victoryPoints);
-				
-//				if(victoryPoints == 10) {//checks to see if you have won the game
-//					
-//					getFinishedView().setWinner(, isLocalPlayer);
-//					
-//					
-//					getFinishedView().showModal();
-//				}
 			}
 		}
+	}
+	
+	public void weHaveAWinner(int playerIndex, int winnersIndex) {
 		
+		ArrayList<Player> players=clientFacade.getPlayers();
 		
-		
-		
+		if(playerIndex == winnersIndex) {
+			getFinishedView().setWinner(players.get(playerIndex).getName(), true);
+		} 
+		else {
+			getFinishedView().setWinner(players.get(winnersIndex).getName(), false);
+		}
 	}
 
 	private void initFromModel() {

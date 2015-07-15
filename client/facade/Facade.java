@@ -330,6 +330,10 @@ public class Facade {
     		if(pointsController != null) {
     			pointsController.initFromModel(clientModel, playerIndex);
     		}
+    		
+    		if(clientModel.getWinner() != -1) {
+    			pointsController.weHaveAWinner(playerIndex, clientModel.getWinner());
+    		}
     }
     
     /**
