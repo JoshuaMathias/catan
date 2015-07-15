@@ -343,7 +343,22 @@ public class Facade {
     		
     		if(domesticTradeController != null)
     		{
+    			if(clientModel.getTurnTracker().getStatus().equals("Playing")
+    					||clientModel.getTurnTracker().getStatus().equals("Rolling")){
+    				domesticTradeController.getTradeView().enableDomesticTrade(true);
+    			}
+    			else
+    			{
+    				domesticTradeController.getTradeView().enableDomesticTrade(false);
+    			}
     			
+    			if(clientModel.getTradeOffer()!=null
+    					&&clientModel.getTradeOffer().getReceiver()==playerIndex
+    					&&clientModel.getTurnTracker().getCurrentTurn()!=playerIndex)
+    			{
+    				//Accepting situation
+    				//domesticTradeController.//start accepting function page
+    			}
     		}
     		
     }

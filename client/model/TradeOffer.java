@@ -6,8 +6,8 @@ package client.model;
  */
 public class TradeOffer {
 
-	private int sender;
-	private int receiver;
+	private int sender = -1;
+	private int receiver = -1;
 	private ResourceList offer;
 	
 	public int getSender() {

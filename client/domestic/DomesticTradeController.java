@@ -69,8 +69,24 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void startTrade() {
-
-		getTradeOverlay().showModal();
+		
+		if(clientFacade.getTurnTracker().getCurrentTurn()==clientFacade.getPlayerIndex()&&
+				clientFacade.getTurnTracker().getStatus().equals("Playing"))
+		{
+			//Can make trade
+			getTradeOverlay().showModal();
+		}
+		else if(clientFacade.getTurnTracker().getCurrentTurn()!=clientFacade.getPlayerIndex()&&
+				clientFacade.getTurnTracker().getStatus().equals("Playing"))
+		{
+			//Can't make trade
+			//getTradeOverlay().
+			getTradeOverlay().showModal();
+		}		
+		
+//		getWaitOverlay().showModal();
+//		getAcceptOverlay().showModal();
+		
 	}
 
 	@Override
@@ -106,7 +122,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 
 	@Override
-	public void unsetResource(ResourceType resource) {
+	public void unsetResource(ResourceType resource) {		
 
 	}
 
