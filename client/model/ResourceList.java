@@ -1,4 +1,7 @@
 package client.model;
+
+import shared.definitions.ResourceType;
+
 /**
  * This class represents a resource list, keeping track of the amount of each resource.
  * @author Ife's group
@@ -65,6 +68,40 @@ public class ResourceList {
 		int total = brick + wood + sheep + ore + wheat;
 		return total;
 	}
+	
+	public boolean hasOne(ResourceType resource){
+		switch(resource){
+		case brick:
+			if(brick > 0){
+				return true;
+			}
+			break;
+		case ore:
+			if(ore > 0){
+				return true;
+			}
+			break;
+		case sheep:
+			if(sheep > 0){
+				return true;
+			}
+			break;
+		case wheat:
+			if(brick > 0){
+				return true;
+			}
+			break;
+		case wood:
+			if(wood > 0){
+				return true;
+			}
+			break;
+		default:
+			return false;
+		}
+		return false;
+	}
+	
 	public boolean isHalf(int halfNum){
 		if(halfNum == getTotal()/2){
 			return true;
