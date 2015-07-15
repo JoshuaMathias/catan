@@ -90,6 +90,24 @@ public class Facade {
 		}
 	}
 	
+	public String convertResourceType(ResourceType resource){
+		switch(resource){
+		case brick:
+			return "brick";
+		case ore:
+			return "ore";
+		case sheep:
+			return "sheep";
+		case wheat:
+			return "wheat";
+		case wood:
+			return "wood";
+		default:
+			return "You are Stupid";
+		
+		}
+	}
+	
 	public int getPlayerId() {
 		return playerId;
 	}
@@ -628,8 +646,8 @@ public class Facade {
         proxy.monument(playerIndex);
     }
     
-    public void maritimeTrade(int ratio, String inputResource, String outputResource) {
-    	proxy.maritimeTrade(playerIndex, ratio, inputResource, outputResource);
+    public void maritimeTrade(int ratio, ResourceType inputResource, ResourceType outputResource) {
+    	proxy.maritimeTrade(playerIndex, ratio, convertResourceType(inputResource), convertResourceType(outputResource));
     }
     
     /**
