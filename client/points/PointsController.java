@@ -31,6 +31,8 @@ public class PointsController extends Controller implements IPointsController {
 		clientFacade = Facade.getSingleton();
 		
 		initFromModel();
+		
+		clientFacade.setPointsController(this);
 	}
 	
 	public IPointsView getPointsView() {
@@ -55,8 +57,20 @@ public class PointsController extends Controller implements IPointsController {
 				
 				int victoryPoints = player.getVictoryPoints();
 				getPointsView().setPoints(victoryPoints);
+				
+//				if(victoryPoints == 10) {//checks to see if you have won the game
+//					
+//					getFinishedView().setWinner(, isLocalPlayer);
+//					
+//					
+//					getFinishedView().showModal();
+//				}
 			}
 		}
+		
+		
+		
+		
 	}
 
 	private void initFromModel() {
