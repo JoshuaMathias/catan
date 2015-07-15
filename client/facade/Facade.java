@@ -316,9 +316,9 @@ public class Facade {
     		}
     		
     		if(discardController != null){
-    			//if(clientModel.mustDiscard(playerIndex)){
+    			if(clientModel.mustDiscard(playerIndex)){
     				discardController.beginDiscarding();
-    			//}
+    			}
     		}
     }
     
