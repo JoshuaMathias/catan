@@ -54,7 +54,6 @@ public class DiscardController extends Controller implements IDiscardController 
 
 	@Override
 	public void discard() {
-		
 		getDiscardView().closeModal();
 	}
 
