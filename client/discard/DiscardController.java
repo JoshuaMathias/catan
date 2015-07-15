@@ -17,6 +17,8 @@ public class DiscardController extends Controller implements IDiscardController 
 	private IWaitView waitView;
 	private Facade clientFacade;
 	private ResourceList resources;
+	private ResourceList resourcesToDiscard;
+	
 	
 	/**
 	 * DiscardController constructor
@@ -63,7 +65,7 @@ public class DiscardController extends Controller implements IDiscardController 
 		ClientModel clientModel = clientFacade.getClientModel();
 		Player player = clientModel.getPlayers().get(clientFacade.getPlayerIndex());
 		resources = player.getResources();
-//		
+	
 		getDiscardView().setResourceMaxAmount(ResourceType.wheat, resources.getWheat());
 		getDiscardView().setResourceMaxAmount(ResourceType.sheep, resources.getSheep());
 		getDiscardView().setResourceMaxAmount(ResourceType.wood, resources.getWood());
