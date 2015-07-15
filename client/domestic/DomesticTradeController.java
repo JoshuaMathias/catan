@@ -1,9 +1,13 @@
 package client.domestic;
 
+import java.util.ArrayList;
+
 import shared.definitions.*;
 import client.base.*;
+import client.data.PlayerInfo;
 import client.facade.Facade;
 import client.misc.*;
+import client.model.Player;
 
 
 /**
@@ -73,14 +77,48 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		if(clientFacade.getTurnTracker().getCurrentTurn()==clientFacade.getPlayerIndex()&&
 				clientFacade.getTurnTracker().getStatus().equals("Playing"))
 		{
+			getTradeOverlay().setCancelEnabled(true);
+			getTradeOverlay().setStateMessage("Set the trade you want to make");
+			
+			ArrayList<Player> playerList = clientFacade.getPlayers();
+			PlayerInfo[] values = new PlayerInfo[playerList.size()];
+			for (int i = 0; i<playerList.size();i++ )
+			{
+				Player temp = playerList.get(i);
+				if(!clientFacade.getName().equals(temp.getName()))
+				{
+					PlayerInfo input = new PlayerInfo();
+					
+					input.setColorEnum(temp.getColor());
+					input.setPlayerIndex(temp.getPlayerIndex());
+					input.setName(temp.getName());
+					input.setId(temp.getPlayerID());
+					
+					values[i] = input;
+				}
+			}
+			
 			//Can make trade
+			
+			getTradeOverlay().setPlayers(values);
+			getTradeOverlay().setPlayerSelectionEnabled(true);
+			getTradeOverlay().setResourceAmount(ResourceType.sheep, "This is Resource Amount");
+			getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.brick, true, true);
+			getTradeOverlay().setResourceSelectionEnabled(true);
 			getTradeOverlay().showModal();
 		}
 		else if(clientFacade.getTurnTracker().getCurrentTurn()!=clientFacade.getPlayerIndex()&&
 				clientFacade.getTurnTracker().getStatus().equals("Playing"))
 		{
+			PlayerInfo[] values = new PlayerInfo[0];
+			getTradeOverlay().setPlayers(values);
+			getTradeOverlay().reset();
+			getTradeOverlay().setCancelEnabled(true);
+			
+			
 			//Can't make trade
 			//getTradeOverlay().
+			getTradeOverlay().setStateMessage("Not your turn");
 			getTradeOverlay().showModal();
 		}		
 		

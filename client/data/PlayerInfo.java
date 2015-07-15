@@ -144,8 +144,8 @@ public class PlayerInfo
 	
 	public void setColorEnum(CatanColor color)
 	{
-		EnumToColor(colorEnum);
 		this.colorEnum = color;
+		EnumToColor(colorEnum);
 	}
 
 	@Override
