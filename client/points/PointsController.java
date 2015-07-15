@@ -1,6 +1,11 @@
 package client.points;
 
+import java.util.ArrayList;
+
 import client.base.*;
+import client.facade.Facade;
+import client.model.ClientModel;
+import client.model.Player;
 
 
 /**
@@ -9,6 +14,7 @@ import client.base.*;
 public class PointsController extends Controller implements IPointsController {
 
 	private IGameFinishedView finishedView;
+	private Facade clientFacade;
 	
 	/**
 	 * PointsController constructor
@@ -22,7 +28,11 @@ public class PointsController extends Controller implements IPointsController {
 		
 		setFinishedView(finishedView);
 		
+		clientFacade = Facade.getSingleton();
+		
 		initFromModel();
+		
+		clientFacade.setPointsController(this);
 	}
 	
 	public IPointsView getPointsView() {
@@ -35,6 +45,32 @@ public class PointsController extends Controller implements IPointsController {
 	}
 	public void setFinishedView(IGameFinishedView finishedView) {
 		this.finishedView = finishedView;
+	}
+	
+	public void initFromModel(ClientModel clientModel, int playerIndex) {
+		
+		ArrayList<Player> players= clientModel.getPlayers();
+		
+		for(Player player : players) {
+			
+			if(player.getPlayerIndex() == playerIndex) {
+				
+				int victoryPoints = player.getVictoryPoints();
+				getPointsView().setPoints(victoryPoints);
+			}
+		}
+	}
+	
+	public void weHaveAWinner(int playerIndex, int winnersIndex) {
+		
+		ArrayList<Player> players=clientFacade.getPlayers();
+		
+		if(playerIndex == winnersIndex) {
+			getFinishedView().setWinner(players.get(playerIndex).getName(), true);
+		} 
+		else {
+			getFinishedView().setWinner(players.get(winnersIndex).getName(), false);
+		}
 	}
 
 	private void initFromModel() {
