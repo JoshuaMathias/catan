@@ -8,6 +8,7 @@ import client.discard.DiscardController;
 import client.main.Catan;
 import client.map.MapController;
 import client.model.*;
+import client.points.PointsController;
 import client.poller.ServerPoller;
 import client.resources.ResourceBarController;
 import client.roll.RollController;
@@ -45,6 +46,7 @@ public class Facade {
 	private ResourceBarController resourceBarController;
 	private DiscardController discardController;
 	private CatanColor playerColor;
+	private PointsController pointsController;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -280,6 +282,10 @@ public class Facade {
     	this.discardController = discardController;
     }
     
+    public void setPointsController(PointsController pointsController) {
+    	this.pointsController = pointsController;
+    }
+    
     /**
      * checks newClientModel version against current client model version and updates if versions differ
      * @param newClientModel
@@ -319,6 +325,10 @@ public class Facade {
     			//if(clientModel.mustDiscard(playerIndex)){
     				discardController.beginDiscarding();
     			//}
+    		}
+    		
+    		if(pointsController != null) {
+    			pointsController.initFromModel(clientModel, playerIndex);
     		}
     }
     

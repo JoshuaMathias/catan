@@ -69,7 +69,7 @@ public class DiscardController extends Controller implements IDiscardController 
 		getDiscardView().setResourceMaxAmount(ResourceType.sheep, resources.getSheep());
 		getDiscardView().setResourceMaxAmount(ResourceType.wood, resources.getWood());
 		getDiscardView().setResourceMaxAmount(ResourceType.ore, resources.getOre());
-		getDiscardView().setResourceMaxAmount(ResourceType.brick, resources.getbrick());
+		getDiscardView().setResourceMaxAmount(ResourceType.brick, resources.getBrick());
 //		getDiscardView().setResourceDiscardAmount(ResourceType.sheep, 5);
 //		getDiscardView().setStateMessage("You Suck");
 		

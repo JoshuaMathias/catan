@@ -1,6 +1,11 @@
 package client.points;
 
+import java.util.ArrayList;
+
 import client.base.*;
+import client.facade.Facade;
+import client.model.ClientModel;
+import client.model.Player;
 
 
 /**
@@ -9,6 +14,7 @@ import client.base.*;
 public class PointsController extends Controller implements IPointsController {
 
 	private IGameFinishedView finishedView;
+	private Facade clientFacade;
 	
 	/**
 	 * PointsController constructor
@@ -21,6 +27,8 @@ public class PointsController extends Controller implements IPointsController {
 		super(view);
 		
 		setFinishedView(finishedView);
+		
+		clientFacade = Facade.getSingleton();
 		
 		initFromModel();
 	}
@@ -35,6 +43,20 @@ public class PointsController extends Controller implements IPointsController {
 	}
 	public void setFinishedView(IGameFinishedView finishedView) {
 		this.finishedView = finishedView;
+	}
+	
+	public void initFromModel(ClientModel clientModel, int playerIndex) {
+		
+		ArrayList<Player> players= clientModel.getPlayers();
+		
+		for(Player player : players) {
+			
+			if(player.getPlayerIndex() == playerIndex) {
+				
+				int victoryPoints = player.getVictoryPoints();
+				getPointsView().setPoints(victoryPoints);
+			}
+		}
 	}
 
 	private void initFromModel() {
