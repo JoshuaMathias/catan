@@ -45,10 +45,7 @@ public class VertexObject {
 	}
 	@Override
 	public boolean equals(Object obj) {
-<<<<<<< HEAD
-//		this.location = this.location.getNormalizedLocation();
-=======
->>>>>>> parent of e8dfa0c... Fixed Place road problem
+		this.location = this.location.getNormalizedLocation();
 		if (this == obj)
 			return true;
 		if (obj == null)
