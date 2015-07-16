@@ -54,7 +54,7 @@ public class RollController extends Controller implements IRollController {
 		
 		int finalRandomNum = randomNum + randomNum2;		
 		
-		clientFacade.setDiceRoll(finalRandomNum);//Do we need this?
+		//clientFacade.setDiceRoll(finalRandomNum);//Do we need this?
 		clientFacade.rollNumber(finalRandomNum);
 		
 		resultView.setRollValue(finalRandomNum);

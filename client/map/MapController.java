@@ -182,7 +182,7 @@ public class MapController extends Controller implements IMapController {
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-		return clientFacade.canPlaceRobber(Facade.getSingleton().getDiceRoll(), hexLoc);
+		return clientFacade.canPlaceRobber(7, hexLoc);
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
@@ -223,9 +223,30 @@ public class MapController extends Controller implements IMapController {
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
-		getView().placeRobber(hexLoc);
-		clientFacade.setTempRobLoc(hexLoc);
-		getRobView().showModal();
+		
+		ArrayList<Player> players = clientFacade.getPlayers();
+		ArrayList<RobPlayerInfo> newList = new ArrayList<RobPlayerInfo>();
+		
+		
+		for(int i = 0; i < players.size(); i++) {
+			if(clientFacade.getPlayerIndex() != players.get(i).getPlayerIndex() &&
+					clientFacade.canStealResourceCard(7, players.get(i).getPlayerIndex())) {
+				
+				RobPlayerInfo robPlayer = new RobPlayerInfo();
+				robPlayer.setColorEnum(players.get(i).getColor());
+				robPlayer.setId(players.get(i).getPlayerID());
+				robPlayer.setPlayerIndex(players.get(i).getPlayerIndex());
+				robPlayer.setName(players.get(i).getName());
+				robPlayer.setNumCards(5);//need to change this from hard coded 5 to actual number of resource cards
+				
+				newList.add(robPlayer);
+			}
+		}
+		
+		RobPlayerInfo[] robPlayerArray = new RobPlayerInfo[newList.size()];
+		newList.toArray(robPlayerArray);
+		robView.setPlayers(robPlayerArray);
+		robView.showModal();
 	}
 	
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
@@ -241,6 +262,8 @@ public class MapController extends Controller implements IMapController {
 			canPlace = clientModel.hasEnoughForSettlement(resources, playerIndex);
 		} else if (pieceType==PieceType.CITY) {
 			canPlace = clientModel.hasEnoughForCity(resources, playerIndex);
+		}else if(pieceType == PieceType.ROBBER){
+			canPlace=true;
 		}
 		
 		if(canPlace){
@@ -260,7 +283,10 @@ public class MapController extends Controller implements IMapController {
 		
 	}
 	
-	public void robPlayer(RobPlayerInfo victim) {	
+	public void robPlayer(RobPlayerInfo victim) {
+		
+		
+		//robView.setPlayers(victim);
 		Facade.getSingleton().robPlayer(victim.getPlayerIndex(), Facade.getSingleton().getTempRobLoc());
 	}
 	

@@ -322,6 +322,12 @@ public class Facade {
             //Some kind of refresher function on the model needs to be called here to update the view of the GUI
     		if(mapController != null){
     			mapController.initFromModel(clientModel);
+    			
+    			if(clientModel.getTurnTracker().getStatus().equals("Robbing") 
+    					&& clientModel.getTurnTracker().getCurrentTurn() == playerIndex) {
+    				
+    				mapController.startMove(PieceType.ROBBER, false, false);
+    			}
     		}
     		
     		if(gameHistoryController != null) {
