@@ -54,9 +54,9 @@ public class RollController extends Controller implements IRollController {
 		
 		int finalRandomNum = randomNum + randomNum2;	
 		
-		if (finalRandomNum == 7){finalRandomNum = 6;}
+//		if (finalRandomNum == 7){finalRandomNum = 6;}
 		
-		finalRandomNum = 7;
+//		finalRandomNum = 7;
 		
 		//clientFacade.setDiceRoll(finalRandomNum);//Do we need this?
 		clientFacade.rollNumber(finalRandomNum);

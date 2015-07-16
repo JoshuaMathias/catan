@@ -101,10 +101,10 @@ public class MapController extends Controller implements IMapController {
 		//place robber
 		getView().placeRobber(map.getRobber());
 		
-		if(status.equals("Robbing") 
-				&& clientModel.getTurnTracker().getCurrentTurn() == clientFacade.getPlayerIndex()) {
-			startMove(PieceType.ROBBER, false, false);
-		}
+//		if(status.equals("Robbing") 
+//				&& clientModel.getTurnTracker().getCurrentTurn() == clientFacade.getPlayerIndex()) {
+//			startMove(PieceType.ROBBER, false, false);
+//		}
 		
 	}
 		
@@ -284,6 +284,7 @@ public class MapController extends Controller implements IMapController {
 	
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
 		roadBuilding = false;
+		soldierCard = false;
 		ClientModel clientModel = clientFacade.getClientModel();
 		int playerIndex = clientFacade.getPlayerIndex();
 		ResourceList resources = clientModel.getPlayers().get(playerIndex).getResources();
@@ -322,7 +323,13 @@ public class MapController extends Controller implements IMapController {
 	
 	public void robPlayer(RobPlayerInfo victim) {
 		//robView.setPlayers(victim);
-		clientFacade.robPlayer(victim.getPlayerIndex(), clientFacade.getRobber());
+		if(soldierCard == true){
+			clientFacade.soldier(victim.getPlayerIndex(), clientFacade.getRobber());
+			soldierCard = false;
+		}
+		else{
+			clientFacade.robPlayer(victim.getPlayerIndex(), clientFacade.getRobber());
+		}
 	}
 	
 }

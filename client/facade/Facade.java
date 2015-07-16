@@ -327,11 +327,11 @@ public class Facade {
     		if(mapController != null){
     			mapController.initFromModel(clientModel);
     			
-//    			if(clientModel.getTurnTracker().getStatus().equals("Robbing") 
-//    					&& clientModel.getTurnTracker().getCurrentTurn() == playerIndex) {
-//    				
-//    				mapController.startMove(PieceType.ROBBER, false, false);
-//    			}
+    			if(clientModel.getTurnTracker().getStatus().equals("Robbing") 
+    					&& clientModel.getTurnTracker().getCurrentTurn() == playerIndex) {
+    				
+    				mapController.startMove(PieceType.ROBBER, false, false);
+    			}
     		}
     		
     		if(gameHistoryController != null) {
