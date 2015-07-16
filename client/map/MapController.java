@@ -224,6 +224,8 @@ public class MapController extends Controller implements IMapController {
 
 	public void placeRobber(HexLocation hexLoc) {
 		
+		//Tell the server that the robber is in this location now
+		
 		ArrayList<Player> players = clientFacade.getPlayers();
 		ArrayList<RobPlayerInfo> newList = new ArrayList<RobPlayerInfo>();
 		
@@ -262,8 +264,6 @@ public class MapController extends Controller implements IMapController {
 			canPlace = clientModel.hasEnoughForSettlement(resources, playerIndex);
 		} else if (pieceType==PieceType.CITY) {
 			canPlace = clientModel.hasEnoughForCity(resources, playerIndex);
-		}else if(pieceType == PieceType.ROBBER){
-			canPlace=true;
 		}
 		
 		if(canPlace){
@@ -288,6 +288,12 @@ public class MapController extends Controller implements IMapController {
 		
 		//robView.setPlayers(victim);
 		Facade.getSingleton().robPlayer(victim.getPlayerIndex(), Facade.getSingleton().getTempRobLoc());
+	}
+	
+	public void startMovingRobber()
+	{
+		getRobView().showModal();
+		getView().startDrop(PieceType.ROBBER, clientFacade.getPlayerColor(), false);
 	}
 	
 }
