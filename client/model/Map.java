@@ -98,6 +98,10 @@ public class Map {
 		cities.add(city);
 	}
 	
+	public void addRoad(Road road){
+		roads.add(road);
+	}
+	
 	public boolean isSpotTaken(VertexLocation spot){
 		spot = spot.getNormalizedLocation();
 		

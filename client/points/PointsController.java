@@ -30,7 +30,7 @@ public class PointsController extends Controller implements IPointsController {
 		
 		clientFacade = Facade.getSingleton();
 		
-		initFromModel();
+		initFromModelFirst();
 		
 		clientFacade.setPointsController(this);
 	}
@@ -47,33 +47,32 @@ public class PointsController extends Controller implements IPointsController {
 		this.finishedView = finishedView;
 	}
 	
-	public void initFromModel(ClientModel clientModel, int playerIndex) {
+	public void initFromModel() {
 		
-		ArrayList<Player> players= clientModel.getPlayers();
-		
-		for(Player player : players) {
-			
-			if(player != null && player.getPlayerIndex() == playerIndex) {
-				
-				int victoryPoints = player.getVictoryPoints();
-				getPointsView().setPoints(victoryPoints);
-			}
-		}
+		int victoryPoints = clientFacade.getPlayer().getVictoryPoints(); 
+		getPointsView().setPoints(victoryPoints);
 	}
 	
-	public void weHaveAWinner(int playerIndex, int winnersIndex) {
+	public void weHaveAWinner(int playerID, int winnerID) {
 		
 		ArrayList<Player> players=clientFacade.getPlayers();
 		
-		if(playerIndex == winnersIndex) {
-			getFinishedView().setWinner(players.get(playerIndex).getName(), true);
+		if(playerID == winnerID) {
+			getFinishedView().setWinner(players.get(clientFacade.getPlayerIndex()).getName(), true);
 		} 
 		else {
-			getFinishedView().setWinner(players.get(winnersIndex).getName(), false);
+			int winnerIndex = -1;
+			for(Player player: players){
+				if(player.getPlayerID() == winnerID){
+					winnerIndex = player.getPlayerIndex();
+				}
+			}
+			getFinishedView().setWinner(players.get(winnerIndex).getName(), false);
 		}
+		getFinishedView().showModal();
 	}
 
-	private void initFromModel() {
+	private void initFromModelFirst() {
 		//<temp>		
 		getPointsView().setPoints(0);
 		//</temp>

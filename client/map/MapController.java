@@ -23,6 +23,8 @@ public class MapController extends Controller implements IMapController {
 	private IRobView robView;
 	private Facade clientFacade;
 	private String status;
+	private boolean roadBuilding = false;
+	ArrayList<EdgeLocation> roadBuildingEdgeLocs = new ArrayList<>();
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -194,7 +196,24 @@ public class MapController extends Controller implements IMapController {
 			clientFacade.buildRoad(edgeLoc, true);
 			break;
 		default:
-			clientFacade.buildRoad(edgeLoc, false);
+			if(roadBuilding == true){
+//				clientFacade.buildRoad(edgeLoc, true);
+				if(roadBuildingEdgeLocs.isEmpty()){
+					roadBuildingEdgeLocs.add(edgeLoc);
+					clientFacade.getMap().addRoad(new Road(clientFacade.getPlayerIndex(), edgeLoc));
+					getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), false);
+				}
+				else{
+					roadBuildingEdgeLocs.add(edgeLoc);
+					System.out.println(roadBuildingEdgeLocs.toString());
+					roadBuilding = false;
+					clientFacade.roadBuilding(roadBuildingEdgeLocs.get(0), roadBuildingEdgeLocs.get(1));
+					roadBuildingEdgeLocs.clear();
+				}
+			}
+			else{
+				clientFacade.buildRoad(edgeLoc, false);
+			}
 			break;
 		}
 		
@@ -280,6 +299,10 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	public void playRoadBuildingCard() {	
+		roadBuilding = true;
+		getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), true);
+//		getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), true);
+//		clientFacade.roadBuilding(roadBuildingEdgeLocs.get(0), roadBuildingEdgeLocs.get(1));
 		
 	}
 	

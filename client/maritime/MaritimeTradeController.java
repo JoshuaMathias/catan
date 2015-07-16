@@ -76,8 +76,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void makeTrade() {
 		clientFacade.maritimeTrade(ratio, giveResource, getResource);
-		getTradeOverlay().closeModal();
 		reset();
+		getTradeOverlay().closeModal();
+		
 	}
 
 	@Override

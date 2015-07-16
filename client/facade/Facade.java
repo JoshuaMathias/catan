@@ -359,11 +359,12 @@ public class Facade {
     		}
     		
     		if(pointsController != null) {
-    			pointsController.initFromModel(clientModel, playerIndex);
+    			pointsController.initFromModel();
     		}
     		
     		if(clientModel.getWinner() != -1) {
-    			pointsController.weHaveAWinner(playerIndex, clientModel.getWinner());
+    			pointsController.weHaveAWinner(getPlayer().getPlayerID(), clientModel.getWinner());
+//    			System.out.println("The Winner IS: " + clientModel.getWinner());
     		}
     		
     		if(domesticTradeController != null)
@@ -391,13 +392,6 @@ public class Facade {
     public Player getPlayer(){
     	return clientModel.getPlayers().get(playerIndex);
     }
-    
-    
-//    private int monopoly = 0;
-//	private int monument = 0;
-//	private int roadBuilding = 0;
-//	private int soldier = 0;
-//	private int yearOfPlenty = 0;
     
     public DevCardList getPlayerDevCards(){
     	DevCardList newCards = getPlayerNewDevCards();

@@ -724,9 +724,9 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 			switch(status){
 				case "Playing":
 					ResourceList playerResources = player.getResources();
-					if(playerResources.getBrick() < 1 || playerResources.getWood() < 1){
-						return false;
-					}
+//					if(playerResources.getBrick() < 1 || playerResources.getWood() < 1){
+//						return false;
+//					}
 					
 					if(player.getRoads() <= 0){
 						return false;

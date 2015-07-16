@@ -50,6 +50,9 @@ public class DevCardController extends Controller implements IDevCardController 
 		if(clientFacade.canBuyDevCard()){
 			getBuyCardView().showModal();
 		}
+		else{
+			System.out.println("Can't Buy Dev Card");
+		}
 	}
 
 	@Override
@@ -131,7 +134,7 @@ public class DevCardController extends Controller implements IDevCardController 
 				}
 			}
 			else{
-				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
 			}
 		}
 
