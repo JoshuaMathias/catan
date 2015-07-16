@@ -42,6 +42,7 @@ public class Road {
 
 	@Override
 	public boolean equals(Object obj) {
+		this.location = this.location.getNormalizedLocation();
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -57,6 +58,11 @@ public class Road {
 		if (owner != other.owner)
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Road [owner=" + owner + ", location=" + location + "]";
 	}
 	
 	

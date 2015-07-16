@@ -503,6 +503,7 @@ public class Map {
 			edge4 = new EdgeLocation(hexLoc4, EdgeDirection.NW);
 			break;
 		default://May change this to an exception later
+			System.out.println("BAD PROBLEM!");
 			hexLoc1 = new HexLocation(x,y);
 			edge1 = new EdgeLocation(hexLoc1, EdgeDirection.N);
 			
