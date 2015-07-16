@@ -656,6 +656,11 @@ public class Map {
 		
 		for(VertexObject settlement: settlements){
 			VertexLocation settlementSpot = settlement.getLocation();
+			if(settlement.getOwner() == playerIndex){
+				System.out.println("SettlementSpot: " + settlementSpot.toString());
+				System.out.println("Spot1: " + spot1.toString());
+				System.out.println("Spot2: " + spot2.toString());
+			}
 			if(settlement.getOwner() == playerIndex && (spot1.equals(settlementSpot) || spot2.equals(settlementSpot))){
 				return true;
 			}
@@ -674,6 +679,9 @@ public class Map {
 	public boolean isTouchingRobber(int playerIndex){
 		int x = robber.getX();
 		int y = robber.getY();
+		
+		System.out.println("X = " + x);
+		System.out.println("Y = " + y);
 		
 		HexLocation hexLoc = new HexLocation(x,y);
 		VertexLocation spot1 = new VertexLocation(hexLoc, VertexDirection.SW);

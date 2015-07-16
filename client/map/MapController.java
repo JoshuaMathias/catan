@@ -25,6 +25,7 @@ public class MapController extends Controller implements IMapController {
 	private String status;
 	private boolean roadBuilding = false;
 	ArrayList<EdgeLocation> roadBuildingEdgeLocs = new ArrayList<>();
+	private boolean soldierCard = false;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -36,7 +37,7 @@ public class MapController extends Controller implements IMapController {
 		
 		clientFacade.setMapController(this);
 		
-		initFromModel();
+//		initFromModel();
 	}
 	
 	public IMapView getView() {
@@ -52,11 +53,12 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	public void initFromModel(ClientModel clientModel) {
+		
+//		getView().newMap();
+		
 		status = clientModel.getTurnTracker().getStatus();
 		
 		Map map = clientModel.getMap();
-		
-		getView().newMap();
 		
 		//place hexes
 		ArrayList<Hex> hexes = map.getHexes();
@@ -98,6 +100,11 @@ public class MapController extends Controller implements IMapController {
 		
 		//place robber
 		getView().placeRobber(map.getRobber());
+		
+		if(status.equals("Robbing") 
+				&& clientModel.getTurnTracker().getCurrentTurn() == clientFacade.getPlayerIndex()) {
+			startMove(PieceType.ROBBER, false, false);
+		}
 		
 	}
 		
@@ -246,29 +253,37 @@ public class MapController extends Controller implements IMapController {
 		ArrayList<Player> players = clientFacade.getPlayers();
 		ArrayList<RobPlayerInfo> newList = new ArrayList<RobPlayerInfo>();
 		
+		clientFacade.getClientModel().getMap().setRobber(hexLoc);//Make this the COPY clientFacade
 		
 		for(int i = 0; i < players.size(); i++) {
-			if(clientFacade.getPlayerIndex() != players.get(i).getPlayerIndex() &&
-					clientFacade.canStealResourceCard(7, players.get(i).getPlayerIndex())) {
+			if(clientFacade.canStealResourceCard(7, i) == false){
+				System.out.println("Cannot steal resource from " + players.get(i).getName());
+			}
+			if(clientFacade.getPlayerIndex() != i && clientFacade.canStealResourceCard(7, i)) {
+				
+				Player player = players.get(i);
+				
+				System.out.println("Can steal resource from " + player.getName());
 				
 				RobPlayerInfo robPlayer = new RobPlayerInfo();
-				robPlayer.setColorEnum(players.get(i).getColor());
-				robPlayer.setId(players.get(i).getPlayerID());
-				robPlayer.setPlayerIndex(players.get(i).getPlayerIndex());
-				robPlayer.setName(players.get(i).getName());
-				robPlayer.setNumCards(5);//need to change this from hard coded 5 to actual number of resource cards
+				robPlayer.setColorEnum(player.getColor());
+				robPlayer.setId(player.getPlayerID());
+				robPlayer.setPlayerIndex(player.getPlayerIndex());
+				robPlayer.setName(player.getName());
+				robPlayer.setNumCards(player.getResourceCardNum());//need to change this from hard coded 5 to actual number of resource cards
 				
 				newList.add(robPlayer);
 			}
 		}
 		
 		RobPlayerInfo[] robPlayerArray = new RobPlayerInfo[newList.size()];
-		newList.toArray(robPlayerArray);
+		robPlayerArray = newList.toArray(robPlayerArray);
 		robView.setPlayers(robPlayerArray);
 		robView.showModal();
 	}
 	
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
+		roadBuilding = false;
 		ClientModel clientModel = clientFacade.getClientModel();
 		int playerIndex = clientFacade.getPlayerIndex();
 		ResourceList resources = clientModel.getPlayers().get(playerIndex).getResources();
@@ -282,7 +297,8 @@ public class MapController extends Controller implements IMapController {
 		} else if (pieceType==PieceType.CITY) {
 			canPlace = clientModel.hasEnoughForCity(resources, playerIndex);
 		}else if(pieceType == PieceType.ROBBER){
-			canPlace=true;
+			System.out.println("PieceType: " + pieceType);
+			getView().startDrop(pieceType, clientFacade.getPlayerColor(), false);
 		}
 		
 		if(canPlace){
@@ -295,22 +311,18 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	public void playSoldierCard() {	
-		
+		soldierCard  = true;
+		getView().startDrop(PieceType.ROBBER, clientFacade.getPlayerColor(), true);
 	}
 	
 	public void playRoadBuildingCard() {	
 		roadBuilding = true;
 		getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), true);
-//		getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), true);
-//		clientFacade.roadBuilding(roadBuildingEdgeLocs.get(0), roadBuildingEdgeLocs.get(1));
-		
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {
-		
-		
 		//robView.setPlayers(victim);
-		Facade.getSingleton().robPlayer(victim.getPlayerIndex(), Facade.getSingleton().getTempRobLoc());
+		clientFacade.robPlayer(victim.getPlayerIndex(), clientFacade.getRobber());
 	}
 	
 }

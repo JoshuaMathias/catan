@@ -277,6 +277,10 @@ public class Facade {
     public void setMapController(MapController mapController){
     	this.mapController = mapController;
     }
+    
+    public MapController getMapController(){
+    	return mapController;
+    }
 
     public void setGameHistoryController(GameHistoryController gameHistoryController) {
     	this.gameHistoryController = gameHistoryController;
@@ -323,11 +327,11 @@ public class Facade {
     		if(mapController != null){
     			mapController.initFromModel(clientModel);
     			
-    			if(clientModel.getTurnTracker().getStatus().equals("Robbing") 
-    					&& clientModel.getTurnTracker().getCurrentTurn() == playerIndex) {
-    				
-    				mapController.startMove(PieceType.ROBBER, false, false);
-    			}
+//    			if(clientModel.getTurnTracker().getStatus().equals("Robbing") 
+//    					&& clientModel.getTurnTracker().getCurrentTurn() == playerIndex) {
+//    				
+//    				mapController.startMove(PieceType.ROBBER, false, false);
+//    			}
     		}
     		
     		if(gameHistoryController != null) {
@@ -387,6 +391,11 @@ public class Facade {
     			}
     		}
     		
+//    		if(mapController != null && clientModel.getTurnTracker().getStatus().equals("Robbing") 
+//					&& clientModel.getTurnTracker().getCurrentTurn() == playerIndex) {
+//				
+//				mapController.startMove(PieceType.ROBBER, false, false);
+//			}
     }
     
     public Player getPlayer(){
@@ -410,6 +419,10 @@ public class Facade {
     
     public DevCardList getPlayerOldDevCards(){
     	return getPlayer().getOldDevCards();
+    }
+    
+    public HexLocation getRobber(){
+    	return getMap().getRobber();
     }
     
     /**

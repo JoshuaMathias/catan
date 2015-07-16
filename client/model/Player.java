@@ -136,6 +136,11 @@ public class Player {
 	public void decrementCity(){
 		cities--;
 	}
+	
+	public int getResourceCardNum(){
+		return resources.getTotal();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

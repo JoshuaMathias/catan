@@ -32,9 +32,11 @@ public class MapView extends PanelView implements IMapView
 	@Override
 	public void newMap(){//Daniel Added Method
 		
-		this.remove(map);
+//		this.remove(map);
+		this.removeAll();
 		
-		map = new MapComponent();
+//		map = new MapComponent();
+		this.map = new MapComponent();
 		
 		this.add(map, BorderLayout.CENTER);
 		
@@ -101,7 +103,6 @@ public class MapView extends PanelView implements IMapView
 	public void startDrop(PieceType pieceType, CatanColor pieceColor,
 						  boolean isCancelAllowed)
 	{
-		
 		overlay = new MapOverlay(map);
 		overlay.setController(overlayController);
 		overlay.startDrop(pieceType, pieceColor, isCancelAllowed);

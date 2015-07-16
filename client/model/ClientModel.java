@@ -813,8 +813,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		int whoseTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();
 		
-		if(diceRoll == 7 && whoseTurn == playerIndex && status == "Playing") {
-			
+		if(whoseTurn == playerIndex && status.equals("Robbing")) {
 			if(hexLoc.equals(map.getRobberLocation())) {
 				return false;
 			}
@@ -842,14 +841,14 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		
 		boolean canSteal = false;
 		
-		if(diceRoll == 7 && whoseTurn == playerIndex && status.equals("Robbing")) {
+		if(whoseTurn == playerIndex && status.equals("Robbing")) {
 			
 			ResourceList targetResourceList = players.get(targetPlayer).getResources();
 			
 			if(targetResourceList.isEmpty() == true) {
 				return false;
 			}
-			
+			System.out.println("about to check if is touching robber");
 			canSteal = map.isTouchingRobber(targetPlayer);
 	
 		}

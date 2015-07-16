@@ -7,9 +7,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
 import client.discard.DiscardController;
 import client.discard.DiscardView;
+import client.facade.Facade;
 import client.misc.WaitView;
 import client.roll.RollController;
 import client.roll.RollResultView;
@@ -88,30 +90,33 @@ public class CatanPanel extends JPanel
 			{
 //				rollView.showModal();
 				
-				discardView.setResourceMaxAmount(ResourceType.wood, 1);
-				discardView.setResourceMaxAmount(ResourceType.brick, 0);
-				discardView.setResourceMaxAmount(ResourceType.sheep, 11);
-				discardView.setResourceMaxAmount(ResourceType.wheat, 1);
-				discardView.setResourceMaxAmount(ResourceType.ore, 0);
+//				discardView.setResourceMaxAmount(ResourceType.wood, 1);
+//				discardView.setResourceMaxAmount(ResourceType.brick, 0);
+//				discardView.setResourceMaxAmount(ResourceType.sheep, 11);
+//				discardView.setResourceMaxAmount(ResourceType.wheat, 1);
+//				discardView.setResourceMaxAmount(ResourceType.ore, 0);
+//				
+//				discardView.setResourceAmountChangeEnabled(ResourceType.wood, true, false);
+//				discardView.setResourceAmountChangeEnabled(ResourceType.sheep, true, false);
+//				discardView.setResourceAmountChangeEnabled(ResourceType.wheat, true, false);
+//				
+//				discardView.setStateMessage("0/6");
+//				
+//				discardView.setDiscardButtonEnabled(true);
+//				
+//				if(state == 0)
+//				{
+//					discardView.showModal();
+//					state = 1;
+//				}
+//				else if(state == 1)
+//				{
+//					discardWaitView.showModal();
+//					state = 2;
+//				}
 				
-				discardView.setResourceAmountChangeEnabled(ResourceType.wood, true, false);
-				discardView.setResourceAmountChangeEnabled(ResourceType.sheep, true, false);
-				discardView.setResourceAmountChangeEnabled(ResourceType.wheat, true, false);
-				
-				discardView.setStateMessage("0/6");
-				
-				discardView.setDiscardButtonEnabled(true);
-				
-				if(state == 0)
-				{
-					discardView.showModal();
-					state = 1;
-				}
-				else if(state == 1)
-				{
-					discardWaitView.showModal();
-					state = 2;
-				}
+				Facade.getSingleton().getMapController().startMove(PieceType.ROBBER, false, false);
+//				Facade.getSingleton().refresh();
 			}
 		});
 		this.add(testButton, BorderLayout.SOUTH);
