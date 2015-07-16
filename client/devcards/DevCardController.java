@@ -66,6 +66,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startPlayCard() {
+		getPlayCardView().reset();
 		DevCardList playerDevCards = clientFacade.getPlayerDevCards();
 		
 		//Set Number of each card
@@ -83,13 +84,55 @@ public class DevCardController extends Controller implements IDevCardController 
 		boolean playedDevCard = clientFacade.getPlayer().isPlayedDevCard();
 		
 		if(isPlayerTurn && playing && !playedDevCard){
+			if(playerOldDevCards.getMonopoly() < 1){
+				getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
+			}
+			else{
+				getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, true);
+			}
 			
-			getPlayCardView().setCardAmount(DevCardType.MONOPOLY, playerOldDevCards.getMonopoly());
-			getPlayCardView().setCardAmount(DevCardType.MONUMENT, playerOldDevCards.getMonument());
-			getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, playerOldDevCards.getRoadBuilding());
-			getPlayCardView().setCardAmount(DevCardType.SOLDIER, playerOldDevCards.getSoldier());
-			getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, playerOldDevCards.getYearOfPlenty());
+			if(playerOldDevCards.getRoadBuilding() < 1){
+				getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
+			}
+			else{
+				getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, true);
+			}
 			
+			if(playerOldDevCards.getSoldier() < 1){
+				getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
+			}
+			else{
+				getPlayCardView().setCardEnabled(DevCardType.SOLDIER, true);
+			}
+			
+			if(playerOldDevCards.getYearOfPlenty() < 1){
+				getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
+			}
+			else{
+				getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, true);
+			}
+			
+			if(playerDevCards.getMonument() < 1){
+				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+			}
+			else{
+				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
+			}
+		}
+		else{
+			getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
+			getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
+			getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
+			getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
+			
+			if(!isPlayerTurn || !playing){
+				if(playerDevCards.getMonument() < 1){
+					getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+				}
+			}
+			else{
+				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+			}
 		}
 
 		getPlayCardView().showModal();
@@ -97,23 +140,26 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void cancelPlayCard() {
-
+		getPlayCardView().reset();
 		getPlayCardView().closeModal();
 	}
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		
+		if(clientFacade.canPlayDevCard(DevCardType.MONOPOLY)){
+			clientFacade.monopoly(clientFacade.convertResourceType(resource), clientFacade.getPlayerIndex());
+		}
 	}
 
 	@Override
 	public void playMonumentCard() {
-		
+		clientFacade.monument(clientFacade.getPlayerIndex());
 	}
 
 	@Override
 	public void playRoadBuildCard() {
-		
+//		if(clientFacade.canPlayDevCard(cardType));
+		System.out.println("Play Road Card");
 		roadAction.execute();
 	}
 
@@ -125,7 +171,9 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
-		
+		if(clientFacade.canPlayDevCard(DevCardType.YEAR_OF_PLENTY)){
+			clientFacade.yearOfPlenty(clientFacade.convertResourceType(resource1), clientFacade.convertResourceType(resource2));
+		}
 	}
 
 }

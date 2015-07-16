@@ -578,7 +578,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 						return false;
 					}
 					
-					if(player.getSettlements() <=0) {
+					if(player.getSettlements() <= 0) {
 						return false;
 					}
 					
@@ -734,6 +734,13 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 					
 					if(map.isRoadHere(road.getLocation())){
 						return false;
+					}
+					
+					if(map.hasNeighboringOwnRoad(road)){
+						System.out.println("Has Neighboring Own Road!");
+					}
+					if(map.hasNeighboringOwnSettlement(road)){
+						System.out.println("Has Neighboring Own Settlement!");
 					}
 					
 					return (map.hasNeighboringOwnRoad(road) || map.hasNeighboringOwnSettlement(road));
