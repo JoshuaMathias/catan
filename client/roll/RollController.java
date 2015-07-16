@@ -56,7 +56,7 @@ public class RollController extends Controller implements IRollController {
 		
 		if (finalRandomNum == 7){finalRandomNum = 6;}
 		
-		clientFacade.setDiceRoll(finalRandomNum);//Do we need this?
+		//clientFacade.setDiceRoll(finalRandomNum);//Do we need this?
 		clientFacade.rollNumber(finalRandomNum);
 		
 		resultView.setRollValue(finalRandomNum);
