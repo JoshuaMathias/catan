@@ -280,14 +280,16 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	public void playRoadBuildingCard() {	
+		getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), true);
 		
+		getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), true);
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {
 		
 		
 		//robView.setPlayers(victim);
-		Facade.getSingleton().robPlayer(victim.getPlayerIndex(), Facade.getSingleton().getTempRobLoc());
+		clientFacade.robPlayer(victim.getPlayerIndex(), Facade.getSingleton().getTempRobLoc());
 	}
 	
 	public void startMovingRobber()

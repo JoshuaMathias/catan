@@ -42,7 +42,7 @@ public class Road {
 
 	@Override
 	public boolean equals(Object obj) {
-		this.location = this.location.getNormalizedLocation();
+//		this.location = this.location.getNormalizedLocation();
 		if (this == obj)
 			return true;
 		if (obj == null)

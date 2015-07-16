@@ -235,11 +235,18 @@ public class Map {
 	}
 	
 	private boolean haveRoadHere(Road road){
-		
+		int owner = road.getOwner();
+		EdgeLocation edge = road.getLocation();
+		edge = edge.getNormalizedLocation();
 		for(Road roadCheck: roads){
-			if(roadCheck.equals(road)){
+			EdgeLocation edgeCheck = roadCheck.getLocation();
+			edgeCheck = edgeCheck.getNormalizedLocation();
+			if(roadCheck.getOwner() == owner && edgeCheck.equals(edge)){
 				return true;
 			}
+//			if(roadCheck.equals(road)){
+//				return true;
+//			}
 		}
 		
 		return false;

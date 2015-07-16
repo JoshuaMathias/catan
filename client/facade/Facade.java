@@ -390,13 +390,6 @@ public class Facade {
     	return clientModel.getPlayers().get(playerIndex);
     }
     
-    
-//    private int monopoly = 0;
-//	private int monument = 0;
-//	private int roadBuilding = 0;
-//	private int soldier = 0;
-//	private int yearOfPlenty = 0;
-    
     public DevCardList getPlayerDevCards(){
     	DevCardList newCards = getPlayerNewDevCards();
     	DevCardList oldCards = getPlayerOldDevCards();
@@ -414,6 +407,10 @@ public class Facade {
     
     public DevCardList getPlayerOldDevCards(){
     	return getPlayer().getOldDevCards();
+    }
+    
+    public void playRoadBuildingCard(){
+    	mapController.playRoadBuildingCard();
     }
     
     /**
