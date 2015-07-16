@@ -22,6 +22,72 @@ public class RightPanel extends JPanel
 	private ResourceBarView resourceView;
 	private ResourceBarController resourceController;
 	
+	
+	
+	public PlayDevCardView getPlayCardView() {
+		return playCardView;
+	}
+
+	public void setPlayCardView(PlayDevCardView playCardView) {
+		this.playCardView = playCardView;
+	}
+
+	public BuyDevCardView getBuyCardView() {
+		return buyCardView;
+	}
+
+	public void setBuyCardView(BuyDevCardView buyCardView) {
+		this.buyCardView = buyCardView;
+	}
+
+	public DevCardController getDevCardController() {
+		return devCardController;
+	}
+
+	public void setDevCardController(DevCardController devCardController) {
+		this.devCardController = devCardController;
+	}
+
+	public PointsView getPointsView() {
+		return pointsView;
+	}
+
+	public void setPointsView(PointsView pointsView) {
+		this.pointsView = pointsView;
+	}
+
+	public GameFinishedView getFinishedView() {
+		return finishedView;
+	}
+
+	public void setFinishedView(GameFinishedView finishedView) {
+		this.finishedView = finishedView;
+	}
+
+	public PointsController getPointsController() {
+		return pointsController;
+	}
+
+	public void setPointsController(PointsController pointsController) {
+		this.pointsController = pointsController;
+	}
+
+	public ResourceBarView getResourceView() {
+		return resourceView;
+	}
+
+	public void setResourceView(ResourceBarView resourceView) {
+		this.resourceView = resourceView;
+	}
+
+	public ResourceBarController getResourceController() {
+		return resourceController;
+	}
+
+	public void setResourceController(ResourceBarController resourceController) {
+		this.resourceController = resourceController;
+	}
+
 	public RightPanel(final IMapController mapController)
 	{
 		
