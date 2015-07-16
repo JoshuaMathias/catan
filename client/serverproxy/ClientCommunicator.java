@@ -72,9 +72,9 @@ public class ClientCommunicator
 	    	}
 	    	rd.close();
 	    	
-//	    	System.out.println("");
+	    	System.out.println("");
 	    	result = response.toString();
-//	    	System.out.println(/*response.toString()+ */"for "+ext+" Response code: "+ connection.getResponseCode()); 
+	    	System.out.println(/*response.toString()+ */"for "+ext+" Response code: "+ connection.getResponseCode()); 
 	    	if(ext.equals("user/login")||ext.equals("user/register"))
 	    	{
 		    	String usercookie = connection.getHeaderField("Set-Cookie");
