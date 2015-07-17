@@ -439,6 +439,12 @@ public class Facade {
     	return tempClientModel.canBuildRoad(road);
     }
     
+    public void returnToGameSelect(){
+    	//this should wipe the map and return the player to the game select view
+    	System.out.println("Return to Game Select Screen");
+//    	mapController.wipeMap();
+    }
+    
     /**
      * checks whether a player has the longest road
      * @pre none

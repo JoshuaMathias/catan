@@ -52,6 +52,10 @@ public class MapController extends Controller implements IMapController {
 		this.robView = robView;
 	}
 	
+	public void wipeMap(){
+		getView().newMap();
+	}
+	
 	public void initFromModel(ClientModel clientModel) {
 		
 //		getView().newMap();
