@@ -38,6 +38,10 @@ public class MapView extends PanelView implements IMapView
 //		map = new MapComponent();
 		this.map = new MapComponent();
 		
+//		map.removeAll();
+//		map.revalidate();
+//		map.repaint();
+		
 		this.add(map, BorderLayout.CENTER);
 		
 	}
