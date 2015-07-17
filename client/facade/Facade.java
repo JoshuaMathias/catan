@@ -445,7 +445,7 @@ public class Facade {
     	return tempClientModel.canBuildRoad(road);
     }
     
-    public void returnToGameSelect(){
+    public void returnToGameSelect(){//being called by the I WIN/LOSE button
     	//this should wipe the map and return the player to the game select view
     	System.out.println("Return to Game Select Screen");
 
