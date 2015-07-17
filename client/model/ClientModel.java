@@ -702,7 +702,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 				return false;
 			}
 			
-			if(players.get(playerIndex).getSettlements() < 5) {
+			if(players.get(playerIndex).getSettlements() >= 5) {
 				return false;
 			}
 			

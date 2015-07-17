@@ -6,6 +6,7 @@ import client.communication.ChatController;
 import client.communication.GameHistoryController;
 import client.discard.DiscardController;
 import client.domestic.DomesticTradeController;
+import client.join.JoinGameController;
 import client.main.Catan;
 import client.map.MapController;
 import client.model.*;
@@ -52,6 +53,7 @@ public class Facade {
 	private DiscardController discardController;
 	private PointsController pointsController;
 	private DomesticTradeController domesticTradeController;
+	private JoinGameController joinGameController;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -317,6 +319,10 @@ public class Facade {
     	this.domesticTradeController = domesticTradeController;
     }
     
+    public void setJoinGameController(JoinGameController joinGameController){
+    	this.joinGameController = joinGameController;
+    }
+    
     /**
      * checks newClientModel version against current client model version and updates if versions differ
      * @param newClientModel
@@ -442,7 +448,14 @@ public class Facade {
     public void returnToGameSelect(){
     	//this should wipe the map and return the player to the game select view
     	System.out.println("Return to Game Select Screen");
+
+//    	System.exit(0);
+    	
+//    	String[] args ={host}; 
+//    	Catan.main(args);
+    	
 //    	mapController.wipeMap();
+//    	joinGameController.start();
     }
     
     /**
