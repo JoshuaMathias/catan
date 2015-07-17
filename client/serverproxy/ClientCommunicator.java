@@ -72,9 +72,9 @@ public class ClientCommunicator
 	    	}
 	    	rd.close();
 	    	
-//	    	System.out.println("");
+	    	System.out.println("");
 	    	result = response.toString();
-//	    	System.out.println(/*response.toString()+ */"for "+ext+" Response code: "+ connection.getResponseCode()); 
+	    	System.out.println(/*response.toString()+ */"for "+ext+" Response code: "+ connection.getResponseCode()); 
 	    	if(ext.equals("user/login")||ext.equals("user/register"))
 	    	{
 		    	String usercookie = connection.getHeaderField("Set-Cookie");
@@ -92,10 +92,15 @@ public class ClientCommunicator
 		
 		catch (Exception e) 
 		{
+			try{
+			System.out.println("Response message for the bad call"+connection.getResponseMessage());
+			}catch(Exception e1){System.out.println("\nIs this doing anything");}
+			System.out.println("Current cookies: "+cookies);
+			
 			result = "400";
 	    	System.out.println("");
 	    	System.out.println("for "+ext+" Response code: "+ result); 
-			//e.printStackTrace();
+			e.printStackTrace();
 	    } 
 		
 		finally 

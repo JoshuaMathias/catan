@@ -36,6 +36,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		public void run() {
 			if(stop&&clientFacade.getProxy().gotCookies())
 			{  
+				System.out.println("Player: "+clientFacade.getPlayerIndex());
 				if(players.length==4)
 				{
 					stop = false;
@@ -51,6 +52,10 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 					getView().closeModal();
 					start();
 				}
+			}
+			if(getView().isModalShowing()&&clientFacade.getTurnTracker().getStatus().equals("Playing"))
+			{
+				getView().closeModal();
 			}
 		}
 	}
