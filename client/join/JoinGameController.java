@@ -112,7 +112,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void start() {
 		if (!started) {
-			timer.schedule(new updateTask(), 0, interval*1000);
+//			timer.schedule(new updateTask(), 0, interval*1000);
 			started=true;
 		}
 		GamesList hub = clientFacade.gamesList();
