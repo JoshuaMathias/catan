@@ -68,5 +68,57 @@ public class ServerPoller {
 			facade.updateClientModel(model);
 		}
 	}
+
+
+	public int getModelVersion() {
+		return modelVersion;
+	}
+
+
+	public void setModelVersion(int modelVersion) {
+		this.modelVersion = modelVersion;
+	}
+
+
+	public ServerProxy getProxy() {
+		return proxy;
+	}
+
+
+	public void setProxy(ServerProxy proxy) {
+		this.proxy = proxy;
+	}
+
+
+	public int getInterval() {
+		return interval;
+	}
+
+
+	public void setInterval(int interval) {
+		this.interval = interval;
+	}
+
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+
+
+	public Facade getFacade() {
+		return facade;
+	}
+
+
+	public void setFacade(Facade facade) {
+		this.facade = facade;
+	}
+	
+	
 	
 }
