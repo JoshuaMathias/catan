@@ -354,6 +354,7 @@ public class MapController extends Controller implements IMapController {
 	
 	public void playRoadBuildingCard() {	
 		roadBuilding = true;
+		clientFacade.initTempClientModel();
 		getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), true);
 	}
 	

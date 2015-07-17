@@ -427,8 +427,11 @@ public class Facade {
     	return getMap().getRobber();
     }
     
-    public Map getTempMap(){
+    public void initTempClientModel(){
     	tempClientModel = clientModel;
+    }
+    
+    public Map getTempMap(){
     	return tempClientModel.getMap();
     }
     
