@@ -41,6 +41,8 @@ public class Facade {
 	private int playerId;
 	private int currentGameId;
 	
+	private ClientModel tempClientModel;//only used for roadBuilding DevCard
+	
 	private MapController mapController;
 	private GameHistoryController gameHistoryController;
 	private ChatController chatController;
@@ -423,6 +425,15 @@ public class Facade {
     
     public HexLocation getRobber(){
     	return getMap().getRobber();
+    }
+    
+    public Map getTempMap(){
+    	tempClientModel = clientModel;
+    	return tempClientModel.getMap();
+    }
+    
+    public boolean tempCanBuildRoad(Road road){
+    	return tempClientModel.canBuildRoad(road);
     }
     
     /**

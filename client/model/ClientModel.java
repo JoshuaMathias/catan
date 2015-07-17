@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import shared.definitions.DevCardType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 /**
@@ -570,7 +573,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		
 		if (playerIndex == whoseTurn){
 			Player player = players.get(playerIndex);
-			VertexLocation settlementSpot = settlement.getLocation();
+			VertexLocation settlementSpot = settlement.getLocation().getNormalizedLocation();
 			switch(status){
 				case "Playing":
 					ResourceList playersResources = players.get(playerIndex).getResources();
@@ -590,6 +593,11 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 						return false;
 					}
 					
+					if (isWater(settlement)){
+						return false;
+					}
+					
+					
 					return map.hasNeighboringOwnRoad(settlement);
 				case "FirstRound":
 					if(player.getSettlements() >= 5){
@@ -597,6 +605,9 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 							return false;
 						}
 						else if (map.isSpotNeighbored(settlementSpot)){
+							return false;
+						}
+						else if (isWater(settlement)){
 							return false;
 						}
 						else{
@@ -614,6 +625,9 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 						else if (map.isSpotNeighbored(settlementSpot)){
 							return false;
 						}
+						else if (isWater(settlement)){
+							return false;
+						}
 						else{
 							return true;
 						}
@@ -628,6 +642,24 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		return false;
 	}
 	
+	private boolean isWater(VertexObject settlementCity){
+		VertexLocation spot = settlementCity.getLocation().getNormalizedLocation();
+		int x = spot.getHexLoc().getX();
+		int y = spot.getHexLoc().getY();
+		VertexDirection dir = spot.getDir();
+		if(x > 3 || x < -3 || y > 3){return true;}
+		if(x == 3 && dir == VertexDirection.NE){return true;}
+		if(x == -3 && dir == VertexDirection.NW){return true;}
+		if(y == -3){return true;}
+		if(x == -1 && y == -2){return true;}
+		if(x == -2 && y == -1){return true;}
+		if(x == -3 && y == 0){return true;}
+		if(x == 1 && y == 3){return true;}
+		if(x == 2 && y == 2){return true;}
+		if(x == 3 && y > 0){return true;}
+		
+		return false;
+	}
 	
 	public boolean hasEnoughForCity(ResourceList playersResources, int playerIndex){
 		if(playerIndex == turnTracker.getCurrentTurn()){
@@ -723,7 +755,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 			Player player = players.get(playerIndex);
 			switch(status){
 				case "Playing":
-					ResourceList playerResources = player.getResources();
+//					ResourceList playerResources = player.getResources();
 //					if(playerResources.getBrick() < 1 || playerResources.getWood() < 1){
 //						return false;
 //					}
@@ -736,11 +768,8 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 						return false;
 					}
 					
-					if(map.hasNeighboringOwnRoad(road)){
-						System.out.println("Has Neighboring Own Road!");
-					}
-					if(map.hasNeighboringOwnSettlement(road)){
-						System.out.println("Has Neighboring Own Settlement!");
+					if(isWater(road)){
+						return false;
 					}
 					
 					return (map.hasNeighboringOwnRoad(road) || map.hasNeighboringOwnSettlement(road));
@@ -751,12 +780,20 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 							return false;
 						}
 						
+						if(isWater(road)){
+							return false;
+						}
+						
 						return (map.hasNeighboringOwnRoad(road) || map.hasNeighboringOwnSettlement(road));
 					}
 					break;
 				case "SecondRound":
 					if(player.getRoads() >= 14){
 						if(map.isRoadHere(road.getLocation())){
+							return false;
+						}
+						
+						if(isWater(road)){
 							return false;
 						}
 						
@@ -770,6 +807,32 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		return false;
 	}
 
+	private boolean isWater(Road road){
+		EdgeLocation edge = road.getLocation().getNormalizedLocation();
+		int x = edge.getHexLoc().getX();
+		int y = edge.getHexLoc().getY();
+		EdgeDirection dir = edge.getDir();
+		
+		if(dir == EdgeDirection.N || dir == EdgeDirection.S){
+			if(x == 3 || x == -3){return true;}
+		}
+		if(dir == EdgeDirection.NW || dir == EdgeDirection.SE){
+			if(y == 3 || y == -3){return true;}
+		}
+		if(dir == EdgeDirection.NE || dir == EdgeDirection.SW){
+			if(x == -3 && y == 0){return true;}
+			if(x == -2 && y == -1){return true;}
+			if(x == -1 && y == -2){return true;}
+			if(x == 0 && y == -3){return true;}
+			if(x == 0 && y == 3){return true;}
+			if(x == 1 && y == 2){return true;}
+			if(x == 2 && y == 1){return true;}
+			if(x == 3 && y == 0){return true;}
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * 
 	 * Player attempts to play a development card 
