@@ -54,7 +54,7 @@ public class MapController extends Controller implements IMapController {
 	
 	public void initFromModel(ClientModel clientModel) {
 		
-//		getView().newMap();
+		getView().newMap();
 		
 		status = clientModel.getTurnTracker().getStatus();
 		

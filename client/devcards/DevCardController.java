@@ -128,13 +128,16 @@ public class DevCardController extends Controller implements IDevCardController 
 			getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
 			getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
 			
-			if(!isPlayerTurn || !playing){
+			if(isPlayerTurn && playing){
 				if(playerDevCards.getMonument() < 1){
 					getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
 				}
+				else{
+					getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
+				}
 			}
 			else{
-				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
+				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
 			}
 		}
 
