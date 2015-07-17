@@ -1,11 +1,14 @@
 package client.join;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import shared.definitions.CatanColor;
 import client.base.*;
 import client.data.*;
 import client.facade.Facade;
+import client.join.PlayerWaitingController.updateTask;
 import client.misc.*;
 import client.serverproxy.GamesList;
 
@@ -20,6 +23,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	private IMessageView messageView;
 	private IAction joinAction;
 	private Facade clientFacade;
+	private int interval;
+	private Timer timer;
+	private boolean started=false;
 	
 	/**
 	 * JoinGameController constructor
@@ -38,8 +44,18 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
 		clientFacade = Facade.getSingleton();
+		interval=2;
+		timer=new Timer();
 	}
 	
+	public class updateTask extends TimerTask {
+
+		@Override
+		public void run() {
+			start();
+		}
+	}
+
 	public IJoinGameView getJoinGameView() {
 		
 		return (IJoinGameView)super.getView();
@@ -95,6 +111,10 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
+		if (!started) {
+			timer.schedule(new updateTask(), 0, interval*1000);
+			started=true;
+		}
 		GamesList hub = clientFacade.gamesList();
 		ArrayList<GameInfo> games = hub.getGames();
 		
