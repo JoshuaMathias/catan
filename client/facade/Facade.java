@@ -387,8 +387,10 @@ public class Facade {
     					&&clientModel.getTurnTracker().getCurrentTurn()!=playerIndex)
     			{
     				//Accepting situation
-    				//domesticTradeController.//start accepting function page
+    				domesticTradeController.startTrade();
     			}
+    			
+    			domesticTradeController.checker();
     		}
     		
 //    		if(mapController != null && clientModel.getTurnTracker().getStatus().equals("Robbing") 

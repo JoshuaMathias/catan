@@ -72,9 +72,10 @@ public class ClientCommunicator
 	    	}
 	    	rd.close();
 	    	
-	    	System.out.println("");
+//	    	System.out.println("");
 	    	result = response.toString();
-	    	System.out.println(/*response.toString()+ */"for "+ext+" Response code: "+ connection.getResponseCode()); 
+//	    	System.out.println(/*response.toString()+ */"for "+ext+" Response code: "+ connection.getResponseCode());
+	    	connection.getResponseCode();
 	    	if(ext.equals("user/login")||ext.equals("user/register"))
 	    	{
 		    	String usercookie = connection.getHeaderField("Set-Cookie");
@@ -100,7 +101,7 @@ public class ClientCommunicator
 			result = "400";
 	    	System.out.println("");
 	    	System.out.println("for "+ext+" Response code: "+ result); 
-			e.printStackTrace();
+			//e.printStackTrace();
 	    } 
 		
 		finally 
@@ -110,6 +111,7 @@ public class ClientCommunicator
 				connection.disconnect(); 
 			}
 		}
+		System.out.println(result);
 		return result;
 	}
 }

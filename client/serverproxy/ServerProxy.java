@@ -320,7 +320,6 @@ public class ServerProxy implements IServer
 		String JsonClient = clientComm.send("game/model?version="+version, "");
 		if(!JsonClient.equals("\"true\"\r"))
 		{
-			System.out.println(JsonClient);
 			newclient = g.fromJson(JsonClient, ClientModel.class);
 		}
 		return newclient;

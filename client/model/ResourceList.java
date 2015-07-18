@@ -69,6 +69,24 @@ public class ResourceList {
 		return total;
 	}
 	
+	public int getResourceAmount(ResourceType resource)
+	{
+		switch(resource)
+		{
+			case brick:
+				return brick;
+			case wood:
+				return wood;
+			case sheep:
+				return sheep;
+			case wheat:
+				return wheat;
+			case ore:
+				return ore;
+		}
+		return -1;
+	}
+	
 	public boolean hasOne(ResourceType resource){
 		switch(resource){
 		case brick:
