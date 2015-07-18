@@ -44,6 +44,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
 		clientFacade = Facade.getSingleton();
+		clientFacade.setJoinGameController(this);
 		interval=2;
 		timer=new Timer();
 	}

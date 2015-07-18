@@ -107,10 +107,12 @@ public class Map {
 		
 		for(int i = 0; i < settlements.size(); i++){
 			VertexLocation spotCheck = settlements.get(i).getLocation().getNormalizedLocation();
+			
 			if(spot.equals(spotCheck)){
 				return true;
 			}
 		}
+
 		
 		for(int i = 0; i < cities.size(); i++){
 			VertexLocation spotCheck = cities.get(i).getLocation().getNormalizedLocation();
@@ -155,7 +157,7 @@ public class Map {
 				spot2 = new VertexLocation(hexLoc2, VertexDirection.NW);
 				
 				hexLoc3 = new HexLocation(x, y-1);
-				spot3 = new VertexLocation(hexLoc3, VertexDirection.SE);
+				spot3 = new VertexLocation(hexLoc3, VertexDirection.E);
 				break;
 				
 			case NW:
@@ -211,6 +213,7 @@ public class Map {
 				break;
 		
 		}
+		
 		if(isSpotTaken(spot1) || isSpotTaken(spot2) || isSpotTaken(spot3)){
 			return true;
 		}

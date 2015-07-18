@@ -34,6 +34,10 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		return (ITurnTrackerView)super.getView();
 	}
 
+	public void clear(){
+		//needed for ending and restarting a game, but not used or made yet
+	}
+	
 	@Override
 	public void endTurn() {
 		clientFacade.finishTurn();

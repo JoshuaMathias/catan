@@ -52,6 +52,10 @@ public class MapController extends Controller implements IMapController {
 		this.robView = robView;
 	}
 	
+	public void wipeMap(){
+		getView().newMap();
+	}
+	
 	public void initFromModel(ClientModel clientModel) {
 		
 //		getView().newMap();
@@ -68,6 +72,32 @@ public class MapController extends Controller implements IMapController {
 				getView().addNumber(hex.getLocation(), hex.getNumber());
 			}
 		}
+		
+		//place water hexes
+		getView().addHex(new HexLocation(-3, 3), HexType.water);
+		getView().addHex(new HexLocation(-3, 2), HexType.water);
+		getView().addHex(new HexLocation(-3, 1), HexType.water);
+		getView().addHex(new HexLocation(-3, 0), HexType.water);
+		
+		getView().addHex(new HexLocation(-2, -1), HexType.water);
+		getView().addHex(new HexLocation(-2, 3), HexType.water);
+		
+		getView().addHex(new HexLocation(-1, -2), HexType.water);
+		getView().addHex(new HexLocation(-1, 3), HexType.water);
+		
+		getView().addHex(new HexLocation(0, 3), HexType.water);
+		getView().addHex(new HexLocation(0, -3), HexType.water);
+		
+		getView().addHex(new HexLocation(1, -3), HexType.water);
+		getView().addHex(new HexLocation(1, 2), HexType.water);
+		
+		getView().addHex(new HexLocation(2, -3), HexType.water);
+		getView().addHex(new HexLocation(2, 1), HexType.water);
+		
+		getView().addHex(new HexLocation(3, -3), HexType.water);
+		getView().addHex(new HexLocation(3, -2), HexType.water);
+		getView().addHex(new HexLocation(3, -1), HexType.water);
+		getView().addHex(new HexLocation(3, 0), HexType.water);
 		
 		//place settlements
 		ArrayList<VertexObject> settlements = map.getSettlements();
@@ -90,6 +120,8 @@ public class MapController extends Controller implements IMapController {
 			CatanColor color = players.get(road.getOwner()).getColor();
 			getView().placeRoad(road.getLocation(), color);
 		}
+		
+		
 		
 		//place ports
 		ArrayList<Port> ports = map.getPorts();
@@ -177,7 +209,13 @@ public class MapController extends Controller implements IMapController {
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
 		Road road = new Road(clientFacade.getPlayerIndex(),edgeLoc);
-		return clientFacade.canBuildRoad(road);
+		if(roadBuilding == true){
+			return clientFacade.tempCanBuildRoad(road);
+		}
+		else{
+			return clientFacade.canBuildRoad(road);
+		}
+	
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
@@ -209,7 +247,7 @@ public class MapController extends Controller implements IMapController {
 //				clientFacade.buildRoad(edgeLoc, true);
 				if(roadBuildingEdgeLocs.isEmpty()){
 					roadBuildingEdgeLocs.add(edgeLoc);
-					clientFacade.getMap().addRoad(new Road(clientFacade.getPlayerIndex(), edgeLoc));
+					clientFacade.getTempMap().addRoad(new Road(clientFacade.getPlayerIndex(), edgeLoc));
 					getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), false);
 				}
 				else{
@@ -320,6 +358,7 @@ public class MapController extends Controller implements IMapController {
 	
 	public void playRoadBuildingCard() {	
 		roadBuilding = true;
+		clientFacade.initTempClientModel();
 		getView().startDrop(PieceType.ROAD, clientFacade.getPlayerColor(), true);
 	}
 	
