@@ -166,6 +166,14 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				&&clientFacade.getTradeOffer().getReceiver()==clientFacade.getPlayerIndex()
 				&&clientFacade.getTurnTracker().getStatus().equals("Playing"))
 		{
+			ResourceList temp = clientFacade.getTradeOffer().getOffer();
+			temp.setBrick(-1*temp.getBrick());
+			temp.setWood(-1*temp.getWood());
+			temp.setSheep(-1*temp.getSheep());
+			temp.setWheat(-1*temp.getWheat());
+			temp.setOre(-1*temp.getOre());
+			clientFacade.getTradeOffer().setOffer(temp);
+			
 			getAcceptOverlay().reset();
 			TradeOffer bid = clientFacade.getTradeOffer();
 			ResourceList goods = bid.getOffer();
@@ -570,17 +578,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		System.out.println("wood: "+clientFacade.getTradeOffer().getOffer().getWood());
 		System.out.println("wheat: "+clientFacade.getTradeOffer().getOffer().getWheat());
 		System.out.println("");
-		
-		if(willAccept)
-		{
-			ResourceList temp = clientFacade.getTradeOffer().getOffer();
-			temp.setBrick(-1*temp.getBrick());
-			temp.setWood(-1*temp.getWood());
-			temp.setSheep(-1*temp.getSheep());
-			temp.setWheat(-1*temp.getWheat());
-			temp.setOre(-1*temp.getOre());
-			clientFacade.getTradeOffer().setOffer(temp);
-		}
 		
 		System.out.println("After:");
 		System.out.println("brick: "+clientFacade.getTradeOffer().getOffer().getBrick());
