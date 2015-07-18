@@ -395,8 +395,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		System.out.println("wood: "+wood);
 		System.out.println("wheat: "+wheat);
 		
-		ResourceList offer = new ResourceList(brick, ore, sheep, wheat, wood);
-		//make server call
+		ResourceList offer = new ResourceList(-1*brick, -1*ore, -1*sheep, -1*wheat, -1*wood); //This is a stupid quick fix
 		clientFacade.offerTrade(offer, traderIndex);
 		getTradeOverlay().closeModal();
 		
@@ -429,7 +428,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void setResourceToReceive(ResourceType resource) 
 	{
-		//What you get(+)
+		//What you get(+) Should be a -
 		switch(resource)
 		{
 			case wheat:
@@ -466,7 +465,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void setResourceToSend(ResourceType resource) 
 	{
-		//What you give (-)
+		//What is offered (-) Should be a +
 		switch(resource)
 		{
 			case wheat:
@@ -572,16 +571,16 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		System.out.println("wheat: "+clientFacade.getTradeOffer().getOffer().getWheat());
 		System.out.println("");
 		
-//		if(willAccept)
-//		{
-//			ResourceList temp = clientFacade.getTradeOffer().getOffer();
-//			temp.setBrick(-1*temp.getBrick());
-//			temp.setWood(-1*temp.getWood());
-//			temp.setSheep(-1*temp.getSheep());
-//			temp.setWheat(-1*temp.getWheat());
-//			temp.setOre(-1*temp.getOre());
-//			clientFacade.getTradeOffer().setOffer(temp);
-//		}
+		if(willAccept)
+		{
+			ResourceList temp = clientFacade.getTradeOffer().getOffer();
+			temp.setBrick(-1*temp.getBrick());
+			temp.setWood(-1*temp.getWood());
+			temp.setSheep(-1*temp.getSheep());
+			temp.setWheat(-1*temp.getWheat());
+			temp.setOre(-1*temp.getOre());
+			clientFacade.getTradeOffer().setOffer(temp);
+		}
 		
 		System.out.println("After:");
 		System.out.println("brick: "+clientFacade.getTradeOffer().getOffer().getBrick());
