@@ -144,9 +144,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			getTradeOverlay().showModal();
 		}
 		else if(clientFacade.getTurnTracker().getCurrentTurn()!=clientFacade.getPlayerIndex()&&
-				clientFacade.getTurnTracker().getStatus().equals("Playing"))
-		{
-			PlayerInfo[] dummy = new PlayerInfo[0];
+				clientFacade.getTurnTracker().getStatus().equals("Playing")
+				&&clientFacade.getTradeOffer()==null) //Possible problem for this condition here. other players not
+		{												//involved in the trade wont be able to click on the trade 
+			PlayerInfo[] dummy = new PlayerInfo[0];		//if a trade is going down.
 			getTradeOverlay().setPlayers(dummy);
 			getTradeOverlay().reset();
 			//Can't make trade

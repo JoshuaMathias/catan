@@ -40,8 +40,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 				{
 					stop = false;
 					getView().closeModal();
-//					System.out.println("11111111111111111111111111111111111111");
-//					if(getView().isModalShowing())System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 					getView().closeModal();
 					clientFacade.refresh(); //If there are any more problems comment out this line
 				}

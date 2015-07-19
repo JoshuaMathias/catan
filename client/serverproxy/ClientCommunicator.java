@@ -101,7 +101,7 @@ public class ClientCommunicator
 			result = "400";
 	    	System.out.println("");
 	    	System.out.println("for "+ext+" Response code: "+ result); 
-			//e.printStackTrace();
+			e.printStackTrace();
 	    } 
 		
 		finally 

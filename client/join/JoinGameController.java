@@ -25,7 +25,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	private Facade clientFacade;
 	private int interval;
 	private Timer timer;
-	private boolean started=false;
+	private boolean joined=false;
+	private ArrayList<GameInfo> games=new ArrayList<GameInfo>();
+	private boolean started = false;
 	
 	/**
 	 * JoinGameController constructor
@@ -45,15 +47,20 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setMessageView(messageView);
 		clientFacade = Facade.getSingleton();
 		clientFacade.setJoinGameController(this);
-		interval=2;
+		interval=3;
 		timer=new Timer();
+		timer.schedule(new updateTask(), 0, interval*1000);
 	}
 	
 	public class updateTask extends TimerTask {
 
 		@Override
 		public void run() {
-			start();
+			if(games.size()<clientFacade.gamesList().getGames().size()&&!joined&&started)
+			{
+				getJoinGameView().closeModal();
+				start();
+			}
 		}
 	}
 
@@ -112,12 +119,12 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
-		if (!started) {
-//			timer.schedule(new updateTask(), 0, interval*1000);
-			started=true;
-		}
+//		if (!started) {
+////			timer.schedule(new updateTask(), 0, interval*1000);	
+//		}
+		started=true;
 		GamesList hub = clientFacade.gamesList();
-		ArrayList<GameInfo> games = hub.getGames();
+		games = hub.getGames();
 		
 		for(int i= 0;i<games.size();i++)
 		{
@@ -202,6 +209,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	public void joinGame(CatanColor color) {
 		if (clientFacade.joinGame(Integer.toString(clientFacade.getCurrentGameId()), Facade.convertColor(color))) {
 			// If join succeeded
+			joined=true;
 			getSelectColorView().closeModal();
 			getJoinGameView().closeModal();
 			joinAction.execute();
