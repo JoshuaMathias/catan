@@ -317,9 +317,18 @@ public class MapController extends Controller implements IMapController {
 		}
 		
 		RobPlayerInfo[] robPlayerArray = new RobPlayerInfo[newList.size()];
+		
+		if(robPlayerArray.length > 0) {
+		
 		robPlayerArray = newList.toArray(robPlayerArray);
 		robView.setPlayers(robPlayerArray);
 		robView.showModal();
+		}
+		else if(robPlayerArray.length == 0) {
+			
+			clientFacade.robPlayer(-1, clientFacade.getRobber());//moves the robber even though there was no player to steal from
+			robView.closeModal();
+		}
 	}
 	
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
@@ -367,10 +376,12 @@ public class MapController extends Controller implements IMapController {
 		if(soldierCard == true){
 			clientFacade.soldier(victim.getPlayerIndex(), clientFacade.getRobber());
 			soldierCard = false;
+			robView.closeModal();
 		}
 		else{
 			clientFacade.robPlayer(victim.getPlayerIndex(), clientFacade.getRobber());
-		}
+			robView.closeModal();
+		} 
 	}
 	
 }
