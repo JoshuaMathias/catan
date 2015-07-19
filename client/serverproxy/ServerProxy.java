@@ -380,9 +380,17 @@ public class ServerProxy implements IServer
 	//Most likely by order they are listed in the arraylist of players in the gameinfo object
 	public GamesList getGamesList()
 	{
+		GamesList result = new GamesList(); 
 		String Jsonoutput = clientComm.send("games/list","");
-		Jsonoutput = "{\"games\":"+Jsonoutput+"}";
-		GamesList result = g.fromJson(Jsonoutput, GamesList.class);
+		if(!Jsonoutput.isEmpty())
+		{
+			Jsonoutput = "{\"games\":"+Jsonoutput+"}";
+			result = g.fromJson(Jsonoutput, GamesList.class);
+		}
+		else
+		{
+			return getGamesList();
+		}
 		return result;
 	}
 	

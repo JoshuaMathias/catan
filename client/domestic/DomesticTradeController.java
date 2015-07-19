@@ -44,10 +44,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	
 	private PlayerInfo[] opponents;
 	
-	//---------------------------Accepting Side----------------------------------------------//
 	
-	
-
 	/**
 	 * DomesticTradeController constructor
 	 * 

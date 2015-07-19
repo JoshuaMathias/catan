@@ -25,7 +25,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public PlayerWaitingController(IPlayerWaitingView view) {
 		super(view);
 		clientFacade=Facade.getSingleton();
-		interval=5;
+		interval=3;
 		timer=new Timer();
 		timer.schedule(new updateTask(), 0, interval*1000);
 	}
