@@ -100,7 +100,10 @@ public class DevCardList {
 			}
 		} else if(cardType == DevCardType.ROAD_BUILD) {
 			
-			if(roadBuilding > 0) {
+			Facade clientFacade = Facade.getSingleton();
+			int roadAmount = clientFacade.getPlayer().getRoads();
+			
+			if(roadBuilding > 0 && roadAmount > 1) {
 				return true;
 			}
 		} else if(cardType == DevCardType.SOLDIER) {
