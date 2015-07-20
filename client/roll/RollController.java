@@ -1,6 +1,8 @@
 package client.roll;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import client.base.*;
 import client.facade.Facade;
@@ -13,6 +15,8 @@ public class RollController extends Controller implements IRollController {
 
 	private IRollResultView resultView;
 	private Facade clientFacade;
+	private int interval = 5;
+	private Timer timer;
 	
 	/**
 	 * RollController constructor
@@ -31,7 +35,29 @@ public class RollController extends Controller implements IRollController {
 	}
 	
 	public void startRollGui() {
+		
+		interval = 5;
+		timer = new Timer();
+		int delay = 1000;
+		int period = 1000;
+		timer.scheduleAtFixedRate(new TimerTask(){
+		
+			public void run() {
+				int newInterval = setInterval();
+				
+				getRollView().setMessage("Automatically rolling in " + Integer.toString(newInterval));
+			}
+			
+		}, delay, period);
 		getRollView().showModal();
+	}
+	
+	private int setInterval() {
+		
+		if(interval == 0) {
+			rollDice();
+		}
+		return --interval;
 	}
 	
 	public IRollResultView getResultView() {
@@ -48,6 +74,8 @@ public class RollController extends Controller implements IRollController {
 	@Override
 	public void rollDice() {
 		
+		timer.cancel();
+		
 		getRollView().closeModal();
 		
 		Random random = new Random();
@@ -56,11 +84,8 @@ public class RollController extends Controller implements IRollController {
 		
 		int finalRandomNum = randomNum + randomNum2;	
 		
-//		if (finalRandomNum == 7){finalRandomNum = 6;}
 		
-//		finalRandomNum = 7;
 		
-		//clientFacade.setDiceRoll(finalRandomNum);//Do we need this?
 		clientFacade.rollNumber(finalRandomNum);
 		
 		resultView.setRollValue(finalRandomNum);
