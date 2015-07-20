@@ -7,6 +7,8 @@ import client.communication.GameHistoryController;
 import client.discard.DiscardController;
 import client.domestic.DomesticTradeController;
 import client.join.JoinGameController;
+import client.join.PlayerWaitingController;
+import client.login.LoginController;
 import client.main.Catan;
 import client.map.MapController;
 import client.model.*;
@@ -39,6 +41,7 @@ public class Facade {
 	public int diceRoll=0;
 	public HexLocation tempRobLoc;
 	private String username;
+	private String password;
 	private int playerId;
 	private int currentGameId;
 	
@@ -54,6 +57,8 @@ public class Facade {
 	private PointsController pointsController;
 	private DomesticTradeController domesticTradeController;
 	private JoinGameController joinGameController;
+	private LoginController loginController;
+	private PlayerWaitingController playerWaitingController;
 	
 	private Facade(String host) {
 		this.host=host;
@@ -323,6 +328,14 @@ public class Facade {
     	this.joinGameController = joinGameController;
     }
     
+    public void setLoginController(LoginController loginController){
+    	this.loginController = loginController;
+    }
+    
+    public void setPlayerWaitingController(PlayerWaitingController playerWaitingController){
+    	this.playerWaitingController = playerWaitingController;
+    }
+    
     /**
      * checks newClientModel version against current client model version and updates if versions differ
      * @param newClientModel
@@ -456,10 +469,17 @@ public class Facade {
 //    	String[] args ={host}; 
 //    	Catan.main(args);
     	
-//    	mapController.wipeMap();
-//    	joinGameController.start();
+    	mapController.wipeMap();
+//    	loginController.signIn(username, password);
+ 
+    	joinGameController.start();
+    	
+//       	playerWaitingController.setStopToTrue();
     }
     
+    public void setStopToTrue(){
+    	playerWaitingController.setStopToTrue();
+    }
     /**
      * checks whether a player has the longest road
      * @pre none
@@ -828,6 +848,7 @@ public class Facade {
 		{
 			result = true;
 			this.username = username;
+			this.password = password;
 		}
 		return result;
 	}
@@ -839,6 +860,7 @@ public class Facade {
 		{
 			result = true;
 			this.username = username;
+			this.password = password;
 		}
 		
 		return result;

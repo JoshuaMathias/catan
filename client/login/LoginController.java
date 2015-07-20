@@ -34,6 +34,7 @@ public class LoginController extends Controller implements ILoginController {
 		
 		this.messageView = messageView;
 		clientFacade = Facade.getSingleton();
+		clientFacade.setLoginController(this);
 	}
 	
 	public ILoginView getLoginView() {
@@ -92,6 +93,24 @@ public class LoginController extends Controller implements ILoginController {
 			getMessageView().showModal();
 		}
 	}
+	
+	public void signIn(String username, String password) 
+	{
+		//log in user
+		if(clientFacade.login(username, password)){
+			System.out.println("Login Successful");
+			getLoginView().closeModal();
+			loginAction.execute();
+		} 
+		else
+		{
+			System.out.println("Login Failure");
+			getMessageView().setMessage("Login Failed, player doesn't exist");
+			getMessageView().setTitle("Login Failure");
+			getMessageView().showModal();
+		}
+	}
+	
 
 	@Override
 	public void register() 

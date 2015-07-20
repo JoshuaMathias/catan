@@ -243,6 +243,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		if (clientFacade.joinGame(Integer.toString(clientFacade.getCurrentGameId()), Facade.convertColor(color))) {
 			// If join succeeded
 			joined=true;
+			clientFacade.setStopToTrue();
 			getSelectColorView().closeModal();
 			getJoinGameView().closeModal();
 			joinAction.execute();

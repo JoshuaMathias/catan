@@ -25,6 +25,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public PlayerWaitingController(IPlayerWaitingView view) {
 		super(view);
 		clientFacade=Facade.getSingleton();
+		clientFacade.setPlayerWaitingController(this);
 		interval=3;
 		timer=new Timer();
 		timer.schedule(new updateTask(), 0, interval*1000);
@@ -34,6 +35,9 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 		@Override
 		public void run() {
+			
+			System.out.println(stop);
+			
 			if(stop&&clientFacade.getProxy().gotCookies())
 			{  
 				if(players.length==4)
@@ -108,5 +112,9 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		//getView().closeModal();
 	}
 
+	public void setStopToTrue(){
+		stop = true;
+	}
+	
 }
 
