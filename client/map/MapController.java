@@ -326,9 +326,18 @@ public class MapController extends Controller implements IMapController {
 		}
 		else if(robPlayerArray.length == 0) {
 			
-			clientFacade.robPlayer(-1, clientFacade.getRobber());//moves the robber even though there was no player to steal from
-			robView.closeModal();
-			clientFacade.refresh();
+			if(soldierCard == true){
+				clientFacade.soldier(-1, clientFacade.getRobber());
+				soldierCard = false;
+				robView.closeModal();
+			}
+			else{
+
+				clientFacade.robPlayer(-1, clientFacade.getRobber());//moves the robber even though there was no player to steal from
+				robView.closeModal();
+				clientFacade.refresh();
+			} 
+			
 		}
 	}
 	
