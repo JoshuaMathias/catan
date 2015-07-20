@@ -253,6 +253,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			getMessageView().showModal();
 		}
 	}
+	
+	public void colorReset(){
+		
+		for(CatanColor color: CatanColor.values()){
+			getSelectColorView().setColorEnabled(color, true);
+		}
+	}
 
 }
 

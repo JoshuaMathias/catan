@@ -472,6 +472,8 @@ public class Facade {
     	mapController.wipeMap();
 //    	loginController.signIn(username, password);
  
+    	joinGameController.colorReset();
+    	
     	joinGameController.start();
     	
 //       	playerWaitingController.setStopToTrue();
