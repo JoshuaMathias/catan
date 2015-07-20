@@ -78,6 +78,8 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 			}
 		}
 		
+		System.out.println("Size of players: "+ newList.size());
+		
 		PlayerInfo[] players = new PlayerInfo[newList.size()];
 		this.players = players;
 		newList.toArray(players);

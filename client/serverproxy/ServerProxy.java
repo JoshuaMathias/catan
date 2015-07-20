@@ -318,9 +318,13 @@ public class ServerProxy implements IServer
 	{
 		ClientModel newclient = null;
 		String JsonClient = clientComm.send("game/model?version="+version, "");
-		if(!JsonClient.equals("\"true\"\r"))
+		if(!JsonClient.equals("\"true\"\r")&&!JsonClient.equals("400"))
 		{
 			newclient = g.fromJson(JsonClient, ClientModel.class);
+		}
+		else if(JsonClient.equals("400"))
+		{
+			return getClientModel(version);
 		}
 		return newclient;
 	}
@@ -369,7 +373,6 @@ public class ServerProxy implements IServer
 		String check = clientComm.send("games/join", input);
 		if(!check.equals("400"))
 		{
-			System.out.println("Response code for the join game call: "+check);
 			result = true;
 			startPolling = true;
 		}
@@ -382,7 +385,7 @@ public class ServerProxy implements IServer
 	{
 		GamesList result = new GamesList(); 
 		String Jsonoutput = clientComm.send("games/list","");
-		if(!Jsonoutput.isEmpty())
+		if(!Jsonoutput.isEmpty()&&!Jsonoutput.equals("400"))
 		{
 			Jsonoutput = "{\"games\":"+Jsonoutput+"}";
 			result = g.fromJson(Jsonoutput, GamesList.class);

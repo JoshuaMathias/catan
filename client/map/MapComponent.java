@@ -618,7 +618,7 @@ public class MapComponent extends JComponent
 	
 	private void drawHexes(Graphics2D g2)
 	{
-		
+		try{
 		for (Map.Entry<HexLocation, HexType> entry : hexes.entrySet())
 		{
 			
@@ -634,6 +634,11 @@ public class MapComponent extends JComponent
 						 (int)(hexCorner.getX() + HEX_IMAGE_WIDTH),
 						 (int)(hexCorner.getY() + HEX_IMAGE_HEIGHT), 0, 0,
 						 HEX_IMAGE_WIDTH, HEX_IMAGE_HEIGHT, null);
+		}
+		}
+		catch(ConcurrentModificationException e)
+		{
+			System.out.println("OOPS! IT HAPPENED AGAIN");
 		}
 	}
 	

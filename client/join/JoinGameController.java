@@ -1,6 +1,7 @@
 package client.join;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -56,7 +57,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 		@Override
 		public void run() {
-			if(games.size()<clientFacade.gamesList().getGames().size()&&!joined&&started)
+			if(started&&changeMade()&&!joined)
 			{
 				getJoinGameView().closeModal();
 				start();
@@ -119,9 +120,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
-//		if (!started) {
-////			timer.schedule(new updateTask(), 0, interval*1000);	
-//		}
+
 		started=true;
 		GamesList hub = clientFacade.gamesList();
 		games = hub.getGames();
@@ -149,7 +148,40 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		getJoinGameView().showModal();
 	}
 	
-	 
+	public boolean changeMade()
+	{
+		boolean result = false;
+		ArrayList <GameInfo> updated = clientFacade.gamesList().getGames();
+		
+		if(games.size()<updated.size())
+		{
+			result = true;
+		}
+		else if(countPlayers(games)<countPlayers(updated))
+		{
+			result = true;
+		}
+		return result;
+	}
+	
+	public int countPlayers(ArrayList <GameInfo> target)
+	{
+		int count = 0;
+		for(int i = 0; i<target.size(); i++)
+		{
+			GameInfo temp = target.get(i);
+			List <PlayerInfo> curr = temp.getPlayers();
+			for(int j= 0; j<curr.size();j++)
+			{
+				PlayerInfo tempPlayer = curr.get(j);
+				if(!tempPlayer.getName().isEmpty())
+				{
+					count++;
+				}
+			}
+		}
+		return count;
+	}
 
 	@Override
 	public void startCreateNewGame() {
@@ -174,6 +206,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void startJoinGame(GameInfo game) {
+		System.out.println("Game id you are looking at: "+game.getId());
 			//Necessary because json fills the players list with empty players
 			ArrayList <PlayerInfo> newlist = new ArrayList<PlayerInfo>();
 			for(int j = 0;j<game.getPlayers().size();j++)

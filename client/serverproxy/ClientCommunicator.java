@@ -85,8 +85,9 @@ public class ClientCommunicator
 	    	else if(ext.equals("games/join"))
 	    	{
 	    		String gamecookie = connection.getHeaderField("Set-Cookie");
+	    		//System.out.println(gamecookie);
 		    	cookies =cookies+";"+" "+ (String)gamecookie.subSequence(0, gamecookie.length()-8);
-		    	//System.out.println(cookies);
+		    	
 	    	}
 	    	
 		}
@@ -99,7 +100,6 @@ public class ClientCommunicator
 			System.out.println("Current cookies: "+cookies);
 			
 			result = "400";
-	    	System.out.println("");
 	    	System.out.println("for "+ext+" Response code: "+ result); 
 			e.printStackTrace();
 	    } 
