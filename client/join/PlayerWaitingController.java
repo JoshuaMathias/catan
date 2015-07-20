@@ -36,8 +36,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		@Override
 		public void run() {
 			
-			System.out.println(stop);
-			
 			if(stop&&clientFacade.getProxy().gotCookies())
 			{  
 				if(players.length==4)
