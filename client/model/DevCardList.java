@@ -1,5 +1,6 @@
 package client.model;
 
+import client.facade.Facade;
 import shared.definitions.DevCardType;
 
 /**
@@ -109,7 +110,10 @@ public class DevCardList {
 			}
 		} else if(cardType == DevCardType.YEAR_OF_PLENTY) {
 			
-			if(yearOfPlenty > 0) {
+			Facade clientFacade = Facade.getSingleton();
+			ResourceList bank = clientFacade.getBank();
+			
+			if(yearOfPlenty > 0 && bank.getTotal() > 1) {
 				return true;
 			}
 		}

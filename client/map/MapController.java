@@ -328,6 +328,7 @@ public class MapController extends Controller implements IMapController {
 			
 			clientFacade.robPlayer(-1, clientFacade.getRobber());//moves the robber even though there was no player to steal from
 			robView.closeModal();
+			clientFacade.refresh();
 		}
 	}
 	

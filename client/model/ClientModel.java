@@ -857,7 +857,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 				return false;
 			}
 			can = playersDevCardList.canPlayDevCard(cardType);
-			
+			System.out.println("Can you play dev card: " + cardType);
 		} else {
 			return false;
 		}		
