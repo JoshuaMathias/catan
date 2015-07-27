@@ -1,5 +1,10 @@
 package server.command;
 
+/**
+ * 
+ * @author Ife's Group
+ *
+ */
 public class MaritimeTradeCommand implements Command {
 
 	@Override

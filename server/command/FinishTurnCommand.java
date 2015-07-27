@@ -1,5 +1,10 @@
 package server.command;
 
+/**
+ * 
+ * @author Ife's Group
+ *
+ */
 public class FinishTurnCommand implements Command {
 
 	@Override

@@ -1,5 +1,9 @@
 package server.command;
-
+/**
+ * 
+ * @author Ifes Group
+ *
+ */
 public class BuyDevCardCommand implements Command {
 
 	@Override
