@@ -1,17 +1,11 @@
-package client.serverproxy;
+package shared.params;
 
 import client.serverproxy.VertexLocation;
 
-/**
- * Class for sending data for a build settlement or build city request.
- * @author Ife's Group
- *
- */
-public class BuildSettlementParams {
-	private String type="buildSettlement";
-	private int playerIndex = -1;
+public class BuildCityParams {
+	private String type="buildCity";
+	private int playerIndex=-1;
 	private VertexLocation vertexLocation;
-	private boolean free = false;
 	
 	public String getType() {
 		return type;
@@ -31,11 +25,5 @@ public class BuildSettlementParams {
 	public void setVertexLocation(VertexLocation vertexLocation) {
 		this.vertexLocation = vertexLocation;
 	}
-	public boolean isFree() {
-		return free;
-	}
-	public void setFree(boolean free) {
-		this.free = free;
-	}
-	
+
 }

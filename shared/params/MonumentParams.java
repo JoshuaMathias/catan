@@ -1,9 +1,12 @@
-package client.serverproxy;
-
-public class SendChatParams {
-	private String type="sendChat";
+package shared.params;
+/**
+ * Class for sending data for a monument request.
+ * @author Ife's Group
+ *
+ */
+public class MonumentParams {
+	private String type="Monument";
 	private int playerIndex=-1;
-	private String content="";
 	
 	public String getType() {
 		return type;
@@ -16,12 +19,6 @@ public class SendChatParams {
 	}
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
 	}
 	
 }

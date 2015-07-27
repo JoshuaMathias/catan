@@ -1,14 +1,13 @@
-package client.serverproxy;
-
+package shared.params;
 /**
- * Class for sending data for a roll number request.
+ * Class for sending data for an accept trade request.
  * @author Ife's Group
  *
  */
-public class RollNumberParams {
-	private String type="rollNumber";
+public class AcceptTradeParams {
+	String type="acceptTrade";
 	private int playerIndex=-1;
-	private int number=-1;
+	private boolean willAccept=false;
 	
 	public String getType() {
 		return type;
@@ -22,11 +21,11 @@ public class RollNumberParams {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
-	public int getNumber() {
-		return number;
+	public boolean isWillAccept() {
+		return willAccept;
 	}
-	public void setNumber(int number) {
-		this.number = number;
+	public void setWillAccept(boolean willAccept) {
+		this.willAccept = willAccept;
 	}
-
+	
 }

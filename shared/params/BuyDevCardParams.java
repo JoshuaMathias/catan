@@ -1,7 +1,11 @@
-package client.serverproxy;
-
-public class FinishTurnParams {
-	private String type="finishTurn";
+package shared.params;
+/**
+ * Class for sending data for a buy development card or a finish turn request.
+ * @author Ife's Group
+ *
+ */
+public class BuyDevCardParams {
+	private String type="buyDevCard";
 	private int playerIndex=-1;
 	
 	public String getType() {
@@ -16,4 +20,5 @@ public class FinishTurnParams {
 	public void setPlayerIndex(int playerIndex) {
 		this.playerIndex = playerIndex;
 	}
+	
 }

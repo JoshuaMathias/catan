@@ -1,4 +1,4 @@
-package client.serverproxy;
+package shared.params;
 
 /**
  * Class for sending data for a year of plenty request.

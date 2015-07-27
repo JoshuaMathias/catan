@@ -1,4 +1,4 @@
-package client.serverproxy;
+package shared.params;
 
 public class JoinGameParams 
 {

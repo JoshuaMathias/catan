@@ -1,19 +1,32 @@
 package client.serverproxy;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.Gson;
 
 import client.model.ClientModel;
 import server.IServer;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
-import shared.locations.VertexLocation;
+import shared.params.AcceptTradeParams;
+import shared.params.BuildCityParams;
+import shared.params.BuildRoadParams;
+import shared.params.BuildSettlementParams;
+import shared.params.BuyDevCardParams;
+import shared.params.CreateGamesParams;
+import shared.params.DiscardCardsParams;
+import shared.params.FinishTurnParams;
+import shared.params.JoinGameParams;
+import shared.params.LoginParams;
+import shared.params.MaritimeTradeParams;
+import shared.params.MonopolyParams;
+import shared.params.MonumentParams;
+import shared.params.OfferTradeParams;
+import shared.params.RegisterParams;
+import shared.params.RoadBuildingParams;
+import shared.params.RobPlayerParams;
+import shared.params.RollNumberParams;
+import shared.params.SendChatParams;
+import shared.params.SoldierParams;
+import shared.params.YearOfPlentyParams;
 import client.model.ResourceList;
-import client.poller.ServerPoller;
-import client.data.GameInfo;
-import client.data.PlayerInfo;
 
 /**
  * Proxy Server for the Client to interact with the Server. Packages information into objects and strings for the ClientCommunicator to send to the Server
