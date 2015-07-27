@@ -14,7 +14,7 @@ public class ServerFacade {
 		}
 		return serverFacade;
 	}
-	
+// All methods return void only as placeholders. They should all return specific response types	
 	public void acceptTrade(){
 		
 	}
