@@ -1,5 +1,11 @@
 package shared.params;
 
+/**
+ * 
+ * Class for sending data for a maritime trade request.
+ * @author Ife's Group
+ *
+ */
 public class MaritimeTradeParams {
 	private String type="maritimeTrade";
 	private int playerIndex=-1;

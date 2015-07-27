@@ -1,5 +1,11 @@
 package shared.params;
 
+/**
+ * 
+ * Class for sending data for a finish turn request.
+ * @author Ife's Group
+ *
+ */
 public class FinishTurnParams {
 	private String type="finishTurn";
 	private int playerIndex=-1;

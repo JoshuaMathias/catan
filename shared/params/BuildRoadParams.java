@@ -2,6 +2,12 @@ package shared.params;
 
 import client.serverproxy.EdgeLocation;
 
+/**
+ * 
+ * Class for sending data for a build road request.
+ * @author Ife's Group
+ *
+ */
 public class BuildRoadParams {
 	private String type="buildRoad";
 	private int playerIndex=-1;

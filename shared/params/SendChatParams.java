@@ -1,5 +1,11 @@
 package shared.params;
 
+/**
+ * 
+ * Class for sending data for a send chat request.
+ * @author Ife's Group
+ *
+ */
 public class SendChatParams {
 	private String type="sendChat";
 	private int playerIndex=-1;

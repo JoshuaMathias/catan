@@ -1,5 +1,11 @@
 package shared.params;
 
+/**
+ * 
+ * Class for sending data for a login request.
+ * @author Ife's Group
+ *
+ */
 public class LoginParams 
 {
 	private String username = "";

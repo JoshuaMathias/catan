@@ -2,6 +2,12 @@ package shared.params;
 
 import client.serverproxy.VertexLocation;
 
+/**
+ * 
+ * Class for sending data for a build city request.
+ * @author Ife's Group
+ *
+ */
 public class BuildCityParams {
 	private String type="buildCity";
 	private int playerIndex=-1;

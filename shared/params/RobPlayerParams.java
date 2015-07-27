@@ -2,6 +2,12 @@ package shared.params;
 
 import shared.locations.HexLocation;
 
+/**
+ * 
+ * Class for sending data for a rob player request.
+ * @author Ife's Group
+ *
+ */
 public class RobPlayerParams {
 	private String type="robPlayer";
 	private int playerIndex=-1;

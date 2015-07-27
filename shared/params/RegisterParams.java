@@ -1,5 +1,11 @@
 package shared.params;
 
+/**
+ * 
+ * Class for sending data for a register request.
+ * @author Ife's Group
+ *
+ */
 public class RegisterParams 
 {
 	private String username = "";

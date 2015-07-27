@@ -1,5 +1,11 @@
 package shared.params;
 
+/**
+ * 
+* Class for sending data for a join game request.
+ * @author Ife's Group
+ *
+ */
 public class JoinGameParams 
 {
 	private String id = "";

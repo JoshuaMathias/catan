@@ -1,5 +1,11 @@
 package shared.params;
 
+/**
+ * 
+* Class for sending data for a create games request.
+ * @author Ife's Group
+ *
+ */
 public class CreateGamesParams 
 {
 	private boolean randomTiles = false;
