@@ -10,7 +10,7 @@ public class MovesHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange arg0) throws IOException {
 		// TODO Auto-generated method stub
-
+		System.out.println("MovesHandler called");
 	}
 
 }
