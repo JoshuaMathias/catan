@@ -30,10 +30,10 @@ public class UserHandler implements HttpHandler {
 				JsonReader reader = new JsonReader(new InputStreamReader(exchange.getRequestBody(), "UTF-8"));
 				JsonElement elem = new JsonParser().parse(reader);
 				RegisterParams params = g.fromJson(elem, RegisterParams.class);
-				facade.register(params.getUsername(), params.getPassword());
-				System.out.println("Username: " + params.getUsername()
-						+ " password: " + params.getPassword());
-				
+				if (!facade.register(params.getUsername(), params.getPassword())) {
+					exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST,
+							-1);
+				}
 				break;
 			}
 		} catch (Exception e) {

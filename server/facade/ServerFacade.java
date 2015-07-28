@@ -164,7 +164,11 @@ public class ServerFacade {
 	 * @post The player is logged in as the user with the given username.
 	 */
 	public boolean logIn(String username, String password){
-		new LogInCommand(username, password).execute();
+		for (User user : users) {
+			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -211,8 +215,14 @@ public class ServerFacade {
 	 * @post A player with the given username and password is added to the list of users.
 	 */
 	public boolean register(String username, String password){
-		new RegisterCommand(username, password).execute();
-		return false;
+		for (User user : users) {
+			if (user.getUsername().equals(username)) {
+				return false;
+			}
+		}
+		User newUser = new User(username,password);
+		users.add(newUser);
+		return true;
 	}
 	
 	/**
