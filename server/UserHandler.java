@@ -2,9 +2,11 @@ package server;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
 import server.facade.ServerFacade;
+import shared.params.LoginParams;
 import shared.params.RegisterParams;
 
 import com.google.gson.Gson;
@@ -25,26 +27,42 @@ public class UserHandler implements HttpHandler {
 			Gson g = new Gson();
 			System.out.println("Command: " + command);
 			ServerFacade facade = ServerFacade.getSingleton();
+			JsonReader reader = new JsonReader(new InputStreamReader(
+					exchange.getRequestBody(), "UTF-8"));
+			JsonElement elem = new JsonParser().parse(reader);
 			switch (command) {
 			case "register":
-				JsonReader reader = new JsonReader(new InputStreamReader(exchange.getRequestBody(), "UTF-8"));
-				JsonElement elem = new JsonParser().parse(reader);
 				RegisterParams params = g.fromJson(elem, RegisterParams.class);
-				if (!facade.register(params.getUsername(), params.getPassword())) {
-					exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST,
-							-1);
+				if (!facade
+						.register(params.getUsername(), params.getPassword())) {
+					exchange.sendResponseHeaders(
+							HttpURLConnection.HTTP_BAD_REQUEST, -1);
+					return;
+				}
+				break;
+			case "login":
+				LoginParams lParams = g.fromJson(elem, LoginParams.class);
+				if (!facade
+						.logIn(lParams.getUsername(), lParams.getPassword())) {
+					exchange.sendResponseHeaders(
+							HttpURLConnection.HTTP_BAD_REQUEST, -1);
+					return;
 				}
 				break;
 			}
+
 		} catch (Exception e) {
 			System.out.println("Server error on command " + command);
 			e.printStackTrace();
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST,
-					-1);
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
 			return;
 		}
-		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-		exchange.getResponseBody().close();
+		System.out.println("End of user handler");
+		String responseStr="Success";
+		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, responseStr.length());
+		OutputStream response = exchange.getResponseBody();
+		response.write(responseStr.getBytes());
+		response.close();
 	}
 
 }

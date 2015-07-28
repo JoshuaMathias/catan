@@ -222,6 +222,7 @@ public class ServerFacade {
 		}
 		User newUser = new User(username,password);
 		users.add(newUser);
+		System.out.println("Registration successful");
 		return true;
 	}
 	
