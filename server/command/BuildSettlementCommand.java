@@ -15,21 +15,21 @@ public class BuildSettlementCommand implements Command {
 	int playerIndex;
 	VertexLocation vertexLocation;
 	boolean free;
+	private GameModel serverModel;
 	
 	public BuildSettlementCommand(int playerIndex,
-			VertexLocation vertexLocation, boolean free) {
+			VertexLocation vertexLocation, boolean free, GameModel serverModel) {
 		// TODO Auto-generated constructor stub
 		this.serverFacade = ServerFacade.getSingleton();
 		this.playerIndex = playerIndex;
 		this.vertexLocation = vertexLocation;
 		this.free = free;
+		this.serverModel = serverModel;
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-//		serverFacade.getGameByCookie();
-		GameModel serverModel = new ServerModel();
 	}
 
 }
