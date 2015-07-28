@@ -278,4 +278,8 @@ public class ServerFacade {
 	public void yearOfPlenty(int playerIndex, String resource1, String resource2){
 		
 	}
+	
+	public void addGameToList(GameModel serverModel){
+		games.add(serverModel);
+	}
 }

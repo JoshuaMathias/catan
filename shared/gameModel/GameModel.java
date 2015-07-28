@@ -17,17 +17,35 @@ import shared.locations.VertexLocation;
  *
  */
 public class GameModel {
-	private DevCardList deck;
-	private ResourceList bank;
-	private MessageList chat;
-	private MessageList log;
+	private String gameName;
+	private int gameID;
+	private DevCardList deck = new DevCardList(true);
+	private ResourceList bank = new ResourceList(19,19,19,19,19);
+	private MessageList chat = new MessageList();
+	private MessageList log = new MessageList();
 	private Map map;
-	private ArrayList<Player> players;
-	private TradeOffer tradeOffer;
-	private TurnTracker turnTracker;
+	private ArrayList<Player> players = new ArrayList<>();
+	private TradeOffer tradeOffer = null;
+	private TurnTracker turnTracker = new TurnTracker();
 	private int version = -1;
 	private int winner = -1;
 	
+	public String getGameName() {
+		return gameName;
+	}
+
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
+	}
+
+	public int getGameID() {
+		return gameID;
+	}
+
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
+
 	public DevCardList getDeck() {
 		return deck;
 	}
