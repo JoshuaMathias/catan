@@ -3,6 +3,7 @@ package server.facade;
 import java.util.ArrayList;
 
 import server.User;
+import server.command.BuildSettlementCommand;
 import server.command.CreateGameCommand;
 import shared.gameModel.GameModel;
 import shared.gameModel.ResourceList;
@@ -79,7 +80,7 @@ public class ServerFacade {
      * @post Settlement for player of given playerIndex is placed. Player loses 1 wood, 1 brick, 1 wool, and 1 wheat.
      */
 	public void buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free){
-		
+		new BuildSettlementCommand(playerIndex, vertexLocation, free).execute();
 	}
 	
     /**
