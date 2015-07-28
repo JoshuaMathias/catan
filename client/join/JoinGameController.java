@@ -8,7 +8,7 @@ import java.util.TimerTask;
 import shared.definitions.CatanColor;
 import client.base.*;
 import client.data.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import client.join.PlayerWaitingController.updateTask;
 import client.misc.*;
 import client.serverproxy.GamesList;
@@ -23,7 +23,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	private ISelectColorView selectColorView;
 	private IMessageView messageView;
 	private IAction joinAction;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	private int interval;
 	private Timer timer;
 	private boolean joined=false;
@@ -46,7 +46,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		clientFacade.setJoinGameController(this);
 		interval=3;
 		timer=new Timer();
@@ -240,7 +240,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void joinGame(CatanColor color) {
-		if (clientFacade.joinGame(Integer.toString(clientFacade.getCurrentGameId()), Facade.convertColor(color))) {
+		if (clientFacade.joinGame(Integer.toString(clientFacade.getCurrentGameId()), ClientFacade.convertColor(color))) {
 			// If join succeeded
 			joined=true;
 			clientFacade.setStopToTrue();

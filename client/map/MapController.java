@@ -12,7 +12,7 @@ import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import client.base.*;
 import client.data.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 
 /**
@@ -21,7 +21,7 @@ import client.facade.Facade;
 public class MapController extends Controller implements IMapController {
 	
 	private IRobView robView;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	private String status;
 	private boolean roadBuilding = false;
 	ArrayList<EdgeLocation> roadBuildingEdgeLocs = new ArrayList<>();
@@ -33,7 +33,7 @@ public class MapController extends Controller implements IMapController {
 		
 		setRobView(robView);
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		
 		clientFacade.setMapController(this);
 		

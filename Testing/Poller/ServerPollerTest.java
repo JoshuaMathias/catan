@@ -18,14 +18,14 @@ import shared.gameModel.VertexObject;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import client.poller.ServerPoller.updateTask;
 
 public class ServerPollerTest {
-	private Facade facade;
-	private Facade facade2;
-	private Facade facade3;
-	private Facade facade4;
+	private ClientFacade facade;
+	private ClientFacade facade2;
+	private ClientFacade facade3;
+	private ClientFacade facade4;
 	private TurnTracker turnTracker;
 	private TradeOffer tradeOffer;
 	private Player Ife;

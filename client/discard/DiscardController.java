@@ -5,7 +5,7 @@ import shared.gameModel.GameModel;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import client.misc.*;
 
 
@@ -15,7 +15,7 @@ import client.misc.*;
 public class DiscardController extends Controller implements IDiscardController {
 
 	private IWaitView waitView;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	private ResourceList resources;
 	
 	private int brick =0;
@@ -38,7 +38,7 @@ public class DiscardController extends Controller implements IDiscardController 
 		
 		super(view);
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		clientFacade.setDiscardController(this);
 		
 		this.waitView = waitView;

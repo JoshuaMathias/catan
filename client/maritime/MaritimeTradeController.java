@@ -4,7 +4,7 @@ import shared.definitions.*;
 import shared.gameModel.ResourceList;
 import shared.gameModel.TurnTracker;
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 
 /**
@@ -13,7 +13,7 @@ import client.facade.Facade;
 public class MaritimeTradeController extends Controller implements IMaritimeTradeController {
 
 	private IMaritimeTradeOverlay tradeOverlay;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	private ResourceType getResource;
 	private ResourceType giveResource;
 	private int ratio = -1;
@@ -30,7 +30,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		
 		super(tradeView);
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 
 		setTradeOverlay(tradeOverlay);
 	}

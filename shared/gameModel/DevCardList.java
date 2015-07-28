@@ -1,6 +1,6 @@
 package shared.gameModel;
 
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import shared.definitions.DevCardType;
 
 /**
@@ -100,7 +100,7 @@ public class DevCardList {
 			}
 		} else if(cardType == DevCardType.ROAD_BUILD) {
 			
-			Facade clientFacade = Facade.getSingleton();
+			ClientFacade clientFacade = ClientFacade.getSingleton();
 			int roadAmount = clientFacade.getPlayer().getRoads();
 			
 			if(roadBuilding > 0 && roadAmount > 1) {
@@ -113,7 +113,7 @@ public class DevCardList {
 			}
 		} else if(cardType == DevCardType.YEAR_OF_PLENTY) {
 			
-			Facade clientFacade = Facade.getSingleton();
+			ClientFacade clientFacade = ClientFacade.getSingleton();
 			ResourceList bank = clientFacade.getBank();
 			
 			if(yearOfPlenty > 0 && bank.getTotal() > 1) {

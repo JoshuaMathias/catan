@@ -1,7 +1,7 @@
 package client.login;
 
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import client.misc.*;
 
 import java.net.*;
@@ -20,7 +20,7 @@ public class LoginController extends Controller implements ILoginController {
 
 	private IMessageView messageView;
 	private IAction loginAction;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	
 	/**
 	 * LoginController constructor
@@ -33,7 +33,7 @@ public class LoginController extends Controller implements ILoginController {
 		super(view);
 		
 		this.messageView = messageView;
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		clientFacade.setLoginController(this);
 	}
 	

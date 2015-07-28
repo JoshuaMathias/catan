@@ -4,7 +4,7 @@ import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.gameModel.DevCardList;
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 
 /**
@@ -15,7 +15,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	private IBuyDevCardView buyCardView;
 	private IAction soldierAction;
 	private IAction roadAction;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	
 	/**
 	 * DevCardController constructor
@@ -34,7 +34,7 @@ public class DevCardController extends Controller implements IDevCardController 
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 	}
 
 	public IPlayDevCardView getPlayCardView() {

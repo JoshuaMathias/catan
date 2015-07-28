@@ -1,6 +1,6 @@
 package client.data;
 
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import shared.definitions.*;
 
 /**

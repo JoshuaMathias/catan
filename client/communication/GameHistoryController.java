@@ -3,7 +3,7 @@ package client.communication;
 import java.util.*;
 
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import shared.definitions.*;
 import shared.gameModel.GameModel;
 import shared.gameModel.MessageLine;
@@ -16,13 +16,13 @@ import shared.gameModel.Player;
  */
 public class GameHistoryController extends Controller implements IGameHistoryController {
 
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	
 	public GameHistoryController(IGameHistoryView view) {
 		
 		super(view);
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		clientFacade.setGameHistoryController(this);
 		
 		initFromModel();

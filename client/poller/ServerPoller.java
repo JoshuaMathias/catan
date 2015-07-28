@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 import server.IServer;
 import shared.gameModel.GameModel;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import client.serverproxy.ServerProxy;
 
 /**
@@ -19,9 +19,9 @@ public class ServerPoller {
 	private ServerProxy proxy;
 	private int interval;
 	private Timer timer;
-	private Facade facade;
+	private ClientFacade facade;
 	
-	public ServerPoller(ServerProxy proxy, Facade facade) {
+	public ServerPoller(ServerProxy proxy, ClientFacade facade) {
 		this.proxy=proxy;
 		this.facade=facade;
 		modelVersion = -1;
@@ -109,12 +109,12 @@ public class ServerPoller {
 	}
 
 
-	public Facade getFacade() {
+	public ClientFacade getFacade() {
 		return facade;
 	}
 
 
-	public void setFacade(Facade facade) {
+	public void setFacade(ClientFacade facade) {
 		this.facade = facade;
 	}
 	

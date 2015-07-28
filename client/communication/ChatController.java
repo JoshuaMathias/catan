@@ -9,7 +9,7 @@ import shared.gameModel.MessageLine;
 import shared.gameModel.MessageList;
 import shared.gameModel.Player;
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 
 /**
@@ -17,12 +17,12 @@ import client.facade.Facade;
  */
 public class ChatController extends Controller implements IChatController {
 
-	private Facade clientFacade; 
+	private ClientFacade clientFacade; 
 	
 	public ChatController(IChatView view) {
 		
 		super(view);
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		clientFacade.setChatController(this);
 	}
 

@@ -73,6 +73,7 @@ public class CreateGameCommand implements Command {
 			Hex hex = new Hex();
 			hex.setLocation(ValidMapLocations.hexes.get(i));
 			hex.setResource(hexTypeOrder.get(i));
+			hexes.add(hex);
 		}
 		
 		setNumbers(hexes);
@@ -93,7 +94,7 @@ public class CreateGameCommand implements Command {
 		for(int i = 0; i < hexes.size(); i++){
 			Hex hex = hexes.get(i);
 			if(hex.getResource() != HexType.desert){
-				int chit = ValidMapLocations.chitOrder[i];
+				int chit = chitOrder.get(i);
 				if(chit != 0){
 					hex.setNumber(chit);
 					chitAmounts.put(chit, chitAmounts.get(chit)-1);

@@ -8,7 +8,7 @@ import shared.gameModel.ResourceList;
 import shared.gameModel.TradeOffer;
 import client.base.*;
 import client.data.PlayerInfo;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import client.misc.*;
 
 
@@ -20,7 +20,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private IDomesticTradeOverlay tradeOverlay;
 	private IWaitView waitOverlay;
 	private IAcceptTradeOverlay acceptOverlay;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	
 	//what player has
 	private ResourceList resources;
@@ -62,7 +62,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		clientFacade.setDomesticTradeController(this);
 		
 		getTradeOverlay().setCancelEnabled(true);

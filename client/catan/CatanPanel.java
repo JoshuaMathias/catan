@@ -11,7 +11,7 @@ import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
 import client.discard.DiscardController;
 import client.discard.DiscardView;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import client.misc.WaitView;
 import client.roll.RollController;
 import client.roll.RollResultView;
@@ -115,7 +115,7 @@ public class CatanPanel extends JPanel
 //					state = 2;
 //				}
 				
-				Facade.getSingleton().getMapController().startMove(PieceType.ROBBER, false, false);
+				ClientFacade.getSingleton().getMapController().startMove(PieceType.ROBBER, false, false);
 //				Facade.getSingleton().refresh();
 			}
 		});

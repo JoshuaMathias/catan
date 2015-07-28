@@ -6,7 +6,7 @@ import shared.gameModel.GameModel;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 
 /**
@@ -15,13 +15,13 @@ import client.facade.Facade;
 public class ResourceBarController extends Controller implements IResourceBarController {
 
 	private Map<ResourceBarElement, IAction> elementActions;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	
 	public ResourceBarController(IResourceBarView view) {
 
 		super(view);
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		clientFacade.setResourceBarController(this);
 		
 		elementActions = new HashMap<ResourceBarElement, IAction>();

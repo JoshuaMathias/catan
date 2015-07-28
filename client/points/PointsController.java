@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import shared.gameModel.GameModel;
 import shared.gameModel.Player;
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 
 /**
@@ -14,7 +14,7 @@ import client.facade.Facade;
 public class PointsController extends Controller implements IPointsController {
 
 	private IGameFinishedView finishedView;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	
 	/**
 	 * PointsController constructor
@@ -28,7 +28,7 @@ public class PointsController extends Controller implements IPointsController {
 		
 		setFinishedView(finishedView);
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		
 		initFromModelFirst();
 		

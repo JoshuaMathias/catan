@@ -21,7 +21,7 @@ import client.serverproxy.GamesList;
 public class ServerFacade {
 	
 	private static ServerFacade serverFacade;
-	private ArrayList<GameModel> games = new ArrayList<>();
+	private ArrayList<GameModel> gamesList = new ArrayList<>();
 	private ArrayList<User> users = new ArrayList<>();
 	
 	private ServerFacade(){
@@ -280,6 +280,10 @@ public class ServerFacade {
 	}
 	
 	public void addGameToList(GameModel serverModel){
-		games.add(serverModel);
+		gamesList.add(serverModel);
+	}
+	
+	public ArrayList<GameModel> getGamesList() {
+		return gamesList;
 	}
 }

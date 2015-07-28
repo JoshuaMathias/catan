@@ -29,10 +29,10 @@ import shared.locations.VertexLocation;
  * @author Ife's Group
  *
  */
-public class Facade {
+public class ClientFacade {
 	private GameModel clientModel;
 	public static ServerProxy proxy;
-	public static Facade thisFacade;
+	public static ClientFacade thisFacade;
 	private String host;
 	private ServerPoller poller;
 	public static int count=0;
@@ -60,7 +60,7 @@ public class Facade {
 	private LoginController loginController;
 	private PlayerWaitingController playerWaitingController;
 	
-	private Facade(String host) {
+	private ClientFacade(String host) {
 		this.host=host;
 		clientModel=new GameModel();
 		proxy=new ServerProxy(host);
@@ -68,9 +68,9 @@ public class Facade {
 		thisFacade=this;
 	}
 	
-	public static Facade getSingleton() {
+	public static ClientFacade getSingleton() {
 		if (thisFacade==null) {
-			thisFacade=new Facade(Catan.host);
+			thisFacade=new ClientFacade(Catan.host);
 		}
 		return thisFacade;
 	}

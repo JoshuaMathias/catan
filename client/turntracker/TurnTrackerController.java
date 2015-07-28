@@ -7,7 +7,7 @@ import shared.gameModel.GameModel;
 import shared.gameModel.Player;
 import shared.gameModel.TurnTracker;
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 
 /**
@@ -15,13 +15,13 @@ import client.facade.Facade;
  */
 public class TurnTrackerController extends Controller implements ITurnTrackerController {
 
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	
 	public TurnTrackerController(ITurnTrackerView view) {
 		
 		super(view);
 		
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		
 		clientFacade.setTurnTrackerController(this);
 		

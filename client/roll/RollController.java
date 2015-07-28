@@ -5,7 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import client.base.*;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 
 /**
@@ -14,7 +14,7 @@ import client.facade.Facade;
 public class RollController extends Controller implements IRollController {
 
 	private IRollResultView resultView;
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	private int interval = 5;
 	private Timer timer;
 	
@@ -29,7 +29,7 @@ public class RollController extends Controller implements IRollController {
 		super(view);
 		
 		setResultView(resultView);
-		clientFacade = Facade.getSingleton();
+		clientFacade = ClientFacade.getSingleton();
 		
 		clientFacade.setRollController(this);
 	}

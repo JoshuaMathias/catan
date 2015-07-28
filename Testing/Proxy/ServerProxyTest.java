@@ -14,14 +14,14 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 
 public class ServerProxyTest {
 
-	private Facade facade;
-	private Facade facade2;
-	private Facade facade3;
-	private Facade facade4;
+	private ClientFacade facade;
+	private ClientFacade facade2;
+	private ClientFacade facade3;
+	private ClientFacade facade4;
 	private TurnTracker turnTracker;
 	private TradeOffer tradeOffer;
 	private Player Ife;

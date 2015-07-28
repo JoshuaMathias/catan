@@ -7,7 +7,7 @@ import java.util.TimerTask;
 
 import client.base.*;
 import client.data.PlayerInfo;
-import client.facade.Facade;
+import client.facade.ClientFacade;
 import client.poller.ServerPoller.updateTask;
 
 
@@ -16,7 +16,7 @@ import client.poller.ServerPoller.updateTask;
  */
 public class PlayerWaitingController extends Controller implements IPlayerWaitingController {
 
-	private Facade clientFacade;
+	private ClientFacade clientFacade;
 	private int interval;
 	private Timer timer;
 	private PlayerInfo[] players = new PlayerInfo[0];
@@ -24,7 +24,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	
 	public PlayerWaitingController(IPlayerWaitingView view) {
 		super(view);
-		clientFacade=Facade.getSingleton();
+		clientFacade=ClientFacade.getSingleton();
 		clientFacade.setPlayerWaitingController(this);
 		interval=3;
 		timer=new Timer();
