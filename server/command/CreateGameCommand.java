@@ -193,6 +193,7 @@ public class CreateGameCommand implements Command {
 			portLocation = random.nextInt(ValidMapLocations.numOfPossiblePortLocations);
 		}while(usedPortLocations.contains(portLocation));
 		usedPortLocations.add(portLocation);
+		usedPortLocations.add(ValidMapLocations.matchingPortLocations.get(portLocation));
 		EdgeLocation woodPortLocation = ValidMapLocations.ports.get(portLocation);
 		Port woodPort = new Port();
 		woodPort.setDirection(woodPortLocation.getDir());
@@ -201,10 +202,12 @@ public class CreateGameCommand implements Command {
 		woodPort.setRatio(2);
 		ports.add(woodPort);
 		
+		
 		do{
 			portLocation = random.nextInt(ValidMapLocations.numOfPossiblePortLocations);
 		}while(usedPortLocations.contains(portLocation));
 		usedPortLocations.add(portLocation);
+		usedPortLocations.add(ValidMapLocations.matchingPortLocations.get(portLocation));
 		EdgeLocation orePortLocation = ValidMapLocations.ports.get(portLocation);
 		Port orePort = new Port();
 		orePort.setDirection(orePortLocation.getDir());
@@ -217,6 +220,7 @@ public class CreateGameCommand implements Command {
 			portLocation = random.nextInt(ValidMapLocations.numOfPossiblePortLocations);
 		}while(usedPortLocations.contains(portLocation));
 		usedPortLocations.add(portLocation);
+		usedPortLocations.add(ValidMapLocations.matchingPortLocations.get(portLocation));
 		EdgeLocation sheepPortLocation = ValidMapLocations.ports.get(portLocation);
 		Port sheepPort = new Port();
 		sheepPort.setDirection(sheepPortLocation.getDir());
@@ -229,6 +233,7 @@ public class CreateGameCommand implements Command {
 			portLocation = random.nextInt(ValidMapLocations.numOfPossiblePortLocations);
 		}while(usedPortLocations.contains(portLocation));
 		usedPortLocations.add(portLocation);
+		usedPortLocations.add(ValidMapLocations.matchingPortLocations.get(portLocation));
 		EdgeLocation wheatPortLocation = ValidMapLocations.ports.get(portLocation);
 		Port wheatPort = new Port();
 		wheatPort.setDirection(wheatPortLocation.getDir());
@@ -241,6 +246,7 @@ public class CreateGameCommand implements Command {
 			portLocation = random.nextInt(ValidMapLocations.numOfPossiblePortLocations);
 		}while(usedPortLocations.contains(portLocation));
 		usedPortLocations.add(portLocation);
+		usedPortLocations.add(ValidMapLocations.matchingPortLocations.get(portLocation));
 		EdgeLocation brickPortLocation = ValidMapLocations.ports.get(portLocation);
 		Port brickPort = new Port();
 		brickPort.setDirection(brickPortLocation.getDir());
@@ -254,6 +260,7 @@ public class CreateGameCommand implements Command {
 				portLocation = random.nextInt(ValidMapLocations.numOfPossiblePortLocations);
 			}while(usedPortLocations.contains(portLocation));
 			usedPortLocations.add(portLocation);
+			usedPortLocations.add(ValidMapLocations.matchingPortLocations.get(portLocation));
 			EdgeLocation threePortLocation = ValidMapLocations.ports.get(portLocation);
 			Port threePort = new Port();
 			threePort.setDirection(threePortLocation.getDir());

@@ -86,6 +86,42 @@ public class ValidMapLocations {
 	};
 	
 	@SuppressWarnings("serial")
+	public static final HashMap<Integer, Integer> matchingPortLocations = new HashMap<Integer, Integer>(){
+		{
+			put(0, -1);
+			put(1, 2);
+			put(2, 1);
+			put(3, 4);
+			put(4, 3);
+			put(5, -1);
+			put(6, 7);
+			put(7, 6);
+			put(8, 9);
+			put(9, 8);
+			put(10, -1);
+			put(11, 12);
+			put(12, 11);
+			put(13, 14);
+			put(14, 13);
+			put(15, -1);
+			put(16, 17);
+			put(17, 16);
+			put(18, 19);
+			put(19, 18);
+			put(20, -1);
+			put(21, 22);
+			put(22, 21);
+			put(23, 24);
+			put(24, 23);
+			put(25, -1);
+			put(26, 27);
+			put(27, 26);
+			put(28, 29);
+			put(29, 28);
+		}
+	};
+	
+	@SuppressWarnings("serial")
 	public static final HashMap<Integer, Integer> chitAmounts = new HashMap<Integer, Integer>(){
 		{
 			put(2, 1);
