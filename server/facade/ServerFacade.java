@@ -79,8 +79,8 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
      * @post Settlement for player of given playerIndex is placed. Player loses 1 wood, 1 brick, 1 wool, and 1 wheat.
      */
-	public void buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free){
-		new BuildSettlementCommand(playerIndex, vertexLocation, free).execute();
+	public void buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free, int gameID){
+		new BuildSettlementCommand(playerIndex, vertexLocation, free, gameID).execute();
 	}
 	
     /**
