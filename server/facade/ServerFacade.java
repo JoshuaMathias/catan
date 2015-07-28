@@ -3,8 +3,7 @@ package server.facade;
 import java.util.ArrayList;
 
 import server.User;
-import server.command.BuildSettlementCommand;
-import server.command.CreateGameCommand;
+import server.command.*;
 import shared.gameModel.GameModel;
 import shared.gameModel.ResourceList;
 import shared.locations.EdgeLocation;
@@ -164,8 +163,9 @@ public class ServerFacade {
 	 * @pre A user with the given username and password exists.
 	 * @post The player is logged in as the user with the given username.
 	 */
-	public void logIn(String username, String password){
-		
+	public boolean logIn(String username, String password){
+		new LogInCommand(username, password).execute();
+		return false;
 	}
 	
 	/**
@@ -210,8 +210,9 @@ public class ServerFacade {
 	 * @pre A player with the given username does not already exist.
 	 * @post A player with the given username and password is added to the list of users.
 	 */
-	public void register(String username, String password){
-		
+	public boolean register(String username, String password){
+		new RegisterCommand(username, password).execute();
+		return false;
 	}
 	
 	/**

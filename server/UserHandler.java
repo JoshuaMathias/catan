@@ -33,6 +33,7 @@ public class UserHandler implements HttpHandler {
 				facade.register(params.getUsername(), params.getPassword());
 				System.out.println("Username: " + params.getUsername()
 						+ " password: " + params.getPassword());
+				
 				break;
 			}
 		} catch (Exception e) {
