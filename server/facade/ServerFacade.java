@@ -1,7 +1,11 @@
 package server.facade;
 
+import java.util.ArrayList;
+
 import client.model.ClientModel;
 import client.model.ResourceList;
+import server.User;
+import server.command.CreateGameCommand;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -17,6 +21,8 @@ import client.serverproxy.GamesList;
 public class ServerFacade {
 	
 	private static ServerFacade serverFacade;
+	private ArrayList<ClientModel> games = new ArrayList<>();
+	private ArrayList<User> users = new ArrayList<>();
 	
 	private ServerFacade(){
 		
@@ -95,7 +101,7 @@ public class ServerFacade {
 	 * @pre A game is created and added to the games list using the given parameters.
 	 */
 	public void createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName){
-		
+		new CreateGameCommand(randomTiles, randomNumbers, randomPorts, gameName).execute();
 	}
 	
 	/**
@@ -245,7 +251,7 @@ public class ServerFacade {
 	/**
 	 * Creates a SendChatCommand object and executes it.
 	 */
-	public void sendChat(){
+	public void sendChat(String message){
 		
 	}
 	
