@@ -1,4 +1,4 @@
-package client.model;
+package shared.gameModel;
 /**
  * This class represents a trade offer.
  * @author Ife's group

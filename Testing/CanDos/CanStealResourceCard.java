@@ -3,8 +3,8 @@ package Testing.CanDos;
 
 import org.junit.*;
 
+import shared.gameModel.*;
 import shared.locations.*;
-import client.model.*;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import static org.junit.Assert.* ;
 public class CanStealResourceCard {
 
 		private Map map;
-		private ClientModel clientModel;
+		private GameModel clientModel;
 		private TurnTracker turnTracker;
 		private Player Ife;
 		private Player Josh;
@@ -24,7 +24,7 @@ public class CanStealResourceCard {
 		public void setUp() {
 			
 			map = new Map();
-			clientModel = new ClientModel();
+			clientModel = new GameModel();
 			turnTracker = new TurnTracker();
 			Ife = new Player();
 			Josh = new Player();

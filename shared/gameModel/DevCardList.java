@@ -1,4 +1,4 @@
-package client.model;
+package shared.gameModel;
 
 import client.facade.Facade;
 import shared.definitions.DevCardType;

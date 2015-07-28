@@ -2,8 +2,9 @@ package client.serverproxy;
 
 import com.google.gson.Gson;
 
-import client.model.ClientModel;
 import server.IServer;
+import shared.gameModel.GameModel;
+import shared.gameModel.ResourceList;
 import shared.locations.HexLocation;
 import shared.params.AcceptTradeParams;
 import shared.params.BuildCityParams;
@@ -26,7 +27,6 @@ import shared.params.RollNumberParams;
 import shared.params.SendChatParams;
 import shared.params.SoldierParams;
 import shared.params.YearOfPlentyParams;
-import client.model.ResourceList;
 
 /**
  * Proxy Server for the Client to interact with the Server. Packages information into objects and strings for the ClientCommunicator to send to the Server
@@ -327,13 +327,13 @@ public class ServerProxy implements IServer
 	 * @pre none
 	 * @post Server receives information
 	 */
-	public ClientModel getClientModel(int version) 
+	public GameModel getClientModel(int version) 
 	{
-		ClientModel newclient = null;
+		GameModel newclient = null;
 		String JsonClient = clientComm.send("game/model?version="+version, "");
 		if(!JsonClient.equals("\"true\"\r")&&!JsonClient.equals("400"))
 		{
-			newclient = g.fromJson(JsonClient, ClientModel.class);
+			newclient = g.fromJson(JsonClient, GameModel.class);
 		}
 		else if(JsonClient.equals("400"))
 		{

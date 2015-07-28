@@ -2,7 +2,7 @@ package Testing.CanDos;
 
 import org.junit.*;
 
-import client.model.*;
+import shared.gameModel.*;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import static org.junit.Assert.* ;
 
 public class CanRollDice {
 
-	private ClientModel clientModel;
+	private GameModel clientModel;
 	private TurnTracker turnTracker;
 	private Player Ife;
 	private Player Josh;
@@ -20,7 +20,7 @@ public class CanRollDice {
 	@Before 
 	public void setUp() {
 		
-		clientModel = new ClientModel();
+		clientModel = new GameModel();
 		turnTracker = new TurnTracker();
 		Ife = new Player();
 		Josh = new Player();

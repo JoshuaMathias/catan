@@ -1,4 +1,4 @@
-package client.model;
+package shared.gameModel;
 /**
  * This class is for keeping track of the turns.
  * @author Ife's group

@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 import org.junit.*;
 
-import client.model.*;
+import shared.gameModel.*;
 
 public class CanOfferTrade {
 	
-	private ClientModel clientModel;
+	private GameModel clientModel;
 	private TurnTracker turnTracker;
 	private TradeOffer tradeOffer;
 	private Player Ife;
@@ -21,7 +21,7 @@ public class CanOfferTrade {
 	@Before 
 	public void setUp() {
 		
-		clientModel = new ClientModel();
+		clientModel = new GameModel();
 		turnTracker = new TurnTracker();
 		Ife = new Player();
 		Josh = new Player();

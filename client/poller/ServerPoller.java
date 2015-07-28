@@ -4,9 +4,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import server.IServer;
-
+import shared.gameModel.GameModel;
 import client.facade.Facade;
-import client.model.ClientModel;
 import client.serverproxy.ServerProxy;
 
 /**
@@ -61,7 +60,7 @@ public class ServerPoller {
 	 */
 	public void updateClientModel() 
 	{
-		ClientModel model=proxy.getClientModel(modelVersion);
+		GameModel model=proxy.getClientModel(modelVersion);
 		if(model != null)
 		{
 			modelVersion = model.getVersion();

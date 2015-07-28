@@ -8,14 +8,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import shared.gameModel.*;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
-
 import client.facade.Facade;
-import client.model.*;
 
 public class ServerProxyTest {
 

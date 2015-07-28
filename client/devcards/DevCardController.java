@@ -2,9 +2,9 @@ package client.devcards;
 
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.gameModel.DevCardList;
 import client.base.*;
 import client.facade.Facade;
-import client.model.DevCardList;
 
 
 /**

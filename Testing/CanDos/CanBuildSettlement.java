@@ -9,22 +9,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import shared.gameModel.GameModel;
+import shared.gameModel.Map;
+import shared.gameModel.Player;
+import shared.gameModel.ResourceList;
+import shared.gameModel.Road;
+import shared.gameModel.TurnTracker;
+import shared.gameModel.VertexObject;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
-import client.model.ClientModel;
-import client.model.Map;
-import client.model.Player;
-import client.model.ResourceList;
-import client.model.Road;
-import client.model.TurnTracker;
-import client.model.VertexObject;
 
 public class CanBuildSettlement {
 
-	private ClientModel clientModel;
+	private GameModel clientModel;
 	private TurnTracker turnTracker;
 	private Map map;
 	private Player Ife;
@@ -36,7 +36,7 @@ public class CanBuildSettlement {
 	public void setUp() {
 		
 		map = new Map();
-		clientModel = new ClientModel();
+		clientModel = new GameModel();
 		turnTracker = new TurnTracker();
 		Ife = new Player();
 		Josh = new Player();

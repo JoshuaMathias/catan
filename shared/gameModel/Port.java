@@ -1,4 +1,4 @@
-package client.model;
+package shared.gameModel;
 
 import shared.definitions.PortType;
 import shared.locations.EdgeDirection;

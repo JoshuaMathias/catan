@@ -3,11 +3,11 @@ package client.turntracker;
 import java.util.ArrayList;
 
 import shared.definitions.CatanColor;
+import shared.gameModel.GameModel;
+import shared.gameModel.Player;
+import shared.gameModel.TurnTracker;
 import client.base.*;
 import client.facade.Facade;
-import client.model.ClientModel;
-import client.model.Player;
-import client.model.TurnTracker;
 
 
 /**
@@ -43,7 +43,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		clientFacade.finishTurn();
 	}
 	
-	public void initFromModel(ClientModel clientModel){
+	public void initFromModel(GameModel clientModel){
 		ArrayList<Player> players = clientModel.getPlayers();
 		TurnTracker turnTracker = clientModel.getTurnTracker();
 		int currentTurn = turnTracker.getCurrentTurn();

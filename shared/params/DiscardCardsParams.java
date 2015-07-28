@@ -1,6 +1,6 @@
 package shared.params;
 
-import client.model.ResourceList;
+import shared.gameModel.ResourceList;
 /**
  * Class for sending data for a discard card request.
  * @author Ife's Group

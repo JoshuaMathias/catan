@@ -9,15 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import shared.definitions.DevCardType;
-import client.model.ClientModel;
-import client.model.DevCardList;
-import client.model.Player;
-import client.model.ResourceList;
-import client.model.TurnTracker;
+import shared.gameModel.GameModel;
+import shared.gameModel.DevCardList;
+import shared.gameModel.Player;
+import shared.gameModel.ResourceList;
+import shared.gameModel.TurnTracker;
 
 public class CanPlayDevCard {
 	
-	private ClientModel clientModel;
+	private GameModel clientModel;
 	private TurnTracker turnTracker;
 	private Player Ife;
 	private Player Josh;
@@ -29,7 +29,7 @@ public class CanPlayDevCard {
 	@Before 
 	public void setUp() {
 		
-		clientModel = new ClientModel();
+		clientModel = new GameModel();
 		turnTracker = new TurnTracker();
 		Ife = new Player();
 		Josh = new Player();

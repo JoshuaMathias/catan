@@ -8,11 +8,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import client.model.*;
+import shared.gameModel.*;
 
 public class MustDiscardHalfCards {
 
-	private ClientModel clientModel;
+	private GameModel clientModel;
 	private TurnTracker turnTracker;
 	private Player Ife;
 	private Player Josh;
@@ -22,7 +22,7 @@ public class MustDiscardHalfCards {
 	@Before 
 	public void setUp() {
 		
-		clientModel = new ClientModel();
+		clientModel = new GameModel();
 		turnTracker = new TurnTracker();
 		Ife = new Player();
 		Josh = new Player();

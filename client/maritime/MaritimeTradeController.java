@@ -1,10 +1,10 @@
 package client.maritime;
 
 import shared.definitions.*;
+import shared.gameModel.ResourceList;
+import shared.gameModel.TurnTracker;
 import client.base.*;
 import client.facade.Facade;
-import client.model.ResourceList;
-import client.model.TurnTracker;
 
 
 /**

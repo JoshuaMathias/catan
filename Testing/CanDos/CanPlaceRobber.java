@@ -9,17 +9,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import shared.definitions.HexType;
+import shared.gameModel.GameModel;
+import shared.gameModel.Hex;
+import shared.gameModel.Map;
+import shared.gameModel.Player;
+import shared.gameModel.ResourceList;
+import shared.gameModel.TurnTracker;
 import shared.locations.HexLocation;
-import client.model.ClientModel;
-import client.model.Hex;
-import client.model.Map;
-import client.model.Player;
-import client.model.ResourceList;
-import client.model.TurnTracker;
 
 public class CanPlaceRobber {
 
-	private ClientModel clientModel;
+	private GameModel clientModel;
 	private TurnTracker turnTracker;
 	private Map map;
 	private Player Ife;
@@ -33,7 +33,7 @@ public class CanPlaceRobber {
 	public void setUp() {
 		
 		map = new Map();
-		clientModel = new ClientModel();
+		clientModel = new GameModel();
 		turnTracker = new TurnTracker();
 		Ife = new Player();
 		Josh = new Player();

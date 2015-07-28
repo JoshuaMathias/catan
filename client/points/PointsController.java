@@ -2,10 +2,10 @@ package client.points;
 
 import java.util.ArrayList;
 
+import shared.gameModel.GameModel;
+import shared.gameModel.Player;
 import client.base.*;
 import client.facade.Facade;
-import client.model.ClientModel;
-import client.model.Player;
 
 
 /**

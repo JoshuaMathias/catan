@@ -8,15 +8,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import client.model.ClientModel;
-import client.model.Player;
-import client.model.ResourceList;
-import client.model.TradeOffer;
-import client.model.TurnTracker;
+import shared.gameModel.GameModel;
+import shared.gameModel.Player;
+import shared.gameModel.ResourceList;
+import shared.gameModel.TradeOffer;
+import shared.gameModel.TurnTracker;
 
 public class CanAcceptTrade {
 
-	private ClientModel clientModel;
+	private GameModel clientModel;
 	private TurnTracker turnTracker;
 	private TradeOffer tradeOffer;
 	private Player Ife;
@@ -27,7 +27,7 @@ public class CanAcceptTrade {
 	@Before 
 	public void setUp() {
 		
-		clientModel = new ClientModel();
+		clientModel = new GameModel();
 		turnTracker = new TurnTracker();
 		Ife = new Player();
 		Josh = new Player();

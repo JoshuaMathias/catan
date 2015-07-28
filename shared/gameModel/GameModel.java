@@ -1,4 +1,4 @@
-package client.model;
+package shared.gameModel;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import shared.locations.VertexLocation;
  * @author Ife's Group
  *
  */
-public class ClientModel {
+public class GameModel {
 	private DevCardList deck;
 	private ResourceList bank;
 	private MessageList chat;
@@ -997,7 +997,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClientModel other = (ClientModel) obj;
+		GameModel other = (GameModel) obj;
 		if (bank == null) {
 			if (other.bank != null)
 				return false;

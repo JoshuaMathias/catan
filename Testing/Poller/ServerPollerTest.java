@@ -9,17 +9,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import shared.gameModel.GameModel;
+import shared.gameModel.Player;
+import shared.gameModel.ResourceList;
+import shared.gameModel.TradeOffer;
+import shared.gameModel.TurnTracker;
+import shared.gameModel.VertexObject;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
-
 import client.facade.Facade;
-import client.model.ClientModel;
-import client.model.Player;
-import client.model.ResourceList;
-import client.model.TradeOffer;
-import client.model.TurnTracker;
-import client.model.VertexObject;
 import client.poller.ServerPoller.updateTask;
 
 public class ServerPollerTest {

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.definitions.CatanColor;
+import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
+import shared.gameModel.MessageList;
+import shared.gameModel.Player;
 import client.base.*;
 import client.facade.Facade;
-import client.model.ClientModel;
-import client.model.MessageLine;
-import client.model.MessageList;
-import client.model.Player;
 
 
 /**
@@ -36,7 +36,7 @@ public class ChatController extends Controller implements IChatController {
 		clientFacade.sendChat(message);
 	}
 	
-	public void initFromModel(ClientModel clientModel) {
+	public void initFromModel(GameModel clientModel) {
 		
 		ArrayList<Player> players = clientModel.getPlayers();
 		MessageList messages = clientModel.getChat();

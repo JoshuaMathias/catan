@@ -11,7 +11,6 @@ import client.join.PlayerWaitingController;
 import client.login.LoginController;
 import client.main.Catan;
 import client.map.MapController;
-import client.model.*;
 import client.points.PointsController;
 import client.poller.ServerPoller;
 import client.resources.ResourceBarController;
@@ -20,6 +19,7 @@ import client.serverproxy.GamesList;
 import client.serverproxy.ServerProxy;
 import client.turntracker.TurnTrackerController;
 import shared.definitions.*;
+import shared.gameModel.*;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -30,7 +30,7 @@ import shared.locations.VertexLocation;
  *
  */
 public class Facade {
-	private ClientModel clientModel;
+	private GameModel clientModel;
 	public static ServerProxy proxy;
 	public static Facade thisFacade;
 	private String host;
@@ -45,7 +45,7 @@ public class Facade {
 	private int playerId;
 	private int currentGameId;
 	
-	private ClientModel tempClientModel;//only used for roadBuilding DevCard
+	private GameModel tempClientModel;//only used for roadBuilding DevCard
 	
 	private MapController mapController;
 	private GameHistoryController gameHistoryController;
@@ -62,7 +62,7 @@ public class Facade {
 	
 	private Facade(String host) {
 		this.host=host;
-		clientModel=new ClientModel();
+		clientModel=new GameModel();
 		proxy=new ServerProxy(host);
 		poller=new ServerPoller(proxy, this);
 		thisFacade=this;
@@ -178,11 +178,11 @@ public class Facade {
 		proxy.sendChat(playerIndex, content);
 	}
 	
-	public ClientModel getClientModel() {
+	public GameModel getClientModel() {
 		return clientModel;
 	}
 
-	public void setClientModel(ClientModel model) {
+	public void setClientModel(GameModel model) {
 		this.clientModel = model;
 	}
 
@@ -342,7 +342,7 @@ public class Facade {
      * @pre newClientModel != null
      * @post if version number is different, newClientModel replaces current client Model, otherwise, nothing happens.
      */
-    public void updateClientModel(ClientModel newClientModel) {
+    public void updateClientModel(GameModel newClientModel) {
     		clientModel = newClientModel;
             //Some kind of refresher function on the model needs to be called here to update the view of the GUI
     		if(mapController != null){
@@ -880,7 +880,7 @@ public class Facade {
 		{
 			result =true;
 			//while(getClientModel().getVersion()==-1){} If this is too slow we can always go get the Client model directly
-			ClientModel tempModel = proxy.getClientModel(-1);
+			GameModel tempModel = proxy.getClientModel(-1);
 			ArrayList<Player> temp = tempModel.getPlayers();
 			for(int i = 0;i<temp.size();i++)
 			{

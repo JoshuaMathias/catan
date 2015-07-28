@@ -1,4 +1,4 @@
-package client.model;
+package shared.gameModel;
 /**
  * This class represents a message line.
  * @author Ife's group

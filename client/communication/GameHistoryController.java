@@ -2,14 +2,13 @@ package client.communication;
 
 import java.util.*;
 
-
 import client.base.*;
 import client.facade.Facade;
-import client.model.ClientModel;
-import client.model.MessageLine;
-import client.model.MessageList;
-import client.model.Player;
 import shared.definitions.*;
+import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
+import shared.gameModel.MessageList;
+import shared.gameModel.Player;
 
 
 /**
@@ -35,7 +34,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		return (IGameHistoryView)super.getView();
 	}
 	
-	public void initFromModel(ClientModel clientModel) {
+	public void initFromModel(GameModel clientModel) {
 		
 		List<LogEntry> entries = new ArrayList<LogEntry>();
 		ArrayList<Player> players = clientModel.getPlayers();

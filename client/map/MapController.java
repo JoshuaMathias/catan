@@ -3,6 +3,8 @@ package client.map;
 import java.util.*;
 
 import shared.definitions.*;
+import shared.gameModel.*;
+import shared.gameModel.Map;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -11,8 +13,6 @@ import shared.locations.VertexLocation;
 import client.base.*;
 import client.data.*;
 import client.facade.Facade;
-import client.model.*;
-import client.model.Map;
 
 
 /**
@@ -56,7 +56,7 @@ public class MapController extends Controller implements IMapController {
 		getView().newMap();
 	}
 	
-	public void initFromModel(ClientModel clientModel) {
+	public void initFromModel(GameModel clientModel) {
 		
 //		getView().newMap();
 		
@@ -344,7 +344,7 @@ public class MapController extends Controller implements IMapController {
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
 		roadBuilding = false;
 		soldierCard = false;
-		ClientModel clientModel = clientFacade.getClientModel();
+		GameModel clientModel = clientFacade.getClientModel();
 		int playerIndex = clientFacade.getPlayerIndex();
 		ResourceList resources = clientModel.getPlayers().get(playerIndex).getResources();
 		

@@ -1,12 +1,12 @@
 package client.discard;
 
 import shared.definitions.*;
+import shared.gameModel.GameModel;
+import shared.gameModel.Player;
+import shared.gameModel.ResourceList;
 import client.base.*;
 import client.facade.Facade;
 import client.misc.*;
-import client.model.ClientModel;
-import client.model.Player;
-import client.model.ResourceList;
 
 
 /**
@@ -217,7 +217,7 @@ public class DiscardController extends Controller implements IDiscardController 
 		
 		pickedCount = 0;
 		
-		ClientModel clientModel = clientFacade.getClientModel();
+		GameModel clientModel = clientFacade.getClientModel();
 		Player player = clientModel.getPlayers().get(clientFacade.getPlayerIndex());
 		resources = player.getResources();
 	

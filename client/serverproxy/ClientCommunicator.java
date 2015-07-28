@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import client.model.ClientModel;
+import shared.gameModel.GameModel;
 
 /**
  * Packages and sends commands to the Server from the ServerProxy

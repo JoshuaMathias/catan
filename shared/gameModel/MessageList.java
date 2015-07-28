@@ -1,4 +1,4 @@
-package client.model;
+package shared.gameModel;
 
 import java.util.ArrayList;
 /**

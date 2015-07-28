@@ -3,8 +3,8 @@ package server;
 import java.util.ArrayList;
 
 import shared.definitions.*;
+import shared.gameModel.*;
 import shared.locations.*;
-import client.model.*;
 import client.serverproxy.GamesList;
 
 /**
@@ -159,5 +159,5 @@ public interface IServer {
      * @pre none
      * @post Server receives information
      */
-    public ClientModel getClientModel(int version);
+    public GameModel getClientModel(int version);
 }

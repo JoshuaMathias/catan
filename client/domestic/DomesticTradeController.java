@@ -3,13 +3,13 @@ package client.domestic;
 import java.util.ArrayList;
 
 import shared.definitions.*;
+import shared.gameModel.Player;
+import shared.gameModel.ResourceList;
+import shared.gameModel.TradeOffer;
 import client.base.*;
 import client.data.PlayerInfo;
 import client.facade.Facade;
 import client.misc.*;
-import client.model.Player;
-import client.model.ResourceList;
-import client.model.TradeOffer;
 
 
 /**

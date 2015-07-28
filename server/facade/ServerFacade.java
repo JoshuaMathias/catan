@@ -2,10 +2,10 @@ package server.facade;
 
 import java.util.ArrayList;
 
-import client.model.ClientModel;
-import client.model.ResourceList;
 import server.User;
 import server.command.CreateGameCommand;
+import shared.gameModel.GameModel;
+import shared.gameModel.ResourceList;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -21,7 +21,7 @@ import client.serverproxy.GamesList;
 public class ServerFacade {
 	
 	private static ServerFacade serverFacade;
-	private ArrayList<ClientModel> games = new ArrayList<>();
+	private ArrayList<GameModel> games = new ArrayList<>();
 	private ArrayList<User> users = new ArrayList<>();
 	
 	private ServerFacade(){
@@ -131,7 +131,7 @@ public class ServerFacade {
 	 * @pre Game cookie header is set.
 	 * @post The model for the current game is returned.
 	 */
-	public ClientModel GameModel() {
+	public GameModel GameModel() {
 		return null;
 	}
 	
