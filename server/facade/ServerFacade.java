@@ -125,7 +125,7 @@ public class ServerFacade {
 	
 	/**
 	 * Creates a FinishTurnCommand object and executes it.
-	 * @param playerIndex
+	 * @param sender
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post The player's turn has ended and the next player's turn has begun.
 	 */
@@ -252,7 +252,7 @@ public class ServerFacade {
 	
 	/**
 	 * Creates a RoadBuildingCommand object and executes it.
-	 * @param playerIndex
+	 * @param sender
 	 * @param spot1
 	 * @param spot2
 	 * @pre playerIndex between 0 and 3 inclusive, playerIndex and spot1 and spot2 are not null
@@ -276,7 +276,7 @@ public class ServerFacade {
 	
 	/**
 	 * Creates a RollNumberCommand object and executes it.
-	 * @param playerIndex
+	 * @param sender
 	 * @param number
 	 * @pre playerIndex and number != null, number between 2 and 12 inclusive, playerIndex between 0 and 3 inclusive
 	 * @post A random number between 2 and 12 is rolled. Player gain their corresponding resources.
