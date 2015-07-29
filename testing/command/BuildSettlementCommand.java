@@ -84,8 +84,8 @@ public class BuildSettlementCommand {
 		Player player = gameModel.getPlayers().get(playerId);
 		ResourceList beforeBuildResourceList = player.getResources();
 		
-		ResourceList tempBeforeBuildResourceList = new ResourceList(beforeBuildResourceList.getBrick(),beforeBuildResourceList.getWood(),
-				beforeBuildResourceList.getWheat(), beforeBuildResourceList.getSheep(), beforeBuildResourceList.getOre());
+		ResourceList tempBeforeBuildResourceList = new ResourceList(beforeBuildResourceList.getBrick(),beforeBuildResourceList.getOre(),
+				beforeBuildResourceList.getSheep(), beforeBuildResourceList.getWheat(), beforeBuildResourceList.getWood());
 		
 		
 		serverFacade.buildSettlement(playerId, vertexLocation, free, 0);
