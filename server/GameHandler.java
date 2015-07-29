@@ -62,11 +62,15 @@ public class GameHandler implements HttpHandler {
 		
 		switch (uriRestparams[0]) {
 			case "model":
-				facade.GameModel();
+				//facade.GameModel();
 				if(!usercookie.isEmpty())
 				{
-					User temp = g.fromJson(URLDecoder.decode(usercookie),User.class);
-					facade.checkUser(temp);
+					User temp = g.fromJson(URLDecoder.decode(usercookie, "UTF-8"),User.class);
+					int gameIndex = g.fromJson(URLDecoder.decode(gamecookie, UTF),.class);
+					if(facade.userExist(temp)&&facade.gameExist(gameIndex))
+					{
+						
+					}
 				}
 				
 				break;

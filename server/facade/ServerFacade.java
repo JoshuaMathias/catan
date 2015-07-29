@@ -333,15 +333,25 @@ public class ServerFacade {
 		return gamesList;
 	}
 	
-	public boolean cookiesExist(User user,int gameIndex)
+	public boolean userExist(User user)
 	{
-		boolean result = true;
+		boolean result = false;
 		
 		for(User temp: users)
 		{
-			if(temp.getUsername())
+			if(temp.getName().equals(user.getName())&&temp.getPassword().equals(user.getPassword()))
+			{
+				result = true;
+				break;
+			}
 		}
 		
+		return result;
+	}
+	
+	public boolean gameExist(int gameIndex)
+	{
+		boolean result = true;
 		if(gamesList.size()-1<gameIndex)
 		{
 			result = false;
