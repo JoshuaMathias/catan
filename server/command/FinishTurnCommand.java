@@ -1,5 +1,7 @@
 package server.command;
 
+import java.util.ArrayList;
+
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
 import shared.gameModel.Player;
@@ -23,7 +25,6 @@ public class FinishTurnCommand implements Command {
 		// TODO Auto-generated method stub
 		TurnTracker turnTracker = serverModel.getTurnTracker();
 		int currentTurn = turnTracker.getCurrentTurn();
-//		turnTracker.nextTurn();
 		String status = turnTracker.getStatus();
 		
 		switch(status){
@@ -41,6 +42,8 @@ public class FinishTurnCommand implements Command {
 			newToOldDevCards(currentTurn);//moves new devcards out of newDevCardList and into oldDevCardList
 		}
 		turnTracker.nextTurn();
+		
+		resetDiscarded();
 		
 		// increment/decrement 2 points as appropriate
 		int longestRoad = serverModel.checkLongestRoad();
@@ -76,9 +79,19 @@ public class FinishTurnCommand implements Command {
 		}
 	}
 
+	private void resetDiscarded() {
+		// TODO Auto-generated method stub
+		ArrayList<Player> players = serverModel.getPlayers();
+		for (Player player: players){
+			player.setDiscarded(false);
+		}
+	}
+
 	private void newToOldDevCards(int currentTurn) {
 		// TODO Auto-generated method stub
 		Player player = serverModel.getPlayers().get(currentTurn);
+		player.setPlayedDevCard(false);
+		
 		DevCardList newDevCards = player.getNewDevCards();
 		DevCardList oldDevCards = player.getOldDevCards();
 		
