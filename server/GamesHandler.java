@@ -17,6 +17,7 @@ import shared.params.LoginParams;
 import shared.params.RegisterParams;
 
 import client.data.GameInfo;
+import client.serverproxy.GamesList;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.Headers;
@@ -47,8 +48,8 @@ public class GamesHandler implements HttpHandler {
 			responseHeaders.set("Content-Language", "en-US");
 			String responseStr = "";
 			if (command.equals("list")) {
-				ArrayList<GameModel> games = facade.getGamesList();
-
+				GamesList games = facade.GamesList();
+				responseStr=g.toJson(games);
 			} else {
 				BufferedReader streamReader = new BufferedReader(
 						new InputStreamReader(exchange.getRequestBody(),
@@ -81,6 +82,7 @@ public class GamesHandler implements HttpHandler {
 							JoinGameParams.class);
 					facade.joinGame(joinParams.getId(), joinParams.getColor(),
 							-1);
+					
 					// Send new game cookie
 					// List<String> values = new ArrayList<>();
 					// String cookieString = "";

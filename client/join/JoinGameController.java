@@ -124,12 +124,12 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		started=true;
 		GamesList hub = clientFacade.gamesList();
 		games = hub.getGames();
-		
 		for(int i= 0;i<games.size();i++)
 		{
 			ArrayList <PlayerInfo> newlist = new ArrayList<PlayerInfo>();
 			for(int j = 0;j<4;j++)
 			{
+				
 				if(!games.get(i).getPlayers().get(j).getName().isEmpty())
 				{
 					newlist.add(games.get(i).getPlayers().get(j));

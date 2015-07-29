@@ -39,6 +39,10 @@ public class BuildCityCommand implements Command {
 		updateBankResources();
 		
 		player.decrementCity();
+		player.incrementSettlement();
+		int victoryPoints = player.getVictoryPoints();
+		player.setVictoryPoints(victoryPoints + 1);
+		
 		Map map = serverModel.getMap();
 		map.removeSettlement(new VertexObject(playerIndex, vertexLocation));
 		map.addCity(new VertexObject(playerIndex, vertexLocation));

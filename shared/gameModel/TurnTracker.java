@@ -7,7 +7,7 @@ package shared.gameModel;
 public class TurnTracker {
 
 	private int currentTurn = 0; //playerIndex of who's turn it is
-	private String status;
+	private String status = "FirstRound";
 	private int longestRoad = -1;
 	private int largestArmy = -1;
 	
@@ -35,6 +35,16 @@ public class TurnTracker {
 	public void setLargestArmy(int largestArmy) {
 		this.largestArmy = largestArmy;
 	}
+	
+	public void nextTurn(){
+		if(currentTurn < 3){
+			currentTurn++;
+		}
+		else{
+			currentTurn = 0;
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -48,6 +48,8 @@ public class BuildSettlementCommand implements Command {
 		}
 		
 		player.decrementSettlement();
+		int victoryPoints = player.getVictoryPoints();
+		player.setVictoryPoints(victoryPoints + 1);
 		Map map = serverModel.getMap();
 		map.addSettlement(new VertexObject(playerIndex,vertexLocation));
 	}

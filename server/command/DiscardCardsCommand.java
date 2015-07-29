@@ -44,6 +44,8 @@ public class DiscardCardsCommand implements Command {
 		bank.setOre(bank.getOre() + OreToDiscard);
 		bank.setWood(bank.getWood() + WoodToDiscard);
 		bank.setSheep(bank.getSheep() + SheepToDiscard);
+		
+		player.setDiscarded(true);
 	}
 
 }

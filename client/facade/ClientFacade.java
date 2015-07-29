@@ -662,7 +662,7 @@ public class ClientFacade {
 
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param number
      * @pre playerIndex and number != null, number between 2 and 12 inclusive, playerIndex between 0 and 3 inclusive
      * @post Server receives information
@@ -675,7 +675,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param spot1
      * @param spot2
      * @pre playerIndex between 0 and 3 inclusive, playerIndex and spot1 and spot2 are not null
@@ -688,7 +688,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post Server receives information
      */
@@ -699,7 +699,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post Server receives information
      */
@@ -710,7 +710,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param resource1
      * @param resource2
      * @pre playerIndex between 0 and 3 inclusive and not null, both resources must not be null and one of the key words for resources
@@ -723,7 +723,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param victimIndex
      * @param location
      * @pre playerIndex and victinIndex between 0 and 3 inclusive and not null, location not null
@@ -757,7 +757,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param roadLocation
      * @param free
      * @pre playerIndex between 0 and 3 inclusive and not null, roadLocation not null
@@ -770,7 +770,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param vertexLocation
      * @param free
      * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
@@ -783,7 +783,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param vertexLocation
      * @param free
      * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
@@ -796,7 +796,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param offer
      * @param receiver
      * @pre playerIndex and receiver between 0 and 3 inclusive and not null, offer not null
@@ -809,7 +809,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param willAccept
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post Server receives information
@@ -821,7 +821,7 @@ public class ClientFacade {
     
     /**
      * Creates appropriate communication class and generates command string for Client Communicator. Sends to Server via Client Communicator.
-     * @param playerIndex
+     * @param sender
      * @param discardedCards
      * @pre playerIndex between 0 and 3 inclusive and not null, discardedCards not null
      * @post Server receives information

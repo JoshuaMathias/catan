@@ -19,7 +19,7 @@ public class Player {
 	private DevCardList oldDevCards = new DevCardList(false);
 	private int playerIndex;
 	private boolean playedDevCard = false;
-	private static int currentID=0;
+//	private static int currentID=0;
 	private int playerID;
 	private ResourceList resources = new ResourceList(0,0,0,0,0);
 	private int roads = 15;
@@ -28,7 +28,7 @@ public class Player {
 	private int victoryPoints = 0;
 	
 	public Player() {
-		playerID=currentID++;
+//		playerID=currentID++;
 	}
 	
 	public int getCities() {

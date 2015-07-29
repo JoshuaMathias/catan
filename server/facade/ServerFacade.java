@@ -6,6 +6,7 @@ import java.util.List;
 import server.User;
 import server.command.*;
 import shared.gameModel.GameModel;
+import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -13,6 +14,7 @@ import shared.locations.VertexLocation;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import client.serverproxy.GamesList;
+import client.data.*;
 
 /**
  * The Server Facade. The facade contains the server model and the methods
@@ -45,8 +47,8 @@ public class ServerFacade {
 	 * @pre playerIndex between 0 and 3 inclusive and not null
 	 * @post Trade is accepted; resources are exchanged.
 	 */
-	public void acceptTrade(int playerIndex, boolean willAccept){
-		
+	public boolean acceptTrade(int playerIndex, boolean willAccept){
+		return false;
 	}
 	
 	/**
@@ -57,8 +59,9 @@ public class ServerFacade {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post City is placed. Player of given playerIndex loses 3 ore and 2 wheat.
 	 */
-	public void buildCity(int playerIndex, VertexLocation vertexLocation, int gameID){
+	public boolean buildCity(int playerIndex, VertexLocation vertexLocation, int gameID){
 		new BuildCityCommand(playerIndex, vertexLocation, gamesList.get(gameID)).execute();
+		return false;
 	}
 	
     /**
@@ -69,8 +72,9 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, roadLocation not null
      * @post Road is placed. Player of given playerIndex has 1 less brick and 1 less wood.
      */
-	public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free, int gameID){
+	public boolean buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free, int gameID){
 		new BuildRoadCommand(playerIndex, roadLocation, free, gamesList.get(gameID)).execute();
+		return false;
 	}
 	
     /**
@@ -81,8 +85,9 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
      * @post Settlement for player of given playerIndex is placed. Player loses 1 wood, 1 brick, 1 wool, and 1 wheat.
      */
-	public void buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free, int gameID){
+	public boolean buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free, int gameID){
 		new BuildSettlementCommand(playerIndex, vertexLocation, free, gamesList.get(gameID)).execute();
+		return false;
 	}
 	
     /**
@@ -91,8 +96,8 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post The given player receives a random dev card and loses 1 ore, 1 wool, and 1 wheat.
      */
-	public void buyDevCard(int playerIndex){
-		
+	public boolean buyDevCard(int playerIndex){
+		return false;
 	}
 	
 	/**
@@ -105,7 +110,9 @@ public class ServerFacade {
 	 */
 	public GameInfo createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName){
 		new CreateGameCommand(randomTiles, randomNumbers, randomPorts, gameName).execute();
-		return new GameInfo(gamesList.size()-1,gameName,new ArrayList<PlayerInfo>(4));
+		ArrayList<PlayerInfo> players = new ArrayList<PlayerInfo>(4);
+		while(players.size() < 4) players.add(null);
+		return new GameInfo(gamesList.size()-1,gameName,players);
 	}
 	
 	/**
@@ -115,18 +122,18 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, discardedCards not null
      * @post The player no longer has the specified discardedCards.
 	 */
-	public void discardCards(int playerIndex, ResourceList discardedCards){
-		
+	public boolean discardCards(int playerIndex, ResourceList discardedCards){
+		return false;
 	}
 	
 	/**
 	 * Creates a FinishTurnCommand object and executes it.
-	 * @param playerIndex
+	 * @param sender
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post The player's turn has ended and the next player's turn has begun.
 	 */
-	public void finishTurn(){
-		
+	public boolean finishTurn(){
+		return false;
 	}
 	
 	/**
@@ -140,13 +147,35 @@ public class ServerFacade {
 	}
 	
 	/**
-	 * Creates a GamesListCommand object and executes it.
+	 * Retures the list of games as GameInfo objects.
 	 * @return The list of games as a GamesList.
 	 * @pre There is at least 1 game.
 	 * @post The games list is returned.
 	 */
 	public GamesList GamesList(){
-		return null;
+		GamesList list = new GamesList();
+		ArrayList<GameInfo> infoList = new ArrayList<GameInfo>();
+		System.out.println("Number of games: "+gamesList.size());
+		for (int i=0; i<gamesList.size(); i++) {
+			ArrayList<Player> players = gamesList.get(i).getPlayers();
+			ArrayList<PlayerInfo> playerInfos = new ArrayList<PlayerInfo>();
+			for (int j=0; j<4; j++) {
+				Player currentPlayer = null;
+				if (j<players.size()) {
+					currentPlayer = players.get(j);
+				} else {
+					currentPlayer = new Player();
+				}
+				
+				playerInfos.add(new PlayerInfo(currentPlayer.getPlayerID(), currentPlayer.getPlayerIndex(), currentPlayer.getName(), currentPlayer.getColor()));
+			}
+			gamesList.get(i).getPlayers();
+			GameInfo info = new GameInfo(i, gamesList.get(i).getGameName(), playerInfos);
+			System.out.println("Adding info for game "+i);
+			infoList.add(info);
+		}
+		list.setGames(infoList);
+		return list;
 	}
 	
 	/**
@@ -156,8 +185,8 @@ public class ServerFacade {
 	 * @pre A game with the given ID exists. The given color is available. There aren't 4 other players already in the game.
 	 * @post The player has joined the game.
 	 */
-	public void joinGame(String gameId, String color, int userID){
-		
+	public boolean joinGame(String gameId, String color, int userID){
+		return false;
 	}
 	
 	/**
@@ -186,8 +215,8 @@ public class ServerFacade {
 	 * @pre The given resources are available. The player has a settlement or city by a port of the given ratio that applies for the given resources.
 	 * @post The given resources are exchanged between the player and the bank.
 	 */
-	public void maritimeTrade(int playerIndex, int ratio, String inputResource, String outputResource){
-		
+	public boolean maritimeTrade(int playerIndex, int ratio, String inputResource, String outputResource){
+		return false;
 	}
 	
 	/**
@@ -196,8 +225,8 @@ public class ServerFacade {
 	 * @pre The player of the given playerIndex has a monument card and it is their turn.
 	 * @post The player gains a victory point.
 	 */
-	public void monument(int playerIndex){
-		
+	public boolean monument(int playerIndex){
+		return false;
 	}
 	
 	/**
@@ -208,8 +237,8 @@ public class ServerFacade {
      * @pre playerIndex and receiver between 0 and 3 inclusive and not null; offer not null.
      * @post The trade is offered from the given player to the receiver.
 	 */
-	public void offerTrade(int playerIndex, ResourceList offer, int receiver){
-		
+	public boolean offerTrade(int playerIndex, ResourceList offer, int receiver){
+		return false;
 	}
 	
 	/**
@@ -234,14 +263,14 @@ public class ServerFacade {
 	
 	/**
 	 * Creates a RoadBuildingCommand object and executes it.
-	 * @param playerIndex
+	 * @param sender
 	 * @param spot1
 	 * @param spot2
 	 * @pre playerIndex between 0 and 3 inclusive, playerIndex and spot1 and spot2 are not null
 	 * @post Two roads are placed for free for the player of the given playerIndex.
 	 */
-	public void roadBuilding(){
-		
+	public boolean roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2){
+		return false;
 	}
 	
 	/**
@@ -252,27 +281,28 @@ public class ServerFacade {
 	 * @pre The player of the given victimIndex has a resource to be robbed.
 	 * @post The victim loses 1 random resource, which the robbing player gains.
 	 */
-	public void robPlayer(int playerIndex, int victimIndex, HexLocation location)
-	{
 		
+	public boolean robPlayer(int playerIndex, int victimIndex, HexLocation location){
+		return false;
+
 	}
 	
 	/**
 	 * Creates a RollNumberCommand object and executes it.
-	 * @param playerIndex
+	 * @param sender
 	 * @param number
 	 * @pre playerIndex and number != null, number between 2 and 12 inclusive, playerIndex between 0 and 3 inclusive
 	 * @post A random number between 2 and 12 is rolled. Player gain their corresponding resources.
 	 */
-	public void rollNumber(){
-		
+	public boolean rollNumber(){
+		return false;
 	}
 	
 	/**
 	 * Creates a SendChatCommand object and executes it.
 	 */
-	public void sendChat(String message){
-		
+	public boolean sendChat(String message){
+		return false;
 	}
 	
 	/**
@@ -283,8 +313,8 @@ public class ServerFacade {
 	 * @pre The player has a soldier card, and the location is not the current location of the robber.
 	 * @post The robber is moved to the given location.
 	 */
-	public void soldier(int playerIndex, int victimIndex, HexLocation location){
-		
+	public boolean soldier(int playerIndex, int victimIndex, HexLocation location){
+		return false;
 	}
 	
 	/**
@@ -295,8 +325,8 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, both resources must not be null and one of the key words for resources.
      * @post The player of the given playerIndex has received the specified resources from the other players. 
 	 */
-	public void yearOfPlenty(int playerIndex, String resource1, String resource2){
-		
+	public boolean yearOfPlenty(int playerIndex, String resource1, String resource2){
+		return false;
 	}
 	
 	public void addGameToList(GameModel serverModel){
