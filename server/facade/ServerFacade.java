@@ -163,14 +163,15 @@ public class ServerFacade {
 	 * @pre A user with the given username and password exists.
 	 * @post The player is logged in as the user with the given username.
 	 */
-	public boolean logIn(String username, String password){
-		for (User user : users) {
-			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    public int logIn(String username, String password){
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                System.out.println("Login of "+username+" successful");
+                return users.size()-1;
+            }
+        }
+        return -1;
+    }
 	
 	/**
 	 * Creates a MaritimeTradeCommand object and executes it.
@@ -214,17 +215,18 @@ public class ServerFacade {
 	 * @pre A player with the given username does not already exist.
 	 * @post A player with the given username and password is added to the list of users.
 	 */
-	public boolean register(String username, String password){
-		for (User user : users) {
-			if (user.getUsername().equals(username)) {
-				return false;
-			}
-		}
-		User newUser = new User(username,password);
-		users.add(newUser);
-		System.out.println("Registration successful");
-		return true;
-	}
+    public int register(String username, String password){
+        System.out.println("Register in facade");
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return -1;
+            }
+        }
+        User newUser = new User(username,password);
+        users.add(newUser);
+        System.out.println("Registration of "+username+" successful");
+        return users.size()-1;
+    }
 	
 	/**
 	 * Creates a RoadBuildingCommand object and executes it.

@@ -1,18 +1,19 @@
 package server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import server.facade.ServerFacade;
 import shared.params.LoginParams;
 import shared.params.RegisterParams;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -20,49 +21,84 @@ public class UserHandler implements HttpHandler {
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		// TODO Auto-generated method stub
 		String command = exchange.getRequestURI().toString().substring(6);
 		try {
 			System.out.println("UserHandler called");
 			Gson g = new Gson();
 			System.out.println("Command: " + command);
 			ServerFacade facade = ServerFacade.getSingleton();
-			JsonReader reader = new JsonReader(new InputStreamReader(
-					exchange.getRequestBody(), "UTF-8"));
-			JsonElement elem = new JsonParser().parse(reader);
+			// JsonReader reader = new JsonReader(new InputStreamReader(
+			// exchange.getRequestBody(), "UTF-8"));
+			BufferedReader streamReader = new BufferedReader(
+					new InputStreamReader(exchange.getRequestBody(), "UTF-8"));
+			StringBuilder requestBuilder = new StringBuilder();
+			String inputStr;
+			String responseStr = "";
+			while ((inputStr = streamReader.readLine()) != null) {
+				requestBuilder.append(inputStr);
+				requestBuilder.append('\r');
+			}
+			String requestJson = requestBuilder.toString();
+			String username = "";
+			String password = "";
+			int userID = -1;
+			streamReader.close();
+			Headers responseHeaders = exchange.getResponseHeaders();
+			responseHeaders.set("Content-Type",
+					"application/x-www-form-urlencoded");
+			responseHeaders.set("Content-Language", "en-US");
 			switch (command) {
 			case "register":
-				RegisterParams params = g.fromJson(elem, RegisterParams.class);
-				if (!facade
-						.register(params.getUsername(), params.getPassword())) {
+				System.out.println("Register handler");
+				RegisterParams params = g.fromJson(requestJson,
+						RegisterParams.class);
+				username = params.getUsername();
+				password = params.getPassword();
+				userID = facade.register(username, password);
+				if (userID == -1) {
 					exchange.sendResponseHeaders(
-							HttpURLConnection.HTTP_BAD_REQUEST, -1);
-					return;
+							HttpURLConnection.HTTP_BAD_REQUEST,
+							responseStr.length());
+					responseStr = "Failed to register - someone already has that username.";
 				}
 				break;
 			case "login":
-				LoginParams lParams = g.fromJson(elem, LoginParams.class);
-				if (!facade
-						.logIn(lParams.getUsername(), lParams.getPassword())) {
+				System.out.println("Login handler");
+				LoginParams lParams = g
+						.fromJson(requestJson, LoginParams.class);
+				username = lParams.getUsername();
+				password = lParams.getPassword();
+				userID = facade.logIn(username, password);
+				if (userID == -1) {
 					exchange.sendResponseHeaders(
-							HttpURLConnection.HTTP_BAD_REQUEST, -1);
-					return;
+							HttpURLConnection.HTTP_BAD_REQUEST,
+							responseStr.length());
+					responseStr = "Failed to login - bad username or password.";
 				}
 				break;
 			}
 
+			List<String> values = new ArrayList<>();
+			String cookieString = "{\"name\":\"" + username
+					+ "\",\"password\":\"" + password + "\",\"playerID\":"
+					+ userID + "}";
+			values.add(URLEncoder.encode(cookieString, "UTF-8"));
+
+			responseHeaders.put("Set-Cookie", values);
+			if (responseStr.equals("")) {
+				responseStr = "Success";
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,
+						responseStr.length());
+			}
+			OutputStream response = exchange.getResponseBody();
+			response.write(responseStr.getBytes());
+			response.close();
 		} catch (Exception e) {
 			System.out.println("Server error on command " + command);
 			e.printStackTrace();
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
 			return;
 		}
-		System.out.println("End of user handler");
-		String responseStr="Success";
-		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, responseStr.length());
-		OutputStream response = exchange.getResponseBody();
-		response.write(responseStr.getBytes());
-		response.close();
 	}
 
 }
