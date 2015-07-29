@@ -1,6 +1,7 @@
 package shared.gameModel;
 
 import shared.definitions.CatanColor;
+import shared.definitions.DevCardType;
 
 /**
  * This class represents a player.
@@ -139,6 +140,29 @@ public class Player {
 	
 	public int getResourceCardNum(){
 		return resources.getTotal();
+	}
+	
+	public void addNewDevCard(DevCardType cardType){
+		switch(cardType){
+		case MONOPOLY:
+			newDevCards.setMonopoly(newDevCards.getMonopoly() + 1);
+			break;
+		case MONUMENT:
+			newDevCards.setMonument(newDevCards.getMonument() + 1);
+			break;
+		case ROAD_BUILD:
+			newDevCards.setRoadBuilding(newDevCards.getRoadBuilding() + 1);
+			break;
+		case SOLDIER:
+			newDevCards.setSoldier(newDevCards.getSoldier() + 1);
+			break;
+		case YEAR_OF_PLENTY:
+			newDevCards.setYearOfPlenty(newDevCards.getYearOfPlenty() + 1);
+			break;
+		default:
+			break;
+		
+		}
 	}
 	
 	@Override
