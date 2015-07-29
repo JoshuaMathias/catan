@@ -33,6 +33,19 @@ public class PlayerInfo
 //		color="white";
 	}
 	
+	
+	
+	public PlayerInfo(int id, int playerIndex, String name,
+			CatanColor colorEnum) {
+		super();
+		this.id = id;
+		this.playerIndex = playerIndex;
+		this.name = name;
+		EnumToColor(colorEnum);
+	}
+
+
+
 	public void EnumToColor(CatanColor colorEnum) {
 		switch (colorEnum) {
 			case red:

@@ -21,7 +21,11 @@ public class UserHandler implements HttpHandler {
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
-		String command = exchange.getRequestURI().toString().substring(6);
+		String[] commandList = exchange.getRequestURI().toString().split("\\/");
+		String command="";
+		if (commandList.length > 2) {
+			command = commandList[2];
+		}
 		try {
 			System.out.println("UserHandler called");
 			Gson g = new Gson();

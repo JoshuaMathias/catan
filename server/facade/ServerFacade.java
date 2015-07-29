@@ -6,6 +6,7 @@ import java.util.List;
 import server.User;
 import server.command.*;
 import shared.gameModel.GameModel;
+import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -13,6 +14,7 @@ import shared.locations.VertexLocation;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import client.serverproxy.GamesList;
+import client.data.*;
 
 /**
  * The Server Facade. The facade contains the server model and the methods
@@ -105,7 +107,9 @@ public class ServerFacade {
 	 */
 	public GameInfo createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName){
 		new CreateGameCommand(randomTiles, randomNumbers, randomPorts, gameName).execute();
-		return new GameInfo(gamesList.size()-1,gameName,new ArrayList<PlayerInfo>(4));
+		ArrayList<PlayerInfo> players = new ArrayList<PlayerInfo>(4);
+		while(players.size() < 4) players.add(null);
+		return new GameInfo(gamesList.size()-1,gameName,players);
 	}
 	
 	/**
@@ -140,13 +144,27 @@ public class ServerFacade {
 	}
 	
 	/**
-	 * Creates a GamesListCommand object and executes it.
+	 * Retures the list of games as GameInfo objects.
 	 * @return The list of games as a GamesList.
 	 * @pre There is at least 1 game.
 	 * @post The games list is returned.
 	 */
 	public GamesList GamesList(){
-		return null;
+		GamesList list = new GamesList();
+		ArrayList<GameInfo> infoList = new ArrayList<GameInfo>();
+		for (int i=0; i<gamesList.size(); i++) {
+			ArrayList<Player> players = gamesList.get(i).getPlayers();
+			ArrayList<PlayerInfo> playerInfos = new ArrayList<PlayerInfo>();
+			for (int j=0; j<players.size(); j++) {
+				Player currentPlayer = players.get(j);
+				playerInfos.add(new PlayerInfo(currentPlayer.getPlayerID(), currentPlayer.getPlayerIndex(), currentPlayer.getName(), currentPlayer.getColor()));
+			}
+			gamesList.get(i).getPlayers();
+			GameInfo info = new GameInfo(i, gamesList.get(i).getGameName(), playerInfos);
+			infoList.add(info);
+		}
+		list.setGames(infoList);
+		return list;
 	}
 	
 	/**
