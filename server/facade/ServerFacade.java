@@ -332,4 +332,21 @@ public class ServerFacade {
 	public ArrayList<GameModel> getGamesList() {
 		return gamesList;
 	}
+	
+	public boolean cookiesExist(User user,int gameIndex)
+	{
+		boolean result = true;
+		
+		for(User temp: users)
+		{
+			if(temp.getUsername())
+		}
+		
+		if(gamesList.size()-1<gameIndex)
+		{
+			result = false;
+		}
+		
+		return result;
+	}
 }

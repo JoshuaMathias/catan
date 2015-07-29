@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URLDecoder;
 import java.util.List;
 
 import server.facade.ServerFacade;
@@ -62,7 +63,11 @@ public class GameHandler implements HttpHandler {
 		switch (uriRestparams[0]) {
 			case "model":
 				facade.GameModel();
-				
+				if(!usercookie.isEmpty())
+				{
+					User temp = g.fromJson(URLDecoder.decode(usercookie),User.class);
+					facade.checkUser(temp);
+				}
 				
 				break;
 			case "model?version":
