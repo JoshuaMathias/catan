@@ -126,15 +126,10 @@ public class GameModel {
 		this.winner = winner;
 	}
 
-//	/**
-//	 * checks newClientModel version against current client model version and updates if versions differ
-//	 * @param newClientModel
-//	 * @pre newClientModel != null
-//	 * @post if version number is different, newClientModel replaces current client Model, otherwise, nothing happens.
-//	 */
-//	public void updateClientModel(ClientModel newClientModel){
-//		
-//	}
+	public void addPlayer(Player player){
+		player.setPlayerIndex(players.size());
+		players.add(player);
+	}
 	
 	/**
 	 * checks whether a player has the longest road
