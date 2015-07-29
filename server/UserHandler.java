@@ -22,7 +22,7 @@ public class UserHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		String[] commandList = exchange.getRequestURI().toString().split("\\/");
-		String command="";
+		String command = "";
 		if (commandList.length > 2) {
 			command = commandList[2];
 		}
@@ -82,14 +82,14 @@ public class UserHandler implements HttpHandler {
 				break;
 			}
 
-			List<String> values = new ArrayList<>();
-			String cookieString = "{\"name\":\"" + username
-					+ "\",\"password\":\"" + password + "\",\"playerID\":"
-					+ userID + "}";
-			values.add(URLEncoder.encode(cookieString, "UTF-8"));
-
-			responseHeaders.put("Set-Cookie", values);
 			if (responseStr.equals("")) {
+				List<String> values = new ArrayList<>();
+				String cookieString = "{\"name\":\"" + username
+						+ "\",\"password\":\"" + password + "\",\"playerID\":"
+						+ userID + "}";
+				values.add(URLEncoder.encode(cookieString, "UTF-8"));
+
+				responseHeaders.put("Set-Cookie", values);
 				responseStr = "Success";
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,
 						responseStr.length());
