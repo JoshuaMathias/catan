@@ -31,12 +31,16 @@ public class BuyDevCardCommand implements Command {
 		Player player = serverModel.getPlayers().get(playerIndex);
 		DevCardList deck = serverModel.getDeck();
 		
-		
-		ResourceList playerResources = player.getResources();
 		// sheep wheat ore
+		ResourceList playerResources = player.getResources();
 		playerResources.setSheep(playerResources.getSheep() - 1);
 		playerResources.setWheat(playerResources.getWheat() - 1);
 		playerResources.setOre(playerResources.getOre() - 1);
+		
+		ResourceList bank = serverModel.getBank();
+		bank.setSheep(bank.getSheep() + 1);
+		bank.setWheat(bank.getWheat() + 1);
+		bank.setOre(bank.getOre() + 1);
 		
 		
 		boolean noCardsLeftOfThatType = false;
