@@ -28,7 +28,7 @@ public class SoldierCommand implements Command {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		new RobPlayerCommand(playerIndex, victimIndex, location, serverModel);
+		new RobPlayerCommand(playerIndex, victimIndex, location, serverModel).execute();
 		
 		Player player = serverModel.getPlayers().get(playerIndex);
 		DevCardList playerOldDevCardList = player.getOldDevCards();
