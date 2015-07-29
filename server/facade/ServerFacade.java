@@ -9,6 +9,7 @@ import shared.gameModel.ResourceList;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
+import client.data.GameInfo;
 import client.serverproxy.GamesList;
 
 /**
@@ -100,8 +101,9 @@ public class ServerFacade {
 	 * @param gameName
 	 * @pre A game is created and added to the games list using the given parameters.
 	 */
-	public void createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName){
+	public GameInfo createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName){
 		new CreateGameCommand(randomTiles, randomNumbers, randomPorts, gameName).execute();
+		return new GameInfo();
 	}
 	
 	/**
@@ -152,7 +154,7 @@ public class ServerFacade {
 	 * @pre A game with the given ID exists. The given color is available. There aren't 4 other players already in the game.
 	 * @post The player has joined the game.
 	 */
-	public void joinGame(String gameId, String color){
+	public void joinGame(String gameId, String color, int userID){
 		
 	}
 	

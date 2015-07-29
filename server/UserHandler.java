@@ -56,10 +56,10 @@ public class UserHandler implements HttpHandler {
 				password = params.getPassword();
 				userID = facade.register(username, password);
 				if (userID == -1) {
+					responseStr = "Failed to register - someone already has that username.";
 					exchange.sendResponseHeaders(
 							HttpURLConnection.HTTP_BAD_REQUEST,
 							responseStr.length());
-					responseStr = "Failed to register - someone already has that username.";
 				}
 				break;
 			case "login":
@@ -70,10 +70,10 @@ public class UserHandler implements HttpHandler {
 				password = lParams.getPassword();
 				userID = facade.logIn(username, password);
 				if (userID == -1) {
+					responseStr = "Failed to login - bad username or password.";
 					exchange.sendResponseHeaders(
 							HttpURLConnection.HTTP_BAD_REQUEST,
 							responseStr.length());
-					responseStr = "Failed to login - bad username or password.";
 				}
 				break;
 			}
