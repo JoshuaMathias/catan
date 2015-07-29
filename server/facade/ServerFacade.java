@@ -279,8 +279,10 @@ public class ServerFacade {
 	 * @pre The player of the given victimIndex has a resource to be robbed.
 	 * @post The victim loses 1 random resource, which the robbing player gains.
 	 */
+		
 	public boolean robPlayer(int playerIndex, int victimIndex, HexLocation location){
 		return false;
+
 	}
 	
 	/**
