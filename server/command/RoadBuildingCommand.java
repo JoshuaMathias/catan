@@ -34,7 +34,6 @@ public class RoadBuildingCommand implements Command {
 		Player player = serverModel.getPlayers().get(sender);
 		DevCardList playerOldDevCards = player.getOldDevCards();
 		
-		deck.setRoadBuilding(deck.getRoadBuilding() + 1);
 		playerOldDevCards.setRoadBuilding(playerOldDevCards.getRoadBuilding() - 1);
 		
 		serverModel.getMap().addRoad(new Road(sender, spot1));
