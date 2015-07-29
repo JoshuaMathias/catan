@@ -1,6 +1,7 @@
 package server.facade;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import server.User;
 import server.command.*;
@@ -10,6 +11,7 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import client.data.GameInfo;
+import client.data.PlayerInfo;
 import client.serverproxy.GamesList;
 
 /**
@@ -103,7 +105,7 @@ public class ServerFacade {
 	 */
 	public GameInfo createGame(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName){
 		new CreateGameCommand(randomTiles, randomNumbers, randomPorts, gameName).execute();
-		return new GameInfo();
+		return new GameInfo(gamesList.size()-1,gameName,new ArrayList<PlayerInfo>(4));
 	}
 	
 	/**
@@ -166,10 +168,10 @@ public class ServerFacade {
 	 * @post The player is logged in as the user with the given username.
 	 */
     public int logIn(String username, String password){
-        for (User user : users) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+        for (int i=0; i<users.size(); i++) {
+            if (users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)) {
                 System.out.println("Login of "+username+" successful");
-                return users.size()-1;
+                return i;
             }
         }
         return -1;
