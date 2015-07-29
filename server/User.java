@@ -5,18 +5,19 @@ package server;
  *
  */
 public class User {
-	String username;
+	String name;
 	String password;
+	int playerID;
 	
-	public User(String username, String password) {
-		this.username = username;
+	public User(String username, String password, int playerID) {
+		this.name = username;
 		this.password = password;
 	}
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String username) {
+		this.name = username;
 	}
 	public String getPassword() {
 		return password;
@@ -24,4 +25,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public int getPlayerID() {
+		return playerID;
+	}
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+	
 }

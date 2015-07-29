@@ -87,8 +87,9 @@ public class UserHandler implements HttpHandler {
 				String cookieString = "{\"name\":\"" + username
 						+ "\",\"password\":\"" + password + "\",\"playerID\":"
 						+ userID + "}";
+				System.out.println("catan.user="+URLEncoder.encode(cookieString, "UTF-8"));
 				values.add(URLEncoder.encode(cookieString, "UTF-8"));
-
+				
 				responseHeaders.put("Set-Cookie", values);
 				responseStr = "Success";
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,

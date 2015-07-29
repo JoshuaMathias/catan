@@ -194,7 +194,7 @@ public class ServerFacade {
 	 */
     public int logIn(String username, String password){
         for (int i=0; i<users.size(); i++) {
-            if (users.get(i).getUsername().equals(username) && users.get(i).getPassword().equals(password)) {
+            if (users.get(i).getName().equals(username) && users.get(i).getPassword().equals(password)) {
                 System.out.println("Login of "+username+" successful");
                 return i;
             }
@@ -247,11 +247,11 @@ public class ServerFacade {
     public int register(String username, String password){
         System.out.println("Register in facade");
         for (User user : users) {
-            if (user.getUsername().equals(username)) {
+            if (user.getName().equals(username)) {
                 return -1;
             }
         }
-        User newUser = new User(username,password);
+        User newUser = new User(username,password,users.size()-1);
         users.add(newUser);
         System.out.println("Registration of "+username+" successful");
         return users.size()-1;
