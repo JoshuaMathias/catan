@@ -54,8 +54,8 @@ public class ServerFacade {
 	 * @pre playerIndex between 0 and 3 inclusive and not null, vertexLocation not null
 	 * @post City is placed. Player of given playerIndex loses 3 ore and 2 wheat.
 	 */
-	public void buildCity(int playerIndex, VertexLocation vertexLocation){
-		
+	public void buildCity(int playerIndex, VertexLocation vertexLocation, int gameID){
+		new BuildCityCommand(playerIndex, vertexLocation, gamesList.get(gameID)).execute();
 	}
 	
     /**
@@ -66,8 +66,8 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, roadLocation not null
      * @post Road is placed. Player of given playerIndex has 1 less brick and 1 less wood.
      */
-	public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free){
-		
+	public void buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free, int gameID){
+		new BuildRoadCommand(playerIndex, roadLocation, free, gamesList.get(gameID)).execute();
 	}
 	
     /**

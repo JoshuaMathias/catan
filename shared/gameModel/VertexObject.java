@@ -63,4 +63,9 @@ public class VertexObject {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "VertexObject [owner=" + owner + ", location=" + location + "]";
+	}
+
 }

@@ -54,8 +54,6 @@ public class CreateGameCommand {
 			System.out.println(hex.toString());
 		}
 		
-		
-		
 		assertTrue(true);
 	}
 }
