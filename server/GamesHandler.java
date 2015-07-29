@@ -48,7 +48,7 @@ public class GamesHandler implements HttpHandler {
 			responseHeaders.set("Content-Language", "en-US");
 			String responseStr = "";
 			if (command.equals("list")) {
-				GamesList games = facade.GamesList();
+				ArrayList<GameInfo> games = facade.GamesList();
 				responseStr=g.toJson(games);
 			} else {
 				BufferedReader streamReader = new BufferedReader(

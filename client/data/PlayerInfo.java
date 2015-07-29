@@ -41,7 +41,9 @@ public class PlayerInfo
 		this.id = id;
 		this.playerIndex = playerIndex;
 		this.name = name;
-		EnumToColor(colorEnum);
+		if (colorEnum!=null) {
+			EnumToColor(colorEnum);
+		}
 	}
 
 

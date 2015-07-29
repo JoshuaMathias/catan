@@ -152,8 +152,7 @@ public class ServerFacade {
 	 * @pre There is at least 1 game.
 	 * @post The games list is returned.
 	 */
-	public GamesList GamesList(){
-		GamesList list = new GamesList();
+	public ArrayList<GameInfo> GamesList(){
 		ArrayList<GameInfo> infoList = new ArrayList<GameInfo>();
 		System.out.println("Number of games: "+gamesList.size());
 		for (int i=0; i<gamesList.size(); i++) {
@@ -166,7 +165,7 @@ public class ServerFacade {
 				} else {
 					currentPlayer = new Player();
 				}
-				
+				System.out.println("Player's color: "+currentPlayer.getColor());
 				playerInfos.add(new PlayerInfo(currentPlayer.getPlayerID(), currentPlayer.getPlayerIndex(), currentPlayer.getName(), currentPlayer.getColor()));
 			}
 			gamesList.get(i).getPlayers();
@@ -174,8 +173,7 @@ public class ServerFacade {
 			System.out.println("Adding info for game "+i);
 			infoList.add(info);
 		}
-		list.setGames(infoList);
-		return list;
+		return infoList;
 	}
 	
 	/**
