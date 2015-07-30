@@ -446,7 +446,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		ResourceList proposedTradeList = tradeOffer.getOffer();
 		String status = turnTracker.getStatus();
 		int whoseTurn = turnTracker.getCurrentTurn();
-		
+	
 		if(status.equals("Playing") && whoseTurn == playerIndex) {
 		
 			ResourceList playerResourceList = players.get(playerIndex).getResources();
