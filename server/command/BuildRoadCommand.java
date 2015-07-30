@@ -57,7 +57,7 @@ public class BuildRoadCommand implements Command {
 		MessageLine line = new MessageLine();
 		String username = player.getName();
 		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
-			line.setMessage("Ife built a road in vain because Paul will always have a longer road than Ife");
+			line.setMessage("Ife built a road in vain because Paul will always have a longer road");
 		}
 		else{
 			line.setMessage(username + " built a road");

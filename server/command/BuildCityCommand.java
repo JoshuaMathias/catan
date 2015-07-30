@@ -53,7 +53,7 @@ public class BuildCityCommand implements Command {
 		MessageLine line = new MessageLine();
 		String username = player.getName();
 		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
-			line.setMessage(username + " built a city, but there are no good looking girls in it");
+			line.setMessage("Ife built a city, but there are no good looking girls in it");
 		}
 		else{
 			line.setMessage(username + " built a city");
