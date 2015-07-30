@@ -3,7 +3,9 @@ package server.command;
 import java.util.ArrayList;
 
 import server.facade.ServerFacade;
+import shared.definitions.HexType;
 import shared.gameModel.GameModel;
+import shared.gameModel.Hex;
 import shared.gameModel.Map;
 import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
@@ -21,16 +23,16 @@ import shared.locations.VertexLocation;
  */
 public class BuildSettlementCommand implements Command {
 
-	ServerFacade serverFacade;
 	int playerIndex;
 	VertexLocation vertexLocation;
 	boolean free;
 	private GameModel serverModel;
 	
+	private Player player;
+	
 	public BuildSettlementCommand(int playerIndex,
 			VertexLocation vertexLocation, boolean free, GameModel serverModel) {
 		// TODO Auto-generated constructor stub
-		this.serverFacade = ServerFacade.getSingleton();
 		this.playerIndex = playerIndex;
 		this.vertexLocation = vertexLocation;
 		this.free = free;
@@ -43,7 +45,7 @@ public class BuildSettlementCommand implements Command {
 		ArrayList<Player> playerList = serverModel.getPlayers();
 		ResourceList bank = serverModel.getBank();
 	
-		Player player = playerList.get(playerIndex);
+		player = playerList.get(playerIndex);
 		
 		if(free == false) {
 			updatePlayerResources(player);
@@ -54,11 +56,11 @@ public class BuildSettlementCommand implements Command {
 		int victoryPoints = player.getVictoryPoints();
 		player.setVictoryPoints(victoryPoints + 1);
 		Map map = serverModel.getMap();
-		VertexObject settlement = new VertexObject(playerIndex,vertexLocation);
+		VertexObject settlement = new VertexObject(playerIndex,vertexLocation.getNormalizedLocation());
 		map.addSettlement(settlement);
 		
 		if(serverModel.getTurnTracker().getStatus().equals("SecondRound")){
-			giveResources(settlement);
+			giveSecondRoundResources(settlement);
 		}
 		
 		MessageLine line = new MessageLine();
@@ -96,7 +98,7 @@ public class BuildSettlementCommand implements Command {
 	}
 
 	
-	private void giveResources(VertexObject settlement){
+	private void giveSecondRoundResources(VertexObject settlement){
 		VertexLocation location = settlement.getLocation();
 		VertexDirection direction = location.getDir();
 		HexLocation hexLoc = location.getHexLoc();
@@ -113,13 +115,62 @@ public class BuildSettlementCommand implements Command {
 			hexLoc3 = new HexLocation(x+1, y-1);
 			break;
 		case NW:
-			hexLoc3 = new HexLocation(x+1, y-1);
+			hexLoc3 = new HexLocation(x-1, y);
 			break;
 		case SE:
 			break;
 		case SW:
 			break;
 		case W:
+			break;
+		default:
+			break;
+		
+		}
+		
+		findHex(hexLoc);
+		findHex(hexLoc2);
+		findHex(hexLoc3);
+	}
+	
+	private void findHex(HexLocation loc){
+		ArrayList<Hex> hexes = serverModel.getMap().getHexes();
+		for(Hex hex: hexes){
+			HexLocation hexLoc = hex.getLocation();
+			if(hexLoc.equals(loc)){
+				giveResource(hex.getResource());
+			}
+		}
+	}
+	
+	private void giveResource(HexType resource){
+		ResourceList playerResources = player.getResources();
+		ResourceList bank = serverModel.getBank();
+		
+		switch(resource){
+		case brick:
+			playerResources.setBrick(playerResources.getBrick() + 1);
+			bank.setBrick(bank.getBrick() -1);
+			break;
+		case desert:
+			break;
+		case ore:
+			playerResources.setOre(playerResources.getOre() + 1);
+			bank.setOre(bank.getOre() -1);
+			break;
+		case sheep:
+			playerResources.setSheep(playerResources.getSheep() + 1);
+			bank.setSheep(bank.getSheep() -1);
+			break;
+		case water:
+			break;
+		case wheat:
+			playerResources.setWheat(playerResources.getWheat() + 1);
+			bank.setWheat(bank.getWheat() -1);
+			break;
+		case wood:
+			playerResources.setWood(playerResources.getWood() + 1);
+			bank.setWood(bank.getWood() -1);
 			break;
 		default:
 			break;

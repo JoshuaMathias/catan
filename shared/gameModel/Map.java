@@ -87,8 +87,12 @@ public class Map {
 		settlements.add(settlement);
 	}
 	
-	public void removeSettlement(VertexObject settlement){
-		//Implement This!!!!!!!!!!!!!!!!!!!!!!
+	public void removeSettlement(VertexObject settlement){//hopefully, this works
+		for(VertexObject house: settlements){
+			if(house.equals(settlement)){
+				settlements.remove(settlement);
+			}
+		}
 	}
 	
 	public void addCity(VertexObject city){

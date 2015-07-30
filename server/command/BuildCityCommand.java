@@ -45,8 +45,10 @@ public class BuildCityCommand implements Command {
 		player.setVictoryPoints(victoryPoints + 1);
 		
 		Map map = serverModel.getMap();
-		map.removeSettlement(new VertexObject(playerIndex, vertexLocation));
-		map.addCity(new VertexObject(playerIndex, vertexLocation));
+		vertexLocation = vertexLocation.getNormalizedLocation();
+		VertexObject city = new VertexObject(playerIndex, vertexLocation);
+		map.removeSettlement(city);
+		map.addCity(city);
 		
 		MessageLine line = new MessageLine();
 		String username = player.getName();

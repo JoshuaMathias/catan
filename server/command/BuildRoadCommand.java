@@ -51,7 +51,7 @@ public class BuildRoadCommand implements Command {
 		Map map = serverModel.getMap();
 		ArrayList<Road> roads = map.getRoads();
 		
-		roads.add(new Road(playerIndex, roadLocation));
+		roads.add(new Road(playerIndex, roadLocation.getNormalizedLocation()));
 		map.setRoads(roads);
 		
 		MessageLine line = new MessageLine();
