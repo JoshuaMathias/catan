@@ -155,7 +155,6 @@ public class ServerFacade {
 	 */
 	public ArrayList<GameInfo> GamesList(){
 		ArrayList<GameInfo> infoList = new ArrayList<GameInfo>();
-		System.out.println("Number of games: "+gamesList.size());
 		for (int i=0; i<gamesList.size(); i++) {
 			ArrayList<Player> players = gamesList.get(i).getPlayers();
 			ArrayList<PlayerInfo> playerInfos = new ArrayList<PlayerInfo>();

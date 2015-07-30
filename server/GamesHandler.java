@@ -108,8 +108,10 @@ public class GamesHandler implements HttpHandler {
 							JoinGameParams.class);
 //					System.out.println(URLDecoder.decode(usercookie, "UTF-8").replace("catan.user=", ""));
 					User user = g.fromJson(URLDecoder.decode(usercookie, "UTF-8").replace("catan.user=", ""),User.class);
-					facade.joinGame(joinParams.getId(), joinParams.getColor(),user
-							);
+					if (!facade.joinGame(joinParams.getId(), joinParams.getColor(),user
+							)) {
+						successful=false;
+					}
 					
 					// Send new game cookie
 					 List<String> values = new ArrayList<>();
