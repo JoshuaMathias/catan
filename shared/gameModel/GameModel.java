@@ -259,7 +259,7 @@ public class GameModel {
 	 * 
 	 * Otherwise return false
 	 */
-	public int canBankTrade(int playerIndex, PortType offer, PortType request) {
+	public int canBankTrade(int playerIndex, PortType offer, PortType request) {//returns -1 if cannot trade, otherwise returns ration for trade
 		
 //		boolean can = false;
 		players.get(playerIndex).getResources();

@@ -8,6 +8,9 @@ import server.command.*;
 import shared.gameModel.GameModel;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
+import shared.gameModel.Road;
+import shared.gameModel.TradeOffer;
+import shared.gameModel.VertexObject;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -16,6 +19,9 @@ import client.data.PlayerInfo;
 import client.serverproxy.GamesList;
 import client.data.*;
 import shared.definitions.CatanColor;
+import shared.definitions.DevCardType;
+import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 
 /**
  * The Server Facade. The facade contains the server model and the methods
@@ -48,7 +54,14 @@ public class ServerFacade {
 	 * @pre playerIndex between 0 and 3 inclusive and not null
 	 * @post Trade is accepted; resources are exchanged.
 	 */
-	public boolean acceptTrade(int playerIndex, boolean willAccept){
+	public boolean acceptTrade(int playerIndex, boolean willAccept, int gameID){//needs to pass back whether the player accepted or rejected the trade!!!!!!!!!!!!!!!!!!!!!!!!!
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canAcceptTrade(playerIndex, serverModel.getTradeOffer())){
+			new AcceptTradeCommand(playerIndex, willAccept, serverModel).execute();
+			if(willAccept){
+				return true;
+			}
+		}
 		return false;
 	}
 	
@@ -61,7 +74,12 @@ public class ServerFacade {
 	 * @post City is placed. Player of given playerIndex loses 3 ore and 2 wheat.
 	 */
 	public boolean buildCity(int playerIndex, VertexLocation vertexLocation, int gameID){
-		new BuildCityCommand(playerIndex, vertexLocation, gamesList.get(gameID)).execute();
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canBuildCity(new VertexObject(playerIndex, vertexLocation))){
+			new BuildCityCommand(playerIndex, vertexLocation, serverModel).execute();
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -74,7 +92,12 @@ public class ServerFacade {
      * @post Road is placed. Player of given playerIndex has 1 less brick and 1 less wood.
      */
 	public boolean buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free, int gameID){
-		new BuildRoadCommand(playerIndex, roadLocation, free, gamesList.get(gameID)).execute();
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canBuildRoad(new Road(playerIndex, roadLocation))){
+			new BuildRoadCommand(playerIndex, roadLocation, free, serverModel).execute();
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -87,7 +110,12 @@ public class ServerFacade {
      * @post Settlement for player of given playerIndex is placed. Player loses 1 wood, 1 brick, 1 wool, and 1 wheat.
      */
 	public boolean buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free, int gameID){
-		new BuildSettlementCommand(playerIndex, vertexLocation, free, gamesList.get(gameID)).execute();
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canBuildSettlement(new VertexObject(playerIndex, vertexLocation))){
+			new BuildSettlementCommand(playerIndex, vertexLocation, free, serverModel).execute();
+			return true;
+		}
+		
 		return false;
 	}
 	
@@ -97,7 +125,12 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post The given player receives a random dev card and loses 1 ore, 1 wool, and 1 wheat.
      */
-	public boolean buyDevCard(int playerIndex){
+	public boolean buyDevCard(int playerIndex, int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canBuyDevCard(playerIndex)){
+			new BuyDevCardCommand(playerIndex, serverModel).execute();
+			return true;
+		}
 		return false;
 	}
 	
@@ -123,7 +156,12 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, discardedCards not null
      * @post The player no longer has the specified discardedCards.
 	 */
-	public boolean discardCards(int playerIndex, ResourceList discardedCards){
+	public boolean discardCards(int playerIndex, ResourceList discardedCards, int gameID){//Not sure if a canDo is needed
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.mustDiscard(playerIndex)){
+			new DiscardCardsCommand(playerIndex, discardedCards, serverModel).execute();
+			return true;
+		}
 		return false;
 	}
 	
@@ -133,7 +171,12 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null
      * @post The player's turn has ended and the next player's turn has begun.
 	 */
-	public boolean finishTurn(){
+	public boolean finishTurn(int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canEndTurn(serverModel.getTurnTracker().getCurrentTurn())){
+			new FinishTurnCommand(serverModel).execute();
+			return true;
+		}
 		return false;
 	}
 	
@@ -249,8 +292,31 @@ public class ServerFacade {
 	 * @pre The given resources are available. The player has a settlement or city by a port of the given ratio that applies for the given resources.
 	 * @post The given resources are exchanged between the player and the bank.
 	 */
-	public boolean maritimeTrade(int playerIndex, int ratio, String inputResource, String outputResource){
+	public boolean maritimeTrade(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource, int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canBankTrade(playerIndex, resourceToPort(inputResource), resourceToPort(outputResource)) != -1){
+			new MaritimeTradeCommand(playerIndex, ratio, inputResource, outputResource, serverModel).execute();
+			return true;
+		}
 		return false;
+	}
+	
+	private PortType resourceToPort(ResourceType resource){
+		switch(resource){
+		case brick:
+			return PortType.brick;
+		case ore:
+			return PortType.ore;
+		case sheep:
+			return PortType.sheep;
+		case wheat:
+			return PortType.wheat;
+		case wood:
+			return PortType.wood;
+		default:
+			return PortType.three;//should never get here
+		
+		}
 	}
 	
 	/**
@@ -259,7 +325,12 @@ public class ServerFacade {
 	 * @pre The player of the given playerIndex has a monument card and it is their turn.
 	 * @post The player gains a victory point.
 	 */
-	public boolean monument(int playerIndex){
+	public boolean monument(int playerIndex, int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canPlayDevCard(playerIndex, DevCardType.MONUMENT)){//might need to change the canDo in GameModel
+			new MonumentCommand(playerIndex, serverModel).execute();
+			return true;
+		}
 		return false;
 	}
 	
@@ -271,7 +342,12 @@ public class ServerFacade {
      * @pre playerIndex and receiver between 0 and 3 inclusive and not null; offer not null.
      * @post The trade is offered from the given player to the receiver.
 	 */
-	public boolean offerTrade(int playerIndex, ResourceList offer, int receiver){
+	public boolean offerTrade(int playerIndex, ResourceList offer, int receiver, int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canOfferTrade(new TradeOffer(playerIndex, receiver, offer))){
+			new OfferTradeCommand(playerIndex, offer, receiver, serverModel).execute();
+			return true;
+		}
 		return false;
 	}
 	

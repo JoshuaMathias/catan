@@ -18,7 +18,7 @@ public class BuyDevCardCommand implements Command {
 	int playerIndex;
 	GameModel serverModel;
 	
-	BuyDevCardCommand(int playerIndex, GameModel serverModel){
+	public BuyDevCardCommand(int playerIndex, GameModel serverModel){
 		this.playerIndex = playerIndex;
 		this.serverModel = serverModel;
 	}
