@@ -393,4 +393,9 @@ public class ServerFacade {
 		
 		return result;
 	}
+	
+	public GameModel getGameModel(int gameId)
+	{
+		return gamesList.get(gameId);
+	}
 }
