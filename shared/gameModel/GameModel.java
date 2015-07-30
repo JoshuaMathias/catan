@@ -25,6 +25,7 @@ public class GameModel {
 	private MessageList log = new MessageList();
 	private Map map;
 	private ArrayList<Player> players = new ArrayList<>();
+	private ArrayList<Integer> discardingPlayersIndeces = null;
 	private TradeOffer tradeOffer = null;
 	private TurnTracker turnTracker = new TurnTracker();
 	private int version = -1;
@@ -94,6 +95,15 @@ public class GameModel {
 		this.players = players;
 	}
 
+	public ArrayList<Integer> getDiscardingPlayersIndeces() {
+		return discardingPlayersIndeces;
+	}
+
+	public void setDiscardingPlayersIndeces(
+			ArrayList<Integer> discardingPlayersIndeces) {
+		this.discardingPlayersIndeces = discardingPlayersIndeces;
+	}
+
 	public TradeOffer getTradeOffer() {
 		return tradeOffer;
 	}
@@ -116,6 +126,10 @@ public class GameModel {
 
 	public void setVersion(int version) {
 		this.version = version;
+	}
+	
+	public void incrementVersion(){
+		this.version++;
 	}
 
 	public int getWinner() {

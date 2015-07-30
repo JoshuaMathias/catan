@@ -1,5 +1,7 @@
 package server.command;
 
+import java.util.ArrayList;
+
 import shared.gameModel.GameModel;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
@@ -24,7 +26,8 @@ public class DiscardCardsCommand implements Command {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		Player player = serverModel.getPlayers().get(playerIndex);
+		ArrayList<Player> players = serverModel.getPlayers();
+		Player player = players.get(playerIndex);
 		ResourceList playerResources = player.getResources();
 		int BrickToDiscard = discardedCards.getBrick();
 		int WheatToDiscard = discardedCards.getWheat();
@@ -46,6 +49,23 @@ public class DiscardCardsCommand implements Command {
 		bank.setSheep(bank.getSheep() + SheepToDiscard);
 		
 		player.setDiscarded(true);
+		//change status to "Robbing" once everyone has discarded!!!!!!!!!!!!!!!!!!!!
+		boolean doneDiscarding = true;
+		
+		ArrayList<Integer> discardingPlayersIndeces = serverModel.getDiscardingPlayersIndeces();
+		if(discardingPlayersIndeces != null){
+			for(int discardingPlayerIndex: discardingPlayersIndeces){
+				if(players.get(discardingPlayerIndex).isDiscarded() == false){
+					doneDiscarding = false;
+					break;
+				}
+			}
+		}
+		
+		if(doneDiscarding){
+			serverModel.getTurnTracker().setStatus("Robbing");
+			serverModel.setDiscardingPlayersIndeces(null);
+		}
 	}
 
 }

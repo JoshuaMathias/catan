@@ -58,6 +58,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canAcceptTrade(playerIndex, serverModel.getTradeOffer())){
 			new AcceptTradeCommand(playerIndex, willAccept, serverModel).execute();
+			serverModel.incrementVersion();
 			if(willAccept){
 				return true;
 			}
@@ -77,6 +78,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canBuildCity(new VertexObject(playerIndex, vertexLocation))){
 			new BuildCityCommand(playerIndex, vertexLocation, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		
@@ -95,6 +97,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canBuildRoad(new Road(playerIndex, roadLocation))){
 			new BuildRoadCommand(playerIndex, roadLocation, free, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		
@@ -113,6 +116,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canBuildSettlement(new VertexObject(playerIndex, vertexLocation))){
 			new BuildSettlementCommand(playerIndex, vertexLocation, free, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		
@@ -129,6 +133,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canBuyDevCard(playerIndex)){
 			new BuyDevCardCommand(playerIndex, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
@@ -160,8 +165,10 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.mustDiscard(playerIndex)){
 			new DiscardCardsCommand(playerIndex, discardedCards, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
+
 		return false;
 	}
 	
@@ -175,6 +182,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canEndTurn(serverModel.getTurnTracker().getCurrentTurn())){
 			new FinishTurnCommand(serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
@@ -296,6 +304,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canBankTrade(playerIndex, resourceToPort(inputResource), resourceToPort(outputResource)) != -1){
 			new MaritimeTradeCommand(playerIndex, ratio, inputResource, outputResource, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
@@ -329,6 +338,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canPlayDevCard(playerIndex, DevCardType.MONUMENT)){//might need to change the canDo in GameModel
 			new MonumentCommand(playerIndex, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
@@ -346,6 +356,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canOfferTrade(new TradeOffer(playerIndex, receiver, offer))){
 			new OfferTradeCommand(playerIndex, offer, receiver, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
@@ -383,6 +394,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canPlayDevCard(playerIndex, DevCardType.ROAD_BUILD)){
 			new RoadBuildingCommand(playerIndex, spot1, spot2, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
@@ -401,6 +413,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canPlaceRobber(playerIndex, 7, location)){
 			new RobPlayerCommand(playerIndex, victimIndex, location, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
@@ -414,14 +427,25 @@ public class ServerFacade {
 	 * @pre playerIndex and number != null, number between 2 and 12 inclusive, playerIndex between 0 and 3 inclusive
 	 * @post A random number between 2 and 12 is rolled. Player gain their corresponding resources.
 	 */
-	public boolean rollNumber(){
+	public boolean rollNumber(int sender, int number, int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canRollDice(sender)){
+			new RollNumberCommand(sender, number, serverModel).execute();
+			serverModel.incrementVersion();
+			return true;
+		}
 		return false;
 	}
 	
 	/**
 	 * Creates a SendChatCommand object and executes it.
 	 */
-	public boolean sendChat(String message){
+	public boolean sendChat(int playerIndex, String content, int gameId){
+		GameModel serverModel = gamesList.get(gameId);
+		if(!content.isEmpty()){
+			new SendChatCommand(content, playerIndex, serverModel).execute();;
+			return true;
+		}
 		return false;
 	}
 	
@@ -437,6 +461,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canPlayDevCard(playerIndex, DevCardType.SOLDIER)){
 			new SoldierCommand(playerIndex, victimIndex, location, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
@@ -454,6 +479,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canPlayDevCard(playerIndex, DevCardType.YEAR_OF_PLENTY)){
 			new YearOfPlentyCommand(playerIndex, resource1, resource2, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
