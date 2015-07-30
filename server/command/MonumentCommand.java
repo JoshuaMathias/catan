@@ -23,8 +23,6 @@ public class MonumentCommand implements Command {
 	@Override
 	public void execute() {
 		
-		player.setPlayedDevCard(true);
-		
 		DevCardList oldDevCards = player.getOldDevCards();
 		int oldDevMonumentAmount= oldDevCards.getMonument();
 		if(oldDevMonumentAmount > 0) {
@@ -44,9 +42,9 @@ public class MonumentCommand implements Command {
 		victoryPoints += 1;
 		player.setVictoryPoints(victoryPoints);
 		
-		int monumentAmount = deck.getMonument();
+		/*int monumentAmount = deck.getMonument();
 		monumentAmount += 1;
-		deck.setMonument(monumentAmount);
+		deck.setMonument(monumentAmount);*/
 	}
 
 }
