@@ -88,4 +88,9 @@ public class GameHandler implements HttpHandler {
 		
 	}
 
+	String gamecookie = "catan.game=12";
+	public static void main(String[] args)
+	{
+		URLDecoder.decode()
+	}
 }
