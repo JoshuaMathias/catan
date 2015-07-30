@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import shared.definitions.HexType;
 import shared.gameModel.GameModel;
 import shared.gameModel.Hex;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.VertexObject;
@@ -33,6 +34,15 @@ public class RollNumberCommand implements Command {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		
+		Player player = serverModel.getPlayers().get(sender);
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " rolled a " + Integer.toString(number));
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
+		
+		
 		if(number == 7){
 			if(needToDiscard()){
 				serverModel.getTurnTracker().setStatus("Discarding");

@@ -1,6 +1,8 @@
 package server.command;
 
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
+import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.TradeOffer;
 
@@ -33,6 +35,15 @@ public class OfferTradeCommand implements Command {
 		tradeOffer.setReceiver(receiver);
 		tradeOffer.setOffer(offer);
 		serverModel.setTradeOffer(tradeOffer);
+		
+		Player senderPlayer = serverModel.getPlayers().get(sender);
+		Player receiverPlayer = serverModel.getPlayers().get(receiver);
+		
+		MessageLine line = new MessageLine();
+		String username = senderPlayer.getName();
+		line.setMessage(username + " sent a trade offer to " + receiverPlayer.getName());
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 }

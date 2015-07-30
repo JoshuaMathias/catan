@@ -17,6 +17,10 @@ public class MessageList {
 	public void setLines(ArrayList<MessageLine> lines) {
 		this.lines = lines;
 	}
+	
+	public void addLine(MessageLine line){
+		lines.add(line);
+	}
 
 	@Override
 	public int hashCode() {

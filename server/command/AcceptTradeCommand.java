@@ -3,6 +3,7 @@ package server.command;
 import java.util.ArrayList;
 
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.TradeOffer;
@@ -60,6 +61,18 @@ public class AcceptTradeCommand implements Command {
 			senderResources.setWood(senderResources.getWood() - offerWood);
 			recieverResources.setWood(recieverResources.getWood() + offerWood);
 			
+			
+			MessageLine line = new MessageLine();
+			line.setMessage("The trade was accepted");
+			line.setSource(reciever.getName());
+			serverModel.getLog().addLine(line);
+		}
+		else{
+			Player reciever = serverModel.getPlayers().get(playerIndex);
+			MessageLine line = new MessageLine();
+			line.setMessage("The trade was rejected");
+			line.setSource(reciever.getName());
+			serverModel.getLog().addLine(line);
 		}
 		serverModel.setTradeOffer(null);
 	}

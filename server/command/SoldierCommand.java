@@ -2,6 +2,7 @@ package server.command;
 
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.locations.HexLocation;
 
@@ -34,6 +35,12 @@ public class SoldierCommand implements Command {
 		DevCardList playerOldDevCardList = player.getOldDevCards();
 		playerOldDevCardList.setSoldier(playerOldDevCardList.getSoldier() - 1);
 		player.setPlayedDevCard(true);
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " played a Soldier Development Card");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Random;
 import shared.definitions.DevCardType;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 
@@ -103,6 +104,12 @@ public class BuyDevCardCommand implements Command {
 			}
 		}while(noCardsLeftOfThatType);
 		
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " bought a development card");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 }

@@ -2,6 +2,7 @@ package server.command;
 
 import shared.definitions.ResourceType;
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 
@@ -84,6 +85,12 @@ public class MaritimeTradeCommand implements Command {
 		default:
 			break;
 		}
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " traded " + ratio + " " + inputResource.toString() + " with the bank for 1 " + outputResource.toString());
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 }

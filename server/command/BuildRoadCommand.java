@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import shared.gameModel.GameModel;
 import shared.gameModel.Map;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.Road;
@@ -52,6 +53,12 @@ public class BuildRoadCommand implements Command {
 		
 		roads.add(new Road(playerIndex, roadLocation));
 		map.setRoads(roads);
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " layed a road");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 	
 	private void updatePlayerResources() {

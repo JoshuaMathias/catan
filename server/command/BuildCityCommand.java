@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
 import shared.gameModel.Map;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.VertexObject;
@@ -46,6 +47,12 @@ public class BuildCityCommand implements Command {
 		Map map = serverModel.getMap();
 		map.removeSettlement(new VertexObject(playerIndex, vertexLocation));
 		map.addCity(new VertexObject(playerIndex, vertexLocation));
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " built a city");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 	
 	private void updatePlayerResources() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import shared.definitions.ResourceType;
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 
@@ -48,6 +49,12 @@ public class YearOfPlentyCommand implements Command {
 		
 		scrollPlayerResources(cardOne,playerResources);
 		scrollPlayerResources(cardTwo,playerResources);
+		
+		MessageLine line = new MessageLine();
+		String username = mainPlayer.getName();
+		line.setMessage(username + " played a year of plenty card for " + cardOne.toString() + " and " + cardTwo.toString());
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 	private void scrollResources(ResourceType card, ResourceList list) {

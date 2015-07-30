@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
 import shared.gameModel.Map;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.TurnTracker;
@@ -52,6 +53,12 @@ public class BuildSettlementCommand implements Command {
 		player.setVictoryPoints(victoryPoints + 1);
 		Map map = serverModel.getMap();
 		map.addSettlement(new VertexObject(playerIndex,vertexLocation));
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " built a settlement");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 	
 	private void updatePlayerResources(Player player) {

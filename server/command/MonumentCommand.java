@@ -2,6 +2,7 @@ package server.command;
 
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 
 /**
@@ -13,11 +14,13 @@ public class MonumentCommand implements Command {
 
 	private Player player;
 	private DevCardList deck;
+	private GameModel serverModel;
 	
 	public MonumentCommand(int playerIndex, GameModel serverModel) {
 		
 		this.deck = serverModel.getDeck();
 		this.player = serverModel.getPlayers().get(playerIndex);
+		this.serverModel = serverModel;
 	}
 	
 	@Override
@@ -45,6 +48,12 @@ public class MonumentCommand implements Command {
 		/*int monumentAmount = deck.getMonument();
 		monumentAmount += 1;
 		deck.setMonument(monumentAmount);*/
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " played a Monument card");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 }

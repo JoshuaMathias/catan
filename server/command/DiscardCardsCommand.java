@@ -3,6 +3,7 @@ package server.command;
 import java.util.ArrayList;
 
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 
@@ -66,6 +67,12 @@ public class DiscardCardsCommand implements Command {
 			serverModel.getTurnTracker().setStatus("Robbing");
 			serverModel.setDiscardingPlayersIndeces(null);
 		}
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " discarded half their cards");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 }

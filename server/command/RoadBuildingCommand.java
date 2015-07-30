@@ -2,6 +2,7 @@ package server.command;
 
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.Road;
 import shared.locations.EdgeLocation;
@@ -30,7 +31,6 @@ public class RoadBuildingCommand implements Command {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		DevCardList deck = serverModel.getDeck();
 		Player player = serverModel.getPlayers().get(sender);
 		DevCardList playerOldDevCards = player.getOldDevCards();
 		
@@ -42,6 +42,12 @@ public class RoadBuildingCommand implements Command {
 		player.setRoads(player.getRoads() - 2);
 		
 		player.setPlayedDevCard(true);
+		
+		MessageLine line = new MessageLine();
+		String username = player.getName();
+		line.setMessage(username + " built a couple roads with a road building development card");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 }

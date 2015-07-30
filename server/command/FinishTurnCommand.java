@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.TurnTracker;
 
@@ -85,6 +86,13 @@ public class FinishTurnCommand implements Command {
 			}
 			
 		}
+		
+		MessageLine line = new MessageLine();
+		Player player = serverModel.getPlayers().get(currentTurn);
+		String username = player.getName();
+		line.setMessage(username + " ended their turn");
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 	private void resetDiscarded() {
