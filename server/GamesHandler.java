@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,20 +76,46 @@ public class GamesHandler implements HttpHandler {
 					break;
 				case "join":
 					System.out.println("join game handler");
-					// TODO
+					String usercookie = "";
 					// Get cookies and parse for user id. Only join if they have
 					// a valid user id.
+					Headers requestheader = exchange.getRequestHeaders();
+					if(requestheader.containsKey("Cookie"))
+					{
+						List<String> cookies = requestheader.get("Cookie");
+						if(cookies.size()>0)
+						{
+							usercookie = cookies.get(0);
+						}
+						else
+						{
+							successful=false;
+							responseStr = "Don't have cookies. Make sure you sign in.";
+							exchange.sendResponseHeaders(
+									HttpURLConnection.HTTP_BAD_REQUEST,
+									responseStr.length());
+						}
+					}
+					else
+					{
+						successful = false;
+						responseStr = "Don't have cookies. Make sure you sign in.";
+						exchange.sendResponseHeaders(
+								HttpURLConnection.HTTP_BAD_REQUEST,
+								responseStr.length());
+					}
 					JoinGameParams joinParams = g.fromJson(requestJson,
 							JoinGameParams.class);
-					facade.joinGame(joinParams.getId(), joinParams.getColor(),
-							-1);
+//					System.out.println(URLDecoder.decode(usercookie, "UTF-8").replace("catan.user=", ""));
+					User user = g.fromJson(URLDecoder.decode(usercookie, "UTF-8").replace("catan.user=", ""),User.class);
+					facade.joinGame(joinParams.getId(), joinParams.getColor(),user
+							);
 					
 					// Send new game cookie
-					// List<String> values = new ArrayList<>();
-					// String cookieString = "";
-					// values.add(URLEncoder.encode(cookieString, "UTF-8"));
-					//
-					// responseHeaders.put("Set-Cookie", values);
+					 List<String> values = new ArrayList<>();
+					 String cookieString = "catan.game="+joinParams.getId()+";Path=/;";
+					 values.add(cookieString);
+					 responseHeaders.put("Set-Cookie", values);
 					break;
 				}
 			}

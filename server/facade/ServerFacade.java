@@ -15,6 +15,7 @@ import client.data.GameInfo;
 import client.data.PlayerInfo;
 import client.serverproxy.GamesList;
 import client.data.*;
+import shared.definitions.CatanColor;
 
 /**
  * The Server Facade. The facade contains the server model and the methods
@@ -174,6 +175,31 @@ public class ServerFacade {
 		return infoList;
 	}
 	
+	public CatanColor convertColorToEnum(String color) {
+		switch (color) {
+        case "red":
+            return CatanColor.red;
+        case "orange":
+            return CatanColor.orange;
+        case "yellow":
+            return CatanColor.yellow;
+        case "blue":
+            return CatanColor.blue;
+        case "green":
+            return CatanColor.green;
+        case "purple":
+            return CatanColor.purple;
+        case "puce":
+            return CatanColor.puce;
+        case "white":
+            return CatanColor.white;
+        case "brown":
+            return CatanColor.brown;
+        default:
+        	return CatanColor.white;
+		}
+	}
+	
 	/**
 	 * Creates a JoinGameCommand object and executes it.
 	 * @param gameID
@@ -181,8 +207,17 @@ public class ServerFacade {
 	 * @pre A game with the given ID exists. The given color is available. There aren't 4 other players already in the game.
 	 * @post The player has joined the game.
 	 */
-	public boolean joinGame(String gameId, String color, int userID){
-		return false;
+	public boolean joinGame(String gameId, String color, User user){
+		GameModel thisGame = gamesList.get(Integer.parseInt(gameId));
+		if (userExist(user)) {
+			if (thisGame.getPlayers().size()<4) {
+				JoinGameCommand joinGameCommand = new JoinGameCommand(convertColorToEnum(color), user.getName(), user.getPlayerID(), thisGame);
+				joinGameCommand.execute();
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
