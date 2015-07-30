@@ -31,17 +31,25 @@ public class FinishTurnCommand implements Command {
 		case "FirstRound":
 			if(currentTurn >= 3){
 				turnTracker.setStatus("SecondRound");
+				
+			}
+			else{
+				turnTracker.nextTurn();
 			}
 			break;
 		case "SecondRound":
-			if(currentTurn >= 3){
-				turnTracker.setStatus("Playing");
+			if(currentTurn <= 0){
+				turnTracker.setStatus("Rolling");
+			}
+			else{
+				turnTracker.previousTurn();
 			}
 			break;
 		case "Playing":
 			newToOldDevCards(currentTurn);//moves new devcards out of newDevCardList and into oldDevCardList
+			turnTracker.setStatus("Rolling");
+			turnTracker.nextTurn();
 		}
-		turnTracker.nextTurn();
 		
 		resetDiscarded();
 		
