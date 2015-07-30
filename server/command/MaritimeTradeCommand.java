@@ -88,7 +88,13 @@ public class MaritimeTradeCommand implements Command {
 		
 		MessageLine line = new MessageLine();
 		String username = player.getName();
-		line.setMessage(username + " traded " + ratio + " " + inputResource.toString() + " with the bank for 1 " + outputResource.toString());
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife traded " + ratio + " " + inputResource.toString() + " with the bank for 1 " + outputResource.toString() + "because nobody likes him enough to trade with him");
+		}
+		else{
+			line.setMessage(username + " traded " + ratio + " " + inputResource.toString() + " with the bank for 1 " + outputResource.toString());
+		}
+//		line.setMessage(username + " traded " + ratio + " " + inputResource.toString() + " with the bank for 1 " + outputResource.toString());
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

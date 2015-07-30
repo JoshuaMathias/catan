@@ -38,7 +38,13 @@ public class RollNumberCommand implements Command {
 		Player player = serverModel.getPlayers().get(sender);
 		MessageLine line = new MessageLine();
 		String username = player.getName();
-		line.setMessage(username + " rolled a " + Integer.toString(number));
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife rolled a " + Integer.toString(number) + ", just like he should roll over and give up");
+		}
+		else{
+			line.setMessage(username + " rolled a " + Integer.toString(number));
+		}
+//		line.setMessage(username + " rolled a " + Integer.toString(number));
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 		

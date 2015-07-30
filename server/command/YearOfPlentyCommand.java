@@ -52,7 +52,13 @@ public class YearOfPlentyCommand implements Command {
 		
 		MessageLine line = new MessageLine();
 		String username = mainPlayer.getName();
-		line.setMessage(username + " played a year of plenty card for " + cardOne.toString() + " and " + cardTwo.toString());
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife can't get them any other way, so he used a Year of Plenty card to get a " + cardOne.toString() + " and a" + cardTwo.toString());
+		}
+		else{
+			line.setMessage(username + " played a Year of Plenty card for " + cardOne.toString() + " and " + cardTwo.toString());
+		}
+//		line.setMessage(username + " played a year of plenty card for " + cardOne.toString() + " and " + cardTwo.toString());
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

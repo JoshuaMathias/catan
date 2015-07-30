@@ -51,7 +51,13 @@ public class MonumentCommand implements Command {
 		
 		MessageLine line = new MessageLine();
 		String username = player.getName();
-		line.setMessage(username + " played a Monument card");
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife can only score by playing Monument cards, but can't score with girls");
+		}
+		else{
+			line.setMessage(username + " played a Monument card");
+		}
+//		line.setMessage(username + " played a Monument card");
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

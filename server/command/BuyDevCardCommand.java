@@ -107,7 +107,13 @@ public class BuyDevCardCommand implements Command {
 		
 		MessageLine line = new MessageLine();
 		String username = player.getName();
-		line.setMessage(username + " bought a development card");
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife is a development card slut");
+		}
+		else{
+			line.setMessage(username + " bought a development card");
+		}
+//		line.setMessage(username + " bought a development card");
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

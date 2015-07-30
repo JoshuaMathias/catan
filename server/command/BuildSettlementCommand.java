@@ -65,7 +65,13 @@ public class BuildSettlementCommand implements Command {
 		
 		MessageLine line = new MessageLine();
 		String username = player.getName();
-		line.setMessage(username + " built a settlement");
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife buit a settlement all by himself, because he is single and lonely. No girlfriend. No worth.");
+		}
+		else{
+			line.setMessage(username + " built a settlement");
+		}
+//		line.setMessage(username + " built a settlement");
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

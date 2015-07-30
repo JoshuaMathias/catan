@@ -38,7 +38,13 @@ public class SoldierCommand implements Command {
 		
 		MessageLine line = new MessageLine();
 		String username = player.getName();
-		line.setMessage(username + " played a Soldier Development Card");
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife probably screwed Daniel over with a soldier card, again");
+		}
+		else{
+			line.setMessage(username + " played a Soldier Development Card");
+		}
+//		line.setMessage(username + " played a Soldier Development Card");
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

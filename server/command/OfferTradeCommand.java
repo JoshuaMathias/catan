@@ -41,7 +41,13 @@ public class OfferTradeCommand implements Command {
 		
 		MessageLine line = new MessageLine();
 		String username = senderPlayer.getName();
-		line.setMessage(username + " sent a trade offer to " + receiverPlayer.getName());
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife sent a trade offer to " + receiverPlayer.getName() + ", requesting special \"favors\"");
+		}
+		else{
+			line.setMessage(username + " sent a trade offer to " + receiverPlayer.getName());
+		}
+//		line.setMessage(username + " sent a trade offer to " + receiverPlayer.getName());
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

@@ -90,7 +90,13 @@ public class FinishTurnCommand implements Command {
 		MessageLine line = new MessageLine();
 		Player player = serverModel.getPlayers().get(currentTurn);
 		String username = player.getName();
-		line.setMessage(username + " ended their turn");
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife wasted his turn");
+		}
+		else{
+			line.setMessage(username + " ended their turn");
+		}
+//		line.setMessage(username + " ended their turn");
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

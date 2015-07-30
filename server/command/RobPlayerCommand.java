@@ -103,7 +103,13 @@ public class RobPlayerCommand implements Command {
 			
 			MessageLine line = new MessageLine();
 			String username = player.getName();
-			line.setMessage(username + " moved the robber and robbed from " + victim.getName());
+			if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+				line.setMessage("Ife's only chance of winning is by robbing from " + victim.getName());
+			}
+			else{
+				line.setMessage(username + " moved the robber and robbed from " + victim.getName());
+			}
+//			line.setMessage(username + " moved the robber and robbed from " + victim.getName());
 			line.setSource(username);
 			serverModel.getLog().addLine(line);
 		}

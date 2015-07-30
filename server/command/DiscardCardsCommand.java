@@ -70,7 +70,13 @@ public class DiscardCardsCommand implements Command {
 		
 		MessageLine line = new MessageLine();
 		String username = player.getName();
-		line.setMessage(username + " discarded half their cards");
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife discarded half his cards because he plans badly and is going nowhere in this game");
+		}
+		else{
+			line.setMessage(username + " discarded half their cards");
+		}
+//		line.setMessage(username + " discarded half their cards");
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 	}

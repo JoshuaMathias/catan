@@ -35,10 +35,10 @@ public class AcceptTradeCommand implements Command {
 			ArrayList<Player> players = serverModel.getPlayers();
 			
 			Player sender = players.get(tradeOffer.getSender());
-			Player reciever = players.get(playerIndex);
+			Player receiver = players.get(playerIndex);
 			
 			ResourceList senderResources = sender.getResources();
-			ResourceList recieverResources = reciever.getResources();
+			ResourceList receiverResources = receiver.getResources();
 			
 			int offerBrick = offerList.getBrick();
 			int offerWheat = offerList.getWheat();
@@ -47,31 +47,45 @@ public class AcceptTradeCommand implements Command {
 			int offerWood = offerList.getWood();
 			
 			senderResources.setBrick(senderResources.getBrick() - offerBrick);
-			recieverResources.setBrick(recieverResources.getBrick() + offerBrick);
+			receiverResources.setBrick(receiverResources.getBrick() + offerBrick);
 			
 			senderResources.setWheat(senderResources.getWheat() - offerWheat);
-			recieverResources.setWheat(recieverResources.getWheat() + offerWheat);
+			receiverResources.setWheat(receiverResources.getWheat() + offerWheat);
 			
 			senderResources.setSheep(senderResources.getSheep() - offerSheep);
-			recieverResources.setSheep(recieverResources.getSheep() + offerSheep);
+			receiverResources.setSheep(receiverResources.getSheep() + offerSheep);
 			
 			senderResources.setOre(senderResources.getOre() - offerOre);
-			recieverResources.setOre(recieverResources.getOre() + offerOre);
+			receiverResources.setOre(receiverResources.getOre() + offerOre);
 			
 			senderResources.setWood(senderResources.getWood() - offerWood);
-			recieverResources.setWood(recieverResources.getWood() + offerWood);
+			receiverResources.setWood(receiverResources.getWood() + offerWood);
 			
 			
 			MessageLine line = new MessageLine();
-			line.setMessage("The trade was accepted");
-			line.setSource(reciever.getName());
+			String username = receiver.getName();
+			if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+				line.setMessage("Ife accepted the trade but probably ripped the other guy off");
+			}
+			else{
+				line.setMessage("The trade was accepted");
+			}
+//			line.setMessage("The trade was accepted");
+			line.setSource(username);
 			serverModel.getLog().addLine(line);
 		}
 		else{
-			Player reciever = serverModel.getPlayers().get(playerIndex);
+			Player receiver = serverModel.getPlayers().get(playerIndex);
 			MessageLine line = new MessageLine();
-			line.setMessage("The trade was rejected");
-			line.setSource(reciever.getName());
+			String username = receiver.getName();
+			if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+				line.setMessage("Ife rejected the trade, probably because he is greedy and selfish");
+			}
+			else{
+				line.setMessage("The trade was rejected");
+			}
+//			line.setMessage("The trade was rejected");
+			line.setSource(receiver.getName());
 			serverModel.getLog().addLine(line);
 		}
 		serverModel.setTradeOffer(null);
