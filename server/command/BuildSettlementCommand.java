@@ -10,6 +10,7 @@ import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.TurnTracker;
 import shared.gameModel.VertexObject;
+import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
@@ -96,14 +97,23 @@ public class BuildSettlementCommand implements Command {
 
 	
 	private void giveResources(VertexObject settlement){
-		VertexDirection direction = settlement.getLocation().getDir();
+		VertexLocation location = settlement.getLocation();
+		VertexDirection direction = location.getDir();
+		HexLocation hexLoc = location.getHexLoc();
+		int x = hexLoc.getX();
+		int y = hexLoc.getY();
 		
+		HexLocation hexLoc2 = new HexLocation(x, y-1);
+		
+		HexLocation hexLoc3 = null;
 		switch(direction){
 		case E:
 			break;
 		case NE:
+			hexLoc3 = new HexLocation(x+1, y-1);
 			break;
 		case NW:
+			hexLoc3 = new HexLocation(x+1, y-1);
 			break;
 		case SE:
 			break;
