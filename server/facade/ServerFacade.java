@@ -433,7 +433,7 @@ public class ServerFacade {
 	 * @pre The player has a soldier card, and the location is not the current location of the robber.
 	 * @post The robber is moved to the given location.
 	 */
-	public boolean soldier(int playerIndex, int victimIndex, HexLocation location){
+	public boolean soldier(int playerIndex, int victimIndex, HexLocation location, int gameID){
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canPlayDevCard(playerIndex, DevCardType.SOLDIER)){
 			new SoldierCommand(playerIndex, victimIndex, location, serverModel).execute();
