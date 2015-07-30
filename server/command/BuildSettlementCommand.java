@@ -10,6 +10,7 @@ import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.TurnTracker;
 import shared.gameModel.VertexObject;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 /**
@@ -52,7 +53,12 @@ public class BuildSettlementCommand implements Command {
 		int victoryPoints = player.getVictoryPoints();
 		player.setVictoryPoints(victoryPoints + 1);
 		Map map = serverModel.getMap();
-		map.addSettlement(new VertexObject(playerIndex,vertexLocation));
+		VertexObject settlement = new VertexObject(playerIndex,vertexLocation);
+		map.addSettlement(settlement);
+		
+		if(serverModel.getTurnTracker().getStatus().equals("SecondRound")){
+			giveResources(settlement);
+		}
 		
 		MessageLine line = new MessageLine();
 		String username = player.getName();
@@ -88,4 +94,26 @@ public class BuildSettlementCommand implements Command {
 		bank.setSheep(currentBankSheep + 1);
 	}
 
+	
+	private void giveResources(VertexObject settlement){
+		VertexDirection direction = settlement.getLocation().getDir();
+		
+		switch(direction){
+		case E:
+			break;
+		case NE:
+			break;
+		case NW:
+			break;
+		case SE:
+			break;
+		case SW:
+			break;
+		case W:
+			break;
+		default:
+			break;
+		
+		}
+	}
 }
