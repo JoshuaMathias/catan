@@ -443,7 +443,7 @@ public class ServerFacade {
 	public boolean sendChat(int playerIndex, String content, int gameId){
 		GameModel serverModel = gamesList.get(gameId);
 		if(!content.isEmpty()){
-			new SendChatCommand(content, playerIndex, serverModel).execute();;
+			new SendChatCommand(content, playerIndex, serverModel).execute();
 			return true;
 		}
 		return false;
