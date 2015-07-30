@@ -379,7 +379,12 @@ public class ServerFacade {
 	 * @pre playerIndex between 0 and 3 inclusive, playerIndex and spot1 and spot2 are not null
 	 * @post Two roads are placed for free for the player of the given playerIndex.
 	 */
-	public boolean roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2){
+	public boolean roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2, int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canPlayDevCard(playerIndex, DevCardType.ROAD_BUILD)){
+			new RoadBuildingCommand(playerIndex, spot1, spot2, serverModel).execute();
+			return true;
+		}
 		return false;
 	}
 	
@@ -392,7 +397,12 @@ public class ServerFacade {
 	 * @post The victim loses 1 random resource, which the robbing player gains.
 	 */
 		
-	public boolean robPlayer(int playerIndex, int victimIndex, HexLocation location){
+	public boolean robPlayer(int playerIndex, int victimIndex, HexLocation location, int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canPlaceRobber(playerIndex, 7, location)){
+			new RobPlayerCommand(playerIndex, victimIndex, location, serverModel).execute();
+			return true;
+		}
 		return false;
 
 	}
@@ -424,6 +434,11 @@ public class ServerFacade {
 	 * @post The robber is moved to the given location.
 	 */
 	public boolean soldier(int playerIndex, int victimIndex, HexLocation location){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canPlayDevCard(playerIndex, DevCardType.SOLDIER)){
+			new SoldierCommand(playerIndex, victimIndex, location, serverModel).execute();
+			return true;
+		}
 		return false;
 	}
 	
@@ -435,7 +450,12 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, both resources must not be null and one of the key words for resources.
      * @post The player of the given playerIndex has received the specified resources from the other players. 
 	 */
-	public boolean yearOfPlenty(int playerIndex, String resource1, String resource2){
+	public boolean yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2, int gameID){
+		GameModel serverModel = gamesList.get(gameID);
+		if(serverModel.canPlayDevCard(playerIndex, DevCardType.YEAR_OF_PLENTY)){
+			new YearOfPlentyCommand(playerIndex, resource1, resource2, serverModel).execute();
+			return true;
+		}
 		return false;
 	}
 	
