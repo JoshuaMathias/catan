@@ -106,11 +106,16 @@ public class GamesHandler implements HttpHandler {
 					}
 					JoinGameParams joinParams = g.fromJson(requestJson,
 							JoinGameParams.class);
-//					System.out.println(URLDecoder.decode(usercookie, "UTF-8").replace("catan.user=", ""));
-					User user = g.fromJson(URLDecoder.decode(usercookie, "UTF-8").replace("catan.user=", ""),User.class);
+					String jsonString = URLDecoder.decode(usercookie, "UTF-8").replaceAll("catan.user=|catan.game=\\d*|;", "");
+					System.out.println(jsonString);
+					User user = g.fromJson(jsonString,User.class);
 					if (!facade.joinGame(joinParams.getId(), joinParams.getColor(),user
 							)) {
 						successful=false;
+						responseStr = "Join game failed, either because the game id doesn't exist, or you haven't registered again after restarting the server.";
+						exchange.sendResponseHeaders(
+								HttpURLConnection.HTTP_BAD_REQUEST,
+								responseStr.length());
 					}
 					
 					// Send new game cookie

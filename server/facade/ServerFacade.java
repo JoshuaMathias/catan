@@ -207,7 +207,11 @@ public class ServerFacade {
 	 * @post The player has joined the game.
 	 */
 	public boolean joinGame(String gameId, String color, User user){
-		GameModel thisGame = gamesList.get(Integer.parseInt(gameId));
+		int gameNum = Integer.parseInt(gameId);
+		if (gameNum>=gamesList.size()) {
+			return false;
+		}
+		GameModel thisGame = gamesList.get(gameNum);
 		if (userExist(user)) {
 			if (thisGame.getPlayers().size()<4) {
 				JoinGameCommand joinGameCommand = new JoinGameCommand(convertColorToEnum(color), user.getName(), user.getPlayerID(), thisGame);
