@@ -73,11 +73,9 @@ public class AcceptTradeCommand {
 		MessageList gameLog = new MessageList();
 		
 		serverFacade.getGameModel(0).setLog(gameLog);
-		
-		
 		serverFacade.acceptTrade(1, true, 0);
 	
-		for(Player player : players) {
+		/*for(Player player : players) {
 			
 			System.out.println(player.getName() + " " + player.getPlayerIndex() + ":");
 			System.out.println(player.getResources().getBrick());
@@ -86,7 +84,7 @@ public class AcceptTradeCommand {
 			System.out.println(player.getResources().getWheat());
 			System.out.println(player.getResources().getWood());
 			
-		}
+		}*/
 		int paulsBrick = players.get(0).getResources().getBrick();
 		int paulsOre = players.get(0).getResources().getOre();
 		int paulsSheep = players.get(0).getResources().getSheep();
