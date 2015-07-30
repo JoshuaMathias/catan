@@ -485,6 +485,7 @@ public class CreateGameCommand {
 		assertTrue(wheatHexCount == 4);
 		assertTrue(sheepHexCount == 4);
 		assertTrue(woodHexCount == 4);
+		assertTrue(waterHexCount == 0);
 	}
 	
 	
