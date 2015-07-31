@@ -26,7 +26,7 @@ public class BuildCityCommand implements Command {
 	public BuildCityCommand(int playerIndex, VertexLocation vertexLocation, GameModel serverModel) {
 		
 		this.playerIndex = playerIndex;
-		this.vertexLocation = vertexLocation;
+		this.vertexLocation = vertexLocation.getNormalizedLocation();
 		this.serverModel = serverModel;
 	}
 	
@@ -45,7 +45,6 @@ public class BuildCityCommand implements Command {
 		player.setVictoryPoints(victoryPoints + 1);
 		
 		Map map = serverModel.getMap();
-		vertexLocation = vertexLocation.getNormalizedLocation();
 		VertexObject city = new VertexObject(playerIndex, vertexLocation);
 		map.removeSettlement(city);
 		map.addCity(city);
