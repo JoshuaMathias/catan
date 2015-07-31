@@ -130,6 +130,7 @@ public class GameModel {
 	
 	public void incrementVersion(){
 		this.version++;
+		this.winner = this.checkVictoryPoints();
 	}
 
 	public int getWinner() {
