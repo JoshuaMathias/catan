@@ -61,7 +61,6 @@ public class ServerFacade {
 	// needs trade!!!!!!!!!!!!!
 	public boolean acceptTrade(int playerIndex, boolean willAccept, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		System.out.println("Accept trade: " + willAccept);
 		if (serverModel.getTradeOffer() != null) {
 			if (serverModel.canAcceptTrade(playerIndex,
 					serverModel.getTradeOffer())) {
@@ -90,7 +89,6 @@ public class ServerFacade {
 	public boolean buildCity(int playerIndex, VertexLocation vertexLocation,
 			int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		System.out.println("buildCity: " + vertexLocation.getDir());
 		if (serverModel.canBuildCity(new VertexObject(playerIndex,
 				vertexLocation))) {
 			new BuildCityCommand(playerIndex, vertexLocation, serverModel)
@@ -116,7 +114,6 @@ public class ServerFacade {
 	public boolean buildRoad(int playerIndex, EdgeLocation roadLocation,
 			boolean free, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		System.out.println("buildRoad: " + roadLocation);
 		if (serverModel.canBuildRoad(new Road(playerIndex, roadLocation))) {
 			new BuildRoadCommand(playerIndex, roadLocation, free, serverModel)
 					.execute();
@@ -141,7 +138,6 @@ public class ServerFacade {
 	public boolean buildSettlement(int playerIndex,
 			VertexLocation vertexLocation, boolean free, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		System.out.println("buildSettlement location: " + vertexLocation);
 		if (serverModel.canBuildSettlement(new VertexObject(playerIndex,
 				vertexLocation))) {
 			new BuildSettlementCommand(playerIndex, vertexLocation, free,
@@ -163,7 +159,6 @@ public class ServerFacade {
 	 */
 	public boolean buyDevCard(int playerIndex, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		System.out.println("buyDevCard playerIndex: " + playerIndex);
 		if (serverModel.canBuyDevCard(playerIndex)) {
 			new BuyDevCardCommand(playerIndex, serverModel).execute();
 			serverModel.incrementVersion();
@@ -184,7 +179,6 @@ public class ServerFacade {
 	 */
 	public GameInfo createGame(boolean randomTiles, boolean randomNumbers,
 			boolean randomPorts, String gameName) {
-		System.out.println("createGame randomTiles: " + randomTiles);
 		new CreateGameCommand(randomTiles, randomNumbers, randomPorts, gameName)
 				.execute();
 		ArrayList<PlayerInfo> players = new ArrayList<PlayerInfo>(4);
@@ -204,7 +198,6 @@ public class ServerFacade {
 	 */
 	public boolean discardCards(int playerIndex, ResourceList discardedCards,
 			int gameID) {// Not sure if a canDo is needed
-		System.out.println("discardCards brick: " + discardedCards.getBrick());
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.mustDiscard(playerIndex)) {
 			new DiscardCardsCommand(playerIndex, discardedCards, serverModel)
@@ -224,7 +217,6 @@ public class ServerFacade {
 	 * @post The player's turn has ended and the next player's turn has begun.
 	 */
 	public boolean finishTurn(int gameID) {
-		System.out.println("finishTurn game id: " + gameID);
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canEndTurn(serverModel.getTurnTracker()
 				.getCurrentTurn())) {
@@ -349,7 +341,6 @@ public class ServerFacade {
 		for (int i = 0; i < users.size(); i++) {
 			if (users.get(i).getName().equals(username)
 					&& users.get(i).getPassword().equals(password)) {
-				System.out.println("Login of " + username + " successful");
 				return i;
 			}
 		}
@@ -370,10 +361,7 @@ public class ServerFacade {
 	 */
 	public boolean maritimeTrade(int playerIndex, int ratio,
 			String inputResourceStr, String outputResourceStr, int gameID) {
-		System.out.println("maritimeTrade inputResourceStr: "
-				+ inputResourceStr);
 		ResourceType inputResource = convertToResourceType(inputResourceStr);
-		System.out.println("maritimeTrade inputResource: " + inputResource);
 		ResourceType outputResource = convertToResourceType(outputResourceStr);
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canBankTrade(playerIndex,
@@ -413,7 +401,6 @@ public class ServerFacade {
 	 * @post The player gains a victory point.
 	 */
 	public boolean monument(int playerIndex, int gameID) {
-		System.out.println("monument playerIndex: " + playerIndex);
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlayDevCard(playerIndex, DevCardType.MONUMENT)) {
 			// might need to change in the canDo in GameModel
@@ -436,7 +423,6 @@ public class ServerFacade {
 	 */
 	public boolean offerTrade(int playerIndex, ResourceList offer,
 			int receiver, int gameID) {
-		System.out.println("offerTrade brick: " + offer.getBrick());
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canOfferTrade(new TradeOffer(playerIndex, receiver,
 				offer))) {
@@ -458,7 +444,6 @@ public class ServerFacade {
 	 *       of users.
 	 */
 	public int register(String username, String password) {
-		System.out.println("Register in facade");
 		for (User user : users) {
 			if (user.getName().equals(username)) {
 				return -1;
@@ -483,7 +468,6 @@ public class ServerFacade {
 	 */
 	public boolean roadBuilding(int playerIndex, EdgeLocation spot1,
 			EdgeLocation spot2, int gameID) {
-		System.out.println("roadBuilding spot1 direction: " + spot1.getDir());
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlayDevCard(playerIndex, DevCardType.ROAD_BUILD)) {
 			new RoadBuildingCommand(playerIndex, spot1, spot2, serverModel)
@@ -506,7 +490,6 @@ public class ServerFacade {
 
 	public boolean robPlayer(int playerIndex, int victimIndex,
 			HexLocation location, int gameID) {
-		System.out.println("robPlayer location x: " + location.getX());
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlaceRobber(playerIndex, 7, location)) {
 			new RobPlayerCommand(playerIndex, victimIndex, location,
@@ -529,7 +512,6 @@ public class ServerFacade {
 	 *       corresponding resources.
 	 */
 	public boolean rollNumber(int sender, int number, int gameID) {
-		System.out.println("rollNumber: " + number);
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canRollDice(sender)) {
 			new RollNumberCommand(sender, number, serverModel).execute();
@@ -563,7 +545,6 @@ public class ServerFacade {
 	 */
 	public boolean soldier(int playerIndex, int victimIndex,
 			HexLocation location, int gameID) {
-		System.out.println("soldier location y: " + location.getY());
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlayDevCard(playerIndex, DevCardType.SOLDIER)) {
 			new SoldierCommand(playerIndex, victimIndex, location, serverModel)
@@ -587,9 +568,7 @@ public class ServerFacade {
 	 */
 	public boolean yearOfPlenty(int playerIndex, String resource1Str,
 			String resource2Str, int gameID) {
-		System.out.println("year of plenty resource1Str: " + resource1Str);
 		ResourceType resource1 = convertToResourceType(resource1Str);
-		System.out.println("year of plenty resource1: " + resource1);
 		ResourceType resource2 = convertToResourceType(resource2Str);
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlayDevCard(playerIndex, DevCardType.YEAR_OF_PLENTY)) {
@@ -606,9 +585,7 @@ public class ServerFacade {
 	 * 
 	 */
 	public boolean monopoly(int playerIndex, String resource, int gameID) {
-		System.out.println("monopoly resource: " + resource);
 		ResourceType resourceType = convertToResourceType(resource);
-		System.out.println("monopoly resourceType: " + resourceType);
 		GameModel serverModel = gamesList.get(gameID);
 		// TODO Can do
 		new MonopolyCommand(playerIndex, resourceType, serverModel).execute();
