@@ -101,8 +101,10 @@ public class DevCardList {
 		} else if(cardType == DevCardType.ROAD_BUILD) {
 			
 			ClientFacade clientFacade = ClientFacade.getSingleton();
+	
+		
 			int roadAmount = clientFacade.getPlayer().getRoads();
-			
+		
 			if(roadBuilding > 0 && roadAmount > 1) {
 				return true;
 			}
