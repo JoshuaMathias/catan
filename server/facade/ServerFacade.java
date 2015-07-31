@@ -138,6 +138,7 @@ public class ServerFacade {
 	public boolean buildSettlement(int playerIndex,
 			VertexLocation vertexLocation, boolean free, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
+//		System.out.println("buildSettlement: playerIndex: "+playerIndex+" vertexLocation: "+vertexLocation+" free: "+free+" gameID: ");
 		if (serverModel.canBuildSettlement(new VertexObject(playerIndex,
 				vertexLocation))) {
 			new BuildSettlementCommand(playerIndex, vertexLocation, free,
