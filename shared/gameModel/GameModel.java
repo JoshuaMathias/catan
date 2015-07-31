@@ -937,9 +937,8 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 	public boolean canPlaceRobber(int playerIndex, int diceRoll, HexLocation hexLoc) {
 	
 		int whoseTurn = turnTracker.getCurrentTurn();
-		String status = turnTracker.getStatus();
 		
-		if(whoseTurn == playerIndex) {// && status.equals("Robbing")
+		if(whoseTurn == playerIndex) {
 			if(hexLoc.equals(map.getRobberLocation())) {
 				return false;
 			}

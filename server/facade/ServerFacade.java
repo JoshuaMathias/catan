@@ -496,6 +496,7 @@ public class ServerFacade {
 			new RobPlayerCommand(playerIndex, victimIndex, location,
 					serverModel).execute();
 			serverModel.incrementVersion();
+			System.out.println("Victim Index = " + victimIndex);
 			return true;
 		}
 		return false;
