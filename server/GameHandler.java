@@ -133,7 +133,7 @@ public class GameHandler implements HttpHandler
 							}
 							else
 							{
-								responseStr="true";
+								responseStr="\"true\"\r";
 								exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,
 										responseStr.length());
 							}
