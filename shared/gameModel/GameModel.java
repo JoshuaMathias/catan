@@ -919,7 +919,7 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 			if(playersDevCardList.size() < 1) {
 				return false;
 			}
-			can = playersDevCardList.canPlayDevCard(cardType);
+			can = playersDevCardList.canPlayDevCard(bank, player, cardType);
 		
 		} else {
 			return false;
