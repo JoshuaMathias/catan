@@ -37,7 +37,7 @@ public class GamesHandler implements HttpHandler {
 			command = commandList[2];
 		}
 		try {
-			boolean successful = true;
+			boolean successful = true; //To know whether to send the 200 response code at the end
 			Gson g = new Gson();
 			System.out.println("Command: " + command);
 			ServerFacade facade = ServerFacade.getSingleton();
@@ -126,6 +126,7 @@ public class GamesHandler implements HttpHandler {
 					break;
 				}
 			}
+			//The response string should only be empty at this point if there is no error.
 			if (responseStr.equals("")) {
 				responseStr = "Success";
 			}

@@ -97,7 +97,7 @@ public class YearOfPlentyCommand {
 	@Test
 	public void test() {
 		
-		serverFacade.yearOfPlenty(0, ResourceType.brick, ResourceType.sheep, 0);
+		serverFacade.yearOfPlenty(0, "brick", "sheep", 0);
 		
 		ResourceList expectedBankList = new ResourceList(14,15,14,15,15);
 		expectedBankResources(expectedBankList);
@@ -118,7 +118,7 @@ public class YearOfPlentyCommand {
 		bank = new ResourceList(0,0,0,0,0);
 		game.setBank(bank);
 		
-		serverFacade.yearOfPlenty(1, ResourceType.brick, ResourceType.wood, 0);
+		serverFacade.yearOfPlenty(1, "brick", "wood", 0);
 		
 		expectedBankList = new ResourceList(0,0,0,0,0);
 		expectedBankResources(expectedBankList);

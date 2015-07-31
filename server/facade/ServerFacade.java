@@ -139,6 +139,7 @@ public class ServerFacade {
 		return false;
 	}
 	
+	
 	/**
 	 * Creates a CreateGameCommand object and executes it.
 	 * @param randomTiles
@@ -250,6 +251,24 @@ public class ServerFacade {
 		}
 	}
 	
+	public ResourceType convertToResourceType(String resource){
+		switch(resource){
+		case "brick":
+			return ResourceType.brick;
+		case "ore":
+			return ResourceType.ore;
+		case "sheep":
+			return ResourceType.sheep;
+		case "wheat":
+			return ResourceType.wheat;
+		case "wood":
+			return ResourceType.wood;
+		default:
+			return ResourceType.brick;
+		
+		}
+	}
+	
 	/**
 	 * Creates a JoinGameCommand object and executes it.
 	 * @param gameID
@@ -300,7 +319,9 @@ public class ServerFacade {
 	 * @pre The given resources are available. The player has a settlement or city by a port of the given ratio that applies for the given resources.
 	 * @post The given resources are exchanged between the player and the bank.
 	 */
-	public boolean maritimeTrade(int playerIndex, int ratio, ResourceType inputResource, ResourceType outputResource, int gameID){
+	public boolean maritimeTrade(int playerIndex, int ratio, String inputResourceStr, String outputResourceStr, int gameID){
+		ResourceType inputResource = convertToResourceType(inputResourceStr);
+		ResourceType outputResource = convertToResourceType(outputResourceStr);
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canBankTrade(playerIndex, resourceToPort(inputResource), resourceToPort(outputResource)) != -1){
 			new MaritimeTradeCommand(playerIndex, ratio, inputResource, outputResource, serverModel).execute();
@@ -475,7 +496,9 @@ public class ServerFacade {
      * @pre playerIndex between 0 and 3 inclusive and not null, both resources must not be null and one of the key words for resources.
      * @post The player of the given playerIndex has received the specified resources from the other players. 
 	 */
-	public boolean yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2, int gameID){
+	public boolean yearOfPlenty(int playerIndex, String resource1Str, String resource2Str, int gameID){
+		ResourceType resource1=convertToResourceType(resource1Str);
+		ResourceType resource2=convertToResourceType(resource2Str);
 		GameModel serverModel = gamesList.get(gameID);
 		if(serverModel.canPlayDevCard(playerIndex, DevCardType.YEAR_OF_PLENTY)){
 			new YearOfPlentyCommand(playerIndex, resource1, resource2, serverModel).execute();
@@ -483,6 +506,18 @@ public class ServerFacade {
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * Creates a MonopolyCommand object and executes it.
+	 * 
+	 */
+	public boolean monopoly(int playerIndex, String resource, int gameID) {
+		ResourceType resourceType = convertToResourceType(resource);
+		GameModel serverModel = gamesList.get(gameID);
+		//TODO Can do
+		new MonopolyCommand(playerIndex, resourceType, serverModel).execute();
+		serverModel.incrementVersion();
+		return true;
 	}
 	
 	public void addGameToList(GameModel serverModel){

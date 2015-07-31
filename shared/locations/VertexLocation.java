@@ -17,6 +17,34 @@ public class VertexLocation
 		setDir(dir);
 	}
 	
+	public VertexLocation(client.serverproxy.VertexLocation location) {
+		setHexLoc(new HexLocation(location.getX(), location.getY()));
+		VertexDirection dir;
+		switch (location.getDirection()) {
+		case "E":
+			dir = VertexDirection.E;
+			break;
+		case "SE":
+			dir = VertexDirection.SE;
+			break;
+		case "SW":
+			dir = VertexDirection.SW;
+			break;
+		case "W":
+			dir = VertexDirection.W;
+			break;
+		case "NW":
+			dir = VertexDirection.NW;
+			break;
+		case "NE":
+			dir = VertexDirection.NE;
+			break;
+		default:
+			dir = VertexDirection.NE;
+		}
+		setDir(dir);
+	}
+	
 	public HexLocation getHexLoc()
 	{
 		setXYHexLoc();

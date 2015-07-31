@@ -93,7 +93,7 @@ public class MaritimeTradeCommand {
 	@Test
 	public void test() {
 		
-		serverFacade.maritimeTrade(0, 4, ResourceType.brick, ResourceType.wheat, 0);
+		serverFacade.maritimeTrade(0, 4, "brick", "wheat", 0);
 		
 		System.out.println(paul.getResources().getBrick());
 	}
