@@ -150,6 +150,16 @@ public class Player {
 		return resources.getTotal();
 	}
 	
+	public boolean hasMonumentCard(){
+		int monumentNumber = newDevCards.getMonument() + oldDevCards.getMonument();
+		if(monumentNumber > 0){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 	public void addNewDevCard(DevCardType cardType){
 		switch(cardType){
 		case MONOPOLY:

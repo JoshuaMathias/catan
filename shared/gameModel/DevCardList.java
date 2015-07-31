@@ -86,8 +86,6 @@ public class DevCardList {
 	
 	public boolean canPlayDevCard(DevCardType cardType){
 		
-		boolean canPlay = false;
-		
 		if(cardType == DevCardType.MONOPOLY) {
 			
 			if(monopoly > 0) {
@@ -123,7 +121,7 @@ public class DevCardList {
 			}
 		}
 		
-		return canPlay;
+		return false;
 	}
 	
 	public int size() {

@@ -909,7 +909,11 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		
 		if (playerIndex == whoseTurn && status.equals("Playing") && player.isPlayedDevCard() == false) {
 			
-			DevCardList playersDevCardList = players.get(playerIndex).getOldDevCards();
+			if(cardType == DevCardType.MONUMENT && player.hasMonumentCard()){
+				return true;
+			}
+			
+			DevCardList playersDevCardList = player.getOldDevCards();
 			
 			if(playersDevCardList.size() < 1) {
 				return false;
