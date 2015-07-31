@@ -34,6 +34,7 @@ public class SoldierCommand implements Command {
 		Player player = serverModel.getPlayers().get(playerIndex);
 		DevCardList playerOldDevCardList = player.getOldDevCards();
 		playerOldDevCardList.setSoldier(playerOldDevCardList.getSoldier() - 1);
+		player.setSoldiers(player.getSoldiers() + 1);
 		player.setPlayedDevCard(true);
 		
 		MessageLine line = new MessageLine();

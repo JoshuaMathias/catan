@@ -24,6 +24,8 @@ public class RollNumberCommand implements Command {
 	private int number;
 	private GameModel serverModel;
 	
+	private HexLocation robberPosition;
+	
 	public RollNumberCommand(int sender, int number, GameModel serverModel) {
 		super();
 		this.sender = sender;
@@ -58,6 +60,8 @@ public class RollNumberCommand implements Command {
 			}
 			return;
 		}
+		
+		this.robberPosition = serverModel.getMap().getRobber();
 		
 		ArrayList<Hex> hexes = serverModel.getMap().getHexes();
 		
@@ -167,7 +171,7 @@ public class RollNumberCommand implements Command {
 //		spot = spot.getNormalizedLocation();
 		for(VertexObject settlementCity: settlementsCities){
 			VertexLocation settlementCitySpot = settlementCity.getLocation();//.getNormalizedLocation();
-			if(settlementCitySpot.equals(spot)){
+			if(settlementCitySpot.equals(spot) && !robberPosition.equals(settlementCitySpot.getHexLoc())){
 				giveResource(settlementCity.getOwner(), resource, city);
 			}
 		}

@@ -23,8 +23,8 @@ public class RoadBuildingCommand implements Command {
 			EdgeLocation spot2, GameModel serverModel) {
 		super();
 		this.sender = sender;
-		this.spot1 = spot1;
-		this.spot2 = spot2;
+		this.spot1 = spot1.getNormalizedLocation();
+		this.spot2 = spot2.getNormalizedLocation();
 		this.serverModel = serverModel;
 	}
 

@@ -122,6 +122,13 @@ public class FinishTurnCommand implements Command {
 		oldDevCards.setRoadBuilding(oldDevCards.getRoadBuilding() + newDevCards.getRoadBuilding());
 		oldDevCards.setSoldier(oldDevCards.getSoldier() + newDevCards.getSoldier());
 		oldDevCards.setYearOfPlenty(oldDevCards.getYearOfPlenty() + newDevCards.getYearOfPlenty());
+		
+		newDevCards.setMonopoly(0);
+		newDevCards.setMonument(0);
+		newDevCards.setRoadBuilding(0);
+		newDevCards.setSoldier(0);
+		newDevCards.setYearOfPlenty(0);
+		
 	}
 
 }

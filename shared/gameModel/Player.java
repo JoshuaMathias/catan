@@ -138,6 +138,14 @@ public class Player {
 		cities--;
 	}
 	
+	public void incrementRoad(){
+		roads++;
+	}
+	
+	public void decrementRoad(){
+		roads--;
+	}
+	
 	public int getResourceCardNum(){
 		return resources.getTotal();
 	}
