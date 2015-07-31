@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import shared.definitions.ResourceType;
 import shared.gameModel.GameModel;
+import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 
@@ -36,6 +37,18 @@ public class MonopolyCommand implements Command {
 				stealResources(player);
 			}
 		}
+		
+		MessageLine line = new MessageLine();
+		String username = this.monopolyPlayer.getName();
+		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
+			line.setMessage("Ife is a criminal who stole everybody's " + resource.toString());
+		}
+		else{
+			line.setMessage(username + " played a Monopoly card to steal everybody's " + resource.toString());
+		}
+//		line.setMessage(username + " played a Monopoly card to steal everybody's " + resource.toString());
+		line.setSource(username);
+		serverModel.getLog().addLine(line);
 	}
 
 	private void stealResources(Player player) {
@@ -44,15 +57,24 @@ public class MonopolyCommand implements Command {
 		
 		switch(resource){
 		case brick:
-			
+			this.monopolyPlayerResources.setBrick(this.monopolyPlayerResources.getBrick() + playerResources.getBrick());
+			playerResources.setBrick(0);
 			break;
 		case ore:
+			this.monopolyPlayerResources.setOre(this.monopolyPlayerResources.getOre() + playerResources.getOre());
+			playerResources.setOre(0);
 			break;
 		case sheep:
+			this.monopolyPlayerResources.setSheep(this.monopolyPlayerResources.getSheep() + playerResources.getSheep());
+			playerResources.setSheep(0);
 			break;
 		case wheat:
+			this.monopolyPlayerResources.setWheat(this.monopolyPlayerResources.getWheat() + playerResources.getWheat());
+			playerResources.setWheat(0);
 			break;
 		case wood:
+			this.monopolyPlayerResources.setWood(this.monopolyPlayerResources.getWood() + playerResources.getWood());
+			playerResources.setWood(0);
 			break;
 		default:
 			break;
