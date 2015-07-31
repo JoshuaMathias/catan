@@ -529,6 +529,7 @@ public class ServerFacade {
 		GameModel serverModel = gamesList.get(gameId);
 		if (!content.isEmpty()) {
 			new SendChatCommand(content, playerIndex, serverModel).execute();
+			serverModel.incrementVersion();
 			return true;
 		}
 		return false;
