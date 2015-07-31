@@ -318,7 +318,8 @@ public class MovesHandler implements HttpHandler {
 			response.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
+			String responseStr="Exception: "+e.getMessage();
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, responseStr.length());
 			return;
 		}
 	}
