@@ -3,6 +3,7 @@ package server.command;
 import java.util.ArrayList;
 
 import shared.definitions.ResourceType;
+import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
 import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
@@ -37,6 +38,11 @@ public class MonopolyCommand implements Command {
 				stealResources(player);
 			}
 		}
+		
+		DevCardList monopolyPlayerOldDevCardList  = monopolyPlayer.getOldDevCards();
+		monopolyPlayerOldDevCardList.setMonopoly(monopolyPlayerOldDevCardList.getMonopoly() - 1);
+		
+		this.monopolyPlayer.setPlayedDevCard(true);
 		
 		MessageLine line = new MessageLine();
 		String username = this.monopolyPlayer.getName();
