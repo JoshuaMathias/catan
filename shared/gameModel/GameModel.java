@@ -281,8 +281,10 @@ public class GameModel {
 		String status = turnTracker.getStatus();
 		boolean twoToOne = false;
 		boolean threeToOne = false;
-		
+	
+		int ratio = 4;
 		if(whoseTurn == playerIndex && status.equals("Playing") && offer != PortType.three && request != PortType.three){
+	
 			ArrayList<VertexObject> playerSettlementsCities = map.getPlayerSettlementsCities(playerIndex);
 			for(VertexObject settlementCity: playerSettlementsCities){
 				int portRatio = map.matchSettlementToPortRatio(settlementCity.getLocation(), offer);
@@ -295,7 +297,7 @@ public class GameModel {
 				}
 			}
 			
-			int ratio = 4;
+			//int ratio = 4;
 			if(twoToOne){
 				ratio = 2;
 			}
@@ -306,38 +308,67 @@ public class GameModel {
 			ResourceList playerResources = players.get(playerIndex).getResources();
 			switch(request){
 				case brick:
-					if(playerResources.getBrick() < ratio || bank.getBrick() < 1){
-						return ratio;
+					if(bank.getBrick() < 1){
+						return -1;
 					}
 					break;
 				case ore:
-					if(playerResources.getOre() < ratio || bank.getOre() < 1){
-						return ratio;
+					if(bank.getOre() < 1){
+						return -1;
 					}
 					break;
 				case sheep:
-					if(playerResources.getSheep() < ratio || bank.getSheep() < 1){
-						return ratio;
+					if(bank.getSheep() < 1){
+						return -1;
 					}
 					break;
 				case wheat:
-					if(playerResources.getWheat() < ratio || bank.getWheat() < 1){
-						return ratio;
+					if(bank.getWheat() < 1){
+						return -1;
 					}
 					break;
 				case wood:
-					if(playerResources.getWood() < ratio || bank.getWood() < 1){
-						return ratio;
+					if(bank.getWood() < 1){
+						return -1;
 					}
 					break;
 				default: //should never get here Throw Exception
 					break;
 			}
 			
+			switch(offer){
+			case brick:
+				if(playerResources.getBrick() < ratio){
+					return -1;
+				}
+				break;
+			case ore:
+				if(playerResources.getOre() < ratio){
+					return -1;
+				}
+				break;
+			case sheep:
+				if(playerResources.getSheep() < ratio){
+					return -1;
+				}
+				break;
+			case wheat:
+				if(playerResources.getWheat() < ratio){
+					return -1;
+				}
+				break;
+			case wood:
+				if(playerResources.getWood() < ratio){
+					return -1;
+				}
+				break;
+			default: //should never get here Throw Exception
+				break;
+		}
+			
 //			can = true;
 		}
-		
-		return -1; //cannot trade
+		return ratio; //cannot trade
 		
 	}
 	
