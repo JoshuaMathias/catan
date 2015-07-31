@@ -139,7 +139,7 @@ public class ServerFacade {
 			VertexLocation vertexLocation, boolean free, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canBuildSettlement(new VertexObject(playerIndex,
-				vertexLocation))) {
+				vertexLocation.getNormalizedLocation()))) {
 			new BuildSettlementCommand(playerIndex, vertexLocation, free,
 					serverModel).execute();
 			serverModel.incrementVersion();
