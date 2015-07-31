@@ -515,9 +515,12 @@ public class ServerFacade {
 		ResourceType resourceType = convertToResourceType(resource);
 		GameModel serverModel = gamesList.get(gameID);
 		//TODO Can do
-		new MonopolyCommand(playerIndex, resourceType, serverModel).execute();
-		serverModel.incrementVersion();
-		return true;
+		if(serverModel.canPlayDevCard(playerIndex, DevCardType.MONOPOLY)){
+			new MonopolyCommand(playerIndex, resourceType, serverModel).execute();
+			serverModel.incrementVersion();
+			return true;
+		}
+		return false;
 	}
 	
 	public void addGameToList(GameModel serverModel){
