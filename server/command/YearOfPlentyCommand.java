@@ -3,6 +3,7 @@ package server.command;
 import java.util.ArrayList;
 
 import shared.definitions.ResourceType;
+import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
 import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
@@ -49,6 +50,11 @@ public class YearOfPlentyCommand implements Command {
 		
 		scrollPlayerResources(cardOne,playerResources);
 		scrollPlayerResources(cardTwo,playerResources);
+		
+		mainPlayer.setPlayedDevCard(true);
+		
+		DevCardList oldDevCards = mainPlayer.getOldDevCards();
+		oldDevCards.setYearOfPlenty(oldDevCards.getYearOfPlenty() - 1);
 		
 		MessageLine line = new MessageLine();
 		String username = mainPlayer.getName();
