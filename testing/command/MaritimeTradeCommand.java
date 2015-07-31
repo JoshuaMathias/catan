@@ -29,6 +29,8 @@ public class MaritimeTradeCommand {
 	private Player ife = new Player();
 	private Player josh = new Player();
 	private GameModel game;
+	private ResourceList bank;
+	ArrayList<VertexObject> settlements;
 	
 	@Before 
 	public void setUp() {
@@ -49,7 +51,7 @@ public class MaritimeTradeCommand {
 		players.add(ife);
 		players.add(josh);
 		
-		ResourceList paulsResources = new ResourceList(0,5,5,5,5);
+		ResourceList paulsResources = new ResourceList(10,10,10,10,10);
 		ResourceList danielsResources = new ResourceList(9,4,0,0,1);
 		ResourceList ifesResources = new ResourceList(0,0,0,1,2);
 		ResourceList joshsResources = new ResourceList(8,4,5,6,7);
@@ -60,6 +62,9 @@ public class MaritimeTradeCommand {
 		josh.setResources(joshsResources);
 		
 		paul.setName("paul");
+		daniel.setName("daniel");
+		ife.setName("ife");
+		josh.setName("josh");
 		
 		TurnTracker turnTracker = new TurnTracker();
 		turnTracker.setStatus("Playing");
@@ -71,10 +76,10 @@ public class MaritimeTradeCommand {
 		game.setPlayers(players);
 		game.setTurnTracker(turnTracker);
 		
-		ArrayList<VertexObject> settlements = new ArrayList<>();
+		settlements = new ArrayList<>();
 		VertexObject paulsSettlement = new VertexObject();
 		paulsSettlement.setOwner(0);
-		paulsSettlement.setLocation(new VertexLocation(new HexLocation(3,-3), VertexDirection.NE));
+		paulsSettlement.setLocation(new VertexLocation(new HexLocation(1,-3), VertexDirection.SE));
 		settlements.add(paulsSettlement);
 		
 		game.getMap().setSettlements(settlements);
@@ -93,9 +98,82 @@ public class MaritimeTradeCommand {
 	@Test
 	public void test() {
 		
-		serverFacade.maritimeTrade(0, 4, "brick", "wheat", 0);
+		serverFacade.maritimeTrade(0,4, "wood", "ore", 0);
 		
-		System.out.println(paul.getResources().getBrick());
+		ResourceList expectedResources = new ResourceList(10,11,10,10,6);
+		expectedPlayerResources(paul,expectedResources);
+		
+		ResourceList expectedBank = new ResourceList(15,14,15,15,19);
+		expectedBankResources(expectedBank);
+		
+		serverFacade.maritimeTrade(0, 2, "brick", "ore", 0);
+		expectedResources = new ResourceList(8,12,10,10,6);
+		expectedPlayerResources(paul,expectedResources);
+		
+		expectedBank = new ResourceList(17,13,15,15,19);
+		expectedBankResources(expectedBank);
+		
+		VertexObject newSettlement = new VertexObject();
+		newSettlement.setLocation(new VertexLocation(new HexLocation(3, -3), VertexDirection.SW));
+		
+		newSettlement.setOwner(1);
+		settlements.add(newSettlement);
+		
+		game.getTurnTracker().setCurrentTurn(1);
+		
+		serverFacade.maritimeTrade(1, 3, "brick", "ore", 0);
+		
+		expectedResources = new ResourceList(6,5,0,0,1);
+		expectedPlayerResources(daniel,expectedResources);
+		
+		expectedBank = new ResourceList(20,12,15,15,19);
+		expectedBankResources(expectedBank);
 	}
+	
+	private void expectedPlayerResources(Player player, ResourceList expectedResources) {
+		
+		int playersBrick = player.getResources().getBrick();
+		int playersOre = player.getResources().getOre();
+		int playersSheep = player.getResources().getSheep();
+		int playersWheat = player.getResources().getWheat();
+		int playersWood = player.getResources().getWood();
+		
+		int expectedBrick = expectedResources.getBrick();
+		int expectedOre = expectedResources.getOre();
+		int expectedSheep = expectedResources.getSheep();
+		int expectedWheat = expectedResources.getWheat();
+		int expectedWood = expectedResources.getWood();
+		
+		assertEquals(playersBrick, expectedBrick);
+		assertEquals(playersOre, expectedOre);
+		assertEquals(playersSheep, expectedSheep);
+		assertEquals(playersWheat, expectedWheat);
+		assertEquals(playersWood, expectedWood);
+	}
+	
+	private void expectedBankResources(ResourceList expectedResources) {
+		
+		bank = game.getBank();
+		
+		int bankBrick = bank.getBrick();
+		int bankOre = bank.getOre();
+		int bankSheep = bank.getSheep();
+		int bankWheat = bank.getWheat();
+		int bankWood = bank.getWood();
+		
+		int expectedBrick = expectedResources.getBrick();
+		int expectedOre = expectedResources.getOre();
+		int expectedSheep = expectedResources.getSheep();
+		int expectedWheat = expectedResources.getWheat();
+		int expectedWood = expectedResources.getWood();
+		
+		System.out.println(bankBrick + "  "+ expectedBrick);
+		assertEquals(bankBrick, expectedBrick);
+		assertEquals(bankOre, expectedOre);
+		assertEquals(bankSheep, expectedSheep);
+		assertEquals(bankWheat, expectedWheat);
+		assertEquals(bankWood, expectedWood);
+	}
+	
 
 }
