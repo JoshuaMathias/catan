@@ -138,7 +138,7 @@ public class ServerFacade {
 	public boolean buildSettlement(int playerIndex,
 			VertexLocation vertexLocation, boolean free, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		// System.out.println("buildSettlement: playerIndex: "+playerIndex+" vertexLocation: "+vertexLocation+" free: "+free+" gameID: ");
+//		System.out.println("buildSettlement: playerIndex: "+playerIndex+" vertexLocation: "+vertexLocation+" free: "+free+" gameID: ");
 		if (serverModel.canBuildSettlement(new VertexObject(playerIndex,
 				vertexLocation.getNormalizedLocation()))) {
 			new BuildSettlementCommand(playerIndex, vertexLocation, free,
@@ -302,28 +302,6 @@ public class ServerFacade {
 		}
 	}
 
-	public int getIndexFromUser(GameModel game, User user) {
-		for (int i = 0; i < game.getPlayers().size(); i++) {
-			if (user.getPlayerID() == game.getPlayers().get(i).getPlayerID()) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	public int getNumPlayers(GameModel game) {
-		int i = 0;
-		if (game.getPlayers().size() > 3) {
-			for (i = 0; i < 4; i++) {
-				System.out.println("player: " + i);
-				if (game.getPlayers().get(i) == null) {
-					return i;
-				}
-			}
-		}
-		return i;
-	}
-
 	/**
 	 * Creates a JoinGameCommand object and executes it.
 	 * 
@@ -340,17 +318,6 @@ public class ServerFacade {
 		}
 		GameModel thisGame = gamesList.get(gameNum);
 		if (userExist(user)) {
-			int index = getIndexFromUser(thisGame, user);
-			System.out.println("num players: "+getNumPlayers(thisGame));
-			int numPlayers = getNumPlayers(thisGame);
-			if (numPlayers >= 4 && index == -1) {
-				System.out.println("Return false join game");
-				return false;
-			}
-			if (index!=-1 && numPlayers==4) {
-			thisGame.getPlayers().get(index)
-					.setColor(convertColorToEnum(color));
-			}
 			if (thisGame.getPlayers().size() < 4) {
 				JoinGameCommand joinGameCommand = new JoinGameCommand(
 						convertColorToEnum(color), user.getName(),
@@ -359,7 +326,6 @@ public class ServerFacade {
 			}
 			return true;
 		} else {
-			System.out.println("join game return false 2");
 			return false;
 		}
 	}
@@ -623,10 +589,9 @@ public class ServerFacade {
 	public boolean monopoly(int playerIndex, String resource, int gameID) {
 		ResourceType resourceType = convertToResourceType(resource);
 		GameModel serverModel = gamesList.get(gameID);
-		// TODO Can do
-		if (serverModel.canPlayDevCard(playerIndex, DevCardType.MONOPOLY)) {
-			new MonopolyCommand(playerIndex, resourceType, serverModel)
-					.execute();
+		//TODO Can do
+		if(serverModel.canPlayDevCard(playerIndex, DevCardType.MONOPOLY)){
+			new MonopolyCommand(playerIndex, resourceType, serverModel).execute();
 			serverModel.incrementVersion();
 			return true;
 		}

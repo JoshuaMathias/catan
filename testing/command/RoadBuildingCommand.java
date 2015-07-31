@@ -43,9 +43,6 @@ public class RoadBuildingCommand {
 		ife.setPlayerIndex(2);
 		josh.setPlayerIndex(3);
 		
-		game = new GameModel();
-		game.setGameID(0);
-		
 		players = new ArrayList<>();
 		players.add(paul);
 		players.add(daniel);
@@ -67,9 +64,6 @@ public class RoadBuildingCommand {
 		ife.setName("ife");
 		josh.setName("josh");
 		
-		DevCardList paulsOldDevCard = new DevCardList(1,1,1,1,1);
-		paul.setOldDevCards(paulsOldDevCard);
-		
 		turnTracker = new TurnTracker();
 		turnTracker.setStatus("Playing");
 		turnTracker.setCurrentTurn(0);
@@ -79,6 +73,7 @@ public class RoadBuildingCommand {
 		game = serverFacade.getGameModel(0);
 		game.setPlayers(players);
 		game.setTurnTracker(turnTracker);
+		
 		
 		ArrayList<VertexObject> settlements = new ArrayList<>();
 		VertexObject paulsSettlement = new VertexObject();
@@ -91,6 +86,7 @@ public class RoadBuildingCommand {
 		game.setBank(bank);
 		game.setGameID(0);
 		
+//		serverFacade.addGameToList(game);
 	}
 	
 	@After
@@ -110,6 +106,7 @@ public class RoadBuildingCommand {
 		paul.setOldDevCards(oldDevCards);
 		EdgeLocation road1 = new EdgeLocation(new HexLocation(0,0), EdgeDirection.N);
 		EdgeLocation road2 = new EdgeLocation(new HexLocation(0,0), EdgeDirection.NE);
+		System.out.println(players.toString());
 		serverFacade.roadBuilding(0, road1, road2, 0);
 		System.out.println(paul.getRoads());
 	}

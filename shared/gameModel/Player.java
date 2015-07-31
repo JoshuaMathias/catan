@@ -20,7 +20,7 @@ public class Player {
 	private int playerIndex;
 	private boolean playedDevCard = false;
 //	private static int currentID=0;
-	private int playerID;
+	private int playerID = -1;
 	private ResourceList resources = new ResourceList(0,0,0,0,0);
 	private int roads = 15;
 	private int settlements = 5;
@@ -262,5 +262,11 @@ public class Player {
 		if (victoryPoints != other.victoryPoints)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [color=" + color + ", name=" + name + ", playerIndex="
+				+ playerIndex + ", playerID=" + playerID + "]";
 	}
 }
