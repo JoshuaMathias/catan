@@ -154,20 +154,20 @@ public class GameModel {
 		
 		int previousLongestIndex = turnTracker.getLongestRoad();
 		int playerIndex = 0;
-		int highestRoadCount = players.get(0).getRoads();
+		int lowestRoadCount = players.get(0).getRoads();
 		
 		for (int i = 1; i < 4; i++){
 			Player player = players.get(i);
 			if(player != null){
 				int toCompare = player.getRoads();
-				if (toCompare > highestRoadCount){
-					highestRoadCount = toCompare;
+				if (toCompare < lowestRoadCount){
+					lowestRoadCount = toCompare;
 					playerIndex = i;
 				}
 			}
 		}
 		
-		if(highestRoadCount >= 5){
+		if(lowestRoadCount <= 10){
 			if(previousLongestIndex == -1){
 				return playerIndex;
 			}
