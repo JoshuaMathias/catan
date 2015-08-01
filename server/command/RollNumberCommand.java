@@ -42,6 +42,8 @@ public class RollNumberCommand implements Command {
 		String username = player.getName();
 		if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
 			line.setMessage("Ife rolled a " + Integer.toString(number) + ", just like he should roll over and give up");
+		} else if (username.toLowerCase().equals("josh")) {
+			line.setMessage("Josh rolled a " + Integer.toString(number) + ". He knows how to stop, drop, and roll.");
 		}
 		else{
 			line.setMessage(username + " rolled a " + Integer.toString(number));
@@ -50,7 +52,8 @@ public class RollNumberCommand implements Command {
 		line.setSource(username);
 		serverModel.getLog().addLine(line);
 		
-		
+		this.robberPosition = serverModel.getMap().getRobber();
+		System.out.println("Robber position: "+robberPosition);
 		if(number == 7){
 			if(needToDiscard()){
 				serverModel.getTurnTracker().setStatus("Discarding");
@@ -60,8 +63,6 @@ public class RollNumberCommand implements Command {
 			}
 			return;
 		}
-		
-		this.robberPosition = serverModel.getMap().getRobber();
 		
 		ArrayList<Hex> hexes = serverModel.getMap().getHexes();
 		
@@ -171,7 +172,7 @@ public class RollNumberCommand implements Command {
 //		spot = spot.getNormalizedLocation();
 		for(VertexObject settlementCity: settlementsCities){
 			VertexLocation settlementCitySpot = settlementCity.getLocation();//.getNormalizedLocation();
-			if(settlementCitySpot.equals(spot) && !robberPosition.equals(settlementCitySpot.getHexLoc())){
+			if(settlementCitySpot.equals(spot) && robberPosition!=null && !robberPosition.equals(settlementCitySpot.getHexLoc())){
 				giveResource(settlementCity.getOwner(), resource, city);
 			}
 		}
