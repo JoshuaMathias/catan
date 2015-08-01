@@ -104,14 +104,14 @@ public class RollNumberCommand implements Command {
 		for(VertexObject settlement: settlements){
 			int settlementX = settlement.getLocation().getHexLoc().getX();
 			int settlementY = settlement.getLocation().getHexLoc().getY();
-			if(settlementX == x && settlementY == y){
+			if(settlementX == x && settlementY == y && !robberPosition.equals(settlement.getLocation().getHexLoc())){
 				giveResource(settlement.getOwner(), resource, false);
 			}
 		}
 		for(VertexObject city: cities){
 			int cityX = city.getLocation().getHexLoc().getX();
 			int cityY = city.getLocation().getHexLoc().getY();
-			if(cityX == x && cityY == y){
+			if(cityX == x && cityY == y && !robberPosition.equals(city.getLocation().getHexLoc())){
 				giveResource(city.getOwner(), resource, true);
 			}
 		}
