@@ -301,6 +301,26 @@ public class ServerFacade {
 
 		}
 	}
+	public int getIndexFromUser(GameModel game, User user) {
+		for (int i = 0; i < game.getPlayers().size(); i++) {
+			if (user.getPlayerID() == game.getPlayers().get(i).getPlayerID()) {
+	            return i;
+	        }
+	    }
+	    return -1;
+	}
+	
+	public int getNumPlayers(GameModel game) {
+	    int i = 0;
+	    if (game.getPlayers().size() > 3) {
+	        for (i = 0; i < 4; i++) {
+	            if (game.getPlayers().get(i) == null) {
+	                return i;
+	            }
+	        }
+	    }
+	    return i;
+	}
 
 	/**
 	 * Creates a JoinGameCommand object and executes it.
@@ -317,7 +337,18 @@ public class ServerFacade {
 			return false;
 		}
 		GameModel thisGame = gamesList.get(gameNum);
+		
 		if (userExist(user)) {
+			
+			int index = getIndexFromUser(thisGame,user);
+			int numPlayers = getNumPlayers(thisGame);
+			if (numPlayers >= 4 && index == -1 ) {
+				return false;
+			}
+			
+			if (index!=-1 && numPlayers==4) {
+				thisGame.getPlayers().get(index).setColor(convertColorToEnum(color));
+			}
 			if (thisGame.getPlayers().size() < 4) {
 				JoinGameCommand joinGameCommand = new JoinGameCommand(
 						convertColorToEnum(color), user.getName(),
