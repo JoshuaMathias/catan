@@ -32,6 +32,8 @@ public class CreateGameCommand implements Command {
 	private boolean randomPorts;
 	private String gameName;
 	
+	private Map gameBoard;
+	
 	public CreateGameCommand(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName){
 		serverFacade = ServerFacade.getSingleton();
 		this.randomTiles = randomTiles;
@@ -46,7 +48,7 @@ public class CreateGameCommand implements Command {
 		GameModel serverModel = new GameModel();
 		serverModel.setGameName(gameName);
 		serverModel.setVersion(0);
-		Map gameBoard = new Map();
+		this.gameBoard = new Map();
 		gameBoard.setHexes(createTiles());
 		if(randomPorts){
 			gameBoard.setPorts(createRandomPorts());
@@ -71,8 +73,13 @@ public class CreateGameCommand implements Command {
 		
 		for(int i = 0; i < ValidMapLocations.hexes.size(); i++){
 			Hex hex = new Hex();
-			hex.setLocation(ValidMapLocations.hexes.get(i));
-			hex.setResource(hexTypeOrder.get(i));
+			HexLocation hexLoc = ValidMapLocations.hexes.get(i);
+			hex.setLocation(hexLoc);
+			HexType hexType = hexTypeOrder.get(i);
+			if(hexType == HexType.desert){
+				gameBoard.setRobber(hexLoc);
+			}
+			hex.setResource(hexType);
 			hexes.add(hex);
 		}
 		
