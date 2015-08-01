@@ -147,6 +147,7 @@ public class GameHandler implements HttpHandler
 						}
 					}				
 					break;
+					
 				default:
 					responseStr = "Dont recognize "+ uriRestparams[0]+" command";
 					exchange.sendResponseHeaders(
