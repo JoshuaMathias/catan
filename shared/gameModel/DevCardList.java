@@ -84,9 +84,7 @@ public class DevCardList {
 		}
 	}
 	
-	public boolean canPlayDevCard(DevCardType cardType){
-		
-		boolean canPlay = false;
+	public boolean canPlayDevCard(ResourceList bank, Player player, DevCardType cardType){
 		
 		if(cardType == DevCardType.MONOPOLY) {
 			
@@ -100,9 +98,11 @@ public class DevCardList {
 			}
 		} else if(cardType == DevCardType.ROAD_BUILD) {
 			
-			ClientFacade clientFacade = ClientFacade.getSingleton();
-			int roadAmount = clientFacade.getPlayer().getRoads();
-			
+//			ClientFacade clientFacade = ClientFacade.getSingleton();
+	
+		
+			int roadAmount = player.getRoads();
+		
 			if(roadBuilding > 0 && roadAmount > 1) {
 				return true;
 			}
@@ -113,15 +113,15 @@ public class DevCardList {
 			}
 		} else if(cardType == DevCardType.YEAR_OF_PLENTY) {
 			
-			ClientFacade clientFacade = ClientFacade.getSingleton();
-			ResourceList bank = clientFacade.getBank();
+//			ClientFacade clientFacade = ClientFacade.getSingleton();
+//			ResourceList bank = clientFacade.getBank();
 			
 			if(yearOfPlenty > 0 && bank.getTotal() > 1) {
 				return true;
 			}
 		}
 		
-		return canPlay;
+		return false;
 	}
 	
 	public int size() {

@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import server.facade.ServerFacade;
-import shared.definitions.ResourceType;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
 import shared.gameModel.Player;

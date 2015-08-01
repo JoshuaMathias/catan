@@ -130,6 +130,7 @@ public class GameModel {
 	
 	public void incrementVersion(){
 		this.version++;
+		this.winner = this.checkVictoryPoints();
 	}
 
 	public int getWinner() {
@@ -154,20 +155,20 @@ public class GameModel {
 		
 		int previousLongestIndex = turnTracker.getLongestRoad();
 		int playerIndex = 0;
-		int highestRoadCount = players.get(0).getRoads();
+		int lowestRoadCount = players.get(0).getRoads();
 		
 		for (int i = 1; i < 4; i++){
 			Player player = players.get(i);
 			if(player != null){
 				int toCompare = player.getRoads();
-				if (toCompare > highestRoadCount){
-					highestRoadCount = toCompare;
+				if (toCompare < lowestRoadCount){
+					lowestRoadCount = toCompare;
 					playerIndex = i;
 				}
 			}
 		}
 		
-		if(highestRoadCount >= 5){
+		if(lowestRoadCount <= 10){
 			if(previousLongestIndex == -1){
 				return playerIndex;
 			}
@@ -281,8 +282,10 @@ public class GameModel {
 		String status = turnTracker.getStatus();
 		boolean twoToOne = false;
 		boolean threeToOne = false;
-		
+	
+		int ratio = 4;
 		if(whoseTurn == playerIndex && status.equals("Playing") && offer != PortType.three && request != PortType.three){
+	
 			ArrayList<VertexObject> playerSettlementsCities = map.getPlayerSettlementsCities(playerIndex);
 			for(VertexObject settlementCity: playerSettlementsCities){
 				int portRatio = map.matchSettlementToPortRatio(settlementCity.getLocation(), offer);
@@ -295,7 +298,7 @@ public class GameModel {
 				}
 			}
 			
-			int ratio = 4;
+			//int ratio = 4;
 			if(twoToOne){
 				ratio = 2;
 			}
@@ -306,38 +309,67 @@ public class GameModel {
 			ResourceList playerResources = players.get(playerIndex).getResources();
 			switch(request){
 				case brick:
-					if(playerResources.getBrick() < ratio || bank.getBrick() < 1){
-						return ratio;
+					if(bank.getBrick() < 1){
+						return -1;
 					}
 					break;
 				case ore:
-					if(playerResources.getOre() < ratio || bank.getOre() < 1){
-						return ratio;
+					if(bank.getOre() < 1){
+						return -1;
 					}
 					break;
 				case sheep:
-					if(playerResources.getSheep() < ratio || bank.getSheep() < 1){
-						return ratio;
+					if(bank.getSheep() < 1){
+						return -1;
 					}
 					break;
 				case wheat:
-					if(playerResources.getWheat() < ratio || bank.getWheat() < 1){
-						return ratio;
+					if(bank.getWheat() < 1){
+						return -1;
 					}
 					break;
 				case wood:
-					if(playerResources.getWood() < ratio || bank.getWood() < 1){
-						return ratio;
+					if(bank.getWood() < 1){
+						return -1;
 					}
 					break;
 				default: //should never get here Throw Exception
 					break;
 			}
 			
+			switch(offer){
+			case brick:
+				if(playerResources.getBrick() < ratio){
+					return -1;
+				}
+				break;
+			case ore:
+				if(playerResources.getOre() < ratio){
+					return -1;
+				}
+				break;
+			case sheep:
+				if(playerResources.getSheep() < ratio){
+					return -1;
+				}
+				break;
+			case wheat:
+				if(playerResources.getWheat() < ratio){
+					return -1;
+				}
+				break;
+			case wood:
+				if(playerResources.getWood() < ratio){
+					return -1;
+				}
+				break;
+			default: //should never get here Throw Exception
+				break;
+		}
+			
 //			can = true;
 		}
-		
-		return -1; //cannot trade
+		return ratio; //cannot trade
 		
 	}
 	
@@ -878,12 +910,16 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		
 		if (playerIndex == whoseTurn && status.equals("Playing") && player.isPlayedDevCard() == false) {
 			
-			DevCardList playersDevCardList = players.get(playerIndex).getOldDevCards();
+			if(cardType == DevCardType.MONUMENT && player.hasMonumentCard()){
+				return true;
+			}
+			
+			DevCardList playersDevCardList = player.getOldDevCards();
 			
 			if(playersDevCardList.size() < 1) {
 				return false;
 			}
-			can = playersDevCardList.canPlayDevCard(cardType);
+			can = playersDevCardList.canPlayDevCard(bank, player, cardType);
 		
 		} else {
 			return false;
@@ -901,9 +937,8 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 	public boolean canPlaceRobber(int playerIndex, int diceRoll, HexLocation hexLoc) {
 	
 		int whoseTurn = turnTracker.getCurrentTurn();
-		String status = turnTracker.getStatus();
 		
-		if(whoseTurn == playerIndex) {// && status.equals("Robbing")
+		if(whoseTurn == playerIndex) {
 			if(hexLoc.equals(map.getRobberLocation())) {
 				return false;
 			}

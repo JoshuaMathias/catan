@@ -26,13 +26,13 @@ public class GameHandler implements HttpHandler
 		//Setting up the things that I will use later
 		ServerFacade facade = ServerFacade.getSingleton();
 		Gson g = new Gson();
-		System.out.println("GameHandler called");
+//		System.out.println("GameHandler called");
 		
 		try
 		{
 			//taking the command URI
 			String command = exchange.getRequestURI().toString().substring(6);
-			System.out.println("Command: "+command);
+//			System.out.println("Command: "+command);
 			
 			//Getting version number if it exists
 			String[] uriRestparams = command.split("=");
@@ -133,7 +133,7 @@ public class GameHandler implements HttpHandler
 							}
 							else
 							{
-								responseStr="true";
+								responseStr="\"true\"\r";
 								exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,
 										responseStr.length());
 							}

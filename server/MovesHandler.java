@@ -304,7 +304,7 @@ public class MovesHandler implements HttpHandler {
 			
 			// Send response code. By default, successful is true.
 			if (successful) {
-				responseStr="Success";
+				responseStr=g.toJson(facade.getGameModel(gameId));
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK,
 						responseStr.length());
 			} else {
@@ -318,7 +318,8 @@ public class MovesHandler implements HttpHandler {
 			response.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, -1);
+			String responseStr="Exception: "+e.getMessage();
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, responseStr.length());
 			return;
 		}
 	}

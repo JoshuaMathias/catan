@@ -11,18 +11,18 @@ import shared.locations.HexLocation;
 /**
  * 
  * @author Ife's Group
- *
+ * 
  */
 public class RobPlayerCommand implements Command {
 
-	private int playerIndex; 
-	private int victimIndex; 
+	private int playerIndex;
+	private int victimIndex;
 	private HexLocation robber;
 	private GameModel serverModel;
-	
+
 	private Player player;
 	private Player victim;
-	
+
 	public RobPlayerCommand(int playerIndex, int victimIndex,
 			HexLocation robber, GameModel serverModel) {
 		super();
@@ -35,97 +35,102 @@ public class RobPlayerCommand implements Command {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		if(victimIndex != -1){
+		player = serverModel.getPlayers().get(playerIndex);
+		if (victimIndex != -1) {
 			Random random = new Random();
-			
+
 			victim = serverModel.getPlayers().get(victimIndex);
 			ResourceList victimResources = victim.getResources();
-			
+
 			player = serverModel.getPlayers().get(playerIndex);
 			ResourceList playerResources = player.getResources();
-			
+
 			boolean noneOfThatResource = false;
-			do{
+			do {
 				int resourceToSteal = random.nextInt(5);
-				switch(resourceToSteal){
+				switch (resourceToSteal) {
 				case 0:
-					if(victimResources.getWood() < 1){
+					if (victimResources.getWood() < 1) {
 						noneOfThatResource = true;
-					}
-					else{
+					} else {
 						victimResources.setWood(victimResources.getWood() - 1);
 						playerResources.setWood(playerResources.getWood() + 1);
 						noneOfThatResource = false;
 					}
 					break;
 				case 1:
-					if(victimResources.getWheat() < 1){
+					if (victimResources.getWheat() < 1) {
 						noneOfThatResource = true;
-					}
-					else{
-						victimResources.setWheat(victimResources.getWheat() - 1);
-						playerResources.setWheat(playerResources.getWheat() + 1);
+					} else {
+						victimResources
+								.setWheat(victimResources.getWheat() - 1);
+						playerResources
+								.setWheat(playerResources.getWheat() + 1);
 						noneOfThatResource = false;
 					}
 					break;
 				case 2:
-					if(victimResources.getOre() < 1){
+					if (victimResources.getOre() < 1) {
 						noneOfThatResource = true;
-					}
-					else{
+					} else {
 						victimResources.setOre(victimResources.getOre() - 1);
 						playerResources.setOre(playerResources.getOre() + 1);
 						noneOfThatResource = false;
 					}
 					break;
 				case 3:
-					if(victimResources.getBrick() < 1){
+					if (victimResources.getBrick() < 1) {
 						noneOfThatResource = true;
-					}
-					else{
-						victimResources.setBrick(victimResources.getBrick() - 1);
-						playerResources.setBrick(playerResources.getBrick() + 1);
+					} else {
+						victimResources
+								.setBrick(victimResources.getBrick() - 1);
+						playerResources
+								.setBrick(playerResources.getBrick() + 1);
 						noneOfThatResource = false;
 					}
 					break;
 				case 4:
-					if(victimResources.getSheep() < 1){
+					if (victimResources.getSheep() < 1) {
 						noneOfThatResource = true;
-					}
-					else{
-						victimResources.setSheep(victimResources.getSheep() - 1);
-						playerResources.setSheep(playerResources.getSheep() + 1);
+					} else {
+						victimResources
+								.setSheep(victimResources.getSheep() - 1);
+						playerResources
+								.setSheep(playerResources.getSheep() + 1);
 						noneOfThatResource = false;
 					}
 					break;
 				}
-			}while(noneOfThatResource);
-			
+			} while (noneOfThatResource);
+
 			MessageLine line = new MessageLine();
 			String username = player.getName();
-			if(username.toLowerCase().equals("ife") || username.toLowerCase().equals("ogeorge")){
-				line.setMessage("Ife's only chance of winning is by robbing from " + victim.getName());
+			if (username.toLowerCase().equals("ife")
+					|| username.toLowerCase().equals("ogeorge")) {
+				line.setMessage("Ife's only chance of winning is by robbing from "
+						+ victim.getName());
+			} else {
+				line.setMessage(username + " moved the robber and robbed from "
+						+ victim.getName());
 			}
-			else{
-				line.setMessage(username + " moved the robber and robbed from " + victim.getName());
-			}
-//			line.setMessage(username + " moved the robber and robbed from " + victim.getName());
+			// line.setMessage(username + " moved the robber and robbed from " +
+			// victim.getName());
 			line.setSource(username);
 			serverModel.getLog().addLine(line);
+		} else {
+			if (player != null) {
+				MessageLine line = new MessageLine();
+				String username = player.getName();
+				line.setMessage(username
+						+ " moved the robber, but did not rob from anybody");
+				line.setSource(username);
+				serverModel.getLog().addLine(line);
+			}
 		}
-		else{
-			MessageLine line = new MessageLine();
-			String username = player.getName();
-			line.setMessage(username + " moved the robber, but did not rob from anybody");
-			line.setSource(username);
-			serverModel.getLog().addLine(line);
-		}
-		
-		
+
 		serverModel.getMap().setRobber(robber);
-		
+
 		serverModel.getTurnTracker().setStatus("Playing");
 	}
 
-	
 }

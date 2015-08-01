@@ -30,7 +30,7 @@ public class GamesHandler implements HttpHandler {
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		// TODO
-		System.out.println("GamesHandler called");
+//		System.out.println("GamesHandler called");
 		String[] commandList = exchange.getRequestURI().toString().split("\\/");
 		String command="";
 		if (commandList.length > 2) {
@@ -39,7 +39,7 @@ public class GamesHandler implements HttpHandler {
 		try {
 			boolean successful = true; //To know whether to send the 200 response code at the end
 			Gson g = new Gson();
-			System.out.println("Command: " + command);
+//			System.out.println("Command: " + command);
 			ServerFacade facade = ServerFacade.getSingleton();
 			// JsonReader reader = new JsonReader(new InputStreamReader(
 			// exchange.getRequestBody(), "UTF-8"));
