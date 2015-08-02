@@ -62,15 +62,16 @@ public class ServerFacade {
 	public boolean acceptTrade(int playerIndex, boolean willAccept, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.getTradeOffer() != null) {
-			if (serverModel.canAcceptTrade(playerIndex,
-					serverModel.getTradeOffer())) {
+//			if (serverModel.canAcceptTrade(playerIndex,
+//					serverModel.getTradeOffer())) {
 				new AcceptTradeCommand(playerIndex, willAccept, serverModel)
 						.execute();
 				serverModel.incrementVersion();
 				if (willAccept) {
 					return true;
 				}
-			}
+//			}
+				//Hopefully there is another check for this same thing somewhere else
 		}
 		return false;
 	}
