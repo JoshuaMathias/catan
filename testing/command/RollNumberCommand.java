@@ -140,13 +140,51 @@ public class RollNumberCommand {
 		expectedResources = new ResourceList(3,3,3,3,3);
 		compareResourceLists(ife,expectedResources);
 		
-		expectedResources = new ResourceList(2,2,2,2,2);
+		expectedResources = new ResourceList(3,2,2,2,2);
 		compareResourceLists(josh,expectedResources);
 		
+		expectedResources = new ResourceList(3,3,3,3,3);
+		expectedResources = new ResourceList(3,3,3,3,3);
+		expectedResources = new ResourceList(3,3,3,3,3);
+		
+		serverFacade.rollNumber(0, 8, 0);
+		
+		expectedResources = new ResourceList(4,3,3,3,3);
+		compareResourceLists(paul,expectedResources);
+		
+		expectedResources = new ResourceList(2,2,3,2,2);
+		compareResourceLists(daniel,expectedResources);
+		
+		expectedResources = new ResourceList(3,3,3,3,3);
+		compareResourceLists(ife,expectedResources);
+		
+		expectedResources = new ResourceList(3,2,2,2,2);
+		compareResourceLists(josh,expectedResources);
 		
 		expectedResources = new ResourceList(3,3,3,3,3);
 		expectedResources = new ResourceList(3,3,3,3,3);
 		expectedResources = new ResourceList(3,3,3,3,3);
+		
+		serverFacade.rollNumber(0, 12, 0);
+		
+		expectedResources = new ResourceList(4,3,3,4,3);
+		compareResourceLists(paul,expectedResources);
+		
+		expectedResources = new ResourceList(2,2,3,2,2);
+		compareResourceLists(daniel,expectedResources);
+		
+		expectedResources = new ResourceList(3,3,3,4,3);
+		compareResourceLists(ife,expectedResources);
+		
+		expectedResources = new ResourceList(3,2,2,3,2);
+		compareResourceLists(josh,expectedResources);
+		
+		expectedResources = new ResourceList(3,3,3,3,3);
+		expectedResources = new ResourceList(3,3,3,3,3);
+		expectedResources = new ResourceList(3,3,3,3,3);
+		
+		
+		
 		
 	}
 	
