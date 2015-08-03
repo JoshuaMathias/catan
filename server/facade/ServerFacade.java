@@ -349,7 +349,7 @@ public class ServerFacade {
 			if (index!=-1 || numPlayers==4) {
 				thisGame.getPlayers().get(index).setColor(convertColorToEnum(color));
 			}
-			if (thisGame.getPlayers().size() < 4) {
+			else if (thisGame.getPlayers().size() < 4) {
 				Command joinGameCommand = new JoinGameCommand(
 						convertColorToEnum(color), user.getName(),
 						user.getPlayerID(), thisGame);
