@@ -32,16 +32,36 @@ public class AcceptTradeCommand {
 		paul.setResources(paulsResources);
 		paul.setPlayerIndex(0);
 		paul.setName("Paul");
+		paul.setVictoryPoints(3);
 		
 		Player daniel = new Player();
 		ResourceList danielsResources = new ResourceList(4,4,4,4,4);
 		daniel.setResources(danielsResources);
 		daniel.setPlayerIndex(1);
 		daniel.setName("Daniel");
+		daniel.setVictoryPoints(4);
+		
+		Player ife = new Player();
+		ResourceList ifesResources = new ResourceList(2,2,2,2,2);
+		ife.setResources(ifesResources);
+		ife.setPlayerIndex(0);
+		ife.setName("Ife");
+		ife.setVictoryPoints(3);
+		
+		Player josh = new Player();
+		ResourceList joshsResources = new ResourceList(5,5,5,5,5);
+		josh.setResources(joshsResources);
+		josh.setPlayerIndex(0);
+		josh.setName("josh");
+		josh.setVictoryPoints(3);
+		
 		
 		players = new ArrayList<>();
 		players.add(paul);
 		players.add(daniel);
+		players.add(ife);
+		players.add(josh);
+		
 		GameModel gameModel = new GameModel();
 		gameModel.setPlayers(players);
 		gameModel.setGameID(0);

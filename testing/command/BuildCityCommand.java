@@ -13,6 +13,7 @@ import shared.gameModel.GameModel;
 import shared.gameModel.Map;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
+import shared.gameModel.TurnTracker;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -21,6 +22,7 @@ public class BuildCityCommand {
 
 	private ServerFacade serverFacade;
 	private ArrayList<Player> players = new ArrayList<>();
+	private TurnTracker turnTracker;
 	
 	@Before 
 	public void setUp() {
@@ -29,15 +31,38 @@ public class BuildCityCommand {
 		
 		Player paul = new Player();
 		Player daniel = new Player();
+		Player ife = new Player();
+		Player josh = new Player();
 		
 		paul.setName("paul");
 		daniel.setName("daniel");
+		ife.setName("ife");
+		josh.setName("josh");
+		
+		paul.setPlayerIndex(0);
+		paul.setPlayerIndex(1);
+		paul.setPlayerIndex(2);
+		paul.setPlayerIndex(3);
 		
 		players.add(paul);
 		players.add(daniel);
+		players.add(ife);
+		players.add(josh);
+		
+		ResourceList paulsResources = new ResourceList(8,8,8,8,8);
+		paul.setResources(paulsResources);
+		
+		ResourceList danielsResources = new ResourceList(5,5,5,5,5);
+		daniel.setResources(danielsResources);
+		
+		turnTracker = new TurnTracker();
+		turnTracker.setCurrentTurn(0);
+		turnTracker.setStatus("FirstRound");
+		
 		
 		GameModel newGame = new GameModel();
 		newGame.setGameID(0);
+		newGame.setTurnTracker(turnTracker);
 		
 		Map newMap = new Map();
 		newGame.setMap(newMap);
@@ -57,7 +82,14 @@ public class BuildCityCommand {
 	@Test
 	public void test() {
 		
-		VertexLocation vertexLocation = new VertexLocation(new HexLocation(3,0), VertexDirection.E);
+		
+		VertexLocation settlementLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.E);
+		
+		serverFacade.buildSettlement(0, settlementLocation, true, 0);
+		System.out.println("settlement size: " + serverFacade.getGameModel(0).getMap().getSettlements().size());
+		
+		VertexLocation cityLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.E);
+		
 		
 		Player playerOne = players.get(0);
 		
@@ -73,7 +105,10 @@ public class BuildCityCommand {
 		ResourceList tempBank = new ResourceList(beforeBank.getBrick(),beforeBank.getOre(), beforeBank.getSheep(),
 									beforeBank.getWheat(), beforeBank.getWood());
 		
-		serverFacade.buildCity(0, vertexLocation, 0);
+		turnTracker.setCurrentTurn(0);
+		turnTracker.setStatus("Playing");
+		
+		serverFacade.buildCity(0, cityLocation, 0);
 		
 		int cityAfterAmount = playerOne.getCities();
 		int settlementAfterAmount = playerOne.getSettlements();
