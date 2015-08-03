@@ -54,38 +54,38 @@ public class FinishTurnCommand implements Command {
 		
 		resetDiscarded();
 		
-		// increment/decrement 2 points as appropriate
-		int longestRoad = serverModel.checkLongestRoad();
-		if(longestRoad != -1){
-			int previousLongestRoad = turnTracker.getLongestRoad();
-			turnTracker.setLongestRoad(longestRoad);
-			if(previousLongestRoad != longestRoad){
-				Player player = serverModel.getPlayers().get(longestRoad);
-				player.setVictoryPoints(player.getVictoryPoints() + 2);
-				if(previousLongestRoad != -1){
-					Player previousPlayer = serverModel.getPlayers().get(previousLongestRoad);
-					previousPlayer.setVictoryPoints(previousPlayer.getVictoryPoints() - 2);
-				}
-			}
-			
-			
-		}
-		
-		// increment/decrement 2 points as appropriate
-		int largestArmy = serverModel.checkLargestArmy();
-		if(largestArmy != -1){
-			int previousLargestArmy = turnTracker.getLargestArmy();
-			turnTracker.setLargestArmy(largestArmy);
-			if(previousLargestArmy != largestArmy){
-				Player player = serverModel.getPlayers().get(largestArmy);
-				player.setVictoryPoints(player.getVictoryPoints() + 2);
-				if(previousLargestArmy != -1){
-					Player previousPlayer = serverModel.getPlayers().get(previousLargestArmy);
-					previousPlayer.setVictoryPoints(previousPlayer.getVictoryPoints() - 2);
-				}
-			}
-			
-		}
+//		// increment/decrement 2 points as appropriate
+//		int longestRoad = serverModel.checkLongestRoad();
+//		if(longestRoad != -1){
+//			int previousLongestRoad = turnTracker.getLongestRoad();
+//			turnTracker.setLongestRoad(longestRoad);
+//			if(previousLongestRoad != longestRoad){
+//				Player player = serverModel.getPlayers().get(longestRoad);
+//				player.setVictoryPoints(player.getVictoryPoints() + 2);
+//				if(previousLongestRoad != -1){
+//					Player previousPlayer = serverModel.getPlayers().get(previousLongestRoad);
+//					previousPlayer.setVictoryPoints(previousPlayer.getVictoryPoints() - 2);
+//				}
+//			}
+//			
+//			
+//		}
+//		
+//		// increment/decrement 2 points as appropriate
+//		int largestArmy = serverModel.checkLargestArmy();
+//		if(largestArmy != -1){
+//			int previousLargestArmy = turnTracker.getLargestArmy();
+//			turnTracker.setLargestArmy(largestArmy);
+//			if(previousLargestArmy != largestArmy){
+//				Player player = serverModel.getPlayers().get(largestArmy);
+//				player.setVictoryPoints(player.getVictoryPoints() + 2);
+//				if(previousLargestArmy != -1){
+//					Player previousPlayer = serverModel.getPlayers().get(previousLargestArmy);
+//					previousPlayer.setVictoryPoints(previousPlayer.getVictoryPoints() - 2);
+//				}
+//			}
+//			
+//		}
 		
 		MessageLine line = new MessageLine();
 		Player player = serverModel.getPlayers().get(currentTurn);

@@ -72,6 +72,7 @@ public class BuyDevCardCommand implements Command {
 		case MONUMENT:
 			deck.setMonument(deck.getMonument() - 1);
 			player.addNewDevCard(DevCardType.MONUMENT);
+			player.incrementMonuments();
 			break;
 		case ROAD_BUILD:
 			deck.setRoadBuilding(deck.getRoadBuilding() - 1);

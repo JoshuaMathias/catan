@@ -82,7 +82,8 @@ public class DevCardController extends Controller implements IDevCardController 
 		DevCardList playerOldDevCards = clientFacade.getPlayerOldDevCards();
 		
 		//Set enabled or disabled
-		boolean isPlayerTurn = (clientFacade.getTurnTracker().getCurrentTurn() == clientFacade.getPlayerIndex());
+		int currentTurn = clientFacade.getTurnTracker().getCurrentTurn();
+		boolean isPlayerTurn = (currentTurn == clientFacade.getPlayerIndex());
 		boolean playing = clientFacade.getTurnTracker().getStatus().equals("Playing");
 		boolean playedDevCard = clientFacade.getPlayer().isPlayedDevCard();
 		
@@ -115,32 +116,32 @@ public class DevCardController extends Controller implements IDevCardController 
 				getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, true);
 			}
 			
-			if(playerDevCards.getMonument() < 1){
-				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
-			}
-			else{
-				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
-			}
+//			if(playerDevCards.getMonument() < 1){
+//				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+//			}
+//			else if(clientFacade.canPlayDevCard(DevCardType.MONUMENT)){
+//				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
+//			}
 		}
 		else{
 			getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
 			getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
 			getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
 			getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
-			
-			if(isPlayerTurn && playing){
-				if(playerDevCards.getMonument() < 1){
-					getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
-				}
-				else{
-					getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
-				}
+		}
+
+		if(isPlayerTurn && playing){
+			if(clientFacade.canPlayDevCard(DevCardType.MONUMENT) && (playerDevCards.getMonument() > 0)){
+				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
 			}
 			else{
 				getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
 			}
 		}
-
+		else{
+			getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+		}
+		
 		getPlayCardView().showModal();
 	}
 

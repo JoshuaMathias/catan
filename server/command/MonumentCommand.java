@@ -44,6 +44,7 @@ public class MonumentCommand implements Command {
 		int victoryPoints = player.getVictoryPoints();
 		victoryPoints += 1;
 		player.setVictoryPoints(victoryPoints);
+		player.decrementMonuments();//This line not really needed, but it shouldn't hurt
 		
 		/*int monumentAmount = deck.getMonument();
 		monumentAmount += 1;

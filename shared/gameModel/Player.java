@@ -13,7 +13,7 @@ public class Player {
 	private int cities = 4;
 	private CatanColor color;
 	private boolean discarded = false;
-	private int momuments = 0;
+	private int monuments = 0;
 	private String name;
 	private DevCardList newDevCards = new DevCardList(false);
 	private DevCardList oldDevCards = new DevCardList(false);
@@ -49,11 +49,11 @@ public class Player {
 	public void setDiscarded(boolean discarded) {
 		this.discarded = discarded;
 	}
-	public int getMomuments() {
-		return momuments;
+	public int getMonuments() {
+		return monuments;
 	}
-	public void setMomuments(int momuments) {
-		this.momuments = momuments;
+	public void setMonuments(int monuments) {
+		this.monuments = monuments;
 	}
 	public String getName() {
 		return name;
@@ -120,6 +120,22 @@ public class Player {
 	}
 	public void setVictoryPoints(int victoryPoints) {
 		this.victoryPoints = victoryPoints;
+	}
+	
+	public void incrementMonuments(){
+		this.monuments++;
+	}
+	
+	public void decrementMonuments(){
+		this.monuments--;
+	}
+	
+	public boolean canPlayMonument(){
+		
+		if((this.victoryPoints + this.monuments) >= 10){
+			return true;
+		}
+		return false;
 	}
 	
 	public void incrementSettlement(){
@@ -190,7 +206,7 @@ public class Player {
 		result = prime * result + cities;
 		result = prime * result + ((color == null) ? 0 : color.hashCode());
 		result = prime * result + (discarded ? 1231 : 1237);
-		result = prime * result + momuments;
+		result = prime * result + monuments;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
 				+ ((newDevCards == null) ? 0 : newDevCards.hashCode());
@@ -225,7 +241,7 @@ public class Player {
 			return false;
 		if (discarded != other.discarded)
 			return false;
-		if (momuments != other.momuments)
+		if (monuments != other.monuments)
 			return false;
 		if (name == null) {
 			if (other.name != null)

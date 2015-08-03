@@ -131,6 +131,7 @@ public class GameModel {
 	public void incrementVersion(){
 		this.version++;
 		this.winner = this.checkVictoryPoints();
+		this.checkForBonusPoints();
 	}
 
 	public int getWinner() {
@@ -145,6 +146,39 @@ public class GameModel {
 		player.setPlayerIndex(players.size());
 		players.add(player);
 	}
+	
+	public void checkForBonusPoints(){
+		// increment/decrement 2 points as appropriate
+		int longestRoad = this.checkLongestRoad();
+		if(longestRoad != -1){
+			int previousLongestRoad = turnTracker.getLongestRoad();
+			turnTracker.setLongestRoad(longestRoad);
+			if(previousLongestRoad != longestRoad){
+				Player player = this.getPlayers().get(longestRoad);
+				player.setVictoryPoints(player.getVictoryPoints() + 2);
+				if(previousLongestRoad != -1){
+					Player previousPlayer = this.getPlayers().get(previousLongestRoad);
+					previousPlayer.setVictoryPoints(previousPlayer.getVictoryPoints() - 2);
+				}
+			}
+		}
+		
+		// increment/decrement 2 points as appropriate
+		int largestArmy = this.checkLargestArmy();
+		if(largestArmy != -1){
+			int previousLargestArmy = turnTracker.getLargestArmy();
+			turnTracker.setLargestArmy(largestArmy);
+			if(previousLargestArmy != largestArmy){
+				Player player = this.getPlayers().get(largestArmy);
+				player.setVictoryPoints(player.getVictoryPoints() + 2);
+				if(previousLargestArmy != -1){
+					Player previousPlayer = this.getPlayers().get(previousLargestArmy);
+					previousPlayer.setVictoryPoints(previousPlayer.getVictoryPoints() - 2);
+				}
+			}
+		}
+	}
+	
 	
 	/**
 	 * checks whether a player has the longest road
@@ -911,7 +945,10 @@ public int canOfferBankTrade(int playerIndex, ResourceType resourceOffer) {
 		if (playerIndex == whoseTurn && status.equals("Playing") && player.isPlayedDevCard() == false) {
 			
 			if(cardType == DevCardType.MONUMENT && player.hasMonumentCard()){
-				return true;
+				if(player.canPlayMonument()){
+					return true;
+				}
+				return false;
 			}
 			
 			DevCardList playersDevCardList = player.getOldDevCards();
