@@ -89,7 +89,6 @@ public class RobPlayerCommand implements Command {
 				break;
 			default:
 				break;
-			
 			}
 			
 //			boolean noneOfThatResource = false;
