@@ -1,6 +1,7 @@
 package shared.gameModel;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import shared.definitions.HexType;
 import shared.definitions.PortType;
@@ -88,11 +89,16 @@ public class Map {
 	}
 	
 	public void removeSettlement(VertexObject settlement){//hopefully, this works
-		for(VertexObject house: settlements){
-			if(house.equals(settlement)){
-				settlements.remove(settlement);
-			}
-		}
+//		for(VertexObject house: settlements){
+//			if(house.equals(settlement)){
+//				settlements.remove(settlement);
+//			}
+//		}
+		
+		LinkedList<VertexObject> settlementsLinked = new LinkedList<>(settlements);
+		
+		settlementsLinked.remove(settlement);
+		this.settlements = new ArrayList<>(settlementsLinked);
 	}
 	
 	public void addCity(VertexObject city){
