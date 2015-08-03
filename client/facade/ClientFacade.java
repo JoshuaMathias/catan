@@ -33,6 +33,9 @@ public class ClientFacade {
 	private GameModel clientModel;
 	public static ServerProxy proxy;
 	public static ClientFacade thisFacade;
+	public static ClientFacade secondFacade;
+	public static ClientFacade thirdFacade;
+	public static ClientFacade fourthFacade;
 	private String host;
 	private ServerPoller poller;
 	public static int count=0;
@@ -905,6 +908,29 @@ public class ClientFacade {
 	{
 		return proxy.getGamesList();
 	}
+
+	public static ClientFacade getSingleton2() {
+		if (secondFacade==null) {
+			secondFacade=new ClientFacade(Catan.host);
+		}
+		return secondFacade;
+	}
+
+	public static ClientFacade getSingleton3() {
+		if (thirdFacade==null) {
+			thirdFacade=new ClientFacade(Catan.host);
+		}
+		return thirdFacade;
+	}
+
+	public static ClientFacade getSingleton4() {
+		if (fourthFacade==null) {
+			fourthFacade=new ClientFacade(Catan.host);
+		}
+		return fourthFacade;
+	}
+	
+	
 	
 	//Before using the Facade functions just make sure that function is doing exactly what you want it to do
 	

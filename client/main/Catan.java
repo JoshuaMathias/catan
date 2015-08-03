@@ -16,7 +16,7 @@ public class Catan extends JFrame
 {
 	
 	private CatanPanel catanPanel;
-	public static String host;
+	public static String host="localhost";
 	
 	public Catan()
 	{
