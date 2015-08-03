@@ -42,6 +42,7 @@ public class ServerCommandTests {
 				"testing.command.MonumentCommand",
 				"testing.command.OfferTradeCommand",
 				"testing.command.RoadBuildingCommand",
+				"testing.command.RollNumberCommand",
 				"testing.command.RobPlayerCommand",
 				"testing.command.SendChatCommand",
 				"testing.command.SoldierCommand",
