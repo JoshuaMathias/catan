@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
 import shared.gameModel.Map;
@@ -20,7 +21,7 @@ import shared.locations.VertexLocation;
 
 public class BuildCityCommand {
 
-	private ServerFacade serverFacade;
+	private IServerFacade serverFacade;
 	private ArrayList<Player> players = new ArrayList<>();
 	private TurnTracker turnTracker;
 	

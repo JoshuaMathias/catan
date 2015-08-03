@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
 import shared.gameModel.Player;
@@ -17,7 +18,7 @@ import shared.gameModel.TurnTracker;
 
 public class BuyDevCardCommand {
 
-	private ServerFacade serverFacade;
+	private IServerFacade serverFacade;
 	private GameModel game;
 	private Player ife;
 	

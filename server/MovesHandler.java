@@ -8,25 +8,34 @@ import java.net.HttpURLConnection;
 import java.net.URLDecoder;
 import java.util.List;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
 import shared.params.*;
 import shared.definitions.*;
 import shared.locations.*;
+import Testing.Proxy.ServerFacadeTest;
+
 import com.google.gson.Gson;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 public class MovesHandler implements HttpHandler {
-
+	public static boolean test = false;
+	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		// TODO Auto-generated method stub
 		System.out.println("MovesHandler called");
 
 		// Setting up the things that I will use later
-		ServerFacade facade = ServerFacade.getSingleton();
+		IServerFacade facade = null;
+		if (test) {
+			facade = ServerFacadeTest.getSingleton();
+		} else {
+			facade = ServerFacade.getSingleton();
+		}
 		Gson g = new Gson();
 		boolean successful=true;
 		try {

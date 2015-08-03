@@ -61,6 +61,14 @@ public class Server {
 		System.out.println("Started server");
 		if (args.length > 0 && args[0] != null) {
 			SERVER_PORT_NUMBER = Integer.parseInt((args[0]));
+			if (args.length > 1 && args[1] != null) {
+				if (args[1].equals("test")) {
+					UserHandler.test=true;
+					GameHandler.test=true;
+					GamesHandler.test=true;
+					MovesHandler.test=true;
+				}
+			}
 		}
 		new Server().run();
 	}

@@ -9,8 +9,11 @@ import java.net.HttpURLConnection;
 import java.net.URLDecoder;
 import java.util.List;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
+
+import Testing.Proxy.ServerFacadeTest;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.Headers;
@@ -19,12 +22,18 @@ import com.sun.net.httpserver.HttpHandler;
 
 public class GameHandler implements HttpHandler 
 {
+	public static boolean test = false;
 
 	@Override
 	public void handle(HttpExchange exchange) throws IOException 
 	{
 		//Setting up the things that I will use later
-		ServerFacade facade = ServerFacade.getSingleton();
+		IServerFacade facade = null;
+		if (test) {
+			facade = ServerFacadeTest.getSingleton();
+		} else {
+			facade = ServerFacade.getSingleton();
+		}
 		Gson g = new Gson();
 //		System.out.println("GameHandler called");
 		

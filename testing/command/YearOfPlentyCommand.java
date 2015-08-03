@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
@@ -21,7 +22,7 @@ import shared.locations.VertexLocation;
 
 public class YearOfPlentyCommand {
 
-	private ServerFacade serverFacade;
+	private IServerFacade serverFacade;
 	private Player paul = new Player();
 	private Player daniel = new Player();
 	private Player ife = new Player();

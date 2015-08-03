@@ -21,9 +21,9 @@ import client.serverproxy.ServerProxy;
 public class ServerProxyTest {
 
 	private ClientFacade facade;
-	private ClientFacade facade2;
-	private ClientFacade facade3;
-	private ClientFacade facade4;
+	private ServerProxy facade2;
+	private ServerProxy facade3;
+	private ServerProxy facade4;
 	private TurnTracker turnTracker;
 	private TradeOffer tradeOffer;
 	private Player Ife;
@@ -36,34 +36,34 @@ public class ServerProxyTest {
 	{
 		System.out.println("count: "+ClientFacade.count);
 		facade = ClientFacade.getSingleton();
-		facade.createGame(false, false, false, "test");
 		turnTracker = new TurnTracker();
 		
 		String u = "Ife"+Integer.toString(ClientFacade.count);
 		String p = "testpass";
 		facade.register(u, p);
-		facade.login(u, p);
+//		facade.login(u, p);
+		facade.createGame(false, false, false, "test");
 		facade.joinGame(Integer.toString(ClientFacade.count), "red");
 
 		String u2 = "Josh"+Integer.toString(ClientFacade.count);
 		String p2 = "testpass";
-		facade2 = ClientFacade.getSingleton2();
+		facade2 = new ServerProxy("localhost");
 		facade2.register(u2, p2);
-		facade2.login(u2, p2);
+//		facade2.login(u2, p2);
 		facade2.joinGame(Integer.toString(ClientFacade.count), "green");
 
 		String u3 = "Daniel"+Integer.toString(ClientFacade.count);
 		String p3 = "testpass";
-		facade3 = ClientFacade.getSingleton3();
+		facade3 = new ServerProxy("localhost");
 		facade3.register(u3, p3);
-		facade3.login(u3, p3);
+//		facade3.login(u3, p3);
 		facade3.joinGame(Integer.toString(ClientFacade.count), "blue");
 
 		String u4 = "Paul"+Integer.toString(ClientFacade.count);
 		String p4 = "testpass";
-		facade4 = ClientFacade.getSingleton4();
+		facade4 = new ServerProxy("localhost");
 		facade4.register(u4, p4);
-		facade4.login(u4, p4);
+//		facade4.login(u4, p4);
 		facade4.joinGame(Integer.toString(ClientFacade.count), "yellow");
 		
 		ClientFacade.count++;
@@ -153,7 +153,7 @@ public class ServerProxyTest {
 		HexLocation hexLoc1 = new HexLocation(0, 0);
 		VertexLocation vertLoc1 = new VertexLocation(hexLoc1,
 				VertexDirection.W);
-		facade2.buildSettlement(vertLoc1, true);
+		facade2.buildSettlement(1, vertLoc1, true);
 		
 		//Both players get some resource to steal
 		facade.rollNumber(11);
@@ -243,7 +243,7 @@ public class ServerProxyTest {
 		HexLocation hexLoc1 = new HexLocation(0, 0);
 		VertexLocation vertLoc1 = new VertexLocation(hexLoc1,
 				VertexDirection.W);
-		facade2.buildSettlement(vertLoc1, true);
+		facade2.buildSettlement(1, vertLoc1, true);
 		
 		//Both players get some resource to steal
 		facade.rollNumber(11);

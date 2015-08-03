@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
@@ -23,7 +24,7 @@ import shared.locations.VertexLocation;
 
 public class MaritimeTradeCommand {
 
-	private ServerFacade serverFacade;
+	private IServerFacade serverFacade;
 	private Player paul = new Player();
 	private Player daniel = new Player();
 	private Player ife = new Player();
