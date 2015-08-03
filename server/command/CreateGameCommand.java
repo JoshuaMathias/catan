@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
+import Testing.Proxy.ServerFacadeTest;
+
+import server.GamesHandler;
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
@@ -26,7 +30,7 @@ import shared.locations.HexLocation;
  */
 public class CreateGameCommand implements Command {
 
-	private ServerFacade serverFacade;
+	private IServerFacade serverFacade;
 	private boolean randomTiles;
 	private boolean randomNumbers;
 	private boolean randomPorts;
@@ -35,7 +39,12 @@ public class CreateGameCommand implements Command {
 	private Map gameBoard;
 	
 	public CreateGameCommand(boolean randomTiles,boolean randomNumbers,boolean randomPorts, String gameName){
-		serverFacade = ServerFacade.getSingleton();
+		IServerFacade facade = null;
+		if (GamesHandler.test) {
+			serverFacade = ServerFacadeTest.getSingleton();
+		} else {
+			serverFacade = ServerFacade.getSingleton();
+		}
 		this.randomTiles = randomTiles;
 		this.randomNumbers = randomNumbers;
 		this.randomPorts = randomPorts;

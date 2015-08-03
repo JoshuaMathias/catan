@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
@@ -19,7 +20,7 @@ import shared.gameModel.Port;
 
 public class CreateGameCommand {
 
-	private ServerFacade serverFacade;
+	private IServerFacade serverFacade;
 	
 	@Before 
 	public void setUp() {

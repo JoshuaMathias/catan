@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import client.data.GameInfo;
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
@@ -21,7 +22,7 @@ import shared.locations.HexLocation;
 
 public class RobPlayerCommand {
 
-	private ServerFacade serverFacade;
+	private IServerFacade serverFacade;
 	private Player paul = new Player();
 	private Player daniel = new Player();
 	private Player ife = new Player();

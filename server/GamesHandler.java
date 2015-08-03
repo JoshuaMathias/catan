@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
 import shared.params.CreateGamesParams;
@@ -17,6 +18,7 @@ import shared.params.JoinGameParams;
 import shared.params.LoginParams;
 import shared.params.RegisterParams;
 
+import Testing.Proxy.ServerFacadeTest;
 import client.data.GameInfo;
 import client.serverproxy.GamesList;
 
@@ -26,7 +28,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 public class GamesHandler implements HttpHandler {
-
+	public static boolean test = false;
+	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		// TODO
@@ -40,7 +43,12 @@ public class GamesHandler implements HttpHandler {
 			boolean successful = true; //To know whether to send the 200 response code at the end
 			Gson g = new Gson();
 //			System.out.println("Command: " + command);
-			ServerFacade facade = ServerFacade.getSingleton();
+			IServerFacade facade = null;
+			if (test) {
+				facade = ServerFacadeTest.getSingleton();
+			} else {
+				facade = ServerFacade.getSingleton();
+			}
 			// JsonReader reader = new JsonReader(new InputStreamReader(
 			// exchange.getRequestBody(), "UTF-8"));
 			Headers responseHeaders = exchange.getResponseHeaders();

@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
 import shared.gameModel.MessageList;
@@ -18,7 +19,7 @@ import shared.gameModel.TurnTracker;
 
 public class OfferTradeCommand {
 
-	private ServerFacade serverFacade;
+	private IServerFacade serverFacade;
 	private ArrayList<Player> players;
 	
 	@Before 

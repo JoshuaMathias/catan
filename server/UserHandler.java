@@ -9,16 +9,21 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.params.LoginParams;
 import shared.params.RegisterParams;
+import Testing.Proxy.ServerFacadeTest;
+
 import com.google.gson.Gson;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 public class UserHandler implements HttpHandler {
-
+	public static boolean test = false;
+	
+	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
 		String[] commandList = exchange.getRequestURI().toString().split("\\/");
@@ -30,7 +35,12 @@ public class UserHandler implements HttpHandler {
 			System.out.println("UserHandler called");
 			Gson g = new Gson();
 			System.out.println("Command: " + command);
-			ServerFacade facade = ServerFacade.getSingleton();
+			IServerFacade facade = null;
+			if (test) {
+				facade = ServerFacadeTest.getSingleton();
+			} else {
+				facade = ServerFacade.getSingleton();
+			}
 			// JsonReader reader = new JsonReader(new InputStreamReader(
 			// exchange.getRequestBody(), "UTF-8"));
 			BufferedReader streamReader = new BufferedReader(

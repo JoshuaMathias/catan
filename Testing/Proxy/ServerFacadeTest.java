@@ -1,10 +1,32 @@
-package server.facade;
+package Testing.Proxy;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import server.User;
-import server.command.*;
+import server.command.AcceptTradeCommand;
+import server.command.BuildCityCommand;
+import server.command.BuildRoadCommand;
+import server.command.BuildSettlementCommand;
+import server.command.BuyDevCardCommand;
+import server.command.CreateGameCommand;
+import server.command.DiscardCardsCommand;
+import server.command.FinishTurnCommand;
+import server.command.JoinGameCommand;
+import server.command.MaritimeTradeCommand;
+import server.command.MonopolyCommand;
+import server.command.MonumentCommand;
+import server.command.OfferTradeCommand;
+import server.command.RoadBuildingCommand;
+import server.command.RobPlayerCommand;
+import server.command.RollNumberCommand;
+import server.command.SendChatCommand;
+import server.command.SoldierCommand;
+import server.command.YearOfPlentyCommand;
+import server.facade.IServerFacade;
+import shared.definitions.CatanColor;
+import shared.definitions.DevCardType;
+import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 import shared.gameModel.GameModel;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
@@ -16,34 +38,20 @@ import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
-import client.serverproxy.GamesList;
-import client.data.*;
-import shared.definitions.CatanColor;
-import shared.definitions.DevCardType;
-import shared.definitions.PortType;
-import shared.definitions.ResourceType;
 
-/**
- * The Server Facade. The facade contains the server model and the methods that
- * the handlers call for each command. The methods make a specific command
- * object and execute it.
- * 
- * @author Ife's Group
- * 
- */
-public class ServerFacade implements IServerFacade {
+public class ServerFacadeTest implements IServerFacade {
 
 	private static IServerFacade serverFacade;
 	private ArrayList<GameModel> gamesList = new ArrayList<>();
 	private ArrayList<User> users = new ArrayList<>();
 
-	private ServerFacade() {
+	private ServerFacadeTest() {
 
 	}
 
 	public static IServerFacade getSingleton() {
 		if (serverFacade == null) {
-			serverFacade = new ServerFacade();
+			serverFacade = new ServerFacadeTest();
 		}
 		return serverFacade;
 	}
@@ -89,15 +97,15 @@ public class ServerFacade implements IServerFacade {
 	public boolean buildCity(int playerIndex, VertexLocation vertexLocation,
 			int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canBuildCity(new VertexObject(playerIndex,
-				vertexLocation))) {
+//		if (serverModel.canBuildCity(new VertexObject(playerIndex,
+//				vertexLocation))) {
 			new BuildCityCommand(playerIndex, vertexLocation, serverModel)
 					.execute();
 			serverModel.incrementVersion();
 			return true;
-		}
+//		}
 
-		return false;
+//		return false;
 	}
 
 	/**
@@ -114,14 +122,14 @@ public class ServerFacade implements IServerFacade {
 	public boolean buildRoad(int playerIndex, EdgeLocation roadLocation,
 			boolean free, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canBuildRoad(new Road(playerIndex, roadLocation))) {
+//		if (serverModel.canBuildRoad(new Road(playerIndex, roadLocation))) {
 			new BuildRoadCommand(playerIndex, roadLocation, free, serverModel)
 					.execute();
 			serverModel.incrementVersion();
 			return true;
-		}
+//		}
 
-		return false;
+//		return false;
 	}
 
 	/**
@@ -139,15 +147,15 @@ public class ServerFacade implements IServerFacade {
 			VertexLocation vertexLocation, boolean free, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 //		System.out.println("buildSettlement: playerIndex: "+playerIndex+" vertexLocation: "+vertexLocation+" free: "+free+" gameID: ");
-		if (serverModel.canBuildSettlement(new VertexObject(playerIndex,
-				vertexLocation.getNormalizedLocation()))) {
+//		if (serverModel.canBuildSettlement(new VertexObject(playerIndex,
+//				vertexLocation.getNormalizedLocation()))) {
 			new BuildSettlementCommand(playerIndex, vertexLocation, free,
 					serverModel).execute();
 			serverModel.incrementVersion();
 			return true;
-		}
+//		}
 
-		return false;
+//		return false;
 	}
 
 	/**
@@ -160,12 +168,12 @@ public class ServerFacade implements IServerFacade {
 	 */
 	public boolean buyDevCard(int playerIndex, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canBuyDevCard(playerIndex)) {
+//		if (serverModel.canBuyDevCard(playerIndex)) {
 			new BuyDevCardCommand(playerIndex, serverModel).execute();
 			serverModel.incrementVersion();
 			return true;
-		}
-		return false;
+//		}
+//		return false;
 	}
 
 	/**
@@ -200,14 +208,14 @@ public class ServerFacade implements IServerFacade {
 	public boolean discardCards(int playerIndex, ResourceList discardedCards,
 			int gameID) {// Not sure if a canDo is needed
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.mustDiscard(playerIndex)) {
+//		if (serverModel.mustDiscard(playerIndex)) {
 			new DiscardCardsCommand(playerIndex, discardedCards, serverModel)
 					.execute();
 			serverModel.incrementVersion();
 			return true;
-		}
+//		}
 
-		return false;
+//		return false;
 	}
 
 	/**
@@ -219,13 +227,13 @@ public class ServerFacade implements IServerFacade {
 	 */
 	public boolean finishTurn(int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canEndTurn(serverModel.getTurnTracker()
-				.getCurrentTurn())) {
+//		if (serverModel.canEndTurn(serverModel.getTurnTracker()
+//				.getCurrentTurn())) {
 			new FinishTurnCommand(serverModel).execute();
 			serverModel.incrementVersion();
 			return true;
-		}
-		return false;
+//		}
+//		return false;
 	}
 
 	/**
@@ -333,12 +341,12 @@ public class ServerFacade implements IServerFacade {
 	 */
 	public boolean joinGame(String gameId, String color, User user) {
 		int gameNum = Integer.parseInt(gameId);
-		if (gameNum >= gamesList.size()) {
-			return false;
-		}
+//		if (gameNum >= gamesList.size()) {
+//			return false;
+//		}
 		GameModel thisGame = gamesList.get(gameNum);
 		
-		if (userExist(user)) {
+//		if (userExist(user)) {
 			
 			int index = getIndexFromUser(thisGame,user);
 			int numPlayers = getNumPlayers(thisGame);
@@ -356,9 +364,9 @@ public class ServerFacade implements IServerFacade {
 				joinGameCommand.execute();
 			}
 			return true;
-		} else {
-			return false;
-		}
+//		} else {
+//			return false;
+//		}
 	}
 
 	/**
@@ -396,14 +404,14 @@ public class ServerFacade implements IServerFacade {
 		ResourceType inputResource = convertToResourceType(inputResourceStr);
 		ResourceType outputResource = convertToResourceType(outputResourceStr);
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canBankTrade(playerIndex,
-				resourceToPort(inputResource), resourceToPort(outputResource)) != -1) {
+//		if (serverModel.canBankTrade(playerIndex,
+//				resourceToPort(inputResource), resourceToPort(outputResource)) != -1) {
 			new MaritimeTradeCommand(playerIndex, ratio, inputResource,
 					outputResource, serverModel).execute();
 			serverModel.incrementVersion();
 			return true;
-		}
-		return false;
+//		}
+//		return false;
 	}
 
 	private PortType resourceToPort(ResourceType resource) {
@@ -434,13 +442,13 @@ public class ServerFacade implements IServerFacade {
 	 */
 	public boolean monument(int playerIndex, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canPlayDevCard(playerIndex, DevCardType.MONUMENT)) {
+//		if (serverModel.canPlayDevCard(playerIndex, DevCardType.MONUMENT)) {
 			// might need to change in the canDo in GameModel
 			new MonumentCommand(playerIndex, serverModel).execute();
 			serverModel.incrementVersion();
 			return true;
-		}
-		return false;
+//		}
+//		return false;
 	}
 
 	/**
@@ -456,14 +464,14 @@ public class ServerFacade implements IServerFacade {
 	public boolean offerTrade(int playerIndex, ResourceList offer,
 			int receiver, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canOfferTrade(new TradeOffer(playerIndex, receiver,
-				offer))) {
+//		if (serverModel.canOfferTrade(new TradeOffer(playerIndex, receiver,
+//				offer))) {
 			new OfferTradeCommand(playerIndex, offer, receiver, serverModel)
 					.execute();
 			serverModel.incrementVersion();
 			return true;
-		}
-		return false;
+//		}
+//		return false;
 	}
 
 	/**
@@ -501,13 +509,13 @@ public class ServerFacade implements IServerFacade {
 	public boolean roadBuilding(int playerIndex, EdgeLocation spot1,
 			EdgeLocation spot2, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canPlayDevCard(playerIndex, DevCardType.ROAD_BUILD)) {
+//		if (serverModel.canPlayDevCard(playerIndex, DevCardType.ROAD_BUILD)) {
 			new RoadBuildingCommand(playerIndex, spot1, spot2, serverModel)
 					.execute();
 			serverModel.incrementVersion();
 			return true;
-		}
-		return false;
+//		}
+//		return false;
 	}
 
 	/**
