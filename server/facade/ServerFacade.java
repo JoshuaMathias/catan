@@ -48,8 +48,6 @@ public class ServerFacade {
 		return serverFacade;
 	}
 
-	// All methods return void only as placeholders. They should all return
-	// specific response types
 	/**
 	 * Creates a AcceptTradeCommand object and executes it.
 	 * 
@@ -73,6 +71,7 @@ public class ServerFacade {
 //			}
 				//Hopefully there is another check for this same thing somewhere else
 		}
+//		serverModel.setTradeOffer(null);   !!!!!!!! This should fix the problem if all the commented out code in this function is uncommented
 		return false;
 	}
 
