@@ -55,6 +55,10 @@ public class ServerFacadeTest implements IServerFacade {
 		}
 		return serverFacade;
 	}
+	
+	public static void clearSingleton() {
+		serverFacade = null;
+	}
 
 	/**
 	 * Creates a AcceptTradeCommand object and executes it.
@@ -531,14 +535,14 @@ public class ServerFacadeTest implements IServerFacade {
 	public boolean robPlayer(int playerIndex, int victimIndex,
 			HexLocation location, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canPlaceRobber(playerIndex, 7, location)) {
+		//if (serverModel.canPlaceRobber(playerIndex, 7, location)) {
 			new RobPlayerCommand(playerIndex, victimIndex, location,
 					serverModel).execute();
 			serverModel.incrementVersion();
 			System.out.println("Victim Index = " + victimIndex);
 			return true;
-		}
-		return false;
+		//}
+	//	return false;
 
 	}
 
@@ -554,12 +558,12 @@ public class ServerFacadeTest implements IServerFacade {
 	 */
 	public boolean rollNumber(int sender, int number, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
-		if (serverModel.canRollDice(sender)) {
+		//if (serverModel.canRollDice(sender)) {
 			new RollNumberCommand(sender, number, serverModel).execute();
 			serverModel.incrementVersion();
 			return true;
-		}
-		return false;
+		//}
+		//return false;
 	}
 
 	/**
@@ -630,12 +634,12 @@ public class ServerFacadeTest implements IServerFacade {
 		ResourceType resourceType = convertToResourceType(resource);
 		GameModel serverModel = gamesList.get(gameID);
 		//TODO Can do
-		if(serverModel.canPlayDevCard(playerIndex, DevCardType.MONOPOLY)){
+		//if(serverModel.canPlayDevCard(playerIndex, DevCardType.MONOPOLY)){
 			new MonopolyCommand(playerIndex, resourceType, serverModel).execute();
 			serverModel.incrementVersion();
 			return true;
-		}
-		return false;
+		//}
+		//return false;
 	}
 
 	public void addGameToList(GameModel serverModel) {

@@ -73,6 +73,7 @@ public class BuildRoadCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacade.clearSingleton();
 		serverFacade = null;
 		return;
 	}

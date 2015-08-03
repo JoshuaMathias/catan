@@ -76,6 +76,7 @@ public class BuildCityCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacade.clearSingleton();
 		serverFacade = null;
 		return;
 	}

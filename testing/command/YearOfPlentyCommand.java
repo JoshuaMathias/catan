@@ -90,6 +90,7 @@ public class YearOfPlentyCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacade.clearSingleton();
 		serverFacade = null;
 		return;
 	}

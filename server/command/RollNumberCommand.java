@@ -102,6 +102,7 @@ public class RollNumberCommand implements Command {
 		
 		HexLocation hexLoc = new HexLocation(x,y);
 		for(VertexObject settlement: settlements){
+			System.out.println(settlement);
 			int settlementX = settlement.getLocation().getHexLoc().getX();
 			int settlementY = settlement.getLocation().getHexLoc().getY();
 			if(settlementX == x && settlementY == y && !robberPosition.equals(settlement.getLocation().getHexLoc())){

@@ -66,6 +66,7 @@ public class BuildSettlementCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacade.clearSingleton();
 		serverFacade = null;
 		return;
 	}

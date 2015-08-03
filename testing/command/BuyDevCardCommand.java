@@ -2,13 +2,13 @@ package testing.command;
 
 import static org.junit.Assert.*;
 
-
 import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Testing.Proxy.ServerFacadeTest;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
@@ -25,7 +25,11 @@ public class BuyDevCardCommand {
 	@Before 
 	public void setUp() {
 		
-		serverFacade = ServerFacade.getSingleton();
+		serverFacade = ServerFacadeTest.getSingleton();
+		
+		Player paul = new Player();
+		Player josh = new Player();
+		Player daniel = new Player();
 		
 		ife = new Player();
 		ife.setPlayerIndex(0);
@@ -36,6 +40,9 @@ public class BuyDevCardCommand {
 		
 		ArrayList<Player> players = new ArrayList<>();
 		players.add(ife);
+		players.add(paul);
+		players.add(josh);
+		players.add(daniel);
 		
 		game = new GameModel();
 		game.setGameID(0);
@@ -54,6 +61,7 @@ public class BuyDevCardCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacadeTest.clearSingleton();
 		serverFacade = null;
 		return;
 	}

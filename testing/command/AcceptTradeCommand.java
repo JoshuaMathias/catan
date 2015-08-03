@@ -72,6 +72,7 @@ public class AcceptTradeCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacade.clearSingleton();
 		serverFacade = null;
 		return;
 	}

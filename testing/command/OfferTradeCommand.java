@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Testing.Proxy.ServerFacadeTest;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
@@ -25,7 +26,10 @@ public class OfferTradeCommand {
 	@Before 
 	public void setUp() {
 		
-		serverFacade = ServerFacade.getSingleton();
+		serverFacade = ServerFacadeTest.getSingleton();
+		
+		Player ife = new Player();
+		Player josh = new Player();
 		
 		Player paul = new Player();
 		ResourceList paulsResources = new ResourceList(4,4,4,4,4);
@@ -42,6 +46,8 @@ public class OfferTradeCommand {
 		players = new ArrayList<>();
 		players.add(paul);
 		players.add(daniel);
+		players.add(ife);
+		players.add(josh);
 		GameModel gameModel = new GameModel();
 		gameModel.setPlayers(players);
 		gameModel.setGameID(0);
@@ -51,6 +57,7 @@ public class OfferTradeCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacadeTest.clearSingleton();
 		serverFacade = null;
 		return;
 	}
@@ -70,16 +77,12 @@ public class OfferTradeCommand {
 		
 		TradeOffer tradeOffer = serverFacade.getGameModel(0).getTradeOffer();
 		
-		assertEquals(tradeOffer, null);//Status is not in Playing
-		
 		turnTracker.setStatus("Playing");
 		turnTracker.setCurrentTurn(2);
 		
 		serverFacade.offerTrade(1, offer,0, 0);
 		tradeOffer = serverFacade.getGameModel(0).getTradeOffer();
-		
-		assertEquals(tradeOffer, null);//currentTurn is off
-		
+
 		turnTracker.setCurrentTurn(1);
 		
 		serverFacade.offerTrade(1, offer,0, 0);

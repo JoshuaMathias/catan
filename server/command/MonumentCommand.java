@@ -13,12 +13,10 @@ import shared.gameModel.Player;
 public class MonumentCommand implements Command {
 
 	private Player player;
-	private DevCardList deck;
 	private GameModel serverModel;
 	
 	public MonumentCommand(int playerIndex, GameModel serverModel) {
-		
-		this.deck = serverModel.getDeck();
+	
 		this.player = serverModel.getPlayers().get(playerIndex);
 		this.serverModel = serverModel;
 	}

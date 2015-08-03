@@ -30,6 +30,8 @@ public class CreateGameCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacade.clearSingleton();
+		serverFacade = null;
 		return;
 	}
 	

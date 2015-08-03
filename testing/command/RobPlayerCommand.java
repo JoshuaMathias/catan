@@ -8,12 +8,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import client.data.GameInfo;
+import Testing.Proxy.ServerFacadeTest;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
-import shared.gameModel.Hex;
 import shared.gameModel.Map;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
@@ -33,7 +32,7 @@ public class RobPlayerCommand {
 	@Before 
 	public void setUp() {
 		
-		serverFacade = ServerFacade.getSingleton();
+		serverFacade = ServerFacadeTest.getSingleton();
 	
 		paul.setPlayerIndex(0);
 		daniel.setPlayerIndex(1);
@@ -69,12 +68,10 @@ public class RobPlayerCommand {
 		ResourceList ifesResources = new ResourceList(2,2,2,2,2);
 		ife.setResources(ifesResources);
 		
-		ResourceList joshsResources = new ResourceList(2,2,2,2,2);
+		ResourceList joshsResources = new ResourceList(1,0,0,0,0);
 		josh.setResources(joshsResources);
 		
 		Map board = new Map();
-		serverFacade.createGame(false, false, false, "default game");
-		game = serverFacade.getGamesList().get(0);
 		
 		game.setMap(board);
 		game.setPlayers(players);
@@ -89,6 +86,7 @@ public class RobPlayerCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacadeTest.clearSingleton();
 		serverFacade = null;
 		return;
 	}	
@@ -100,9 +98,12 @@ public class RobPlayerCommand {
 		HexLocation hexLocation = new HexLocation(2,2);
 		serverFacade.robPlayer(0, 1, hexLocation, 0);
 		
-		System.out.println(paul.getResources().getTotal());
-		System.out.println(daniel.getResources().getTotal());
+		assertEquals(46,paul.getResources().getTotal());//Paul should now have 46 Resources after stealing one from daniel
+		assertEquals(4,daniel.getResources().getTotal());//Daniel should only have 4 resources after losing one to Paul
 		
+		serverFacade.robPlayer(2, 3, hexLocation, 0);
+		assertEquals(11,ife.getResources().getTotal());//ife gained a resource card
+		assertEquals(0,josh.getResources().getTotal());//Ife stole joshs last resource card
 		
 	}
 

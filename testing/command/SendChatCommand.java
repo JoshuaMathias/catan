@@ -36,8 +36,9 @@ public class SendChatCommand {
 	@Before 
 	public void setUp() {
 		
+		serverFacade =null;
 		serverFacade = ServerFacade.getSingleton();
-	
+		
 		paul.setPlayerIndex(0);
 		daniel.setPlayerIndex(1);
 		ife.setPlayerIndex(2);
@@ -96,6 +97,7 @@ public class SendChatCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacade.clearSingleton();
 		serverFacade = null;
 		return;
 	}

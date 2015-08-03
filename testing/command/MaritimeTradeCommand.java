@@ -92,6 +92,7 @@ public class MaritimeTradeCommand {
 	
 	@After
 	public void tearDown() {
+		ServerFacade.clearSingleton();
 		serverFacade = null;
 		return;
 	}

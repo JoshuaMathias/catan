@@ -47,6 +47,10 @@ public class ServerFacade implements IServerFacade {
 		}
 		return serverFacade;
 	}
+	
+	public static void clearSingleton() {
+		serverFacade = null;
+	}
 
 	/**
 	 * Creates a AcceptTradeCommand object and executes it.
