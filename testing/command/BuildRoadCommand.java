@@ -14,6 +14,7 @@ import shared.gameModel.Map;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 import shared.gameModel.Road;
+import shared.gameModel.TurnTracker;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -24,6 +25,7 @@ public class BuildRoadCommand {
 
 	private ServerFacade serverFacade;
 	private ArrayList<Player> players = new ArrayList<>();
+	private TurnTracker turnTracker;
 	
 	@Before 
 	public void setUp() {
@@ -32,18 +34,35 @@ public class BuildRoadCommand {
 		
 		Player paul = new Player();
 		Player daniel = new Player();
+		Player ife = new Player();
+		Player josh = new Player();
+		
 		
 		paul.setName("paul");
 		daniel.setName("daniel");
+		ife.setName("ife");
+		josh.setName("josh");
 		
 		players.add(paul);
 		players.add(daniel);
+		players.add(ife);
+		players.add(josh);
+		
+		ResourceList paulsResources = new ResourceList(6,6,6,6,6);
+		paul.setResources(paulsResources);
+		
+		ResourceList danielsResources = new ResourceList(6,6,6,6,6);
+		daniel.setResources(danielsResources);
 		
 		GameModel newGame = new GameModel();
 		newGame.setGameID(0);
 		
-		Map newMap = new Map();
-		newGame.setMap(newMap);
+		turnTracker = new TurnTracker();
+		turnTracker.setCurrentTurn(0);
+		turnTracker.setStatus("FirstRound");
+		
+		Map map1 = new Map();
+		newGame.setMap(map1);
 		
 		ArrayList<GameModel> games = serverFacade.getGamesList();
 		newGame.setPlayers(players);
@@ -60,34 +79,63 @@ public class BuildRoadCommand {
 	@Test
 	public void test() {
 		
-		roadTest(true);
+		int gameNum = 0;
+		roadTest(true, "FirstRound", gameNum);
 		
-		roadTest(false);
+		GameModel game2 = new GameModel();
+		game2.setGameID(1);
+		game2.setTurnTracker(turnTracker);
+		
+		Map map2 = new Map();
+		game2.setMap(map2);
+		
+		game2.setPlayers(players);
+		serverFacade.addGameToList(game2);
+		
+		
+		VertexLocation settlementLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.E);
+		
+		serverFacade.buildSettlement(0, settlementLocation, true, 1);
+		System.out.println(serverFacade.getGameModel(1).getMap().getSettlements().size());
+		EdgeLocation roadLocation = new EdgeLocation(new HexLocation(0,0), EdgeDirection.NE);
+		serverFacade.buildRoad(0, roadLocation, true, 1);
+		gameNum = 1;
+		//roadTest(false, "Playing", gameNum);
 	}
 	
-	private void roadTest(boolean free) {
+	private void roadTest(boolean free, String status, int gameNum) {
 		
-		EdgeLocation roadLocation = new EdgeLocation(new HexLocation(1,0), EdgeDirection.NW);
+		turnTracker.setStatus(status);
+		serverFacade.getGameModel(gameNum).setTurnTracker(turnTracker);
+		
+		EdgeLocation roadLocation = new EdgeLocation(new HexLocation(0,0), EdgeDirection.N);
 		HexLocation hexLoc = roadLocation.getHexLoc();
 		
 		ResourceList beforeResources = players.get(0).getResources();
 		ResourceList tempResources = new ResourceList(beforeResources.getBrick(), beforeResources.getOre(), beforeResources.getSheep(),
 				beforeResources.getWheat(), beforeResources.getWood());
 		
-		ResourceList beforeBankResources = serverFacade.getGamesList().get(0).getBank();
+		ResourceList beforeBankResources = serverFacade.getGamesList().get(gameNum).getBank();
 		ResourceList tempBankResources = new ResourceList(beforeBankResources.getBrick(),beforeBankResources.getOre(),beforeBankResources.getSheep(),
 				beforeBankResources.getWheat(), beforeBankResources.getWood());
 		
 		int roadAmount = players.get(0).getRoads();
 		
-		serverFacade.buildRoad(0, roadLocation, free, 0);
+		VertexLocation settlementLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.NE);
+		System.out.println("before: " + serverFacade.getGameModel(gameNum).getMap().getSettlements().size());
+		serverFacade.buildSettlement(0, settlementLocation, free, gameNum);
+		System.out.println("after: " + serverFacade.getGameModel(gameNum).getMap().getSettlements().size());
+		
+		serverFacade.buildRoad(0, roadLocation, free, gameNum);
 		
 		int afterRoadAmount = players.get(0).getRoads();
-		
+	
+		System.out.println(roadAmount + " " + afterRoadAmount);
 		assertEquals(roadAmount, (afterRoadAmount + 1));
+		
 		ResourceList afterResources = players.get(0).getResources();
 		
-		ResourceList afterBankResources = serverFacade.getGamesList().get(0).getBank();
+		ResourceList afterBankResources = serverFacade.getGamesList().get(gameNum).getBank();
 		
 		compareResources(tempResources,afterResources, free, false);
 		
@@ -95,7 +143,7 @@ public class BuildRoadCommand {
 			compareResources(tempBankResources,afterBankResources,free, true);
 		}
 		
-		Map board = serverFacade.getGamesList().get(0).getMap();
+		Map board = serverFacade.getGamesList().get(gameNum).getMap();
 		ArrayList<Road> roads= board.getRoads();
 		
 		assertTrue(hexLoc.equals(roads.get(0).getLocation().getHexLoc()));

@@ -60,8 +60,10 @@ public class DiscardCardsCommand {
 	@Test
 	public void test() {
 		
-		ResourceList discardResourceList = new ResourceList(1,1,1,1,1);
+		ResourceList discardResourceList = new ResourceList(4,4,4,4,4);
+		paul.setResources(discardResourceList);
 		serverFacade.discardCards(0, discardResourceList, 0);
+		System.out.println(paul.getResources().getTotal());
 	}
 
 }
