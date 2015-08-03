@@ -346,7 +346,7 @@ public class ServerFacade {
 				return false;
 			}
 			
-			if (index!=-1 && numPlayers==4) {
+			if (index!=-1 || numPlayers==4) {
 				thisGame.getPlayers().get(index).setColor(convertColorToEnum(color));
 			}
 			if (thisGame.getPlayers().size() < 4) {
