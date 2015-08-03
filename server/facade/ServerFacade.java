@@ -350,7 +350,7 @@ public class ServerFacade {
 				thisGame.getPlayers().get(index).setColor(convertColorToEnum(color));
 			}
 			if (thisGame.getPlayers().size() < 4) {
-				JoinGameCommand joinGameCommand = new JoinGameCommand(
+				Command joinGameCommand = new JoinGameCommand(
 						convertColorToEnum(color), user.getName(),
 						user.getPlayerID(), thisGame);
 				joinGameCommand.execute();
