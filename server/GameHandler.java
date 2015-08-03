@@ -168,6 +168,7 @@ public class GameHandler implements HttpHandler
 			
 			//Writing out to client
 			OutputStream response = exchange.getResponseBody();
+			System.out.println("Response String is = \n" + responseStr);
 			response.write(responseStr.getBytes());
 			response.close();
 		}
