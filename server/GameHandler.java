@@ -78,12 +78,12 @@ public class GameHandler implements HttpHandler
 				
 				//Turning cookies into user object and game id integer
 				String[] cookieParts = cookies.get(0).split(" ");
-				if(cookieParts.length==2)
+				if(cookieParts.length>=2)
 				{
 					String userJson =  URLDecoder.decode(cookieParts[0].replace("catan.user=", ""),"UTF-8");
 					userJson = userJson.substring(0,userJson.length()-1);
 					user = g.fromJson(userJson,User.class);
-					gameId = Integer.parseInt(cookieParts[1].replace("catan.game=", ""));
+					gameId = Integer.parseInt(cookieParts[cookieParts.length-1].replace("catan.game=", ""));
 				}
 				else
 				{
@@ -168,7 +168,6 @@ public class GameHandler implements HttpHandler
 			
 			//Writing out to client
 			OutputStream response = exchange.getResponseBody();
-			System.out.println("Response String is = \n" + responseStr);
 			response.write(responseStr.getBytes());
 			response.close();
 		}

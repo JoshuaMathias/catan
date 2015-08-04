@@ -74,13 +74,13 @@ public class ClientCommunicator
 	    	
 //	    	System.out.println("");
 	    	result = response.toString();
-	    	System.out.println(response.toString()+ "for "+ext+" Response code: "+ connection.getResponseCode()); 
-//	    	connection.getResponseCode(); //comment this out if you uncomment the previous line
+//	    	System.out.println(response.toString()+ "for "+ext+" Response code: "+ connection.getResponseCode()); 
+	    	connection.getResponseCode(); //comment this out if you uncomment the previous line
 	    	if(ext.equals("user/login")||ext.equals("user/register"))
 	    	{
 		    	String usercookie = connection.getHeaderField("Set-Cookie");
 		    	cookies = (String)usercookie.subSequence(0,usercookie.length()-8);
-		    	System.out.println(cookies);
+		    	//System.out.println(cookies);
 	    	}
 	    	else if(ext.equals("games/join"))
 	    	{
@@ -89,7 +89,6 @@ public class ClientCommunicator
 		    	cookies =cookies+";"+" "+ (String)gamecookie.subSequence(0, gamecookie.length()-8);
 		    	
 	    	}
-	    	
 		}
 		
 		catch (Exception e) 

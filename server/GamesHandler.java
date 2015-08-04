@@ -115,8 +115,7 @@ public class GamesHandler implements HttpHandler {
 					JoinGameParams joinParams = g.fromJson(requestJson,
 							JoinGameParams.class);
 					String jsonString = URLDecoder.decode(usercookie, "UTF-8").replaceAll("catan.user=|catan.game=\\d*|;", "");
-					System.out.println("JsonString = \n" + jsonString);
-					System.out.println("\njoinParams = \n" + joinParams.toString());
+//					System.out.println("JsonString = \n" + jsonString);
 					User user = g.fromJson(jsonString,User.class);
 					if (!facade.joinGame(joinParams.getId(), joinParams.getColor(),user
 							)) {
