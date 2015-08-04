@@ -70,6 +70,7 @@ public class UserHandler implements HttpHandler {
 				password = params.getPassword();
 				userID = facade.register(username, password);
 				if (userID == -1) {
+					System.out.println("Failed to register - someone already has that username.");
 					responseStr = "Failed to register - someone already has that username.";
 					exchange.sendResponseHeaders(
 							HttpURLConnection.HTTP_BAD_REQUEST,

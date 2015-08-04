@@ -890,7 +890,13 @@ public class ClientFacade {
 					playerIndex = p.getPlayerIndex();
 					this.playerId = p.getPlayerID();
 					playerColor = temp.get(playerIndex).getColor();//Daniel added this code to change color of Gui to the local player's color
+					if (playerColor==null) {
+						System.out.println("playerColor is null");
+					} else if (turnTrackerController==null) {
+						System.out.println("turnTracker is null");
+					} else {
 					turnTrackerController.initFromModel(playerColor);
+					}
 					break;
 				}
 			}

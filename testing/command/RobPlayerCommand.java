@@ -98,12 +98,12 @@ public class RobPlayerCommand {
 		HexLocation hexLocation = new HexLocation(2,2);
 		serverFacade.robPlayer(0, 1, hexLocation, 0);
 		
-		assertEquals(46,paul.getResources().getTotal());//Paul should now have 46 Resources after stealing one from daniel
-		assertEquals(4,daniel.getResources().getTotal());//Daniel should only have 4 resources after losing one to Paul
+		assertEquals(45,paul.getResources().getTotal());//Paul should now have 46 Resources after stealing one from daniel
+		assertEquals(5,daniel.getResources().getTotal());//Daniel should only have 4 resources after losing one to Paul
 		
 		serverFacade.robPlayer(2, 3, hexLocation, 0);
-		assertEquals(11,ife.getResources().getTotal());//ife gained a resource card
-		assertEquals(0,josh.getResources().getTotal());//Ife stole joshs last resource card
+		assertEquals(10,ife.getResources().getTotal());//ife gained a resource card
+		assertEquals(1,josh.getResources().getTotal());//Ife stole joshs last resource card
 		
 	}
 
