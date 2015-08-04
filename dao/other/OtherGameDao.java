@@ -27,7 +27,7 @@ public class OtherGameDao implements IGameDao {
 	}
 
 	@Override
-	public void updateGame(int gameID, GameModel game) {
+	public void updateGame(GameModel game) {
 		// TODO Auto-generated method stub
 		
 	}

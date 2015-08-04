@@ -30,6 +30,7 @@ public class GameModel {
 	private TurnTracker turnTracker = new TurnTracker();
 	private int version = -1;
 	private int winner = -1;
+	private int primaryKey = -1;
 	
 	public String getGameName() {
 		return gameName;
@@ -140,6 +141,14 @@ public class GameModel {
 
 	public void setWinner(int winner) {
 		this.winner = winner;
+	}
+
+	public int getPrimaryKey() {
+		return primaryKey;
+	}
+
+	public void setPrimaryKey(int primaryKey) {
+		this.primaryKey = primaryKey;
 	}
 
 	public void addPlayer(Player player){

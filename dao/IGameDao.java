@@ -13,11 +13,11 @@ public interface IGameDao {
 	
 	public List<GameModel> getAllGames();
 	
-	public void updateGame(int gameID, GameModel game);
+	public void updateGame(GameModel game);
 	
 	public void removeGame(int gameID);
 	
-	public void addCommand(Command command, int gameID);
+	public void addCommand(Command command, int key);
 	
 	public List<Command> getCommands(int gameID);//Should also delete commands
 	

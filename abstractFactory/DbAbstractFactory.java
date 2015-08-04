@@ -15,8 +15,8 @@ public class DbAbstractFactory implements IAbstractFactory {
 	private static final String DATABASE_FILE = "RecordIndexer.sqlite";
 	private static final String DATABASE_URL = "jdbc:sqlite:"+ DATABASE_FILE;
 	
-	private IGameDao gameDao = new DbGameDao();
-	private IUserDao userDao = new DbUserDao();
+	private IGameDao gameDao = new DbGameDao(this);
+	private IUserDao userDao = new DbUserDao(this);
 	
 	private Connection connection;
 	
@@ -103,6 +103,32 @@ public class DbAbstractFactory implements IAbstractFactory {
 			}
 			catch (SQLException e) {
 				System.out.println("Could not close connection\n" + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public Connection getConnection() {
+		return connection;
+	}
+	
+	public static void safeClose(PreparedStatement stmt) {
+		if(stmt != null) {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void safeClose(ResultSet rs) {
+		if(rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 		}
