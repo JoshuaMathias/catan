@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abstractFactory.DbAbstractFactory;
-import server.User;
 import server.command.Command;
 import shared.gameModel.GameModel;
 import dao.IGameDao;
