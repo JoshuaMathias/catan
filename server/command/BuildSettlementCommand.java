@@ -1,7 +1,10 @@
 package server.command;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+import Testing.Proxy.ServerFacadeTest;
+import server.GamesHandler;
 import server.facade.ServerFacade;
 import shared.definitions.HexType;
 import shared.gameModel.GameModel;
@@ -21,27 +24,41 @@ import shared.locations.VertexLocation;
  * @author Ife's Group
  *
  */
-public class BuildSettlementCommand implements Command {
+public class BuildSettlementCommand implements Command, Serializable {
 
+	/**
+	 * 
+	 */
+	private String className = "BuildSettlementCommand";
+	private static final long serialVersionUID = -7384342653722445582L;
 	int playerIndex;
 	VertexLocation vertexLocation;
 	boolean free;
-	private GameModel serverModel;
+	private transient GameModel serverModel;
 	
 	private Player player;
+	private int gameID;
 	
 	public BuildSettlementCommand(int playerIndex,
 			VertexLocation vertexLocation, boolean free, GameModel serverModel) {
 		// TODO Auto-generated constructor stub
 		this.playerIndex = playerIndex;
-		this.vertexLocation = vertexLocation;
+		this.vertexLocation = vertexLocation.getNormalizedLocation();
 		this.free = free;
 		this.serverModel = serverModel;
+		this.gameID = serverModel.getGameID();
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		
+		if (GamesHandler.test) {
+			serverModel = ServerFacadeTest.getSingleton().getGameModel(gameID);
+		} else {
+			serverModel = ServerFacade.getSingleton().getGameModel(gameID);
+		}
+		
 		ArrayList<Player> playerList = serverModel.getPlayers();
 		ResourceList bank = serverModel.getBank();
 	

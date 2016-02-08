@@ -1,5 +1,10 @@
 package server.command;
 
+import java.io.Serializable;
+
+import Testing.Proxy.ServerFacadeTest;
+import server.GamesHandler;
+import server.facade.ServerFacade;
 import shared.definitions.ResourceType;
 import shared.gameModel.GameModel;
 import shared.gameModel.MessageLine;
@@ -11,13 +16,19 @@ import shared.gameModel.ResourceList;
  * @author Ife's Group
  *
  */
-public class MaritimeTradeCommand implements Command {
+public class MaritimeTradeCommand implements Command, Serializable {
 
+	/**
+	 * 
+	 */
+	private String className = "MaritimeTradeCommand";
+	private static final long serialVersionUID = -678453708731838256L;
 	private int playerIndex; 
 	private int ratio;
 	private ResourceType inputResource;
 	private ResourceType outputResource;
-	private GameModel serverModel;
+	private transient GameModel serverModel;
+	private int gameID;
 	
 	public MaritimeTradeCommand(int playerIndex, int ratio,
 			ResourceType inputResource, ResourceType outputResource, GameModel serverModel) {
@@ -27,11 +38,19 @@ public class MaritimeTradeCommand implements Command {
 		this.inputResource = inputResource;
 		this.outputResource = outputResource;
 		this.serverModel = serverModel;
+		this.gameID = serverModel.getGameID();
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		
+		if (GamesHandler.test) {
+			serverModel = ServerFacadeTest.getSingleton().getGameModel(gameID);
+		} else {
+			serverModel = ServerFacade.getSingleton().getGameModel(gameID);
+		}
+		
 		Player player = serverModel.getPlayers().get(playerIndex);
 		ResourceList playerResources = player.getResources();
 		ResourceList bank = serverModel.getBank();

@@ -1,7 +1,11 @@
 package server.command;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+import Testing.Proxy.ServerFacadeTest;
+import server.GamesHandler;
+import server.facade.ServerFacade;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
 import shared.gameModel.MessageLine;
@@ -13,17 +17,31 @@ import shared.gameModel.TurnTracker;
  * @author Ife's Group
  *
  */
-public class FinishTurnCommand implements Command {
+public class FinishTurnCommand implements Command, Serializable {
 
-	private GameModel serverModel;
+	/**
+	 * 
+	 */
+	private String className = "FinishTurnCommand";
+	private static final long serialVersionUID = 8888817633160407013L;
+	private transient GameModel serverModel;
+	private int gameID;
 	
 	public FinishTurnCommand(GameModel serverModel){
 		this.serverModel = serverModel;
+		this.gameID = serverModel.getGameID();
 	}
 	
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		
+		if (GamesHandler.test) {
+			serverModel = ServerFacadeTest.getSingleton().getGameModel(gameID);
+		} else {
+			serverModel = ServerFacade.getSingleton().getGameModel(gameID);
+		}
+		
 		TurnTracker turnTracker = serverModel.getTurnTracker();
 		int currentTurn = turnTracker.getCurrentTurn();
 		String status = turnTracker.getStatus();

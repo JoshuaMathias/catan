@@ -3,6 +3,9 @@ package server.facade;
 import java.util.ArrayList;
 import java.util.List;
 
+//import abstractFactory.DbAbstractFactory;
+import abstractFactory.IAbstractFactory;
+//import abstractFactory.OtherAbstractFactory;
 import server.User;
 import server.command.*;
 import shared.gameModel.GameModel;
@@ -16,8 +19,8 @@ import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import client.data.GameInfo;
 import client.data.PlayerInfo;
-import client.serverproxy.GamesList;
-import client.data.*;
+import dao.IGameDao;
+import dao.IUserDao;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.PortType;
@@ -33,12 +36,70 @@ import shared.definitions.ResourceType;
  */
 public class ServerFacade implements IServerFacade {
 
+	public static String storageType="";
 	private static IServerFacade serverFacade;
 	private ArrayList<GameModel> gamesList = new ArrayList<>();
 	private ArrayList<User> users = new ArrayList<>();
+	private ArrayList<Integer> commandAmountPerGame = new ArrayList<>();
+	private IAbstractFactory factory;
+	private IGameDao gameDao;
+	private IUserDao userDao;
+	public static boolean isErase;
+	public static int commandListLimit = 10;
 
 	private ServerFacade() {
+		if (storageType.equals("db")) {
+			System.out.println("db factory");
+		
+			try {
+				factory = (IAbstractFactory) Class.forName("abstractFactory.DbAbstractFactory").newInstance();
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			factory = new DbAbstractFactory();
+		} else {
+			System.out.println("other factory");
+			try {
+				factory = (IAbstractFactory) Class.forName("abstractFactory.OtherAbstractFactory").newInstance();
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if (isErase) {
+			factory.erase();
+		}
+		
+		gameDao = factory.getGameDao();
+		userDao = factory.getUserDao();
+//		restore();
+	}
+	
+	public void restore() {
+		// TODO Auto-generated method stub
+		factory.startTransaction();
+		
+		users = (ArrayList<User>) userDao.getAllUsers();
+		gamesList = (ArrayList<GameModel>) gameDao.getAllGames();
+		
+		for(GameModel game: gamesList){
+			commandAmountPerGame.add(0);
+			executeCommands(game.getPrimaryKey());
+			gameDao.updateGame(game);
+		}
+		
+		factory.endTransaction(true);
+	}
 
+	private void executeCommands(int primaryKey) {
+		List<Command> commands = gameDao.getCommands(primaryKey);
+		for(Command command: commands){
+			command.execute();
+		}
 	}
 
 	public static IServerFacade getSingleton() {
@@ -66,9 +127,9 @@ public class ServerFacade implements IServerFacade {
 		if (serverModel.getTradeOffer() != null) {
 //			if (serverModel.canAcceptTrade(playerIndex,
 //					serverModel.getTradeOffer())) {
-				new AcceptTradeCommand(playerIndex, willAccept, serverModel)
-						.execute();
-				serverModel.incrementVersion();
+				Command command = new AcceptTradeCommand(playerIndex, willAccept, serverModel);
+				command.execute();
+				incrementVersion(gameID, serverModel, command);
 				if (willAccept) {
 					return true;
 				}
@@ -95,9 +156,9 @@ public class ServerFacade implements IServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canBuildCity(new VertexObject(playerIndex,
 				vertexLocation))) {
-			new BuildCityCommand(playerIndex, vertexLocation, serverModel)
-					.execute();
-			serverModel.incrementVersion();
+			Command command = new BuildCityCommand(playerIndex, vertexLocation, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 
@@ -119,9 +180,9 @@ public class ServerFacade implements IServerFacade {
 			boolean free, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canBuildRoad(new Road(playerIndex, roadLocation))) {
-			new BuildRoadCommand(playerIndex, roadLocation, free, serverModel)
-					.execute();
-			serverModel.incrementVersion();
+			Command command = new BuildRoadCommand(playerIndex, roadLocation, free, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 
@@ -145,9 +206,9 @@ public class ServerFacade implements IServerFacade {
 //		System.out.println("buildSettlement: playerIndex: "+playerIndex+" vertexLocation: "+vertexLocation+" free: "+free+" gameID: ");
 		if (serverModel.canBuildSettlement(new VertexObject(playerIndex,
 				vertexLocation.getNormalizedLocation()))) {
-			new BuildSettlementCommand(playerIndex, vertexLocation, free,
-					serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new BuildSettlementCommand(playerIndex, vertexLocation, free, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 
@@ -165,8 +226,9 @@ public class ServerFacade implements IServerFacade {
 	public boolean buyDevCard(int playerIndex, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canBuyDevCard(playerIndex)) {
-			new BuyDevCardCommand(playerIndex, serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new BuyDevCardCommand(playerIndex, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -189,6 +251,12 @@ public class ServerFacade implements IServerFacade {
 		ArrayList<PlayerInfo> players = new ArrayList<PlayerInfo>(4);
 		while (players.size() < 4)
 			players.add(null);
+		
+		factory.startTransaction();
+		gameDao.addGame(gamesList.get(gamesList.size()-1));
+		factory.endTransaction(true);
+		this.commandAmountPerGame.add(0);
+		
 		return new GameInfo(gamesList.size() - 1, gameName, players);
 	}
 
@@ -205,9 +273,9 @@ public class ServerFacade implements IServerFacade {
 			int gameID) {// Not sure if a canDo is needed
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.mustDiscard(playerIndex)) {
-			new DiscardCardsCommand(playerIndex, discardedCards, serverModel)
-					.execute();
-			serverModel.incrementVersion();
+			Command command = new DiscardCardsCommand(playerIndex, discardedCards, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 
@@ -225,8 +293,9 @@ public class ServerFacade implements IServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canEndTurn(serverModel.getTurnTracker()
 				.getCurrentTurn())) {
-			new FinishTurnCommand(serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new FinishTurnCommand(serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -358,6 +427,11 @@ public class ServerFacade implements IServerFacade {
 						convertColorToEnum(color), user.getName(),
 						user.getPlayerID(), thisGame);
 				joinGameCommand.execute();
+				
+				factory.startTransaction();
+				gameDao.updateGame(thisGame);
+				factory.endTransaction(true);
+				
 			}
 			return true;
 		} else {
@@ -402,9 +476,10 @@ public class ServerFacade implements IServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canBankTrade(playerIndex,
 				resourceToPort(inputResource), resourceToPort(outputResource)) != -1) {
-			new MaritimeTradeCommand(playerIndex, ratio, inputResource,
-					outputResource, serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new MaritimeTradeCommand(playerIndex, ratio, inputResource,
+					outputResource, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -440,8 +515,9 @@ public class ServerFacade implements IServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlayDevCard(playerIndex, DevCardType.MONUMENT)) {
 			// might need to change in the canDo in GameModel
-			new MonumentCommand(playerIndex, serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new MonumentCommand(playerIndex, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -462,9 +538,9 @@ public class ServerFacade implements IServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canOfferTrade(new TradeOffer(playerIndex, receiver,
 				offer))) {
-			new OfferTradeCommand(playerIndex, offer, receiver, serverModel)
-					.execute();
-			serverModel.incrementVersion();
+			Command command = new OfferTradeCommand(playerIndex, offer, receiver, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -485,9 +561,14 @@ public class ServerFacade implements IServerFacade {
 				return -1;
 			}
 		}
-		User newUser = new User(username, password, users.size() - 1);
+		User newUser = new User(username, password, users.size());
 		users.add(newUser);
 		System.out.println("Registration of " + username + " successful");
+		
+		factory.startTransaction();
+		userDao.addUser(users.get(users.size()-1));
+		factory.endTransaction(true);
+		
 		return users.size() - 1;
 	}
 
@@ -506,9 +587,9 @@ public class ServerFacade implements IServerFacade {
 			EdgeLocation spot2, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlayDevCard(playerIndex, DevCardType.ROAD_BUILD)) {
-			new RoadBuildingCommand(playerIndex, spot1, spot2, serverModel)
-					.execute();
-			serverModel.incrementVersion();
+			Command command = new RoadBuildingCommand(playerIndex, spot1, spot2, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -528,10 +609,9 @@ public class ServerFacade implements IServerFacade {
 			HexLocation location, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlaceRobber(playerIndex, 7, location)) {
-			new RobPlayerCommand(playerIndex, victimIndex, location,
-					serverModel).execute();
-			serverModel.incrementVersion();
-			System.out.println("Victim Index = " + victimIndex);
+			Command command = new RobPlayerCommand(playerIndex, victimIndex, location, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -551,8 +631,9 @@ public class ServerFacade implements IServerFacade {
 	public boolean rollNumber(int sender, int number, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canRollDice(sender)) {
-			new RollNumberCommand(sender, number, serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new RollNumberCommand(sender, number, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -561,11 +642,12 @@ public class ServerFacade implements IServerFacade {
 	/**
 	 * Creates a SendChatCommand object and executes it.
 	 */
-	public boolean sendChat(int playerIndex, String content, int gameId) {
-		GameModel serverModel = gamesList.get(gameId);
+	public boolean sendChat(int playerIndex, String content, int gameID) {
+		GameModel serverModel = gamesList.get(gameID);
 		if (!content.isEmpty()) {
-			new SendChatCommand(content, playerIndex, serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new SendChatCommand(content, playerIndex, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -585,9 +667,9 @@ public class ServerFacade implements IServerFacade {
 			HexLocation location, int gameID) {
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlayDevCard(playerIndex, DevCardType.SOLDIER)) {
-			new SoldierCommand(playerIndex, victimIndex, location, serverModel)
-					.execute();
-			serverModel.incrementVersion();
+			Command command = new SoldierCommand(playerIndex, victimIndex, location, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -610,9 +692,9 @@ public class ServerFacade implements IServerFacade {
 		ResourceType resource2 = convertToResourceType(resource2Str);
 		GameModel serverModel = gamesList.get(gameID);
 		if (serverModel.canPlayDevCard(playerIndex, DevCardType.YEAR_OF_PLENTY)) {
-			new YearOfPlentyCommand(playerIndex, resource1, resource2,
-					serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new YearOfPlentyCommand(playerIndex, resource1, resource2, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -627,8 +709,9 @@ public class ServerFacade implements IServerFacade {
 		GameModel serverModel = gamesList.get(gameID);
 		//TODO Can do
 		if(serverModel.canPlayDevCard(playerIndex, DevCardType.MONOPOLY)){
-			new MonopolyCommand(playerIndex, resourceType, serverModel).execute();
-			serverModel.incrementVersion();
+			Command command = new MonopolyCommand(playerIndex, resourceType, serverModel);
+			command.execute();
+			incrementVersion(gameID, serverModel, command);
 			return true;
 		}
 		return false;
@@ -667,5 +750,21 @@ public class ServerFacade implements IServerFacade {
 
 	public GameModel getGameModel(int gameId) {
 		return gamesList.get(gameId);
+	}
+	
+	private void incrementVersion(int gameID, GameModel game, Command command){
+		game.incrementVersion();
+		int commands = this.commandAmountPerGame.get(gameID);
+		commands++;
+		factory.startTransaction();
+		if(commands < this.commandListLimit){
+			gameDao.addCommand(command, game.getPrimaryKey());
+			this.commandAmountPerGame.set(gameID, commands);
+		}
+		else{
+			gameDao.updateGame(game);//also deletes commands for that specific game in DB
+			this.commandAmountPerGame.set(gameID, 0); //reset commands list amount
+		}
+		factory.endTransaction(true);
 	}
 }

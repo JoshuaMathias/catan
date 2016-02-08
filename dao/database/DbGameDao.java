@@ -1,5 +1,10 @@
 package dao.database;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +18,11 @@ import server.command.Command;
 import shared.gameModel.GameModel;
 import dao.IGameDao;
 
+/**
+ * concrete implementation of the Game DAO for using a DB
+ * @author Ife's Group
+ *
+ */
 public class DbGameDao implements IGameDao {
 
 	private DbAbstractFactory db;
@@ -32,23 +42,31 @@ public class DbGameDao implements IGameDao {
 			String sql = "insert into Game " + "( gameModel)" + "values ( ?);";
 			stmt = connection.prepareStatement(sql);
 			
-			stmt.setObject(1, game);
+			ByteArrayOutputStream b = new ByteArrayOutputStream();
+	        ObjectOutputStream o = new ObjectOutputStream(b);
+			o.writeObject(game);
+			byte[] gameBytes = b.toByteArray();
+			
+			stmt.setBytes(1, gameBytes);
 			
 			if(stmt.executeUpdate() == 1) {
 				
 				System.out.println("Inserted game correctly");
 				Statement keyStmt = connection.createStatement();
-				keyRS = keyStmt.executeQuery(sql);
+				keyRS = keyStmt.executeQuery("select last_insert_rowid()");
 				keyRS.next();
 				int id = keyRS.getInt(1);
 				game.setPrimaryKey(id);
 			}
 			else {
-				System.out.println("Could not insert the user");
+				System.out.println("Could not add the game");
 			}
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -73,7 +91,7 @@ public class DbGameDao implements IGameDao {
 		ArrayList<GameModel> games = new ArrayList<>();
 		
 		try {
-			String sql = "select primaryKey, gameModel from Game";
+			String sql = "select id, gameModel from Game";
 			stmt = connection.prepareStatement(sql);
 			
 			rs = stmt.executeQuery();
@@ -81,7 +99,15 @@ public class DbGameDao implements IGameDao {
 			while(rs.next()) {
 				
 				int primaryKey = rs.getInt(1);
-				GameModel game = (GameModel)rs.getObject(2);
+				
+				System.out.println("Primary Key is: " + primaryKey);
+				
+				byte[] buf = rs.getBytes(2);
+				ObjectInputStream objectIn = null;
+				if (buf != null)
+					objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
+
+				GameModel game = (GameModel)objectIn.readObject();
 				
 				game.setPrimaryKey(primaryKey);
 				games.add(game);
@@ -89,6 +115,13 @@ public class DbGameDao implements IGameDao {
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -109,16 +142,30 @@ public class DbGameDao implements IGameDao {
 			String sql = "update Game set gameModel = ? where id = ?";
 			stmt = connection.prepareStatement(sql);
 			
-			stmt.setObject(1, game);
+			ByteArrayOutputStream b = new ByteArrayOutputStream();
+	        ObjectOutputStream o = new ObjectOutputStream(b);
+			o.writeObject(game);
+			byte[] gameBytes = b.toByteArray();
+			
+			stmt.setBytes(1, gameBytes);
+
 			stmt.setInt(2, game.getPrimaryKey());
+			
+			
 			
 			if(stmt.executeUpdate() != 1) {;
 				
-				System.out.println("The Game was not update!!!!");
+				System.out.println("The Game was not updated!!!!");
+			}
+			else{
+				System.out.println("The Game was updated correctly");
 			}
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -142,6 +189,9 @@ public class DbGameDao implements IGameDao {
 			if(stmt.executeUpdate() != 1) {;
 				
 				System.out.println("The Commands were not deleted!!!!");
+			}
+			else{
+				System.out.println("The Commands were deleted");
 			}
 			
 		} catch (SQLException e) {
@@ -171,19 +221,28 @@ public class DbGameDao implements IGameDao {
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setInt(1, key);
-			stmt.setObject(2, command);
+			
+			ByteArrayOutputStream b = new ByteArrayOutputStream();
+	        ObjectOutputStream o = new ObjectOutputStream(b);
+			o.writeObject(command);
+			byte[] commandBytes = b.toByteArray();
+			
+			stmt.setBytes(2, commandBytes);
 			
 			
 			if(stmt.executeUpdate() == 1) {
 				
-				System.out.println("Inserted game correctly");
+				System.out.println("Inserted command correctly");
 			}
 			else {
-				System.out.println("Could not insert the user");
+				System.out.println("Could not add the command");
 			}
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -192,7 +251,7 @@ public class DbGameDao implements IGameDao {
 	}
 
 	@Override
-	public List<Command> getCommands(int gameID) {//Look at how to deserialize from the specs we found online
+	public List<Command> getCommands(int key) {//Look at how to deserialize from the specs we found online
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -203,27 +262,39 @@ public class DbGameDao implements IGameDao {
 			String sql = "select command from Command where gameID = ?";
 			stmt = connection.prepareStatement(sql);
 			
-			rs = stmt.executeQuery();
-			
-			stmt.setInt(1, gameID);
+			stmt.setInt(1, key);
 			
 			rs = stmt.executeQuery();
 			
-			Command command = null;
 			while(rs.next()) {
 				
-				command =(Command) rs.getObject(1);
+				byte[] buf = rs.getBytes(1);
+				ObjectInputStream objectIn = null;
+				if (buf != null)
+					objectIn = new ObjectInputStream(new ByteArrayInputStream(buf));
+
+				Command command = (Command)objectIn.readObject();
+				
 				commands.add(command);
 			}
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		finally {
 			DbAbstractFactory.safeClose(stmt);
 			DbAbstractFactory.safeClose(rs);
-		}
+		} 
+		
+		removeCommands(key);
+		
 		return commands;
 	}
 

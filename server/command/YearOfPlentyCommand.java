@@ -1,7 +1,11 @@
 package server.command;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+import Testing.Proxy.ServerFacadeTest;
+import server.GamesHandler;
+import server.facade.ServerFacade;
 import shared.definitions.ResourceType;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
@@ -14,12 +18,18 @@ import shared.gameModel.ResourceList;
  * @author Ife's Group
  *
  */
-public class YearOfPlentyCommand implements Command {
+public class YearOfPlentyCommand implements Command, Serializable {
 
+	/**
+	 * 
+	 */
+	private String className = "YearOfPlentyCommand";
+	private static final long serialVersionUID = 8203427744840950814L;
 	private int playerIndex;
 	private ResourceType cardOne;
 	private ResourceType cardTwo;
-	private GameModel serverModel;
+	private transient GameModel serverModel;
+	private int gameID;
 	
 	public YearOfPlentyCommand(int playerIndex, ResourceType cardOne, ResourceType cardTwo, GameModel serverModel) {
 		
@@ -27,10 +37,17 @@ public class YearOfPlentyCommand implements Command {
 		this.cardOne = cardOne;
 		this.cardTwo = cardTwo;
 		this.serverModel = serverModel;
+		this.gameID = serverModel.getGameID();
 	}
 	
 	@Override
 	public void execute() {
+		
+		if (GamesHandler.test) {
+			serverModel = ServerFacadeTest.getSingleton().getGameModel(gameID);
+		} else {
+			serverModel = ServerFacade.getSingleton().getGameModel(gameID);
+		}
 		
 		ResourceList bank = serverModel.getBank();
 		

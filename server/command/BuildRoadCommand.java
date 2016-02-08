@@ -1,7 +1,11 @@
 package server.command;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+import Testing.Proxy.ServerFacadeTest;
+import server.GamesHandler;
+import server.facade.ServerFacade;
 import shared.gameModel.GameModel;
 import shared.gameModel.Map;
 import shared.gameModel.MessageLine;
@@ -15,13 +19,19 @@ import shared.locations.EdgeLocation;
  * @author Ife's Group
  *
  */
-public class BuildRoadCommand implements Command {
+public class BuildRoadCommand implements Command, Serializable {
 
+	/**
+	 * 
+	 */
+	private String className = "BuildRoadCommand";
+	private static final long serialVersionUID = -880864510053913366L;
 	private int playerIndex;
 	private EdgeLocation roadLocation;
 	private boolean free;
-	private GameModel serverModel;
+	private transient GameModel serverModel;
 	private Player player;
+	private int gameID;
 	
 	public BuildRoadCommand(int playerIndex, EdgeLocation roadLocation, boolean free, GameModel serverModel) {
 		
@@ -29,12 +39,18 @@ public class BuildRoadCommand implements Command {
 		this.roadLocation = roadLocation;
 		this.free = free;
 		this.serverModel = serverModel;
-
+		this.gameID = serverModel.getGameID();
 	}
 	
 	@Override
 	public void execute() {
 
+		if (GamesHandler.test) {
+			serverModel = ServerFacadeTest.getSingleton().getGameModel(gameID);
+		} else {
+			serverModel = ServerFacade.getSingleton().getGameModel(gameID);
+		}
+		
 		ArrayList<Player> playerList = serverModel.getPlayers();
 		player = playerList.get(playerIndex);
 		

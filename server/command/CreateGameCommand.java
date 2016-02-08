@@ -1,5 +1,6 @@
 package server.command;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -8,7 +9,6 @@ import java.util.HashSet;
 import java.util.Random;
 
 import Testing.Proxy.ServerFacadeTest;
-
 import server.GamesHandler;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
@@ -28,8 +28,13 @@ import shared.locations.HexLocation;
  * @author Ife's Group
  *
  */
-public class CreateGameCommand implements Command {
+public class CreateGameCommand implements Command, Serializable {
 
+	/**
+	 * 
+	 */
+	private String className = "CreateGameCommand";
+	private static final long serialVersionUID = -1764798123223433364L;
 	private IServerFacade serverFacade;
 	private boolean randomTiles;
 	private boolean randomNumbers;
@@ -67,7 +72,7 @@ public class CreateGameCommand implements Command {
 		}
 		
 		serverModel.setMap(gameBoard);
-		
+		serverModel.setGameID(serverFacade.getGamesList().size());
 		serverFacade.addGameToList(serverModel);
 	}
 

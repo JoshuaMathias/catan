@@ -1,7 +1,11 @@
 package server.command;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
+import Testing.Proxy.ServerFacadeTest;
+import server.GamesHandler;
+import server.facade.ServerFacade;
 import shared.definitions.ResourceType;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
@@ -9,14 +13,20 @@ import shared.gameModel.MessageLine;
 import shared.gameModel.Player;
 import shared.gameModel.ResourceList;
 
-public class MonopolyCommand implements Command {
+public class MonopolyCommand implements Command, Serializable {
 
+	/**
+	 * 
+	 */
+	private String className = "MonopolyCommand";
+	private static final long serialVersionUID = 891345239559347169L;
 	private int playerIndex;
 	private ResourceType resource;
-	private GameModel serverModel;
+	private transient GameModel serverModel;
 	
 	private Player monopolyPlayer;
 	private ResourceList monopolyPlayerResources;
+	private int gameID;
 	
 	public MonopolyCommand(int playerIndex, ResourceType resource,
 			GameModel serverModel) {
@@ -24,11 +34,19 @@ public class MonopolyCommand implements Command {
 		this.playerIndex = playerIndex;
 		this.resource = resource;
 		this.serverModel = serverModel;
+		this.gameID = serverModel.getGameID();
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		
+		if (GamesHandler.test) {
+			serverModel = ServerFacadeTest.getSingleton().getGameModel(gameID);
+		} else {
+			serverModel = ServerFacade.getSingleton().getGameModel(gameID);
+		}
+		
 		ArrayList<Player> players = serverModel.getPlayers();
 		this.monopolyPlayer = players.get(playerIndex);
 		this.monopolyPlayerResources = this.monopolyPlayer.getResources();

@@ -1,10 +1,14 @@
 package server.command;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import Testing.Proxy.ServerFacadeTest;
+import server.GamesHandler;
+import server.facade.ServerFacade;
 import shared.definitions.DevCardType;
 import shared.gameModel.DevCardList;
 import shared.gameModel.GameModel;
@@ -17,19 +21,33 @@ import shared.gameModel.ResourceList;
  * @author Ifes Group
  *
  */
-public class BuyDevCardCommand implements Command {
+public class BuyDevCardCommand implements Command, Serializable {
 
+	/**
+	 * 
+	 */
+	private String className = "BuyDevCardCommand";
+	private static final long serialVersionUID = 7066799747480305706L;
 	int playerIndex;
-	GameModel serverModel;
+	transient GameModel serverModel;
+	private int gameID;
 	
 	public BuyDevCardCommand(int playerIndex, GameModel serverModel){
 		this.playerIndex = playerIndex;
 		this.serverModel = serverModel;
+		this.gameID = serverModel.getGameID();
 	}
 	
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		
+		if (GamesHandler.test) {
+			serverModel = ServerFacadeTest.getSingleton().getGameModel(gameID);
+		} else {
+			serverModel = ServerFacade.getSingleton().getGameModel(gameID);
+		}
+		
 		Random random = new Random();
 //		int cardType = random.nextInt(25); //25 development cards possible
 		Player player = serverModel.getPlayers().get(playerIndex);
